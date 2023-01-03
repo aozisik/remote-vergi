@@ -33,7 +33,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Install dependencies
-        run: npm run ci
+        run: npm ci
       - name: Build with Parcel
         run: npm run build
 
