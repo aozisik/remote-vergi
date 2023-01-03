@@ -41,7 +41,6 @@ export const validate = (form: RawFormDto) => {
 };
 
 const toNumber = (input: string) => {
-  console.log(input);
   input = input.trim().replace(/(\.|,)$/, "");
 
   if (input === "") {

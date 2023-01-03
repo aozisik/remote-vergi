@@ -22,7 +22,6 @@ const calculate = async (form: any): Promise<ResultLine[]> => {
   const { isValid, invalidFields, data } = validate(form);
 
   if (!isValid) {
-    console.log(invalidFields);
     return [["Tüm alanların eksiksiz girildiğine emin olun.", ""]];
   }
 
