@@ -2,9 +2,9 @@ import { Dinero } from "dinero.js";
 import {
   BAGKUR_PREMIUM,
   STAMP_TAX,
-  YEAR,
   YOUNG_ENTREPRENEUR_EXEMPTION,
 } from "./constants";
+import { Result, ResultLine } from "./result";
 import { validate } from "./support/form";
 import { incomeTax } from "./support/incomeTax";
 import {
@@ -15,8 +15,6 @@ import {
   toTry,
 } from "./support/money";
 
-type ResultLine = [string, string];
-
 const calculate = async (form: any): Promise<ResultLine[]> => {
   const { isValid, data } = validate(form);
 
@@ -24,7 +22,26 @@ const calculate = async (form: any): Promise<ResultLine[]> => {
     return [["Tüm alanların eksiksiz girildiğine emin olun.", ""]];
   }
 
-  const lines: ResultLine[] = [];
+  const result = new Result();
+
+  let costsTotal = toTry(0);
+  const addMonthlyCost = (name: string, amount: Dinero) => {
+    const annualCost = amount.multiply(12);
+    costsTotal = costsTotal.add(annualCost);
+    result.addLine(`${name} (${toText(amount)} / ay)`, annualCost);
+  };
+
+  result.addTitle("Sabit Giderler");
+  addMonthlyCost("🗂️ Muhasebe Giderleri", toTry(data.accountingCosts));
+  addMonthlyCost("📮 Damga Vergisi", toTry(STAMP_TAX));
+  addMonthlyCost(
+    "🩺 Bağkur Primi",
+    toTry(data.youngEntrepreneur ? 0 : BAGKUR_PREMIUM)
+  );
+
+  // ----------------------------------------------------------------------------
+
+  result.addTitle("Vergi");
 
   const incomeInTry = await convertEurToTry(
     toEur(data.income),
@@ -32,37 +49,13 @@ const calculate = async (form: any): Promise<ResultLine[]> => {
   );
 
   const annualIncomeTry = incomeInTry.multiply(12);
-
-  let costsTotal = toTry(0);
-
-  const addMonthlyCost = (name: string, amount: Dinero) => {
-    const annualCost = amount.multiply(12);
-    costsTotal = costsTotal.add(annualCost);
-    lines.push([`${name} (${toText(amount)} / ay)`, toText(annualCost)]);
-  };
-
-  lines.push(["Sabit Giderler", ""]);
-
-  addMonthlyCost("🗂️ Muhasebe Giderleri", toTry(data.accountingCosts));
-  addMonthlyCost("📮 Damga Vergisi", toTry(STAMP_TAX));
-
-  addMonthlyCost(
-    "🩺 Bağkur Primi",
-    toTry(data.youngEntrepreneur ? 0 : BAGKUR_PREMIUM)
-  );
-
-  lines.push(["Vergi", ""]);
-
-  lines.push([
-    "🎁 Gelir Vergisi Muafiyeti (%50)",
-    toText(annualIncomeTry.divide(2)),
-  ]);
+  result.addLine("🎁 Gelir Vergisi Muafiyeti (%50)", annualIncomeTry.divide(2));
 
   if (data.youngEntrepreneur) {
-    lines.push([
+    result.addLine(
       "🎁 Genç Girişimci Muafiyeti",
-      toText(toTry(YOUNG_ENTREPRENEUR_EXEMPTION)),
-    ]);
+      toTry(YOUNG_ENTREPRENEUR_EXEMPTION)
+    );
   }
 
   let taxableIncome = data.youngEntrepreneur
@@ -74,29 +67,27 @@ const calculate = async (form: any): Promise<ResultLine[]> => {
   }
 
   const tax = incomeTax(taxableIncome);
-  const taxRate = Number(
-    (tax.getAmount() / taxableIncome.getAmount()) * 100
-  ).toFixed(2);
+  const taxRate = (tax.getAmount() / taxableIncome.getAmount()) * 100;
+
+  result.addLine("🧾 Vergi matrahı", taxableIncome);
+  result.addLine(`💸 Gelir vergisi (%${taxRate.toFixed(2)})`, tax);
+
+  // ----------------------------------------------------------------------------
+
+  result.addTitle("Net Gelir Hesabı");
 
   const netAnnualIncome = annualIncomeTry.subtract(tax.add(costsTotal));
 
-  lines.push(["🧾 Vergi matrahı", toText(taxableIncome)]);
-  lines.push([`💸 Gelir vergisi (%${taxRate})`, toText(tax)]);
-
-  lines.push(["Net Gelir Hesabı", ""]);
-
-  lines.push(["💰 Brüt Yıllık Gelir", toText(annualIncomeTry)]);
-  lines.push(["💸 Yılık gider ve vergiler", toText(tax.add(costsTotal))]);
-  lines.push(["💶 Net Yıllık Gelir", toText(netAnnualIncome)]);
-  lines.push(["💶 Net Aylık Gelir", toText(netAnnualIncome.divide(12))]);
-  lines.push([
+  result.addLine("💰 Brüt Yıllık Gelir", annualIncomeTry);
+  result.addLine("💸 Yılık gider ve vergiler", tax.add(costsTotal));
+  result.addLine("💶 Net Yıllık Gelir", netAnnualIncome);
+  result.addLine("💶 Net Aylık Gelir", netAnnualIncome.divide(12));
+  result.addLine(
     "💶 Net Aylık Gelir (€)",
-    toText(
-      await convertTryToEur(netAnnualIncome.divide(12), 1 / data.exchangeRate)
-    ),
-  ]);
+    await convertTryToEur(netAnnualIncome.divide(12), 1 / data.exchangeRate)
+  );
 
-  return lines;
+  return result.getLines();
 };
 
 declare global {

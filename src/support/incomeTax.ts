@@ -1,6 +1,7 @@
 import { Dinero } from "dinero.js";
+
+import { toTry } from "./money";
 import { TAX_BRACKETS } from "../constants";
-import { toText, toTry } from "./money";
 
 export const incomeTax = (income: Dinero): Dinero => {
   let tax = toTry(0);

@@ -1,6 +1,4 @@
 // 2023 Değerleri
-export const YEAR = 2023;
-
 export const BAGKUR_PREMIUM = 2952.36;
 
 export const YOUNG_ENTREPRENEUR_EXEMPTION = 75000;
