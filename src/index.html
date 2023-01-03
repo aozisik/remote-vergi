@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remote Vergi</title>
+    <script type="module" src="./calculator.ts"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+    <div class="max-w-lg mx-auto my-16 px-4"
+        x-data="{results: [], form: {income:'2000',exchangeRate:'19.8',accountingCosts:'500',youngEntrepreneur:'yes'}}">
+        <header>
+            <h1 class="text-4xl text-center mb-3">🇹🇷 Remote Vergi</h1>
+            <p class="prose-lg text-center">
+                Remote Vergi, Türkiye'den yurtdışı firmalara çalışarak döviz kazanan
+                yazılımcılar için hazırlanmıştır. Vergiler ve sabit giderleri düştükten sonra
+                kalan net kazancı hesaplar.
+            </p>
+        </header>
+
+        <form class="mt-10">
+            <div class="my-4">
+                <label class="text-gray-800 text-sm my-1 block">Aylık Kazanç</label>
+                <div class="flex items-center border border-gray-300 hover:border-gray-600 rounded-lg overflow-hidden">
+                    <div class="p-3 bg-gray-50 text-gray-500">€</div>
+                    <input type="number" min="1" step="1" x-model="form.income"
+                        class="flex-1 focus:outline-none focus:ring-0 block w-full p-3" />
+                </div>
+            </div>
+
+            <div class="my-4">
+                <label class="text-gray-800 text-sm my-1 block">Döviz Kuru</label>
+                <div class="flex items-center border border-gray-300 hover:border-gray-600 rounded-lg overflow-hidden">
+                    <div class="p-3 bg-gray-50 text-gray-500">₺</div>
+                    <input type="number" min="1" step="1" x-model="form.exchangeRate"
+                        class="flex-1 focus:outline-none focus:ring-0 block w-full p-3" />
+                </div>
+            </div>
+
+            <div class="my-4">
+                <label class="text-gray-800 text-sm my-1 block">Aylık Muhasebe Giderleri (₺)</label>
+                <div class="flex items-center border border-gray-300 hover:border-gray-600 rounded-lg overflow-hidden">
+                    <div class="p-3 bg-gray-50 text-gray-500">₺</div>
+                    <input type="number" min="1" step="1" x-model="form.accountingCosts"
+                        class="flex-1 focus:outline-none focus:ring-0 block w-full p-3" />
+                </div>
+            </div>
+
+            <div class="my-4">
+                <label class="text-gray-800 text-sm my-1 block">Genç girişimci desteği? (29 yaş altı)</label>
+
+                <label for="gg1" class="border px-4 py-3 inline-block rounded-lg mr-3 my-1">
+                    <input type="radio" id="gg1" value="yes" x-model="form.youngEntrepreneur" />
+                    Evet
+                </label>
+
+                <label for="gg0" class="border px-4 py-3 inline-block rounded-lg my-1">
+                    <input type="radio" id="gg0" value="no" x-model="form.youngEntrepreneur" />
+                    Hayır</label>
+            </div>
+        </form>
+
+        <div class="my-10">
+            <h2 class="text-2xl mb-3">Sonuç</h2>
+
+            <div class="flex flex-col"
+                x-init="results = await calculate(form);$watch('form', async (value) => results = await calculate(value))">
+                <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                            <table class="min-w-full divide-y divide-gray-300">
+                                <tbody class="divide-y divide-gray-200 bg-white">
+                                    <template x-for="result in results">
+                                        <tr>
+                                            <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-6"
+                                                :class="{ 'font-bold': !result[1] }" x-text="result[0]"></td>
+                                            <td class="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
+                                                x-text="result[1]"></td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
