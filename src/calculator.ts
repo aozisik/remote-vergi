@@ -63,9 +63,13 @@ const calculate = async (form: any): Promise<ResultLine[]> => {
     ]);
   }
 
-  const taxableIncome = data.youngEntrepreneur
+  let taxableIncome = data.youngEntrepreneur
     ? annualIncomeTry.divide(2).subtract(toTry(YOUNG_ENTREPRENEUR_EXEMPTION))
     : annualIncomeTry.divide(2);
+
+  if (taxableIncome.isNegative()) {
+    taxableIncome = toTry(0);
+  }
 
   const tax = incomeTax(taxableIncome);
   const taxRate = Number(
