@@ -7,7 +7,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "parcel",
-    "build": "parcel build"
+    "build": "parcel build --public-path ./"
   },
   "author": "Swiftmade OÜ",
   "license": "MIT",
