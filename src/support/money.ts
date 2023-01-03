@@ -17,5 +17,15 @@ export const convertEurToTry = (eur: Dinero.Dinero, exchangeRate: number) =>
     ),
   });
 
+export const convertTryToEur = (tl: Dinero.Dinero, exchangeRate: number) =>
+  tl.convert("EUR", {
+    endpoint: new Promise((resolve) =>
+      resolve({
+        rates: {
+          EUR: exchangeRate,
+        },
+      })
+    ),
+  });
 export const toText = (money: Dinero.Dinero) =>
   money.setLocale("tr-TR").toFormat("$0,0.00");

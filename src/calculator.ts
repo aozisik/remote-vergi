@@ -7,7 +7,13 @@ import {
 } from "./constants";
 import { validate } from "./support/form";
 import { incomeTax } from "./support/incomeTax";
-import { convertEurToTry, toEur, toText, toTry } from "./support/money";
+import {
+  convertEurToTry,
+  convertTryToEur,
+  toEur,
+  toText,
+  toTry,
+} from "./support/money";
 
 type ResultLine = [string, string];
 
@@ -26,10 +32,6 @@ const calculate = async (form: any): Promise<ResultLine[]> => {
   );
 
   const annualIncomeTry = incomeInTry.multiply(12);
-
-  lines.push(["Brüt Gelir", ""]);
-  lines.push(["💰 Aylık Gelir", toText(incomeInTry)]);
-  lines.push(["💰 Yıllık Gelir", toText(annualIncomeTry)]);
 
   let costsTotal = toTry(0);
 
@@ -81,16 +83,16 @@ const calculate = async (form: any): Promise<ResultLine[]> => {
   lines.push(["🧾 Vergi matrahı", toText(taxableIncome)]);
   lines.push([`💸 Gelir vergisi (%${taxRate})`, toText(tax)]);
 
-  lines.push(["Net Gelir", ""]);
-  lines.push(["💰 Sabit gider ve vergiler", toText(tax.add(costsTotal))]);
-  lines.push(["💰 Yıllık Gelir", toText(netAnnualIncome)]);
-  lines.push(["💰 Aylık Gelir", toText(netAnnualIncome.divide(12))]);
+  lines.push(["Net Gelir Hesabı", ""]);
+
+  lines.push(["💰 Brüt Yıllık Gelir", toText(annualIncomeTry)]);
+  lines.push(["💸 Yılık gider ve vergiler", toText(tax.add(costsTotal))]);
+  lines.push(["💶 Net Yıllık Gelir", toText(netAnnualIncome)]);
+  lines.push(["💶 Net Aylık Gelir", toText(netAnnualIncome.divide(12))]);
   lines.push([
-    "💰 Aylık Net Gelir (€)",
+    "💶 Net Aylık Gelir (€)",
     toText(
-      toEur(
-        netAnnualIncome.divide(12).divide(data.exchangeRate).getAmount() / 100
-      )
+      await convertTryToEur(netAnnualIncome.divide(12), 1 / data.exchangeRate)
     ),
   ]);
 
