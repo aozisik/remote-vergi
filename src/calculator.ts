@@ -51,23 +51,24 @@ const calculate = async (form: any): Promise<ResultLine[]> => {
   addMonthlyCost("🗂️ Muhasebe Giderleri", toTry(data.accountingCosts));
   addMonthlyCost("📮 Damga Vergisi", toTry(STAMP_TAX));
 
-  if (!data.youngEntrepreneur) {
-    addMonthlyCost("Bağkur Primi", toTry(BAGKUR_PREMIUM));
-  }
+  addMonthlyCost(
+    "🩺 Bağkur Primi",
+    toTry(data.youngEntrepreneur ? 0 : BAGKUR_PREMIUM)
+  );
 
   lines.push(["Vergi", ""]);
 
+  lines.push([
+    "🎁 Gelir Vergisi Muafiyeti (%50)",
+    toText(annualIncomeTry.divide(2)),
+  ]);
+
   if (data.youngEntrepreneur) {
     lines.push([
-      "🥳 Genç Girişimci Muafiyeti",
+      "🎁 Genç Girişimci Muafiyeti",
       toText(toTry(YOUNG_ENTREPRENEUR_EXEMPTION)),
     ]);
   }
-
-  lines.push([
-    "🥳 Gelir Vergisi Muafiyeti (%50)",
-    toText(annualIncomeTry.divide(2)),
-  ]);
 
   const taxableIncome = data.youngEntrepreneur
     ? annualIncomeTry.divide(2).subtract(toTry(YOUNG_ENTREPRENEUR_EXEMPTION))
