@@ -13,7 +13,6 @@ export interface ValidatedForm {
     youngEntrepreneur: boolean;
   };
   isValid: boolean;
-  invalidFields: string[];
 }
 
 export const validate = (form: RawFormDto) => {
@@ -35,7 +34,6 @@ export const validate = (form: RawFormDto) => {
 
   return {
     data,
-    invalidFields,
     isValid: invalidFields.length === 0,
   };
 };

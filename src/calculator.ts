@@ -9,17 +9,10 @@ import { validate } from "./support/form";
 import { incomeTax } from "./support/incomeTax";
 import { convertEurToTry, toEur, toText, toTry } from "./support/money";
 
-interface RawFormDto {
-  income: string;
-  exchangeRate: string;
-  accountingCosts: string;
-  youngEntrepreneur: "yes" | "no";
-}
-
 type ResultLine = [string, string];
 
 const calculate = async (form: any): Promise<ResultLine[]> => {
-  const { isValid, invalidFields, data } = validate(form);
+  const { isValid, data } = validate(form);
 
   if (!isValid) {
     return [["Tüm alanların eksiksiz girildiğine emin olun.", ""]];
