@@ -1,15 +1,16 @@
-import { Dinero } from "dinero.js";
-import { toText } from "./support/money";
+import { Dinero } from 'dinero.js';
+import { toText } from './support/money';
 
-export type ResultLine = [string, string | null];
+export type ResultLine = [string, string | null, string?];
 
 export class Result {
   private lines: ResultLine[] = [];
 
-  addLine(label: string, amount: string | Dinero) {
+  addLine(label: string, amount: string | Dinero, url?: string) {
     this.lines.push([
       label,
-      typeof amount === "string" ? amount : toText(amount),
+      typeof amount === 'string' ? amount : toText(amount),
+      url,
     ]);
   }
 

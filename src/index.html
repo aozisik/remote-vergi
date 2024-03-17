@@ -32,7 +32,7 @@
             <p class="prose-lg text-center">
                 Remote Vergi, Türkiye'den yurtdışı firmalara çalışarak döviz kazanan
                 yazılımcılar için hazırlanmıştır. Vergiler ve sabit giderleri düştükten sonra
-                kalan net kazancı hesaplar. <br /><br />Veriler en son 11 Mart 2024 tarihinde güncellenmiştir.
+                kalan net kazancı hesaplar. <br /><br />Veriler en son 17 Mart 2024 tarihinde güncellenmiştir.
             </p>
         </header>
 
@@ -90,11 +90,21 @@
                                 <tbody class="divide-y divide-gray-200 bg-white">
                                     <template x-for="result in results">
                                         <tr>
-                                            <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-6"
-                                                :class="{ 'font-bold text-gray-900': !result[1] }" x-text="result[0]">
+                                            <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-600 sm:pl-6"
+                                                :class="{ 'font-bold text-gray-900': !result[1] }">
+                                                <template x-if="!result[2]">
+                                                    <div x-text="result[0]"></div>
+                                                </template>
+                                                <template x-if="result[2]">
+                                                    <a x-bind:href="result[2]"
+                                                        class="pb-1 border-b border-dashed border-gray-400 hover:text-indigo-600"
+                                                        target="_blank" x-text="result[0]">Daha
+                                                        fazla
+                                                        bilgi</a>
+                                                </template>
                                             </td>
                                             <td class="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
-                                                x-text="result[1]"></td>
+                                                x-text="result[1]" valign="top"></td>
                                         </tr>
                                     </template>
                                 </tbody>
