@@ -24,93 +24,109 @@
     </script>
 </head>
 
-<body class="bg-blue-50">
-    <div class="max-w-lg mx-auto my-16 px-4"
+<body class="bg-gray-50">
+    <div class="max-w-6xl mx-auto my-16 px-4"
         x-data="{results: [], form: {income:'2000',exchangeRate:'32',accountingCosts:'1200',youngEntrepreneur:'yes'}}">
-        <header>
-            <h1 class="text-4xl text-center mb-3">🇹🇷 Remote Vergi</h1>
-            <p class="prose-lg text-center">
+        <header class="max-w-2xl mx-auto mb-16">
+            <h1 class="text-4xl font-bold text-center mb-6">🇹🇷 Remote Vergi</h1>
+            <p class="prose-lg text-center text-gray-600">
                 Remote Vergi, Türkiye'den yurtdışı firmalara çalışarak döviz kazanan
                 yazılımcılar için hazırlanmıştır. Vergiler ve sabit giderleri düştükten sonra
-                kalan net kazancı hesaplar. <br /><br />Veriler en son 17 Mart 2024 tarihinde güncellenmiştir.
+                kalan net kazancı hesaplar.
+            </p>
+            <p class="text-gray-500 text-sm mt-4 text-center">
+                Veriler en son 17 Mart 2024 tarihinde güncellenmiştir.
+            </p>
+            <p class="text-gray-400 text-xs mt-6 text-center">
+                Bu araç, vergiler hakkında sadece genel bir fikir edinmek için oluşturulmuştur ve bir mali danışmanlık
+                hizmeti değildir. Vergi hesaplamaları için
+                bir mali müşavir ile görüşünüz.
             </p>
         </header>
 
-        <form class="mt-10">
-            <div class="my-4">
-                <label class="text-gray-800 text-sm my-1 block">Aylık Kazanç</label>
-                <div class="flex items-center border border-gray-300 hover:border-gray-600 rounded-lg overflow-hidden">
-                    <div class="p-3 bg-gray-50 text-gray-500">€</div>
-                    <input type="number" min="1" step="1" x-model="form.income"
-                        class="flex-1 focus:outline-none focus:ring-0 block w-full p-3" />
-                </div>
-            </div>
-
-            <div class="my-4">
-                <label class="text-gray-800 text-sm my-1 block">Döviz Kuru</label>
-                <div class="flex items-center border border-gray-300 hover:border-gray-600 rounded-lg overflow-hidden">
-                    <div class="p-3 bg-gray-50 text-gray-500">₺</div>
-                    <input type="number" min="1" step="1" x-model="form.exchangeRate"
-                        class="flex-1 focus:outline-none focus:ring-0 block w-full p-3" />
-                </div>
-            </div>
-
-            <div class="my-4">
-                <label class="text-gray-800 text-sm my-1 block">Aylık Muhasebe Giderleri (₺)</label>
-                <div class="flex items-center border border-gray-300 hover:border-gray-600 rounded-lg overflow-hidden">
-                    <div class="p-3 bg-gray-50 text-gray-500">₺</div>
-                    <input type="number" min="1" step="1" x-model="form.accountingCosts"
-                        class="flex-1 focus:outline-none focus:ring-0 block w-full p-3" />
-                </div>
-            </div>
-
-            <div class="my-4">
-                <label class="text-gray-800 text-sm my-1 block">Genç girişimci desteği? (29 yaş altı)</label>
-
-                <label for="gg1" class="border px-4 py-3 inline-block rounded-lg mr-3 my-1 bg-white">
-                    <input type="radio" id="gg1" value="yes" x-model="form.youngEntrepreneur" />
-                    Evet
-                </label>
-
-                <label for="gg0" class="border px-4 py-3 inline-block rounded-lg my-1 bg-white">
-                    <input type="radio" id="gg0" value="no" x-model="form.youngEntrepreneur" />
-                    Hayır</label>
-            </div>
-        </form>
-
-        <div class="my-10">
-            <h2 class="text-2xl mb-3">Sonuç</h2>
-
-            <div class="flex flex-col"
-                x-init="results = await calculate(form);$watch('form', async (value) => results = await calculate(value))">
-                <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-                            <table class="min-w-full divide-y divide-gray-300">
-                                <tbody class="divide-y divide-gray-200 bg-white">
-                                    <template x-for="result in results">
-                                        <tr>
-                                            <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-600 sm:pl-6"
-                                                :class="{ 'font-bold text-gray-900': !result[1] }">
-                                                <template x-if="!result[2]">
-                                                    <div x-text="result[0]"></div>
-                                                </template>
-                                                <template x-if="result[2]">
-                                                    <a x-bind:href="result[2]"
-                                                        class="pb-1 border-b border-dashed border-gray-400 hover:text-indigo-600"
-                                                        target="_blank" x-text="result[0]">Daha
-                                                        fazla
-                                                        bilgi</a>
-                                                </template>
-                                            </td>
-                                            <td class="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
-                                                x-text="result[1]" valign="top"></td>
-                                        </tr>
-                                    </template>
-                                </tbody>
-                            </table>
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+            <!-- Form Column -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                <h2 class="text-xl font-semibold mb-6 text-gray-800">Hesaplama Detayları</h2>
+                <form class="space-y-6">
+                    <div>
+                        <label class="text-gray-700 font-medium mb-2 block">Aylık Kazanç</label>
+                        <div
+                            class="flex items-center border border-gray-200 hover:border-indigo-500 rounded-lg overflow-hidden transition-colors duration-200">
+                            <div class="p-3 bg-gray-50 text-gray-600 font-medium border-r border-gray-200">€</div>
+                            <input type="number" min="1" step="1" x-model="form.income"
+                                class="flex-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 block w-full p-3" />
                         </div>
                     </div>
+
+                    <div>
+                        <label class="text-gray-700 font-medium mb-2 block">Döviz Kuru</label>
+                        <div
+                            class="flex items-center border border-gray-200 hover:border-indigo-500 rounded-lg overflow-hidden transition-colors duration-200">
+                            <div class="p-3 bg-gray-50 text-gray-600 font-medium border-r border-gray-200">₺</div>
+                            <input type="number" min="1" step="1" x-model="form.exchangeRate"
+                                class="flex-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 block w-full p-3" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-gray-700 font-medium mb-2 block">Aylık Muhasebe Giderleri</label>
+                        <div
+                            class="flex items-center border border-gray-200 hover:border-indigo-500 rounded-lg overflow-hidden transition-colors duration-200">
+                            <div class="p-3 bg-gray-50 text-gray-600 font-medium border-r border-gray-200">₺</div>
+                            <input type="number" min="1" step="1" x-model="form.accountingCosts"
+                                class="flex-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 block w-full p-3" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-gray-700 font-medium mb-2 block">Genç girişimci desteği? (29 yaş
+                            altı)</label>
+                        <div class="space-x-4">
+                            <label
+                                class="border border-gray-200 px-5 py-3 inline-flex items-center rounded-lg hover:border-indigo-500 cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="gg1" value="yes" x-model="form.youngEntrepreneur"
+                                    class="mr-2 text-indigo-600" />
+                                <span>Evet</span>
+                            </label>
+
+                            <label
+                                class="border border-gray-200 px-5 py-3 inline-flex items-center rounded-lg hover:border-indigo-500 cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="gg0" value="no" x-model="form.youngEntrepreneur"
+                                    class="mr-2 text-indigo-600" />
+                                <span>Hayır</span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Results Column -->
+            <div class="mt-8 md:mt-0">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6"
+                    x-init="results = await calculate(form);$watch('form', async (value) => results = await calculate(value))">
+                    <h2 class="text-xl font-semibold mb-6 text-gray-800">Hesaplama Sonucu</h2>
+                    <table class="min-w-full">
+                        <tbody class="divide-y divide-gray-200">
+                            <template x-for="result in results">
+                                <tr class="hover:bg-gray-50 transition-colors duration-150">
+                                    <td class="py-4 pr-3 text-sm text-gray-600"
+                                        :class="{ 'font-semibold text-gray-900': !result[1] }">
+                                        <template x-if="!result[2]">
+                                            <div x-text="result[0]"></div>
+                                        </template>
+                                        <template x-if="result[2]">
+                                            <a x-bind:href="result[2]"
+                                                class="text-indigo-600 hover:text-indigo-800 border-b border-dashed border-indigo-300"
+                                                target="_blank" x-text="result[0]"></a>
+                                        </template>
+                                    </td>
+                                    <td class="py-4 pl-3 text-right text-sm font-medium whitespace-nowrap"
+                                        x-text="result[1]"></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
