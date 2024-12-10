@@ -47,7 +47,7 @@
         <div class="md:grid md:grid-cols-2 md:gap-8">
             <!-- Form Column -->
             <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
-                <h2 class="text-xl font-semibold mb-6 text-gray-800">Hesaplama Detayları</h2>
+                <h2 class="text-xl font-semibold mb-6 text-gray-800">Bilgiler</h2>
                 <form class="space-y-6">
                     <div>
                         <label class="text-gray-700 font-medium mb-2 block">Aylık Kazanç</label>
@@ -103,26 +103,115 @@
 
             <!-- Results Column -->
             <div class="mt-8 md:mt-0">
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6"
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6" x-data="{ 
+                        expandedSections: { expenses: false, taxes: false, income: true },
+                        groupedResults: {},
+                        async init() {
+                            results = await calculate(form);
+                            this.processResults(results);
+                            $watch('results', (value) => this.processResults(value));
+                        },
+                        processResults(results) {
+                            this.groupedResults = results.reduce((acc, item) => {
+                                const group = item[3];
+                                if (group) {
+                                    if (!acc[group]) {
+                                        acc[group] = { items: [], total: '' };
+                                    }
+                                    if (!item[1]) {
+                                        acc[group].total = item[0];
+                                    } else {
+                                        acc[group].items.push(item);
+                                    }
+                                } else {
+                                    if (!acc.other) acc.other = [];
+                                    acc.other.push(item);
+                                }
+                                return acc;
+                            }, {});
+                        }
+                    }"
                     x-init="results = await calculate(form);$watch('form', async (value) => results = await calculate(value))">
                     <h2 class="text-xl font-semibold mb-6 text-gray-800">Hesaplama Sonucu</h2>
                     <table class="min-w-full">
                         <tbody class="divide-y divide-gray-200">
-                            <template x-for="result in results">
+                            <!-- Regular items before groups -->
+                            <template x-for="item in groupedResults.other?.filter(item => item[4] === 'before')"
+                                :key="item[0]">
                                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                                     <td class="py-4 pr-3 text-sm text-gray-600"
-                                        :class="{ 'font-semibold text-gray-900': !result[1] }">
-                                        <template x-if="!result[2]">
-                                            <div x-text="result[0]"></div>
-                                        </template>
-                                        <template x-if="result[2]">
-                                            <a x-bind:href="result[2]"
-                                                class="text-indigo-600 hover:text-indigo-800 border-b border-dashed border-indigo-300"
-                                                target="_blank" x-text="result[0]"></a>
-                                        </template>
+                                        :class="{ 'font-semibold text-gray-900': !item[1] }">
+                                        <div x-text="item[0]"></div>
                                     </td>
                                     <td class="py-4 pl-3 text-right text-sm font-medium whitespace-nowrap"
-                                        x-text="result[1]"></td>
+                                        x-text="item[1]"></td>
+                                </tr>
+                            </template>
+
+                            <!-- Collapsible groups -->
+                            <template x-for="(group, groupName) in {
+                                'expenses': 'Sabit Giderler', 
+                                'taxes': 'Vergiler',
+                                'income': 'Net Gelir'
+                            }" :key="groupName">
+                                <template x-if="groupedResults[groupName]">
+                                    <tr>
+                                        <!-- Group header -->
+                                        <td colspan="2" class="p-0">
+                                            <div @click="expandedSections[groupName] = !expandedSections[groupName]"
+                                                class="flex items-center justify-between hover:bg-gray-50 transition-colors duration-150 cursor-pointer py-4 px-3">
+                                                <div class="flex items-center text-sm font-medium text-gray-900">
+                                                    <svg class="w-4 h-4 mr-2 transition-transform duration-200 flex-shrink-0"
+                                                        :class="expandedSections[groupName] ? 'rotate-90' : ''"
+                                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                    <span
+                                                        x-text="groupedResults[groupName].items.find(item => item[4] === 'total')[0]"></span>
+                                                </div>
+                                                <div class="text-sm font-medium whitespace-nowrap"
+                                                    x-text="groupedResults[groupName].items.find(item => item[4] === 'total')[1]">
+                                                </div>
+                                            </div>
+
+                                            <!-- Group items -->
+                                            <div x-show="expandedSections[groupName]" class="border-t border-gray-100">
+                                                <template
+                                                    x-for="item in groupedResults[groupName].items.filter(item => item[4] !== 'total')"
+                                                    :key="item[0]">
+                                                    <div
+                                                        class="flex items-center justify-between hover:bg-gray-50 transition-colors duration-150 bg-gray-50 py-3 px-3">
+                                                        <div class="pl-8 text-sm text-gray-600">
+                                                            <template x-if="!item[2]">
+                                                                <span x-text="item[0]"></span>
+                                                            </template>
+                                                            <template x-if="item[2]">
+                                                                <a x-bind:href="item[2]"
+                                                                    class="text-indigo-600 hover:text-indigo-800 border-b border-dashed border-indigo-300"
+                                                                    target="_blank" x-text="item[0]"></a>
+                                                            </template>
+                                                        </div>
+                                                        <div class="text-sm font-medium whitespace-nowrap"
+                                                            x-text="item[1]"></div>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </template>
+
+                            <!-- Regular items after groups -->
+                            <template x-for="item in groupedResults.other?.filter(item => item[4] === 'after')"
+                                :key="item[0]">
+                                <tr class="hover:bg-gray-50 transition-colors duration-150">
+                                    <td class="py-4 pr-3 text-sm text-gray-600"
+                                        :class="{ 'font-semibold text-gray-900': !item[1] }">
+                                        <div x-text="item[0]"></div>
+                                    </td>
+                                    <td class="py-4 pl-3 text-right text-sm font-medium whitespace-nowrap"
+                                        x-text="item[1]"></td>
                                 </tr>
                             </template>
                         </tbody>
