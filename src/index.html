@@ -22,99 +22,376 @@
             }
         }
     </script>
+    <style>
+        .bg-pattern {
+            background-color: #f8fafc;
+            background-image: linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
 </head>
 
-<body class="bg-blue-50">
-    <div class="max-w-lg mx-auto my-16 px-4"
-        x-data="{results: [], form: {income:'2000',exchangeRate:'32',accountingCosts:'1200',youngEntrepreneur:'yes'}}">
-        <header>
-            <h1 class="text-4xl text-center mb-3">🇹🇷 Remote Vergi</h1>
-            <p class="prose-lg text-center">
+<body class="bg-pattern min-h-screen" x-data="{
+        results: [], 
+        form: (() => {
+            const params = new URLSearchParams(window.location.search);
+            const encoded = params.get('data');
+            if (encoded) {
+                try {
+                    return JSON.parse(atob(encoded));
+                } catch (e) {
+                    console.error('Invalid share URL');
+                }
+            }
+            return {
+                income: '2000',
+                exchangeRate: '36.5',
+                accountingCosts: '1200',
+                youngEntrepreneur: 'yes'
+            };
+        })()
+    }">
+    <div class="max-w-5xl mx-auto my-16 px-4">
+        <header class="max-w-2xl mx-auto mb-16">
+            <h1 class="text-4xl font-bold mb-6">🇹🇷 Remote Vergi</h1>
+            <p class="prose-lg text-gray-600">
                 Remote Vergi, Türkiye'den yurtdışı firmalara çalışarak döviz kazanan
                 yazılımcılar için hazırlanmıştır. Vergiler ve sabit giderleri düştükten sonra
-                kalan net kazancı hesaplar. <br /><br />Veriler en son 17 Mart 2024 tarihinde güncellenmiştir.
+                kalan net kazancı hesaplar.
+            </p>
+            <p class="text-gray-500 text-sm mt-4">
+                Prim ve vergiler en son 17 Mart 2024 tarihinde güncellenmiştir.
+            </p>
+            <p class="text-gray-400 text-xs mt-6">
+                Bu araç, vergiler hakkında sadece genel bir fikir edinmek için oluşturulmuştur ve bir mali danışmanlık
+                hizmeti değildir. Vergi hesaplamaları için
+                bir mali müşavir ile görüşünüz.
             </p>
         </header>
 
-        <form class="mt-10">
-            <div class="my-4">
-                <label class="text-gray-800 text-sm my-1 block">Aylık Kazanç</label>
-                <div class="flex items-center border border-gray-300 hover:border-gray-600 rounded-lg overflow-hidden">
-                    <div class="p-3 bg-gray-50 text-gray-500">€</div>
-                    <input type="number" min="1" step="1" x-model="form.income"
-                        class="flex-1 focus:outline-none focus:ring-0 block w-full p-3" />
-                </div>
+        <div class="md:grid md:grid-cols-2 md:gap-8">
+            <!-- Form Column -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                <h2 class="text-xl font-semibold mb-6 text-gray-800">Bilgiler</h2>
+                <form class="space-y-6">
+                    <div>
+                        <label class="text-gray-700 font-medium mb-2 block">Aylık Kazanç</label>
+                        <div
+                            class="flex items-center border border-gray-200 hover:border-indigo-500 rounded-lg overflow-hidden transition-colors duration-200">
+                            <div class="p-3 bg-gray-50 text-gray-600 font-medium border-r border-gray-200">€</div>
+                            <input type="number" min="1" step="1" x-model="form.income"
+                                class="flex-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 block w-full p-3" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-gray-700 font-medium mb-2 block">Döviz Kuru</label>
+                        <div
+                            class="flex items-center border border-gray-200 hover:border-indigo-500 rounded-lg overflow-hidden transition-colors duration-200">
+                            <div class="p-3 bg-gray-50 text-gray-600 font-medium border-r border-gray-200">₺</div>
+                            <input type="number" min="1" step="1" x-model="form.exchangeRate"
+                                class="flex-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 block w-full p-3" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-gray-700 font-medium mb-2 block">Aylık Muhasebe Giderleri</label>
+                        <div
+                            class="flex items-center border border-gray-200 hover:border-indigo-500 rounded-lg overflow-hidden transition-colors duration-200">
+                            <div class="p-3 bg-gray-50 text-gray-600 font-medium border-r border-gray-200">₺</div>
+                            <input type="number" min="1" step="1" x-model="form.accountingCosts"
+                                class="flex-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 block w-full p-3" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-gray-700 font-medium mb-2 block">Genç girişimci desteği? (29 yaş
+                            altı)</label>
+                        <div class="space-x-4">
+                            <label
+                                class="border border-gray-200 px-5 py-3 inline-flex items-center rounded-lg hover:border-indigo-500 cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="gg1" value="yes" x-model="form.youngEntrepreneur"
+                                    class="mr-2 text-indigo-600" />
+                                <span>Evet</span>
+                            </label>
+
+                            <label
+                                class="border border-gray-200 px-5 py-3 inline-flex items-center rounded-lg hover:border-indigo-500 cursor-pointer transition-colors duration-200">
+                                <input type="radio" id="gg0" value="no" x-model="form.youngEntrepreneur"
+                                    class="mr-2 text-indigo-600" />
+                                <span>Hayır</span>
+                            </label>
+                        </div>
+                    </div>
+                </form>
             </div>
 
-            <div class="my-4">
-                <label class="text-gray-800 text-sm my-1 block">Döviz Kuru</label>
-                <div class="flex items-center border border-gray-300 hover:border-gray-600 rounded-lg overflow-hidden">
-                    <div class="p-3 bg-gray-50 text-gray-500">₺</div>
-                    <input type="number" min="1" step="1" x-model="form.exchangeRate"
-                        class="flex-1 focus:outline-none focus:ring-0 block w-full p-3" />
-                </div>
-            </div>
+            <!-- Results Column -->
+            <div class="mt-8 md:mt-0">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6" x-data="{ 
+                        expandedSections: { expenses: false, taxes: false, income: true },
+                        groupedResults: {},
+                        async init() {
+                            results = await calculate(form);
+                            this.processResults(results);
+                            $watch('results', (value) => this.processResults(value));
+                        },
+                        processResults(results) {
+                            this.groupedResults = results.reduce((acc, item) => {
+                                const group = item[3];
+                                if (group) {
+                                    if (!acc[group]) {
+                                        acc[group] = { items: [], total: '' };
+                                    }
+                                    if (!item[1]) {
+                                        acc[group].total = item[0];
+                                    } else {
+                                        acc[group].items.push(item);
+                                    }
+                                } else {
+                                    if (!acc.other) acc.other = [];
+                                    acc.other.push(item);
+                                }
+                                return acc;
+                            }, {});
+                        }
+                    }"
+                    x-init="results = await calculate(form);$watch('form', async (value) => results = await calculate(value))">
+                    <h2 class="text-xl font-semibold mb-6 text-gray-800">Hesaplama Sonucu</h2>
+                    <table class="min-w-full">
+                        <tbody class="divide-y divide-gray-200">
+                            <!-- Regular items before groups -->
+                            <template x-for="item in groupedResults.other?.filter(item => item[4] === 'before')"
+                                :key="item[0]">
+                                <tr class="hover:bg-gray-50 transition-colors duration-150">
+                                    <td class="py-4 pr-3 text-sm text-gray-600"
+                                        :class="{ 'font-semibold text-gray-900': !item[1] }">
+                                        <div x-text="item[0]"></div>
+                                    </td>
+                                    <td class="py-4 pl-3 text-right text-sm font-medium whitespace-nowrap"
+                                        x-text="item[1]"></td>
+                                </tr>
+                            </template>
 
-            <div class="my-4">
-                <label class="text-gray-800 text-sm my-1 block">Aylık Muhasebe Giderleri (₺)</label>
-                <div class="flex items-center border border-gray-300 hover:border-gray-600 rounded-lg overflow-hidden">
-                    <div class="p-3 bg-gray-50 text-gray-500">₺</div>
-                    <input type="number" min="1" step="1" x-model="form.accountingCosts"
-                        class="flex-1 focus:outline-none focus:ring-0 block w-full p-3" />
-                </div>
-            </div>
+                            <!-- Collapsible groups -->
+                            <template x-for="(group, groupName) in {
+                                'expenses': 'Sabit Giderler', 
+                                'taxes': 'Vergiler',
+                                'income': 'Net Gelir'
+                            }" :key="groupName">
+                                <template x-if="groupedResults[groupName]">
+                                    <tr>
+                                        <!-- Group header -->
+                                        <td colspan="2" class="p-0">
+                                            <div @click="expandedSections[groupName] = !expandedSections[groupName]"
+                                                class="flex items-center justify-between hover:bg-gray-50 transition-colors duration-150 cursor-pointer py-4 px-3">
+                                                <div class="flex items-center text-sm font-medium text-gray-900">
+                                                    <svg class="w-4 h-4 mr-2 transition-transform duration-200 flex-shrink-0"
+                                                        :class="expandedSections[groupName] ? 'rotate-90' : ''"
+                                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                    <span
+                                                        x-text="groupedResults[groupName].items.find(item => item[4] === 'total')[0]"></span>
+                                                </div>
+                                                <div class="text-sm font-medium whitespace-nowrap"
+                                                    x-text="groupedResults[groupName].items.find(item => item[4] === 'total')[1]">
+                                                </div>
+                                            </div>
 
-            <div class="my-4">
-                <label class="text-gray-800 text-sm my-1 block">Genç girişimci desteği? (29 yaş altı)</label>
-
-                <label for="gg1" class="border px-4 py-3 inline-block rounded-lg mr-3 my-1 bg-white">
-                    <input type="radio" id="gg1" value="yes" x-model="form.youngEntrepreneur" />
-                    Evet
-                </label>
-
-                <label for="gg0" class="border px-4 py-3 inline-block rounded-lg my-1 bg-white">
-                    <input type="radio" id="gg0" value="no" x-model="form.youngEntrepreneur" />
-                    Hayır</label>
-            </div>
-        </form>
-
-        <div class="my-10">
-            <h2 class="text-2xl mb-3">Sonuç</h2>
-
-            <div class="flex flex-col"
-                x-init="results = await calculate(form);$watch('form', async (value) => results = await calculate(value))">
-                <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-                            <table class="min-w-full divide-y divide-gray-300">
-                                <tbody class="divide-y divide-gray-200 bg-white">
-                                    <template x-for="result in results">
-                                        <tr>
-                                            <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-600 sm:pl-6"
-                                                :class="{ 'font-bold text-gray-900': !result[1] }">
-                                                <template x-if="!result[2]">
-                                                    <div x-text="result[0]"></div>
+                                            <!-- Group items -->
+                                            <div x-show="expandedSections[groupName]" class="border-t border-gray-100">
+                                                <template
+                                                    x-for="item in groupedResults[groupName].items.filter(item => item[4] !== 'total')"
+                                                    :key="item[0]">
+                                                    <div
+                                                        class="flex items-center justify-between hover:bg-gray-50 transition-colors duration-150 bg-gray-50 py-3 px-3">
+                                                        <div class="pl-8 text-sm text-gray-600">
+                                                            <template x-if="!item[2]">
+                                                                <span x-text="item[0]"></span>
+                                                            </template>
+                                                            <template x-if="item[2]">
+                                                                <a x-bind:href="item[2]"
+                                                                    class="text-indigo-600 hover:text-indigo-800 border-b border-dashed border-indigo-300"
+                                                                    target="_blank" x-text="item[0]"></a>
+                                                            </template>
+                                                        </div>
+                                                        <div class="text-sm font-medium whitespace-nowrap"
+                                                            x-text="item[1]"></div>
+                                                    </div>
                                                 </template>
-                                                <template x-if="result[2]">
-                                                    <a x-bind:href="result[2]"
-                                                        class="pb-1 border-b border-dashed border-gray-400 hover:text-indigo-600"
-                                                        target="_blank" x-text="result[0]">Daha
-                                                        fazla
-                                                        bilgi</a>
-                                                </template>
-                                            </td>
-                                            <td class="relative whitespace-nowrap py-2 pl-3 pr-4 text-right text-sm font-medium sm:pr-6"
-                                                x-text="result[1]" valign="top"></td>
-                                        </tr>
-                                    </template>
-                                </tbody>
-                            </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </template>
+
+                            <!-- Regular items after groups -->
+                            <template x-for="item in groupedResults.other?.filter(item => item[4] === 'after')"
+                                :key="item[0]">
+                                <tr class="hover:bg-gray-50 transition-colors duration-150">
+                                    <td class="py-4 pr-3 text-sm text-gray-600"
+                                        :class="{ 'font-semibold text-gray-900': !item[1] }">
+                                        <div x-text="item[0]"></div>
+                                    </td>
+                                    <td class="py-4 pl-3 text-right text-sm font-medium whitespace-nowrap"
+                                        x-text="item[1]"></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+
+                    <!-- Add this after the results table, but still inside the results card -->
+                    <div class="mt-6 pt-6 border-t border-gray-100">
+                        <div class="flex flex-col space-y-2">
+                            <label class="text-sm text-gray-600 font-medium">Bu hesaplamayı paylaş:</label>
+                            <div class="flex items-center gap-2">
+                                <input type="text" x-ref="shareUrl"
+                                    :value="window.location.origin + window.location.pathname + '?data=' + btoa(JSON.stringify(form))"
+                                    class="flex-1 text-sm bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                                    readonly />
+                                <button
+                                    @click="$refs.shareUrl.select(); navigator.clipboard.writeText($refs.shareUrl.value)"
+                                    class="inline-flex items-center px-3 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-600 hover:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-colors duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+                                    </svg>
+                                    <span class="ml-1">Kopyala</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Add this after the calculator div -->
+    <div class="max-w-3xl mx-auto mt-24 px-4">
+        <article class="prose prose-lg mx-auto">
+            <h2>Yurtdışına Freelance/Remote Çalışanlar İçin Vergi Rehberi</h2>
+
+            <h3>Kimler İçin Geçerli?</h3>
+            <p>
+                Bu vergi hesaplama aracı aşağıdaki durumlardan birine uyan kişiler için tasarlanmıştır:
+            </p>
+            <ul>
+                <li>Yurtdışındaki şirketlere uzaktan (remote) çalışan yazılımcılar</li>
+                <li>Freelance olarak yurtdışına hizmet veren dijital profesyoneller</li>
+                <li>Şahıs şirketi üzerinden yurtdışına yazılım hizmeti verenler</li>
+                <li>Yurtdışı müşterilere danışmanlık hizmeti verenler</li>
+            </ul>
+
+            <h3>Vergi Avantajları</h3>
+            <p>
+                Türkiye'den yurtdışına yazılım ve bilişim hizmeti veren kişiler için önemli vergi avantajları
+                bulunmaktadır:
+            </p>
+            <ul>
+                <li>Yazılım ihracatında %80 vergi istisnası</li>
+                <li>29 yaş altı girişimciler için ek vergi muafiyeti</li>
+                <li>Yurtdışı kazançlarda KDV istisnası</li>
+            </ul>
+
+            <h3>Sıkça Sorulan Sorular</h3>
+
+            <h4>Yurtdışına remote çalışırken şahıs şirketi açmak zorunlu mu?</h4>
+            <p>
+                Evet, yurtdışına düzenli olarak hizmet veriyorsanız şahıs şirketi açmanız gerekmektedir. Bu, hem yasal
+                bir zorunluluk hem de
+                vergi avantajlarından yararlanabilmeniz için gereklidir.
+            </p>
+
+            <h4>Yazılım ihracatında %80 vergi istisnası nasıl uygulanıyor?</h4>
+            <p>
+                Yurtdışına verilen yazılım hizmetlerinde, kazancın %80'i gelir vergisinden istisnadır. Bu istisna,
+                vergilendirilebilir
+                gelirin hesaplanmasında düşülür ve kalan %20 üzerinden vergi hesaplanır.
+            </p>
+
+            <h4>Genç girişimci desteği nedir?</h4>
+            <p>
+                29 yaşını doldurmamış genç girişimciler için ilk defa iş kurmaları halinde 3 y��l boyunca 220.000 TL'ye
+                kadar kazançları
+                gelir vergisinden istisnadır. Bu destek, diğer vergi avantajlarıyla birlikte kullanılabilir.
+            </p>
+
+            <h3>Önemli Bağlantılar</h3>
+            <ul>
+                <li><a href="https://www.gib.gov.tr" target="_blank" rel="noopener">Gelir İdaresi Başkanlığı</a></li>
+                <li><a href="https://www.vergidosyasi.com" target="_blank" rel="noopener">Vergi Dosyası</a></li>
+                <li><a href="https://www.ivdb.gov.tr" target="_blank" rel="noopener">İstanbul Vergi Dairesi
+                        Başkanlığı</a></li>
+            </ul>
+
+            <h3>Güncel Vergi Oranları ve Limitler (2024)</h3>
+            <ul>
+                <li>Yazılım ihracatı vergi istisnası: %80</li>
+                <li>Genç girişimci kazanç istisnası: 220.000 TL</li>
+                <li>Gelir vergisi dilimleri: %15 - %35</li>
+                <li>Bağ-Kur primi: Aylık yaklaşık 2.600 TL</li>
+            </ul>
+
+            <h3>Bu Araç Hakkında</h3>
+            <p>
+                Remote Vergi, yurtdışına çalışan yazılımcıların vergi hesaplamalarını kolaylaştırmak için
+                geliştirilmiş açık kaynaklı bir araçtır.
+            </p>
+
+            <div class="flex items-center gap-4 my-8">
+                <div>
+                    Geliştirici:
+                    <a href="https://twitter.com/ahmet_php" target="_blank" rel="noopener"
+                        class="font-medium text-indigo-600 hover:text-indigo-800">
+                        Ahmet Özışık
+                    </a>
+                </div>
+            </div>
+
+            <div class="text-sm text-gray-500 mt-12">
+                <p>
+                    Son güncelleme: 17 Mart 2024
+                </p>
+                <p>
+                    Not: Vergi mevzuatı sürekli değişmektedir. En güncel bilgiler için her zaman bir mali müşavire
+                    danışmanızı öneririz.
+                </p>
+            </div>
+        </article>
+    </div>
+
+    <!-- Simplified footer with just the disclaimer -->
+    <footer class="max-w-3xl mx-auto mt-8 px-4 pb-16">
+        <div class="prose prose-lg mx-auto">
+            <hr class="my-8">
+
+            <h3 class="text-base">Yasal Uyarı</h3>
+            <div class="text-gray-500 text-xs space-y-4">
+                <p>
+                    Bu web sitesi ve vergi hesaplama aracı, yalnızca bilgilendirme amaçlıdır ve herhangi bir yasal
+                    tavsiye niteliği taşımamaktadır. Sunulan bilgiler ve hesaplamalar, genel vergi kurallarına
+                    dayanmakta olup, özel durumunuza özgü farklılıklar gösterebilir.
+                </p>
+
+                <p>
+                    Vergi mevzuatı karmaşık olup sürekli değişmektedir. Bu nedenle, vergi planlamanızı yaparken
+                    mutlaka bir mali müşavir veya vergi danışmanına başvurmanızı öneririz. Bu araçta yapılan
+                    hesaplamalar ve sunulan bilgiler nedeniyle oluşabilecek herhangi bir zarardan dolayı sorumluluk
+                    kabul edilmemektedir.
+                </p>
+
+                <p>
+                    Tüm hesaplamalar yaklaşık değerler içermekte olup, gerçek vergi yükümlülükleriniz farklılık
+                    gösterebilir. Özellikle döviz kurları, vergi dilimleri ve muafiyet limitleri gibi değişkenler
+                    sürekli güncellenmektedir.
+                </p>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>

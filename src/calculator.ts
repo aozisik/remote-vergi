@@ -20,19 +20,21 @@ const calculate = async (form: any): Promise<ResultLine[]> => {
   const { isValid, data } = validate(form);
 
   if (!isValid) {
-    return [['Tüm alanların eksiksiz girildiğine emin olun.', '']];
+    return [['Tüm alanların eksiksiz girildiğine emin olun.', '', null, null, 'before']];
   }
 
   const result = new Result();
+  const incomeInTry = await convertEurToTry(toEur(data.income), data.exchangeRate);
+  const annualIncomeTry = incomeInTry.multiply(12);
 
+  // Expenses section
   let costsTotal = toTry(0);
   const addMonthlyCost = (name: string, amount: Dinero, url?: string) => {
     const annualCost = amount.multiply(12);
     costsTotal = costsTotal.add(annualCost);
-    result.addLine(`${name} (${toText(amount)} / ay)`, annualCost, url);
+    result.addLine(`${name} (${toText(amount)} / ay)`, annualCost, url, 'expenses');
   };
 
-  result.addTitle('Sabit Giderler');
   addMonthlyCost('👨🏻‍💼 Muhasebe Giderleri', toTry(data.accountingCosts));
   addMonthlyCost(
     `📮 Damga Vergisi`,
@@ -43,44 +45,42 @@ const calculate = async (form: any): Promise<ResultLine[]> => {
     '🩺 Bağkur Primi',
     toTry(data.youngEntrepreneur ? 0 : BAGKUR_PREMIUM)
   );
+  result.addLine('Sabit Giderler', costsTotal, null, 'expenses', 'total');
 
-  result.addLine('➖ Toplam yıllık sabit gider', costsTotal);
-
-  // ----------------------------------------------------------------------------
-
-  result.addTitle('Vergi');
-
-  const incomeInTry = await convertEurToTry(
-    toEur(data.income),
-    data.exchangeRate
-  );
-
-  const annualIncomeTry = incomeInTry.multiply(12);
+  // Taxes and Income section
   const annualIncomeAfterCosts = annualIncomeTry.subtract(costsTotal);
+  let totalTax = toTry(0);
 
+  // Add income items under taxes group
+  result.addLine('💰 Brüt Yıllık Gelir', annualIncomeTry, null, 'taxes');
   result.addLine(
-    '💰 Yıllık Gelir (aylık gelir x 12) - sabit giderler',
-    annualIncomeAfterCosts
+    '💰 Vergilendirilebilir Gelir',
+    annualIncomeAfterCosts,
+    null,
+    'taxes'
   );
 
+  const exemptionAmount = annualIncomeAfterCosts.multiply(SOFTWARE_SERVICE_EXPORT_EXEMPTION);
   result.addLine(
     `🎁 Gelir Vergisi Muafiyeti (%${SOFTWARE_SERVICE_EXPORT_EXEMPTION * 100})`,
-    annualIncomeAfterCosts.multiply(SOFTWARE_SERVICE_EXPORT_EXEMPTION),
-    'https://medium.com/mali-müşavir-evren-özmen/yurtdisi-yazilim-vergi-avantaji-80-5e8c4b1e5706'
+    exemptionAmount,
+    'https://medium.com/mali-müşavir-evren-özmen/yurtdisi-yazilim-vergi-avantaji-80-5e8c4b1e5706',
+    'taxes'
   );
 
   if (data.youngEntrepreneur) {
     result.addLine(
       '🎁 Genç Girişimci Muafiyeti',
       toTry(YOUNG_ENTREPRENEUR_EXEMPTION),
-      'https://medium.com/türkiye/genç-girişimcilere-aralık-ayı-vergisel-hatırlatmalar-7b9d62e153fe'
+      'https://medium.com/türkiye/genç-girişimcilere-aralık-ayı-vergisel-hatırlatmalar-7b9d62e153fe',
+      'taxes'
     );
   }
 
   let taxableIncome = data.youngEntrepreneur
     ? annualIncomeAfterCosts
-        .subtract(toTry(YOUNG_ENTREPRENEUR_EXEMPTION))
-        .multiply(1 - SOFTWARE_SERVICE_EXPORT_EXEMPTION)
+      .subtract(toTry(YOUNG_ENTREPRENEUR_EXEMPTION))
+      .multiply(1 - SOFTWARE_SERVICE_EXPORT_EXEMPTION)
     : annualIncomeAfterCosts.multiply(1 - SOFTWARE_SERVICE_EXPORT_EXEMPTION);
 
   if (taxableIncome.isNegative()) {
@@ -88,24 +88,23 @@ const calculate = async (form: any): Promise<ResultLine[]> => {
   }
 
   const tax = incomeTax(taxableIncome);
+  totalTax = tax;
   const taxRate = (tax.getAmount() / taxableIncome.getAmount()) * 100;
 
-  result.addLine('🧾 Vergi matrahı', taxableIncome);
-  result.addLine(`💸 Gelir vergisi (%${taxRate.toFixed(2)})`, tax);
+  result.addLine('🧾 Vergi matrahı', taxableIncome, null, 'taxes');
+  result.addLine(`💸 Gelir vergisi (%${taxRate.toFixed(2)})`, tax, null, 'taxes');
+  result.addLine('Vergiler', totalTax, null, 'taxes', 'total');
 
-  // ----------------------------------------------------------------------------
-
-  result.addTitle('Net Gelir Hesabı');
-
+  // Final calculations (net income)
   const netAnnualIncome = annualIncomeTry.subtract(tax.add(costsTotal));
-
-  result.addLine('💰 Brüt Yıllık Gelir', annualIncomeTry);
-  result.addLine('💸 Yılık gider ve vergiler', tax.add(costsTotal));
-  result.addLine('💶 Net Yıllık Gelir', netAnnualIncome);
-  result.addLine('💶 Net Aylık Gelir', netAnnualIncome.divide(12));
+  result.addLine('Net Gelir', netAnnualIncome, null, 'income', 'total');
+  result.addLine('💶 Net Yıllık Gelir', netAnnualIncome, null, 'income');
+  result.addLine('💶 Net Aylık Gelir', netAnnualIncome.divide(12), null, 'income');
   result.addLine(
     '💶 Net Aylık Gelir (€)',
-    await convertTryToEur(netAnnualIncome.divide(12), 1 / data.exchangeRate)
+    await convertTryToEur(netAnnualIncome.divide(12), 1 / data.exchangeRate),
+    null,
+    'income'
   );
 
   return result.getLines();
