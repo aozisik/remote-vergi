@@ -32,8 +32,26 @@
     </style>
 </head>
 
-<body class="bg-pattern min-h-screen"
-    x-data="{results: [], form: {income:'2000',exchangeRate:'36.5',accountingCosts:'1200',youngEntrepreneur:'yes'}}">
+<body class="bg-pattern min-h-screen" x-data="{
+        results: [], 
+        form: (() => {
+            const params = new URLSearchParams(window.location.search);
+            const encoded = params.get('data');
+            if (encoded) {
+                try {
+                    return JSON.parse(atob(encoded));
+                } catch (e) {
+                    console.error('Invalid share URL');
+                }
+            }
+            return {
+                income: '2000',
+                exchangeRate: '36.5',
+                accountingCosts: '1200',
+                youngEntrepreneur: 'yes'
+            };
+        })()
+    }">
     <div class="max-w-5xl mx-auto my-16 px-4">
         <header class="max-w-2xl mx-auto mb-16">
             <h1 class="text-4xl font-bold mb-6">🇹🇷 Remote Vergi</h1>
@@ -224,6 +242,29 @@
                             </template>
                         </tbody>
                     </table>
+
+                    <!-- Add this after the results table, but still inside the results card -->
+                    <div class="mt-6 pt-6 border-t border-gray-100">
+                        <div class="flex flex-col space-y-2">
+                            <label class="text-sm text-gray-600 font-medium">Bu hesaplamayı paylaş:</label>
+                            <div class="flex items-center gap-2">
+                                <input type="text" x-ref="shareUrl"
+                                    :value="window.location.origin + window.location.pathname + '?data=' + btoa(JSON.stringify(form))"
+                                    class="flex-1 text-sm bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                                    readonly />
+                                <button
+                                    @click="$refs.shareUrl.select(); navigator.clipboard.writeText($refs.shareUrl.value)"
+                                    class="inline-flex items-center px-3 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-600 hover:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-colors duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+                                    </svg>
+                                    <span class="ml-1">Kopyala</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -274,7 +315,7 @@
 
             <h4>Genç girişimci desteği nedir?</h4>
             <p>
-                29 yaşını doldurmamış genç girişimciler için ilk defa iş kurmaları halinde 3 yıl boyunca 220.000 TL'ye
+                29 yaşını doldurmamış genç girişimciler için ilk defa iş kurmaları halinde 3 y��l boyunca 220.000 TL'ye
                 kadar kazançları
                 gelir vergisinden istisnadır. Bu destek, diğer vergi avantajlarıyla birlikte kullanılabilir.
             </p>
