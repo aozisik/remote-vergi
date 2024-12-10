@@ -22,22 +22,30 @@
             }
         }
     </script>
+    <style>
+        .bg-pattern {
+            background-color: #f8fafc;
+            background-image: linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
 </head>
 
-<body class="bg-gray-50">
-    <div class="max-w-6xl mx-auto my-16 px-4"
-        x-data="{results: [], form: {income:'2000',exchangeRate:'32',accountingCosts:'1200',youngEntrepreneur:'yes'}}">
+<body class="bg-pattern min-h-screen"
+    x-data="{results: [], form: {income:'2000',exchangeRate:'36.5',accountingCosts:'1200',youngEntrepreneur:'yes'}}">
+    <div class="max-w-5xl mx-auto my-16 px-4">
         <header class="max-w-2xl mx-auto mb-16">
-            <h1 class="text-4xl font-bold text-center mb-6">🇹🇷 Remote Vergi</h1>
-            <p class="prose-lg text-center text-gray-600">
+            <h1 class="text-4xl font-bold mb-6">🇹🇷 Remote Vergi</h1>
+            <p class="prose-lg text-gray-600">
                 Remote Vergi, Türkiye'den yurtdışı firmalara çalışarak döviz kazanan
                 yazılımcılar için hazırlanmıştır. Vergiler ve sabit giderleri düştükten sonra
                 kalan net kazancı hesaplar.
             </p>
-            <p class="text-gray-500 text-sm mt-4 text-center">
-                Veriler en son 17 Mart 2024 tarihinde güncellenmiştir.
+            <p class="text-gray-500 text-sm mt-4">
+                Prim ve vergiler en son 17 Mart 2024 tarihinde güncellenmiştir.
             </p>
-            <p class="text-gray-400 text-xs mt-6 text-center">
+            <p class="text-gray-400 text-xs mt-6">
                 Bu araç, vergiler hakkında sadece genel bir fikir edinmek için oluşturulmuştur ve bir mali danışmanlık
                 hizmeti değildir. Vergi hesaplamaları için
                 bir mali müşavir ile görüşünüz.
@@ -220,6 +228,129 @@
             </div>
         </div>
     </div>
+
+    <!-- Add this after the calculator div -->
+    <div class="max-w-3xl mx-auto mt-24 px-4">
+        <article class="prose prose-lg mx-auto">
+            <h2>Yurtdışına Freelance/Remote Çalışanlar İçin Vergi Rehberi</h2>
+
+            <h3>Kimler İçin Geçerli?</h3>
+            <p>
+                Bu vergi hesaplama aracı aşağıdaki durumlardan birine uyan kişiler için tasarlanmıştır:
+            </p>
+            <ul>
+                <li>Yurtdışındaki şirketlere uzaktan (remote) çalışan yazılımcılar</li>
+                <li>Freelance olarak yurtdışına hizmet veren dijital profesyoneller</li>
+                <li>Şahıs şirketi üzerinden yurtdışına yazılım hizmeti verenler</li>
+                <li>Yurtdışı müşterilere danışmanlık hizmeti verenler</li>
+            </ul>
+
+            <h3>Vergi Avantajları</h3>
+            <p>
+                Türkiye'den yurtdışına yazılım ve bilişim hizmeti veren kişiler için önemli vergi avantajları
+                bulunmaktadır:
+            </p>
+            <ul>
+                <li>Yazılım ihracatında %80 vergi istisnası</li>
+                <li>29 yaş altı girişimciler için ek vergi muafiyeti</li>
+                <li>Yurtdışı kazançlarda KDV istisnası</li>
+            </ul>
+
+            <h3>Sıkça Sorulan Sorular</h3>
+
+            <h4>Yurtdışına remote çalışırken şahıs şirketi açmak zorunlu mu?</h4>
+            <p>
+                Evet, yurtdışına düzenli olarak hizmet veriyorsanız şahıs şirketi açmanız gerekmektedir. Bu, hem yasal
+                bir zorunluluk hem de
+                vergi avantajlarından yararlanabilmeniz için gereklidir.
+            </p>
+
+            <h4>Yazılım ihracatında %80 vergi istisnası nasıl uygulanıyor?</h4>
+            <p>
+                Yurtdışına verilen yazılım hizmetlerinde, kazancın %80'i gelir vergisinden istisnadır. Bu istisna,
+                vergilendirilebilir
+                gelirin hesaplanmasında düşülür ve kalan %20 üzerinden vergi hesaplanır.
+            </p>
+
+            <h4>Genç girişimci desteği nedir?</h4>
+            <p>
+                29 yaşını doldurmamış genç girişimciler için ilk defa iş kurmaları halinde 3 yıl boyunca 220.000 TL'ye
+                kadar kazançları
+                gelir vergisinden istisnadır. Bu destek, diğer vergi avantajlarıyla birlikte kullanılabilir.
+            </p>
+
+            <h3>Önemli Bağlantılar</h3>
+            <ul>
+                <li><a href="https://www.gib.gov.tr" target="_blank" rel="noopener">Gelir İdaresi Başkanlığı</a></li>
+                <li><a href="https://www.vergidosyasi.com" target="_blank" rel="noopener">Vergi Dosyası</a></li>
+                <li><a href="https://www.ivdb.gov.tr" target="_blank" rel="noopener">İstanbul Vergi Dairesi
+                        Başkanlığı</a></li>
+            </ul>
+
+            <h3>Güncel Vergi Oranları ve Limitler (2024)</h3>
+            <ul>
+                <li>Yazılım ihracatı vergi istisnası: %80</li>
+                <li>Genç girişimci kazanç istisnası: 220.000 TL</li>
+                <li>Gelir vergisi dilimleri: %15 - %35</li>
+                <li>Bağ-Kur primi: Aylık yaklaşık 2.600 TL</li>
+            </ul>
+
+            <h3>Bu Araç Hakkında</h3>
+            <p>
+                Remote Vergi, yurtdışına çalışan yazılımcıların vergi hesaplamalarını kolaylaştırmak için
+                geliştirilmiş açık kaynaklı bir araçtır.
+            </p>
+
+            <div class="flex items-center gap-4 my-8">
+                <div>
+                    Geliştirici:
+                    <a href="https://twitter.com/ahmet_php" target="_blank" rel="noopener"
+                        class="font-medium text-indigo-600 hover:text-indigo-800">
+                        Ahmet Özışık
+                    </a>
+                </div>
+            </div>
+
+            <div class="text-sm text-gray-500 mt-12">
+                <p>
+                    Son güncelleme: 17 Mart 2024
+                </p>
+                <p>
+                    Not: Vergi mevzuatı sürekli değişmektedir. En güncel bilgiler için her zaman bir mali müşavire
+                    danışmanızı öneririz.
+                </p>
+            </div>
+        </article>
+    </div>
+
+    <!-- Simplified footer with just the disclaimer -->
+    <footer class="max-w-3xl mx-auto mt-8 px-4 pb-16">
+        <div class="prose prose-lg mx-auto">
+            <hr class="my-8">
+
+            <h3 class="text-base">Yasal Uyarı</h3>
+            <div class="text-gray-500 text-xs space-y-4">
+                <p>
+                    Bu web sitesi ve vergi hesaplama aracı, yalnızca bilgilendirme amaçlıdır ve herhangi bir yasal
+                    tavsiye niteliği taşımamaktadır. Sunulan bilgiler ve hesaplamalar, genel vergi kurallarına
+                    dayanmakta olup, özel durumunuza özgü farklılıklar gösterebilir.
+                </p>
+
+                <p>
+                    Vergi mevzuatı karmaşık olup sürekli değişmektedir. Bu nedenle, vergi planlamanızı yaparken
+                    mutlaka bir mali müşavir veya vergi danışmanına başvurmanızı öneririz. Bu araçta yapılan
+                    hesaplamalar ve sunulan bilgiler nedeniyle oluşabilecek herhangi bir zarardan dolayı sorumluluk
+                    kabul edilmemektedir.
+                </p>
+
+                <p>
+                    Tüm hesaplamalar yaklaşık değerler içermekte olup, gerçek vergi yükümlülükleriniz farklılık
+                    gösterebilir. Özellikle döviz kurları, vergi dilimleri ve muafiyet limitleri gibi değişkenler
+                    sürekli güncellenmektedir.
+                </p>
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>
