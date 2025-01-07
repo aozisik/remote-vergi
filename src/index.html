@@ -1,18 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🇹🇷 Remote Vergi</title>
+    <meta name="description"
+        content="Yurtdışına remote çalışan yazılımcılar için vergi hesaplama aracı. Freelance ve uzaktan çalışanlar için vergi avantajları, muhasebe giderleri ve net kazanç hesaplayıcı." />
+    <meta name="keywords"
+        content="remote vergi, yurtdışı vergi hesaplama, freelance vergi, yazılımcı vergi hesaplama, remote çalışma vergi, döviz kazanç vergisi" />
+    <meta name="author" content="Ahmet Özışık" />
+    <meta property="og:title" content="Remote Vergi - Yurtdışına Çalışan Yazılımcılar İçin Vergi Hesaplama Aracı" />
+    <meta property="og:description"
+        content="Yurtdışına remote çalışan yazılımcılar için vergi hesaplama aracı. Freelance ve uzaktan çalışanlar için vergi avantajları ve net kazanç hesaplayıcı." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aozisik.github.io/remote-vergi/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Remote Vergi - Yurtdışına Çalışan Yazılımcılar İçin Vergi Hesaplama Aracı" />
+    <meta name="twitter:description"
+        content="Yurtdışına remote çalışan yazılımcılar için vergi hesaplama aracı. Freelance ve uzaktan çalışanlar için vergi avantajları ve net kazanç hesaplayıcı." />
+    <meta name="twitter:creator" content="@ahmet_php" />
+
+    <title>Remote Vergi - Yurtdışına Çalışan Yazılımcılar İçin Vergi Hesaplama Aracı 🇹🇷</title>
     <script type="module" src="./calculator.ts"></script>
     <script src="//cdn.tailwindcss.com?plugins=typography"></script>
     <script defer src="//unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script defer data-domain="aozisik.github.io" src="//plausible.io/js/script.js"></script>
+
+    <link rel="canonical" href="https://aozisik.github.io/remote-vergi/" />
     <link rel="preconnect" href="//fonts.googleapis.com">
     <link rel="preconnect" href="//fonts.gstatic.com" crossorigin>
     <link href="//fonts.googleapis.com/css2?family=Dm+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+
     <script>
         tailwind.config = {
             theme: {
@@ -62,6 +81,12 @@
             }
         }
     </style>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#4f46e5">
+    <link rel="preload" as="font" href="//fonts.googleapis.com/css2?family=Dm+Sans:wght@400;700;900&display=swap"
+        crossorigin>
+    <link rel="preload" as="script" href="//unpkg.com/alpinejs@3.x.x/dist/cdn.min.js">
 </head>
 
 <body class="bg-pattern min-h-screen" x-data="{
@@ -97,7 +122,7 @@
                 fill="currentColor" class="octo-body"></path>
         </svg>
     </a>
-    <div class="max-w-5xl mx-auto my-16 px-4">
+    <main class="max-w-5xl mx-auto my-16 px-4">
         <header class="max-w-2xl mx-auto mb-16">
             <h1 class="text-4xl font-bold mb-6">🇹🇷 Remote Vergi</h1>
             <p class="prose-lg text-gray-600">
@@ -313,10 +338,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Add this after the calculator div -->
-    <div class="max-w-3xl mx-auto mt-24 px-4">
+    <aside class="max-w-3xl mx-auto mt-24 px-4">
         <article class="prose prose-lg mx-auto">
             <h2>Yurtdışına Freelance/Remote Çalışanlar İçin Vergi Rehberi</h2>
 
@@ -410,7 +435,7 @@
                 </p>
             </div>
         </article>
-    </div>
+    </aside>
 
     <!-- Simplified footer with just the disclaimer -->
     <footer class="max-w-3xl mx-auto mt-8 px-4 pb-16">
@@ -440,6 +465,66 @@
             </div>
         </div>
     </footer>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Remote Vergi",
+      "description": "Yurtdışına remote çalışan yazılımcılar için vergi hesaplama aracı",
+      "url": "https://aozisik.github.io/remote-vergi/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "author": {
+        "@type": "Person",
+        "name": "Ahmet Özışık",
+        "url": "https://twitter.com/ahmet_php"
+      },
+      "isAccessibleForFree": true
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "Yurtdışına remote çalışırken şahıs şirketi açmak zorunlu mu?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Evet, yurtdışına düzenli olarak hizmet veriyorsanız şahıs şirketi açmanız gerekmektedir. Bu, hem yasal bir zorunluluk hem de vergi avantajlarından yararlanabilmeniz için gereklidir."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Yazılım ihracatında %80 vergi istisnası nasıl uygulanıyor?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yurtdışına verilen yazılım hizmetlerinde, kazancın %80'i gelir vergisinden istisnadır. Bu istisna, vergilendirilebilir gelirin hesaplanmasında düşülür ve kalan %20 üzerinden vergi hesaplanır."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Genç girişimci desteği nedir?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "29 yaşını doldurmamış genç girişimciler için ilk defa iş kurmaları halinde 3 yıl boyunca 220.000 TL'ye kadar kazançları gelir vergisinden istisnadır. Bu destek, diğer vergi avantajlarıyla birlikte kullanılabilir."
+        }
+      }]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Ana Sayfa",
+        "item": "https://aozisik.github.io/remote-vergi/"
+      }]
+    }
+    </script>
 </body>
 
 </html>
