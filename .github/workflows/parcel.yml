@@ -36,6 +36,8 @@ jobs:
         run: npm ci
       - name: Build with Parcel
         run: npm run build
+      - name: Copy other assets into dist
+        run: cp robots.txt sitemap.xml dist/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
