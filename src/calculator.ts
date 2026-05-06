@@ -3,7 +3,7 @@ import {
   BAGKUR_PREMIUM,
   SOFTWARE_SERVICE_EXPORT_EXEMPTION,
   ANNUAL_STAMP_TAX,
-  YOUNG_ENTREPRENEUR_EXEMPTION,
+  YMM_TASDIK_THRESHOLD,
 } from './constants';
 import { Result, ResultLine } from './result';
 import { validate } from './support/form';
@@ -50,23 +50,41 @@ const calculate = async (form: any): Promise<ResultLine[]> => {
       'expenses'
     );
   };
+  const addAnnualCost = (name: string, amount: Dinero, url?: string) => {
+    costsTotal = costsTotal.add(amount);
+    result.addLine(name, amount, url, 'expenses');
+  };
 
-  addMonthlyCost('👨🏻‍💼 Muhasebe Giderleri', toTry(data.accountingCosts));
-  addMonthlyCost(`📮 Damga Vergisi`, toTry(ANNUAL_STAMP_TAX).divide(12));
-  addMonthlyCost(
-    '🩺 Bağkur Primi',
-    toTry(data.youngEntrepreneur ? 0 : BAGKUR_PREMIUM)
+  addMonthlyCost('Muhasebe Giderleri', toTry(data.accountingCosts));
+  addMonthlyCost('Damga Vergisi', toTry(ANNUAL_STAMP_TAX).divide(12));
+  addMonthlyCost('Bağkur Primi', toTry(BAGKUR_PREMIUM));
+
+  // YMM Tasdik Raporu — yıllık indirim tutarı eşiği aşarsa zorunlu.
+  // Eşik kontrolü, YMM ücreti henüz eklenmeden önceki maliyetler üzerinden yapılır.
+  const provisionalAfterCosts = annualIncomeTry.subtract(costsTotal);
+  const provisionalExemption = provisionalAfterCosts.multiply(
+    SOFTWARE_SERVICE_EXPORT_EXEMPTION
   );
+  const ymmRequired = provisionalExemption.greaterThan(
+    toTry(YMM_TASDIK_THRESHOLD)
+  );
+  if (ymmRequired && data.ymmCost > 0) {
+    addAnnualCost(
+      'YMM Tasdik Raporu (yıllık)',
+      toTry(data.ymmCost),
+      'https://www.alomaliye.com/2025/12/30/istisna-ve-indirimler-icin-ymm-tasdik-raporu-zorunlulugu/'
+    );
+  }
+
   result.addLine('Sabit Giderler', costsTotal, null, 'expenses', 'total');
 
   // Taxes and Income section
   const annualIncomeAfterCosts = annualIncomeTry.subtract(costsTotal);
   let totalTax = toTry(0);
 
-  // Add income items under taxes group
-  result.addLine('💰 Brüt Yıllık Gelir', annualIncomeTry, null, 'taxes');
+  result.addLine('Brüt Yıllık Gelir', annualIncomeTry, null, 'taxes');
   result.addLine(
-    '💰 Vergilendirilebilir Gelir',
+    'Vergilendirilebilir Gelir',
     annualIncomeAfterCosts,
     null,
     'taxes'
@@ -76,26 +94,15 @@ const calculate = async (form: any): Promise<ResultLine[]> => {
     SOFTWARE_SERVICE_EXPORT_EXEMPTION
   );
   result.addLine(
-    `🎁 Gelir Vergisi Muafiyeti (%${SOFTWARE_SERVICE_EXPORT_EXEMPTION * 100})`,
+    `Hizmet İhracatı İstisnası (%${SOFTWARE_SERVICE_EXPORT_EXEMPTION * 100})`,
     exemptionAmount,
-    'https://medium.com/mali-müşavir-evren-özmen/yurtdisi-yazilim-vergi-avantaji-80-5e8c4b1e5706',
+    'https://www.alomaliye.com/2026/01/27/yurtdisi-hizmet-ihraci-istisnasinda-yeni-donem/',
     'taxes'
   );
 
-  if (data.youngEntrepreneur) {
-    result.addLine(
-      '🎁 Genç Girişimci Muafiyeti',
-      toTry(YOUNG_ENTREPRENEUR_EXEMPTION),
-      'https://medium.com/türkiye/genç-girişimcilere-aralık-ayı-vergisel-hatırlatmalar-7b9d62e153fe',
-      'taxes'
-    );
-  }
-
-  let taxableIncome = data.youngEntrepreneur
-    ? annualIncomeAfterCosts
-        .subtract(toTry(YOUNG_ENTREPRENEUR_EXEMPTION))
-        .multiply(1 - SOFTWARE_SERVICE_EXPORT_EXEMPTION)
-    : annualIncomeAfterCosts.multiply(1 - SOFTWARE_SERVICE_EXPORT_EXEMPTION);
+  let taxableIncome = annualIncomeAfterCosts.multiply(
+    1 - SOFTWARE_SERVICE_EXPORT_EXEMPTION
+  );
 
   if (taxableIncome.isNegative()) {
     taxableIncome = toTry(0);
@@ -103,11 +110,14 @@ const calculate = async (form: any): Promise<ResultLine[]> => {
 
   const tax = incomeTax(taxableIncome);
   totalTax = tax;
-  const taxRate = (tax.getAmount() / taxableIncome.getAmount()) * 100;
+  const taxRate =
+    taxableIncome.getAmount() === 0
+      ? 0
+      : (tax.getAmount() / taxableIncome.getAmount()) * 100;
 
-  result.addLine('🧾 Vergi matrahı', taxableIncome, null, 'taxes');
+  result.addLine('Vergi Matrahı', taxableIncome, null, 'taxes');
   result.addLine(
-    `💸 Gelir vergisi (%${taxRate.toFixed(2)})`,
+    `Gelir Vergisi (%${taxRate.toFixed(2)})`,
     tax,
     null,
     'taxes'
@@ -117,15 +127,15 @@ const calculate = async (form: any): Promise<ResultLine[]> => {
   // Final calculations (net income)
   const netAnnualIncome = annualIncomeTry.subtract(tax.add(costsTotal));
   result.addLine('Net Gelir', netAnnualIncome, null, 'income', 'total');
-  result.addLine('💶 Net Yıllık Gelir', netAnnualIncome, null, 'income');
+  result.addLine('Net Yıllık Gelir', netAnnualIncome, null, 'income');
   result.addLine(
-    '💶 Net Aylık Gelir',
+    'Net Aylık Gelir',
     netAnnualIncome.divide(12),
     null,
     'income'
   );
   result.addLine(
-    '💶 Net Aylık Gelir (€)',
+    'Net Aylık Gelir (€)',
     await convertTryToEur(netAnnualIncome.divide(12), 1 / data.exchangeRate),
     null,
     'income'

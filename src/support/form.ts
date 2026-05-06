@@ -2,7 +2,7 @@ interface RawFormDto {
   income: string;
   exchangeRate: string;
   accountingCosts: string;
-  youngEntrepreneur: "yes" | "no";
+  ymmCost: string;
 }
 
 export interface ValidatedForm {
@@ -10,7 +10,7 @@ export interface ValidatedForm {
     income: number;
     exchangeRate: number;
     accountingCosts: number;
-    youngEntrepreneur: boolean;
+    ymmCost: number;
   };
   isValid: boolean;
 }
@@ -18,9 +18,7 @@ export interface ValidatedForm {
 export const validate = (form: RawFormDto) => {
   const invalidFields: string[] = [];
 
-  const data = {
-    youngEntrepreneur: form.youngEntrepreneur === "yes",
-  } as ValidatedForm["data"];
+  const data = {} as ValidatedForm["data"];
 
   ["income", "exchangeRate", "accountingCosts"].forEach((key) => {
     const value = toNumber(form[key]);
@@ -32,6 +30,9 @@ export const validate = (form: RawFormDto) => {
     data[key] = value;
   });
 
+  const ymm = toNumber(form.ymmCost);
+  data.ymmCost = ymm === null || ymm < 0 ? 0 : ymm;
+
   return {
     data,
     isValid: invalidFields.length === 0,
@@ -39,7 +40,7 @@ export const validate = (form: RawFormDto) => {
 };
 
 const toNumber = (input: string) => {
-  input = input.trim().replace(/(\.|,)$/, "");
+  input = (input ?? "").trim().replace(/(\.|,)$/, "");
 
   if (input === "") {
     return null;

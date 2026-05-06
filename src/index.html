@@ -6,24 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Yurtdışına remote çalışan yazılımcılar için vergi hesaplama aracı. Freelance ve uzaktan çalışanlar için vergi avantajları, muhasebe giderleri ve net kazanç hesaplayıcı." />
+        content="Yurtdışına remote çalışan yazılımcılar için 2026 vergi hesaplama aracı. %100 hizmet ihracatı kazanç istisnası, YMM tasdik raporu ve net kazanç hesaplayıcı." />
     <meta name="keywords"
-        content="remote vergi, yurtdışı vergi hesaplama, freelance vergi, yazılımcı vergi hesaplama, remote çalışma vergi, döviz kazanç vergisi" />
+        content="remote vergi, yurtdışı vergi hesaplama, freelance vergi, hizmet ihracatı istisnası, YMM tasdik raporu" />
     <meta name="author" content="Ahmet Özışık" />
-    <meta property="og:title" content="Remote Vergi - Yurtdışına Çalışan Yazılımcılar İçin Vergi Hesaplama Aracı" />
+    <meta property="og:title" content="Remote Vergi — 2026 Vergi Hesaplama Aracı" />
     <meta property="og:description"
-        content="Yurtdışına remote çalışan yazılımcılar için vergi hesaplama aracı. Freelance ve uzaktan çalışanlar için vergi avantajları ve net kazanç hesaplayıcı." />
+        content="Yurtdışına remote çalışanlar için 2026 vergi hesaplayıcı." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://aozisik.github.io/remote-vergi/" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Remote Vergi - Yurtdışına Çalışan Yazılımcılar İçin Vergi Hesaplama Aracı" />
-    <meta name="twitter:description"
-        content="Yurtdışına remote çalışan yazılımcılar için vergi hesaplama aracı. Freelance ve uzaktan çalışanlar için vergi avantajları ve net kazanç hesaplayıcı." />
+    <meta name="twitter:title" content="Remote Vergi — 2026 Vergi Hesaplama Aracı" />
+    <meta name="twitter:description" content="Yurtdışına remote çalışanlar için 2026 vergi hesaplayıcı." />
     <meta name="twitter:creator" content="@ahmet_php" />
 
     <meta name="google-site-verification" content="XB7geRnBWwTPHO2QKpGWLqsSw3uMxS9C7bZrDXVQ2P4" />
 
-    <title>Remote Vergi - Yurtdışına Çalışan Yazılımcılar İçin Vergi Hesaplama Aracı 🇹🇷</title>
+    <title>Remote Vergi — 2026 Yurtdışına Çalışanlar İçin Vergi Hesaplama 🇹🇷</title>
     <script type="module" src="./calculator.ts"></script>
     <script src="//cdn.tailwindcss.com?plugins=typography"></script>
     <script defer src="//unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -32,67 +31,146 @@
     <link rel="canonical" href="https://aozisik.github.io/remote-vergi/" />
     <link rel="preconnect" href="//fonts.googleapis.com">
     <link rel="preconnect" href="//fonts.gstatic.com" crossorigin>
-    <link href="//fonts.googleapis.com/css2?family=Dm+Sans:wght@400;700;900&display=swap" rel="stylesheet">
+    <link
+        href="//fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
 
     <script>
         tailwind.config = {
             theme: {
-                fontFamily: {
-                    'sans': ['DM Sans', 'sans-serif']
+                extend: {
+                    fontFamily: {
+                        'sans': ['Geist', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                        'mono': ['"Geist Mono"', 'ui-monospace', 'monospace']
+                    },
                 }
             }
         }
     </script>
     <style>
-        .bg-pattern {
-            background-color: #f8fafc;
-            background-image: linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
-            background-size: 20px 20px;
+        body {
+            font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+            background: #fafafa;
+            color: #0f172a;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
 
-        .github-corner:hover .octo-arm {
-            animation: octocat-wave 560ms ease-in-out;
+        .num {
+            font-family: 'Geist Mono', ui-monospace, monospace;
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: "tnum";
         }
 
-        @keyframes octocat-wave {
-
-            0%,
-            100% {
-                transform: rotate(0)
-            }
-
-            20%,
-            60% {
-                transform: rotate(-25deg)
-            }
-
-            40%,
-            80% {
-                transform: rotate(10deg)
-            }
+        /* Form input */
+        .field {
+            display: block;
         }
 
-        @media (max-width: 500px) {
-            .github-corner:hover .octo-arm {
-                animation: none;
-            }
-
-            .github-corner .octo-arm {
-                animation: octocat-wave 560ms ease-in-out;
-            }
+        .field-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #334155;
+            margin-bottom: 6px;
         }
+
+        .field-input {
+            display: flex;
+            align-items: stretch;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            transition: border-color 150ms ease, box-shadow 150ms ease;
+            overflow: hidden;
+        }
+
+        .field-input:hover {
+            border-color: #cbd5e1;
+        }
+
+        .field-input:focus-within {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+        }
+
+        .field-input .prefix {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            font-family: 'Geist Mono', ui-monospace, monospace;
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748b;
+            background: #f8fafc;
+            border-right: 1px solid #e2e8f0;
+        }
+
+        .field-input input {
+            flex: 1;
+            min-width: 0;
+            padding: 11px 14px;
+            font-family: 'Geist Mono', ui-monospace, monospace;
+            font-variant-numeric: tabular-nums;
+            font-size: 15px;
+            font-weight: 500;
+            color: #0f172a;
+            background: transparent;
+            border: 0;
+            outline: 0;
+        }
+
+        .field-input input::-webkit-outer-spin-button,
+        .field-input input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .field-input input { -moz-appearance: textfield; }
+
+        .field-help {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #64748b;
+            margin-top: 6px;
+        }
+
+        /* Card */
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+        }
+
+        /* Chevron */
+        .chev {
+            transition: transform 200ms ease;
+        }
+
+        .chev.open {
+            transform: rotate(90deg);
+        }
+
+        ::selection {
+            background: #6366f1;
+            color: #ffffff;
+        }
+
+        /* Subtle reveal */
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .rise { animation: rise 400ms ease-out both; }
     </style>
 
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#4f46e5">
-    <link rel="preload" as="font" href="//fonts.googleapis.com/css2?family=Dm+Sans:wght@400;700;900&display=swap"
-        crossorigin>
-    <link rel="preload" as="script" href="//unpkg.com/alpinejs@3.x.x/dist/cdn.min.js">
+    <meta name="theme-color" content="#6366f1">
 </head>
 
-<body class="bg-pattern min-h-screen" x-data="{
-        results: [], 
+<body class="min-h-screen" x-data="{
+        results: [],
         form: (() => {
             const params = new URLSearchParams(window.location.search);
             const encoded = params.get('data');
@@ -104,365 +182,391 @@
                 }
             }
             return {
-                income: '2000',
-                exchangeRate: '36.5',
-                accountingCosts: '1200',
-                youngEntrepreneur: 'yes'
+                income: '3000',
+                exchangeRate: '53',
+                accountingCosts: '4500',
+                ymmCost: '30000'
             };
-        })()
+        })(),
+        copied: false,
+        copyShare() {
+            const url = window.location.origin + window.location.pathname + '?data=' + btoa(JSON.stringify(this.form));
+            navigator.clipboard.writeText(url);
+            this.copied = true;
+            setTimeout(() => this.copied = false, 1800);
+        }
     }">
-    <a href="https://github.com/aozisik/remote-vergi" class="github-corner" aria-label="View source on GitHub">
-        <svg width="80" height="80" viewBox="0 0 250 250"
-            style="fill:#151513; color:#fff; position: fixed; top: 0; border: 0; right: 0; z-index: 50;"
-            aria-hidden="true">
-            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-            <path
-                d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-                fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-            <path
-                d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-                fill="currentColor" class="octo-body"></path>
-        </svg>
-    </a>
-    <main class="max-w-5xl mx-auto my-16 px-4">
-        <header class="max-w-2xl mx-auto mb-16">
-            <h1 class="text-4xl font-bold mb-6">🇹🇷 Remote Vergi</h1>
-            <p class="prose-lg text-gray-600">
-                Remote Vergi, Türkiye'den yurtdışı firmalara çalışarak döviz kazanan
-                yazılımcılar için hazırlanmıştır. Vergiler ve sabit giderleri düştükten sonra
-                kalan net kazancı hesaplar.
-            </p>
-            <p class="text-gray-500 text-sm mt-4">
-                Prim ve vergiler en son 7 Ocak 2025 tarihinde güncellenmiştir.
-            </p>
-            <p class="text-gray-400 text-xs mt-6">
-                Bu araç, vergiler hakkında sadece genel bir fikir edinmek için oluşturulmuştur ve bir mali danışmanlık
-                hizmeti değildir. Vergi hesaplamaları için
-                bir mali müşavir ile görüşünüz.
-            </p>
-        </header>
 
-        <div class="md:grid md:grid-cols-2 md:gap-8">
-            <!-- Form Column -->
-            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
-                <h2 class="text-xl font-semibold mb-6 text-gray-800">Bilgiler</h2>
-                <form class="space-y-6">
-                    <div>
-                        <label class="text-gray-700 font-medium mb-2 block">Aylık Kazanç</label>
-                        <div
-                            class="flex items-center border border-gray-200 hover:border-indigo-500 rounded-lg overflow-hidden transition-colors duration-200">
-                            <div class="p-3 bg-gray-50 text-gray-600 font-medium border-r border-gray-200">€</div>
-                            <input type="number" min="1" step="1" x-model="form.income"
-                                class="flex-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 block w-full p-3" />
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="text-gray-700 font-medium mb-2 block">Döviz Kuru</label>
-                        <div
-                            class="flex items-center border border-gray-200 hover:border-indigo-500 rounded-lg overflow-hidden transition-colors duration-200">
-                            <div class="p-3 bg-gray-50 text-gray-600 font-medium border-r border-gray-200">₺</div>
-                            <input type="number" min="1" step="1" x-model="form.exchangeRate"
-                                class="flex-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 block w-full p-3" />
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="text-gray-700 font-medium mb-2 block">Aylık Muhasebe Giderleri</label>
-                        <div
-                            class="flex items-center border border-gray-200 hover:border-indigo-500 rounded-lg overflow-hidden transition-colors duration-200">
-                            <div class="p-3 bg-gray-50 text-gray-600 font-medium border-r border-gray-200">₺</div>
-                            <input type="number" min="1" step="1" x-model="form.accountingCosts"
-                                class="flex-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 block w-full p-3" />
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="text-gray-700 font-medium mb-2 block">Genç girişimci desteği? (29 yaş
-                            altı)</label>
-                        <div class="space-x-4">
-                            <label
-                                class="border border-gray-200 px-5 py-3 inline-flex items-center rounded-lg hover:border-indigo-500 cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="gg1" value="yes" x-model="form.youngEntrepreneur"
-                                    class="mr-2 text-indigo-600" />
-                                <span>Evet</span>
-                            </label>
-
-                            <label
-                                class="border border-gray-200 px-5 py-3 inline-flex items-center rounded-lg hover:border-indigo-500 cursor-pointer transition-colors duration-200">
-                                <input type="radio" id="gg0" value="no" x-model="form.youngEntrepreneur"
-                                    class="mr-2 text-indigo-600" />
-                                <span>Hayır</span>
-                            </label>
-                        </div>
-                    </div>
-                </form>
+    <!-- Top bar -->
+    <header class="border-b border-slate-200 bg-white">
+        <div class="max-w-5xl mx-auto px-5 md:px-8 py-4 flex items-center justify-between">
+            <div class="flex items-baseline gap-2">
+                <span class="text-[15px] font-semibold text-slate-900">Remote Vergi</span>
+                <span class="text-[12px] text-slate-400 font-medium">2026</span>
             </div>
+            <a href="https://github.com/aozisik/remote-vergi" target="_blank"
+                class="text-[13px] text-slate-500 hover:text-slate-900 font-medium inline-flex items-center gap-1.5 transition">
+                <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                    <path
+                        d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.27-5.24-5.65 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.15 1.17.91-.25 1.89-.38 2.86-.38s1.95.13 2.86.38c2.18-1.48 3.14-1.17 3.14-1.17.62 1.57.23 2.73.11 3.02.74.8 1.18 1.82 1.18 3.07 0 4.39-2.7 5.36-5.27 5.64.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.79.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z" />
+                </svg>
+                GitHub
+            </a>
+        </div>
+    </header>
 
-            <!-- Results Column -->
-            <div class="mt-8 md:mt-0">
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6" x-data="{ 
-                        expandedSections: { expenses: false, taxes: false, income: true },
-                        groupedResults: {},
-                        async init() {
-                            results = await calculate(form);
-                            this.processResults(results);
-                            $watch('results', (value) => this.processResults(value));
-                        },
-                        processResults(results) {
-                            this.groupedResults = results.reduce((acc, item) => {
-                                const group = item[3];
-                                if (group) {
-                                    if (!acc[group]) {
-                                        acc[group] = { items: [], total: '' };
-                                    }
-                                    if (!item[1]) {
-                                        acc[group].total = item[0];
-                                    } else {
-                                        acc[group].items.push(item);
-                                    }
-                                } else {
-                                    if (!acc.other) acc.other = [];
-                                    acc.other.push(item);
-                                }
-                                return acc;
-                            }, {});
-                        }
-                    }"
-                    x-init="results = await calculate(form);$watch('form', async (value) => results = await calculate(value))">
-                    <h2 class="text-xl font-semibold mb-6 text-gray-800">Hesaplama Sonucu</h2>
-                    <table class="min-w-full">
-                        <tbody class="divide-y divide-gray-200">
-                            <!-- Regular items before groups -->
-                            <template x-for="item in groupedResults.other?.filter(item => item[4] === 'before')"
-                                :key="item[0]">
-                                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                                    <td class="py-4 pr-3 text-sm text-gray-600"
-                                        :class="{ 'font-semibold text-gray-900': !item[1] }">
-                                        <div x-text="item[0]"></div>
-                                    </td>
-                                    <td class="py-4 pl-3 text-right text-sm font-medium whitespace-nowrap"
-                                        x-text="item[1]"></td>
-                                </tr>
-                            </template>
+    <main class="max-w-5xl mx-auto px-5 md:px-8 pt-12 md:pt-16 pb-16">
+        <!-- Hero -->
+        <div class="max-w-2xl mb-10 md:mb-12">
+            <h1 class="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 mb-3">
+                Yurt dışına çalışanlar için vergi hesaplayıcı
+            </h1>
+            <p class="text-[15px] md:text-base text-slate-600 leading-relaxed">
+                Türkiye'den yurt dışı firmalara döviz kazanan yazılımcılar, mühendisler ve tasarımcılar için.
+                2026 mevzuatına göre %100 hizmet ihracatı istisnası ve YMM tasdiki dahil.
+            </p>
+        </div>
 
-                            <!-- Collapsible groups -->
-                            <template x-for="(group, groupName) in {
-                                'expenses': 'Sabit Giderler', 
-                                'taxes': 'Vergiler',
-                                'income': 'Net Gelir'
-                            }" :key="groupName">
-                                <template x-if="groupedResults[groupName]">
-                                    <tr>
-                                        <!-- Group header -->
-                                        <td colspan="2" class="p-0">
-                                            <div @click="expandedSections[groupName] = !expandedSections[groupName]"
-                                                class="flex items-center justify-between hover:bg-gray-50 transition-colors duration-150 cursor-pointer py-4 px-3">
-                                                <div class="flex items-center text-sm font-medium text-gray-900">
-                                                    <svg class="w-4 h-4 mr-2 transition-transform duration-200 flex-shrink-0"
-                                                        :class="expandedSections[groupName] ? 'rotate-90' : ''"
-                                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2" d="M9 5l7 7-7 7" />
-                                                    </svg>
-                                                    <span
-                                                        x-text="groupedResults[groupName].items.find(item => item[4] === 'total')[0]"></span>
-                                                </div>
-                                                <div class="text-sm font-medium whitespace-nowrap"
-                                                    x-text="groupedResults[groupName].items.find(item => item[4] === 'total')[1]">
-                                                </div>
-                                            </div>
+        <!-- Calculator: Form + Result -->
+        <div class="grid md:grid-cols-5 gap-5 md:gap-6 items-start">
+            <!-- Form -->
+            <section class="card p-5 md:p-6 md:col-span-2 rise">
+                <h2 class="text-sm font-semibold text-slate-900 mb-5">Bilgiler</h2>
+                <div class="space-y-4">
+                    <label class="field">
+                        <span class="field-label">Aylık kazanç</span>
+                        <span class="field-input">
+                            <span class="prefix">€</span>
+                            <input type="number" inputmode="decimal" min="1" step="1" x-model="form.income" />
+                        </span>
+                    </label>
 
-                                            <!-- Group items -->
-                                            <div x-show="expandedSections[groupName]" class="border-t border-gray-100">
-                                                <template
-                                                    x-for="item in groupedResults[groupName].items.filter(item => item[4] !== 'total')"
-                                                    :key="item[0]">
-                                                    <div
-                                                        class="flex items-center justify-between hover:bg-gray-50 transition-colors duration-150 bg-gray-50 py-3 px-3">
-                                                        <div class="pl-8 text-sm text-gray-600">
-                                                            <template x-if="!item[2]">
-                                                                <span x-text="item[0]"></span>
-                                                            </template>
-                                                            <template x-if="item[2]">
-                                                                <a x-bind:href="item[2]"
-                                                                    class="text-indigo-600 hover:text-indigo-800 border-b border-dashed border-indigo-300"
-                                                                    target="_blank" x-text="item[0]"></a>
-                                                            </template>
-                                                        </div>
-                                                        <div class="text-sm font-medium whitespace-nowrap"
-                                                            x-text="item[1]"></div>
-                                                    </div>
-                                                </template>
-                                            </div>
-                                        </td>
-                                    </tr>
+                    <label class="field">
+                        <span class="field-label">EUR / TRY kuru</span>
+                        <span class="field-input">
+                            <span class="prefix">₺</span>
+                            <input type="number" inputmode="decimal" min="1" step="0.01" x-model="form.exchangeRate" />
+                        </span>
+                    </label>
+
+                    <label class="field">
+                        <span class="field-label">Aylık muhasebe gideri</span>
+                        <span class="field-input">
+                            <span class="prefix">₺</span>
+                            <input type="number" inputmode="decimal" min="1" step="1"
+                                x-model="form.accountingCosts" />
+                        </span>
+                        <span class="field-help">TÜRMOB 2026 asgari tarifesi serbest meslek erbabı için ₺4.492/ay'dan başlar.</span>
+                    </label>
+
+                    <label class="field">
+                        <span class="field-label">Yıllık YMM tasdik ücreti</span>
+                        <span class="field-input">
+                            <span class="prefix">₺</span>
+                            <input type="number" inputmode="decimal" min="0" step="1" x-model="form.ymmCost" />
+                        </span>
+                        <span class="field-help">Yıllık indirim 500.000 ₺'yi aşmadığında hesaba katılmaz.</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Result -->
+            <section class="md:col-span-3 rise" style="animation-delay: 80ms;" x-data="{
+                    expandedSections: { expenses: true, taxes: true, income: true },
+                    groupedResults: {},
+                    async init() {
+                        results = await calculate(form);
+                        this.processResults(results);
+                        $watch('results', (value) => this.processResults(value));
+                    },
+                    processResults(results) {
+                        this.groupedResults = results.reduce((acc, item) => {
+                            const group = item[3];
+                            if (group) {
+                                if (!acc[group]) acc[group] = { items: [], total: '' };
+                                if (!item[1]) acc[group].total = item[0];
+                                else acc[group].items.push(item);
+                            } else {
+                                if (!acc.other) acc.other = [];
+                                acc.other.push(item);
+                            }
+                            return acc;
+                        }, {});
+                    },
+                    netAnnual() { const i = this.groupedResults.income; return i ? i.items.find(x => x[0].includes('Yıllık')) : null; },
+                    netMonthly() { const i = this.groupedResults.income; return i ? i.items.find(x => x[0].includes('Aylık Gelir') && !x[0].includes('€')) : null; },
+                    netMonthlyEur() { const i = this.groupedResults.income; return i ? i.items.find(x => x[0].includes('€')) : null; },
+                    parseAmount(s) { return s ? Number(String(s).replace(/[^\d]/g, '')) : 0; },
+                    formatTL(n) { return '₺' + new Intl.NumberFormat('tr-TR').format(Math.round(n)); },
+                    get pieNet() { return this.parseAmount(this.groupedResults.income?.items?.find(i => i[0].includes('Yıllık'))?.[1]); },
+                    get pieDamga() { return this.parseAmount(this.groupedResults.expenses?.items?.find(i => i[0].includes('Damga'))?.[1]); },
+                    get pieVergi() {
+                        const incomeTax = this.parseAmount(this.groupedResults.taxes?.items?.find(i => i[4] === 'total')?.[1]);
+                        return incomeTax + this.pieDamga;
+                    },
+                    get pieSigorta() { return this.parseAmount(this.groupedResults.expenses?.items?.find(i => i[0].includes('Bağkur'))?.[1]); },
+                    get pieMuhasebe() {
+                        const exp = this.groupedResults.expenses;
+                        if (!exp) return 0;
+                        const total = this.parseAmount(exp.items.find(i => i[4] === 'total')?.[1]);
+                        return Math.max(0, total - this.pieSigorta - this.pieDamga);
+                    },
+                    get pieTotal() { return this.pieNet + this.pieVergi + this.pieSigorta + this.pieMuhasebe; },
+                    get pieSegments() {
+                        const total = this.pieTotal || 1;
+                        return [
+                            { label: 'Net Gelir', value: this.pieNet, color: '#4f46e5' },
+                            { label: 'Vergi', value: this.pieVergi, color: '#dc2626' },
+                            { label: 'Sigorta', value: this.pieSigorta, color: '#d97706' },
+                            { label: 'Muhasebe', value: this.pieMuhasebe, color: '#475569' }
+                        ].map(s => ({
+                            ...s,
+                            amount: this.formatTL(s.value),
+                            pctNum: (s.value / total) * 100,
+                            pct: ((s.value / total) * 100).toFixed(1) + '%'
+                        }));
+                    },
+                    get pieStyle() {
+                        const total = this.pieTotal || 1;
+                        let cursor = 0;
+                        const stops = this.pieSegments.map(s => {
+                            const start = cursor;
+                            cursor += (s.value / total) * 100;
+                            return s.color + ' ' + start + '% ' + cursor + '%';
+                        });
+                        return 'background: conic-gradient(' + stops.join(', ') + ');';
+                    }
+                }"
+                x-init="results = await calculate(form);$watch('form', async (value) => results = await calculate(value))">
+
+                <!-- Hero number card -->
+                <div class="card p-5 md:p-7 mb-5 bg-gradient-to-br from-indigo-50/40 via-white to-white border-indigo-100">
+                    <p class="text-[12px] uppercase tracking-wider text-slate-500 font-semibold mb-2">Net Yıllık Kazanç</p>
+                    <template x-if="netAnnual()">
+                        <p class="num font-semibold text-slate-900 tracking-tight leading-none break-words"
+                            style="font-size: clamp(2rem, 6vw, 3.25rem);"
+                            x-text="netAnnual()[1]"></p>
+                    </template>
+                    <template x-if="!netAnnual()">
+                        <p class="num font-semibold text-slate-300 tracking-tight"
+                            style="font-size: clamp(2rem, 6vw, 3.25rem);">—</p>
+                    </template>
+
+                    <div class="grid grid-cols-2 gap-4 mt-5 pt-5 border-t border-slate-100">
+                        <div>
+                            <p class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-1">Aylık (₺)</p>
+                            <p class="num text-lg md:text-xl font-semibold text-slate-900 break-words"
+                                x-text="netMonthly() ? netMonthly()[1] : '—'"></p>
+                        </div>
+                        <div>
+                            <p class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-1">Aylık (€)</p>
+                            <p class="num text-lg md:text-xl font-semibold text-slate-900 break-words"
+                                x-text="netMonthlyEur() ? netMonthlyEur()[1] : '—'"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Validation messages -->
+                <template x-for="item in groupedResults.other?.filter(item => item[4] === 'before')" :key="item[0]">
+                    <div class="card p-4 mb-5 border-amber-200 bg-amber-50">
+                        <p class="text-[14px] text-amber-900 font-medium" x-text="item[0]"></p>
+                    </div>
+                </template>
+
+                <!-- Distribution chart -->
+                <template x-if="pieTotal > 0">
+                    <div class="card p-5 md:p-6 mb-5">
+                        <p class="text-[12px] uppercase tracking-wider text-slate-500 font-semibold mb-5">Dağılım</p>
+                        <div class="flex items-center gap-5 md:gap-7 flex-wrap">
+                            <div class="relative w-28 h-28 md:w-32 md:h-32 rounded-full shrink-0" :style="pieStyle">
+                                <div class="absolute inset-[22%] rounded-full bg-white"></div>
+                            </div>
+                            <div class="flex-1 min-w-[180px] space-y-3">
+                                <template x-for="seg in pieSegments" :key="seg.label">
+                                    <div class="flex items-center justify-between gap-3 text-[13px]">
+                                        <div class="flex items-center gap-2.5 min-w-0">
+                                            <span class="w-2.5 h-2.5 rounded-sm shrink-0" :style="`background: ${seg.color}`"></span>
+                                            <span class="text-slate-700" x-text="seg.label"></span>
+                                        </div>
+                                        <div class="flex items-baseline gap-3 shrink-0">
+                                            <span class="num text-slate-500 text-[12px]" x-text="seg.amount"></span>
+                                            <span class="num text-slate-900 font-medium w-12 text-right" x-text="seg.pct"></span>
+                                        </div>
+                                    </div>
                                 </template>
-                            </template>
-
-                            <!-- Regular items after groups -->
-                            <template x-for="item in groupedResults.other?.filter(item => item[4] === 'after')"
-                                :key="item[0]">
-                                <tr class="hover:bg-gray-50 transition-colors duration-150">
-                                    <td class="py-4 pr-3 text-sm text-gray-600"
-                                        :class="{ 'font-semibold text-gray-900': !item[1] }">
-                                        <div x-text="item[0]"></div>
-                                    </td>
-                                    <td class="py-4 pl-3 text-right text-sm font-medium whitespace-nowrap"
-                                        x-text="item[1]"></td>
-                                </tr>
-                            </template>
-                        </tbody>
-                    </table>
-
-                    <!-- Add this after the results table, but still inside the results card -->
-                    <div class="mt-6 pt-6 border-t border-gray-100">
-                        <div class="flex flex-col space-y-2">
-                            <label class="text-sm text-gray-600 font-medium">Bu sonucu paylaş:</label>
-                            <div class="flex items-center gap-2">
-                                <input type="text" x-ref="shareUrl"
-                                    :value="window.location.origin + window.location.pathname + '?data=' + btoa(JSON.stringify(form))"
-                                    class="flex-1 text-sm bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-indigo-500"
-                                    readonly />
-                                <button
-                                    @click="$refs.shareUrl.select(); navigator.clipboard.writeText($refs.shareUrl.value)"
-                                    class="inline-flex items-center px-3 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-600 hover:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-colors duration-200">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
-                                    </svg>
-                                    <span class="ml-1">Kopyala</span>
-                                </button>
                             </div>
                         </div>
                     </div>
+                </template>
+
+                <!-- Breakdown card -->
+                <div class="card overflow-hidden">
+                    <template x-for="(label, groupName) in {
+                            'expenses': 'Sabit Giderler',
+                            'taxes': 'Vergiler'
+                        }" :key="groupName">
+                        <template x-if="groupedResults[groupName]">
+                            <div class="border-b border-slate-100 last:border-b-0">
+                                <button type="button" @click="expandedSections[groupName] = !expandedSections[groupName]"
+                                    class="w-full flex items-center justify-between p-4 md:px-5 hover:bg-slate-50 transition group">
+                                    <div class="flex items-center gap-3">
+                                        <span class="chev text-slate-400"
+                                            :class="expandedSections[groupName] ? 'open text-slate-700' : ''">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                                class="w-3.5 h-3.5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </span>
+                                        <span class="text-[14px] font-medium text-slate-900" x-text="label"></span>
+                                    </div>
+                                    <span class="num text-[14px] font-semibold text-slate-900"
+                                        x-text="groupedResults[groupName].items.find(item => item[4] === 'total')[1]"></span>
+                                </button>
+                                <div x-show="expandedSections[groupName]" x-transition.opacity
+                                    class="px-5 pb-4 pt-1 bg-slate-50/60 border-t border-slate-100">
+                                    <template
+                                        x-for="item in groupedResults[groupName].items.filter(item => item[4] !== 'total')"
+                                        :key="item[0]">
+                                        <div class="flex items-center justify-between py-2 text-[13px]">
+                                            <span class="text-slate-600 pr-3">
+                                                <template x-if="!item[2]">
+                                                    <span x-text="item[0]"></span>
+                                                </template>
+                                                <template x-if="item[2]">
+                                                    <a x-bind:href="item[2]" target="_blank"
+                                                        class="text-indigo-600 hover:text-indigo-800 hover:underline"
+                                                        x-text="item[0]"></a>
+                                                </template>
+                                            </span>
+                                            <span class="num text-slate-900 font-medium whitespace-nowrap" x-text="item[1]"></span>
+                                        </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </template>
                 </div>
-            </div>
+
+                <!-- Share -->
+                <div class="mt-5 flex items-center justify-between text-[13px]">
+                    <span class="text-slate-500">Bu hesabı paylaş</span>
+                    <button @click="copyShare()"
+                        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-indigo-300 hover:text-indigo-700 hover:bg-indigo-50 font-medium transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" class="w-3.5 h-3.5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184" />
+                        </svg>
+                        <span x-show="!copied">Linki kopyala</span>
+                        <span x-show="copied" style="color: #4f46e5;">Kopyalandı</span>
+                    </button>
+                </div>
+            </section>
         </div>
-    </main>
 
-    <!-- Add this after the calculator div -->
-    <aside class="max-w-3xl mx-auto mt-24 px-4">
-        <article class="prose prose-lg mx-auto">
-            <h2>Yurtdışına Freelance/Remote Çalışanlar İçin Vergi Rehberi</h2>
+        <!-- Article -->
+        <article class="prose prose-slate max-w-2xl mx-auto mt-24 md:mt-32
+            prose-headings:tracking-tight prose-headings:font-semibold
+            prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
+            prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
+            prose-p:text-slate-600 prose-p:leading-relaxed prose-p:text-[15px]
+            prose-li:text-slate-600 prose-li:text-[15px]
+            prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium
+            prose-strong:text-slate-900">
 
-            <h3>Kimler İçin Geçerli?</h3>
+            <h2>2026 vergi rehberi</h2>
             <p>
-                Bu vergi hesaplama aracı aşağıdaki durumlardan birine uyan kişiler için tasarlanmıştır:
+                30 Nisan 2026 tarihli Resmî Gazete'de yayımlanan <strong>11257 sayılı Cumhurbaşkanı Kararı</strong> ile
+                yurt dışına verilen yazılım, mühendislik, mimarlık, tasarım, eğitim ve sağlık hizmetlerinde uygulanan
+                kazanç indirimi oranı %80'den <strong>%100'e</strong> yükseltildi. Şartların sağlanması durumunda
+                kazancın tamamı gelir vergisinden istisna tutulabilmektedir.
+            </p>
+
+            <h3>YMM tasdik raporu zorunluluğu</h3>
+            <p>
+                49 No'lu Genel Tebliğ ile birlikte hizmet ihracatı kazanç indiriminden yararlanmak için belirli
+                eşiklerin aşılması durumunda Yeminli Mali Müşavir tasdik raporu hazırlatmanız zorunludur:
             </p>
             <ul>
-                <li>Yurtdışındaki şirketlere uzaktan (remote) çalışan yazılımcılar</li>
-                <li>Freelance olarak yurtdışına hizmet veren dijital profesyoneller</li>
-                <li>Şahıs şirketi üzerinden yurtdışına yazılım hizmeti verenler</li>
-                <li>Yurtdışı müşterilere danışmanlık hizmeti verenler</li>
+                <li>Yıllık hizmet ihracatı indirim tutarı <strong>500.000 ₺</strong>'yi aşıyorsa zorunlu.</li>
+                <li>Toplam istisna ve indirimler <strong>1.000.000 ₺</strong>'yi aşıyorsa zorunlu.</li>
+                <li>Beyanname verme süresinden itibaren 2 ay içinde ibraz edilmelidir.</li>
+                <li>Süresinde ibraz edilmezse istisna iptal, asgari 400.000 ₺ özel usulsüzlük cezası.</li>
             </ul>
 
-            <h3>Vergi Avantajları</h3>
+            <h3>Sıkça sorulan sorular</h3>
+
+            <h4>Hangi mükellefiyet türü uygun: şahıs şirketi mi, serbest meslek mi?</h4>
             <p>
-                Türkiye'den yurtdışına yazılım ve bilişim hizmeti veren kişiler için önemli vergi avantajları
-                bulunmaktadır:
+                Mesleğe göre değişir. <strong>Mühendis, mimar, doktor, avukat, mali müşavir, sanatçı</strong> gibi
+                Vergi Usul Kanunu'nda sayılan meslek mensupları <strong>serbest meslek erbabı</strong> olarak
+                kayıt yaptırabilir ve hizmetleri için <em>serbest meslek makbuzu</em> düzenler.
+                <strong>Yazılımcı, dijital tasarımcı, içerik üreticisi, dijital pazarlamacı</strong> gibi roller
+                ise yasal sınıflandırmada serbest meslek sayılmadığı için <strong>şahıs şirketi (ticari kazanç)</strong>
+                üzerinden fatura keser.
             </p>
+            <p>
+                Yurt dışı hizmet ihracatı %100 kazanç istisnası <strong>her iki yapı için de geçerli</strong>;
+                kazanç indirimi şartları (faturanın yurt dışı müşteri adına kesilmesi, dövizin Türkiye'ye
+                getirilmesi) aynıdır. Hangi yapı sizin için uygunsa onunla ilerleyebilirsiniz; ikisi arasında
+                gider kalemleri ve stopaj uygulamaları farklılık gösterdiği için bir mali müşavire danışmanız
+                önerilir.
+            </p>
+
+            <h4>%100 istisnadan nasıl yararlanılır?</h4>
+            <p>
+                Faturanın yurt dışındaki müşteri adına kesilmesi, bedelin Türkiye'ye döviz olarak getirilmesi ve
+                hizmetin yurt dışında değerlendirilmesi gerekir.
+            </p>
+
+            <h4>Genç girişimci desteği 2026'da hâlâ var mı?</h4>
+            <p>
+                Gelir vergisi tarafı yürürlükte: 29 yaşını doldurmamış ve ilk defa iş kuran girişimciler için 3 takvim
+                yılı boyunca 400.000 ₺'ye kadar kazanç istisnası uygulanır. Ancak <strong>1 Ocak 2026 sonrasında işe
+                başlayanlar için Bağ-Kur prim desteği kaldırılmıştır.</strong> %100 hizmet ihracatı istisnasından
+                yararlananlar için bu istisna ek bir vergi avantajı sağlamadığından hesaplayıcıdan çıkarılmıştır.
+            </p>
+
+            <h3>2026 oran ve limitleri</h3>
             <ul>
-                <li>Yazılım ihracatında %80 vergi istisnası</li>
-                <li>29 yaş altı girişimciler için ek vergi muafiyeti</li>
-                <li>Yurtdışı kazançlarda KDV istisnası</li>
+                <li>Hizmet ihracatı kazanç istisnası: <strong>%100</strong></li>
+                <li>YMM tasdik raporu zorunluluk eşiği: 500.000 ₺</li>
+                <li>Genç girişimci kazanç istisnası: 400.000 ₺</li>
+                <li>Bağ-Kur primi (asgari, aylık): ~11.808 ₺</li>
+                <li>SMMM aylık asgari (TÜRMOB): 4.492 ₺</li>
+                <li>Gelir vergisi dilim aralığı: %15 — %40</li>
             </ul>
 
-            <h3>Sıkça Sorulan Sorular</h3>
-
-            <h4>Yurtdışına remote çalışırken şahıs şirketi açmak zorunlu mu?</h4>
-            <p>
-                Evet, yurtdışına düzenli olarak hizmet veriyorsanız şahıs şirketi açmanız gerekmektedir. Bu, hem yasal
-                bir zorunluluk hem de
-                vergi avantajlarından yararlanabilmeniz için gereklidir.
-            </p>
-
-            <h4>Yazılım ihracatında %80 vergi istisnası nasıl uygulanıyor?</h4>
-            <p>
-                Yurtdışına verilen yazılım hizmetlerinde, kazancın %80'i gelir vergisinden istisnadır. Bu istisna,
-                vergilendirilebilir
-                gelirin hesaplanmasında düşülür ve kalan %20 üzerinden vergi hesaplanır.
-            </p>
-
-            <h4>Genç girişimci desteği nedir?</h4>
-            <p>
-                29 yaşını doldurmamış genç girişimciler için ilk defa iş kurmaları halinde 3 yıl boyunca 330.000 TL'ye
-                kadar kazançları gelir vergisinden istisnadır. Bu destek, diğer vergi avantajlarıyla birlikte
-                kullanılabilir.
-            </p>
-
-            <h3>Önemli Bağlantılar</h3>
+            <h3>Kaynaklar</h3>
             <ul>
                 <li><a href="https://www.gib.gov.tr" target="_blank" rel="noopener">Gelir İdaresi Başkanlığı</a></li>
-                <li><a href="https://www.vergidosyasi.com" target="_blank" rel="noopener">Vergi Dosyası</a></li>
-                <li><a href="https://www.ivdb.gov.tr" target="_blank" rel="noopener">İstanbul Vergi Dairesi
-                        Başkanlığı</a></li>
+                <li><a href="https://www.alomaliye.com/2026/01/27/yurtdisi-hizmet-ihraci-istisnasinda-yeni-donem/"
+                        target="_blank" rel="noopener">Yurt Dışı Hizmet İhracı İstisnasında Yeni Dönem</a></li>
+                <li><a href="https://www.alomaliye.com/2025/12/30/istisna-ve-indirimler-icin-ymm-tasdik-raporu-zorunlulugu/"
+                        target="_blank" rel="noopener">İstisna ve İndirimler İçin YMM Tasdik Raporu Zorunluluğu</a></li>
             </ul>
+        </article>
+    </main>
 
-            <h3>Güncel Vergi Oranları ve Limitler (2025)</h3>
-            <ul>
-                <li>Yazılım ihracatı vergi istisnası: %80</li>
-                <li>Genç girişimci kazanç istisnası: 330.000 TL</li>
-                <li>Gelir vergisi dilimleri: %15 - %40</li>
-                <li>Bağ-Kur primi: Aylık yaklaşık 7.671 TL</li>
-            </ul>
-
-            <h3>Bu Araç Hakkında</h3>
-            <p>
-                Remote Vergi, yurtdışına çalışan yazılımcıların vergi hesaplamalarını kolaylaştırmak için
-                geliştirilmiş açık kaynaklı bir araçtır.
-            </p>
-
-            <div class="flex items-center gap-4 my-8">
-                <div>
+    <footer class="border-t border-slate-200 bg-white mt-16">
+        <div class="max-w-5xl mx-auto px-5 md:px-8 py-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-[13px]">
+                <div class="text-slate-600">
                     Geliştirici:
                     <a href="https://ahmet.ee" target="_blank" rel="noopener"
-                        class="font-medium text-indigo-600 hover:text-indigo-800">
-                        Ahmet Özışık</a>,
+                        class="font-medium text-slate-900 hover:text-indigo-600 transition">Ahmet Özışık</a>,
                     <a href="https://swiftmade.co" target="_blank" rel="noopener"
-                        class="font-medium text-indigo-600 hover:text-indigo-800">
-                        Swiftmade OÜ
-                    </a>
+                        class="font-medium text-slate-900 hover:text-indigo-600 transition">Swiftmade OÜ</a>
+                </div>
+                <div class="text-slate-400">
+                    Son güncelleme: 6 Mayıs 2026
                 </div>
             </div>
-
-            <div class="text-sm text-gray-500 mt-12">
+            <div class="mt-6 pt-6 border-t border-slate-100 text-[12px] text-slate-500 leading-relaxed space-y-2">
                 <p>
-                    Son güncelleme: 7 Ocak 2025
-                </p>
-                <p>
-                    Not: Vergi mevzuatı sürekli değişmektedir. En güncel bilgiler için her zaman bir mali müşavire
-                    danışmanızı öneririz.
-                </p>
-            </div>
-        </article>
-    </aside>
-
-    <!-- Simplified footer with just the disclaimer -->
-    <footer class="max-w-3xl mx-auto mt-8 px-4 pb-16">
-        <div class="prose prose-lg mx-auto">
-            <hr class="my-8">
-
-            <h3 class="text-base">Yasal Uyarı</h3>
-            <div class="text-gray-500 text-xs space-y-4">
-                <p>
-                    Bu web sitesi ve vergi hesaplama aracı, yalnızca bilgilendirme amaçlıdır ve herhangi bir yasal
-                    tavsiye niteliği taşımamaktadır. Sunulan bilgiler ve hesaplamalar, genel vergi kurallarına
-                    dayanmakta olup, özel durumunuza özgü farklılıklar gösterebilir.
-                </p>
-
-                <p>
-                    Vergi mevzuatı karmaşık olup sürekli değişmektedir. Bu nedenle, vergi planlamanızı yaparken
-                    mutlaka bir mali müşavir veya vergi danışmanına başvurmanızı öneririz. Bu araçta yapılan
-                    hesaplamalar ve sunulan bilgiler nedeniyle oluşabilecek herhangi bir zarardan dolayı sorumluluk
-                    kabul edilmemektedir.
-                </p>
-
-                <p>
-                    Tüm hesaplamalar yaklaşık değerler içermekte olup, gerçek vergi yükümlülükleriniz farklılık
-                    gösterebilir. Özellikle döviz kurları, vergi dilimleri ve muafiyet limitleri gibi değişkenler
-                    sürekli güncellenmektedir.
+                    Bu araç bilgilendirme amaçlıdır ve mali danışmanlık hizmeti yerine geçmez. Vergi planlamanız için
+                    bir mali müşavire başvurunuz. Hesaplamalar yaklaşık değerler içerir; gerçek vergi yükümlülükleriniz
+                    farklılık gösterebilir.
                 </p>
             </div>
         </div>
@@ -473,7 +577,7 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "Remote Vergi",
-      "description": "Yurtdışına remote çalışan yazılımcılar için vergi hesaplama aracı",
+      "description": "Yurtdışına remote çalışan yazılımcılar için 2026 mevzuatına göre vergi hesaplama aracı",
       "url": "https://aozisik.github.io/remote-vergi/",
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Any",
@@ -492,38 +596,25 @@
       "@type": "FAQPage",
       "mainEntity": [{
         "@type": "Question",
-        "name": "Yurtdışına remote çalışırken şahıs şirketi açmak zorunlu mu?",
+        "name": "Yurtdışına remote çalışırken hangi mükellefiyet türü açılır?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Evet, yurtdışına düzenli olarak hizmet veriyorsanız şahıs şirketi açmanız gerekmektedir. Bu, hem yasal bir zorunluluk hem de vergi avantajlarından yararlanabilmeniz için gereklidir."
+          "text": "Mesleğe göre değişir. Mühendis, mimar, doktor, avukat, mali müşavir, sanatçı gibi Vergi Usul Kanunu'nda sayılan meslek mensupları serbest meslek erbabı olarak kayıt yaptırabilir. Yazılımcı, dijital tasarımcı, içerik üreticisi gibi roller şahıs şirketi (ticari kazanç) üzerinden fatura keser. Yurt dışı hizmet ihracatı %100 kazanç istisnası her iki yapı için de geçerlidir."
         }
       }, {
         "@type": "Question",
-        "name": "Yazılım ihracatında %80 vergi istisnası nasıl uygulanıyor?",
+        "name": "Hizmet ihracatında %100 kazanç istisnası nasıl uygulanıyor?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yurtdışına verilen yazılım hizmetlerinde, kazancın %80'i gelir vergisinden istisnadır. Bu istisna, vergilendirilebilir gelirin hesaplanmasında düşülür ve kalan %20 üzerinden vergi hesaplanır."
+          "text": "30 Nisan 2026 tarihli Resmî Gazete'de yayımlanan 11257 sayılı Cumhurbaşkanı Kararı ile yurt dışına verilen yazılım, mühendislik, mimarlık, tasarım, eğitim ve sağlık hizmetlerinde uygulanan kazanç indirimi oranı %80'den %100'e yükseltilmiştir."
         }
       }, {
         "@type": "Question",
-        "name": "Genç girişimci desteği nedir?",
+        "name": "YMM tasdik raporu ne zaman zorunlu olur?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "29 yaşını doldurmamış genç girişimciler için ilk defa iş kurmaları halinde 3 yıl boyunca 330.000 TL'ye kadar kazançları gelir vergisinden istisnadır. Bu destek, diğer vergi avantajlarıyla birlikte kullanılabilir."
+          "text": "Yıllık hizmet ihracatı indirim tutarı 500.000 TL'yi veya toplam istisna ve indirimler 1.000.000 TL'yi aştığında YMM tasdik raporu zorunludur."
         }
-      }]
-    }
-    </script>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [{
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Ana Sayfa",
-        "item": "https://aozisik.github.io/remote-vergi/"
       }]
     }
     </script>

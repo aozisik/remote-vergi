@@ -1,40 +1,29 @@
-// 2025 Değerleri
-export const BAGKUR_PREMIUM = 7671.38;
-
-// Genç girişimci istisnası
-export const YOUNG_ENTREPRENEUR_EXEMPTION = 330_000;
+// 2026 Değerleri
+export const BAGKUR_PREMIUM = 11_808.23;
 
 /**
- * Yıllık toplam damga vergisi yükü
+ * Yıllık toplam damga vergisi yükü (2026)
  *
- * KDV Beyannamesi Damga Vergisi:
- * Ödeme sıklığı: Her ay
- * Tutar: 443,74 TL × 12 ay = 5.324,88 TL/yıl
- *
- * Gelir Geçici Beyannamesi Damga Vergisi:
- * Ödeme sıklığı: 3 ayda bir (Mart, Haziran, Eylül, Aralık)
- * Tutar: 691,15 TL × 4 dönem = 2.764,60 TL/yıl
- *
- * Muhtasar Beyannamesi Damga Vergisi:
- * Ödeme sıklığı: 3 ayda bir
- * Tutar: 526,06 TL × 4 dönem = 2.104,24 TL/yıl
- * Yıllık Gelir Vergisi Beyannamesi Damga Vergisi:
- *
- * Ödeme sıklığı: Yılda bir kez (Mart ayında)
- * Tutar: 1.438,15 TL/yıl
- *
- * Toplam Yıllık Damga Vergisi: 11.631,87 TL
+ * 2026 maktu damga vergisi tutarları, yeniden değerleme oranı (%18,95) ile
+ * artırılmış 2025 toplamına dayanılarak yaklaşık olarak hesaplanmıştır.
+ * Beyanname türlerinin (KDV, geçici, muhtasar, yıllık) güncel maktu tutarları
+ * için resmî GİB tarifesine bakılmalıdır.
  */
-export const ANNUAL_STAMP_TAX = 11_631.87;
+export const ANNUAL_STAMP_TAX = 13_836.11;
 
-// Yazılım hizmeti ihracatı istisnası
-export const SOFTWARE_SERVICE_EXPORT_EXEMPTION = 0.8;
+// Yurt dışına verilen hizmetlerde kazanç indirimi
+// (Cumhurbaşkanı Kararı 11257, 30.04.2026 tarihli RG ile %80 → %100)
+export const SOFTWARE_SERVICE_EXPORT_EXEMPTION = 1.0;
 
-// Vergi dilimleri
+// 49 No'lu Tebliğ ile getirilen YMM tasdik raporu zorunluluk eşiği.
+// Yıllık indirim tutarı bu eşiği aşarsa YMM tasdik raporu zorunludur.
+export const YMM_TASDIK_THRESHOLD = 500_000;
+
+// 2026 Gelir Vergisi Dilimleri (Ücret Dışı Gelirler)
 export const TAX_BRACKETS = [
-  [158_000, 0.15],
-  [330_000, 0.2],
-  [800_000, 0.27],
-  [4_300_000, 0.35],
+  [190_000, 0.15],
+  [400_000, 0.2],
+  [1_000_000, 0.27],
+  [5_300_000, 0.35],
   [Number.MAX_SAFE_INTEGER, 0.4],
 ];
