@@ -93,15 +93,117 @@ const ogImageUrl = new URL(ogImage, siteUrl).toString();
             <span class="text-[12px] text-slate-400 font-medium">2026</span>
           </a>
           <nav
-            class="hidden md:flex items-center gap-5 text-[13px] font-medium text-slate-600"
+            class="hidden md:flex items-center gap-1 text-[13px] font-medium text-slate-600"
+            data-primary-nav
           >
-            <a href="/" class="hover:text-slate-900 transition">Hesaplayıcı</a>
-            <a href="/hizmet-ihracati" class="hover:text-slate-900 transition"
-              >Hizmet İhracatı</a
+            <a
+              href="/"
+              class="px-2.5 py-1.5 rounded-md hover:text-slate-900 hover:bg-slate-50 transition"
+              >Hesaplayıcı</a
             >
-            <a href="/sahis-sirketi" class="hover:text-slate-900 transition"
-              >Şahıs Şirketi</a
-            >
+
+            <details name="primary-nav" class="relative">
+              <summary
+                class="px-2.5 py-1.5 rounded-md cursor-pointer hover:text-slate-900 hover:bg-slate-50 inline-flex items-center gap-1 select-none transition list-none [&::-webkit-details-marker]:hidden"
+              >
+                Hizmet İhracatı
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  class="nav-chev w-3 h-3 text-slate-400 transition-transform"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 9l6 6 6-6"></path>
+                </svg>
+              </summary>
+              <div
+                class="absolute top-full left-0 mt-1.5 min-w-[260px] bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden z-50"
+              >
+                <a
+                  href="/hizmet-ihracati"
+                  class="block px-4 py-2.5 hover:bg-slate-50 transition"
+                >
+                  <div class="text-[13px] font-medium text-slate-900">
+                    Genel Rehber
+                  </div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">
+                    2026 mevzuatı, %100 istisna
+                  </div>
+                </a>
+                <a
+                  href="/hizmet-ihracati-istisnasi"
+                  class="block px-4 py-2.5 hover:bg-slate-50 transition border-t border-slate-100"
+                >
+                  <div class="text-[13px] font-medium text-slate-900">
+                    İstisna ve YMM Tasdiki
+                  </div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">
+                    11257 sayılı Karar, 49 No'lu Tebliğ
+                  </div>
+                </a>
+                <a
+                  href="/302-11-1-a-fatura-ornegi"
+                  class="block px-4 py-2.5 hover:bg-slate-50 transition border-t border-slate-100"
+                >
+                  <div class="text-[13px] font-medium text-slate-900">
+                    e-Arşiv 302 Faturası
+                  </div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">
+                    Alan adları, muafiyet kodu, döviz
+                  </div>
+                </a>
+              </div>
+            </details>
+
+            <details name="primary-nav" class="relative">
+              <summary
+                class="px-2.5 py-1.5 rounded-md cursor-pointer hover:text-slate-900 hover:bg-slate-50 inline-flex items-center gap-1 select-none transition list-none [&::-webkit-details-marker]:hidden"
+              >
+                Şahıs Şirketi
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  class="nav-chev w-3 h-3 text-slate-400 transition-transform"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 9l6 6 6-6"></path>
+                </svg>
+              </summary>
+              <div
+                class="absolute top-full left-0 mt-1.5 min-w-[260px] bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden z-50"
+              >
+                <a
+                  href="/sahis-sirketi"
+                  class="block px-4 py-2.5 hover:bg-slate-50 transition"
+                >
+                  <div class="text-[13px] font-medium text-slate-900">
+                    Genel Rehber
+                  </div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">
+                    Yaşam döngüsü, hızlı bakış
+                  </div>
+                </a>
+                <a
+                  href="/sahis-sirketi-nasil-kurulur"
+                  class="block px-4 py-2.5 hover:bg-slate-50 transition border-t border-slate-100"
+                >
+                  <div class="text-[13px] font-medium text-slate-900">
+                    Nasıl Kurulur
+                  </div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">
+                    Mali müşavir, MERSİS, vergi dairesi
+                  </div>
+                </a>
+              </div>
+            </details>
           </nav>
         </div>
         <div class="flex items-center gap-2 shrink-0">
@@ -226,6 +328,34 @@ const ogImageUrl = new URL(ogImage, siteUrl).toString();
       dialog?.addEventListener('click', (event) => {
         if (event.target === dialog) {
           dialog.close();
+        }
+      });
+
+      // Nav dropdowns: close on outside click, on link click, or on Escape.
+      document.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement;
+        document
+          .querySelectorAll<HTMLDetailsElement>('nav[data-primary-nav] details[open]')
+          .forEach((details) => {
+            if (!details.contains(target)) {
+              details.removeAttribute('open');
+            }
+          });
+      });
+      document.querySelectorAll<HTMLAnchorElement>(
+        'nav[data-primary-nav] details a'
+      ).forEach((link) => {
+        link.addEventListener('click', () => {
+          link.closest('details')?.removeAttribute('open');
+        });
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          document
+            .querySelectorAll<HTMLDetailsElement>(
+              'nav[data-primary-nav] details[open]'
+            )
+            .forEach((details) => details.removeAttribute('open'));
         }
       });
     </script>
@@ -373,6 +503,10 @@ const ogImageUrl = new URL(ogImage, siteUrl).toString();
 
       .chev.open {
         transform: rotate(90deg);
+      }
+
+      details[open] > summary > .nav-chev {
+        transform: rotate(180deg);
       }
 
       ::selection {

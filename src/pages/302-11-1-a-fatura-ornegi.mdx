@@ -1,137 +1,169 @@
 ---
 layout: ../layouts/ArticleLayout.astro
-title: "302 (KDV 11/1-a) Hizmet İhracatı Fatura Örneği (2026)"
-description: "Yurt dışı müşteriye kesilecek hizmet ihracatı faturası nasıl düzenlenir? 302 istisna kodu, %0 KDV, döviz cinsi, kopyalanabilir e-Fatura örneği ve yaygın hatalar."
+title: "302 (KDV 11/1-a) Hizmet İhracatı Faturası: e-Arşiv'de Nasıl Kesilir? (2026)"
+description: "Yurt dışı müşteriye e-Arşiv fatura nasıl kesilir? Senaryo (EARSIVFATURA), Fatura Tipi (ISTISNA), 302 muafiyet kodu, foreign customer VKN 2222222222, döviz kuru. Gerçek alan adları ile adım adım rehber."
 dateModified: "2026-05-07"
 faq:
   - question: "302 istisna kodu nedir?"
-    answer: "302, 3065 sayılı KDV Kanunu'nun 11/1-a maddesi kapsamında 'hizmet ihracatı istisnası' işlemleri için kullanılan KDV beyannamesi ve e-Fatura istisna kodudur. Bu kod, faturada KDV oranının %0 olarak gösterilmesi ve hizmetten yurt dışında yararlanılması gerektiğinin beyanı anlamına gelir."
-  - question: "Hizmet ihracatı faturası nasıl kesilir?"
-    answer: "Yurt dışı müşteri adına e-Fatura veya e-Arşiv fatura düzenlenir. Faturada müşterinin yurt dışı vergi numarası (VAT/EIN), ülkesi, hizmet açıklaması (İngilizce teknik tanımla), tutar (döviz cinsinden), KDV oranı %0 ve istisna kodu 302 (KDV 11/1-a) gösterilir. Fatura tarihi, hizmetin tamamlandığı tarih veya iletişim tarihidir."
-  - question: "Faturayı TL veya döviz cinsinden mi keseyim?"
-    answer: "Hizmet ihracatı faturası döviz cinsinden düzenlenir (USD, EUR, GBP vb.). T.C. Merkez Bankası tarafından açıklanan kur üzerinden TL karşılığı da faturada gösterilir. Tahsilat da döviz olarak yapılmalı; aksi halde hizmet ihracatı sayılmaz."
-  - question: "e-Fatura mı e-Arşiv mi düzenlenir?"
-    answer: "e-Fatura mükellefiyseniz ve müşteriniz Türkiye'deki e-Fatura sistemine kayıtlı değilse (yurt dışı müşteri zaten kayıtlı olmaz), 'e-Arşiv Fatura' düzenlenir. e-Fatura mükellefi olmayanlar standart e-Arşiv veya GİB Portal üzerinden ihracat faturası düzenleyebilir."
+    answer: "302, 3065 sayılı KDV Kanunu'nun 11/1-a maddesi kapsamındaki hizmet ihracatı işlemlerinde kullanılan KDV istisna kodudur. Faturada 'Vergi İstisna Muafiyet Sebebi' alanına '302 - 11/1-a – Hizmet ihracatı (yurtdışındaki müşterilere hizmet)' olarak yazılır ve KDV oranı %0 uygulanır."
+  - question: "Yurt dışı müşteriye e-Fatura mı e-Arşiv mi kesilir?"
+    answer: "Yurt dışı müşteriler Türkiye'deki e-Fatura sistemine kayıtlı olmadığı için onlara e-Arşiv fatura kesilir. Senaryo 'EARSIVFATURA', Fatura Tipi ise 'ISTISNA' seçilir. e-Fatura mükellefi olsanız bile yurt dışına gidecek faturanız e-Arşiv olarak düzenlenir."
+  - question: "Yurt dışı müşterinin VKN'sini nereye yazıyorum?"
+    answer: "Yurt dışı müşteriler için TR vergi kimlik numarası bulunmaz. Bu durumda VKN alanına '2222222222' (10 adet 2) standart yer tutucusu girilir. GİB Portal ve özel entegratörler bu yer tutucuyu otomatik kabul eder. Müşterinin kendi ülkesindeki vergi numarası (VAT ID, EIN, vb.) varsa müşteri açıklamasına ek olarak yazılabilir."
+  - question: "Faturayı döviz cinsinden mi keseyim?"
+    answer: "Evet. Hizmet ihracatı faturası USD, EUR, GBP gibi yabancı para birimi cinsinden düzenlenir. Para birimi alanı seçildiğinde sistem T.C. Merkez Bankası kurunu otomatik çekip TL karşılığını da gösterir. Tahsilatın da döviz olarak alınması ve banka tarafından düzenlenen DAB veya döviz hesabı dekontu ile belgelenmesi gerekir."
+  - question: "Hizmet açıklaması Türkçe mi İngilizce mi olmalı?"
+    answer: "İngilizce yazmak standart uygulamadır çünkü müşteri Türkçe okumayacaktır. Hizmetin teknik niteliğini açıkça belirten ifadeler kullanılmalıdır: 'Software Development Service', 'UI/UX Design Service', 'Engineering Consulting' gibi. Genel 'consulting services' ifadesi vergi denetiminde sorgulanabilir; spesifik teknik tanım her zaman daha güvenlidir."
 ---
 
 import CalculatorCTA from '../components/CalculatorCTA.astro';
 
-# 302 (KDV 11/1-a) Hizmet İhracatı Fatura Örneği
+# 302 Hizmet İhracatı Faturası: e-Arşiv'de Nasıl Kesilir?
 
-Yurt dışı müşterilere yazılım, mühendislik, tasarım veya benzeri hizmet veren mükelleflerin düzenlediği fatura, **3065 sayılı KDV Kanunu'nun 11/1-a maddesi** kapsamında **302 istisna kodu** ile %0 KDV uygulanarak kesilir. Bu sayfa, faturanın nasıl hazırlanacağını, hangi alanların doldurulması gerektiğini ve sık yapılan hataları açıklar.
+Yurt dışı müşterilere hizmet ihracatı faturası **manuel olarak yazılmaz**. Mükellef Logo, Mikro, Paraşüt, Mükellef, Bizmu gibi entegratörler veya **GİB Portal** üzerinden e-Arşiv fatura olarak düzenlenir. Bu sayfa, ekrandaki alanlardan hangisinin ne olduğunu, hangi değerleri seçmeniz gerektiğini ve yapılan en sık hataları açıklar.
 
-## Faturada bulunması gereken alanlar
+<figure class="not-prose my-8 rounded-2xl border border-slate-200 overflow-hidden bg-white">
+  <img
+    src="/images/302-fatura-ornegi.png"
+    alt="Gerçek bir 302 (KDV 11/1-a) hizmet ihracatı e-Arşiv faturası örneği. Senaryo EARSIVFATURA, Fatura Tipi ISTISNA, müşteri yurt dışı, KDV oranı %0, Vergi İstisna Muafiyet Sebebi 302-11/1-a olarak işaretlenmiş."
+    loading="lazy"
+    class="w-full h-auto"
+  />
+  <figcaption class="px-4 py-3 text-[12px] text-slate-500 border-t border-slate-100 bg-slate-50">
+    Yurt dışı bir müşteriye düzenlenmiş, gerçek bir e-Arşiv 302 faturası (kişisel bilgiler maskelenmiştir). Aşağıda her alanın ne olduğunu ve hangi değeri girmeniz gerektiğini açıklıyoruz.
+  </figcaption>
+</figure>
 
-| Alan | Değer | Notlar |
+## e-Fatura mı e-Arşiv mi?
+
+Yurt dışı müşteriler Türkiye'deki **e-Fatura sistemine kayıtlı değildir**, bu yüzden onlara her zaman **e-Arşiv** fatura kesilir. e-Fatura mükellefi olsanız bile bu kural değişmez:
+
+| Senaryo | Müşteri | Belge tipi |
 | --- | --- | --- |
-| Düzenleme tarihi | DD.MM.YYYY | Hizmet tamamlanma veya tahakkuk tarihi |
-| Müşteri adı/unvanı | Yurt dışı tüzel/gerçek kişi | Tam yasal isim |
-| Müşteri adresi | Tam yurt dışı adres | Ülke dahil |
-| Müşteri vergi numarası | VAT / EIN / TIN | Kayıtlıysa zorunlu |
-| Hizmet açıklaması | İngilizce teknik tanım | "software development", "engineering services" gibi |
-| Para birimi | USD / EUR / GBP vb. | TL değil |
-| Tutar | Döviz cinsi | Kalem bazında veya toplam |
-| TCMB kuru | Fatura tarihindeki kur | Otomatik veya manuel |
-| TL karşılığı | Hesaplanmış | Kayıtlar için |
-| KDV oranı | **%0** | Standart oran değil |
-| **İstisna kodu** | **302** | KDV K. 11/1-a |
-| Açıklama | "KDVK 11/1-a kapsamında hizmet ihracatı" | Türkçe ek açıklama |
+| Yurt içi B2B (e-Fatura kayıtlı) | TR firma, GİB sisteminde | e-Fatura |
+| Yurt içi B2C / B2B (e-Fatura kayıtlı değil) | TR firma veya gerçek kişi | e-Arşiv |
+| **Yurt dışı (her durumda)** | **Foreign company / individual** | **e-Arşiv** |
 
-## Örnek fatura içeriği
+## Faturada otomatik dolan alanlar
 
-Aşağıdaki örnek, ABD merkezli bir startup'a aylık SaaS abonelik geliştirme hizmeti verilen bir senaryoyu gösterir.
+Aşağıdaki alanlar GİB altyapısı tarafından otomatik atanır; sizin manuel girmenize gerek yoktur:
 
-```
-FATURA / INVOICE
-─────────────────────────────────────────────
-Düzenleyen:        Örnek Yazılım Ltd. Şti.
-                    İstanbul, Türkiye
-                    VKN: 1234567890
+| Alan | Değer | Açıklama |
+| --- | --- | --- |
+| **Özelleştirme No** | TR1.2.1 | UBL-TR şema sürümü |
+| **Senaryo** | EARSIVFATURA | Yurt dışı müşteri için sabit |
+| **Fatura No** | RV-2026-000001 (örn.) | Sıralı, mükellef tarafından üretilir |
+| **Düzenleme Tarihi/Zamanı** | 30-04-2026 / 10:30:06 | Hizmetin tahakkuk ettiği tarih |
+| **ETTN** | UUID | Elektronik Belge Takip Numarası |
 
-Müşteri:           Acme Inc.
-                    548 Market Street
-                    San Francisco, CA 94104, USA
-                    EIN: 12-3456789
+## Fatura Tipi: **ISTISNA** seçin
 
-Fatura no:         RVS-2026-0042
-Düzenleme tarihi:  15.04.2026
-Vade:              Net 30
-Para birimi:       USD
-TCMB kuru:         33.85 TL/USD (15.04.2026)
+Bu, **en önemli alan**. e-Arşiv fatura formunda Fatura Tipi olarak şu seçenekler bulunur: `SATIS`, `IADE`, `TEVKIFAT`, `ISTISNA`, `OZELMATRAH`, `IHRACKAYITLI`.
 
-─────────────────────────────────────────────
-Açıklama: Software development services for the
-period of March 2026 (full-stack engineering,
-maintenance, deployment).
+Yurt dışı hizmet ihracatı için **ISTISNA** seçilir. "İhracat" veya "ihracKayıtlı" değil — bunlar mal ihracatı içindir. Hizmet ihracatı her zaman ISTISNA tipi altında 302 koduyla işlenir.
 
-Tutar:             5.000,00 USD
-KDV oranı:         0%
-İstisna kodu:      302 (KDVK 11/1-a)
-─────────────────────────────────────────────
-TOPLAM:            5.000,00 USD
-TL karşılığı:      169.250,00 TL
+## Müşteri (SAYIN) bilgileri
 
-Açıklama: KDVK 11/1-a kapsamında hizmet
-ihracatı. Yurt dışı mukim müşteriye sunulmuş
-ve yurt dışında faydalanılan hizmet.
-```
+| Alan | Ne yazılır | Örnek |
+| --- | --- | --- |
+| Unvan | Yurt dışı tüzel/gerçek kişinin tam adı | Acme Inc., Swiftmade OÜ |
+| Adres | Tam yurt dışı adres + ülke | Pärnu mnt 148, 11317, Tallinn, Estonia |
+| Ülke | Müşterinin yerleşik olduğu ülke | Estonya, USA, United Kingdom |
+| **VKN** | Yurt dışı müşteri için **`2222222222`** | (10 adet 2 — standart yer tutucusu) |
 
-## e-Fatura'da nasıl girilir?
+> **Püf nokta:** Yurt dışı müşterilerin TR vergi kimlik numarası olmadığı için GİB Portal ve özel entegratörler **`2222222222`** (10 adet 2) değerini standart yer tutucusu olarak kabul eder. Müşterinin kendi ülkesindeki VAT ID / EIN / TIN numarası varsa müşteri unvanı altına serbest metin olarak ekleyebilirsiniz; ancak VKN alanı her zaman `2222222222` kalır.
 
-E-Fatura veya e-Arşiv portallarında (Mali Müşavir paketleri, Logo, Mikro, Nebim, Paraşüt, Bizmu, Mükellef vb.) hizmet ihracatı faturası için:
+## Hizmet kalem bilgileri
 
-1. **Fatura tipi:** "İhracat" / "Export" veya "Hizmet İhracatı" seçeneği
-2. **Senaryo:** "Hizmet İhracatı (302)"
-3. **KDV oranı:** %0
-4. **İstisna kodu/sebebi:** "302 - 3065 sayılı KDV Kanunu'nun 11/1-a maddesi kapsamında hizmet ihracatı"
-5. **Müşteri tipi:** Yurt dışı / Foreign customer
-6. **Para birimi:** USD/EUR/GBP (döviz)
-7. **Vergi muafiyet sebebi (XML alanı):** `TaxExemptionReasonCode = 302`
+| Alan | Değer |
+| --- | --- |
+| Sıra No | 1 (her satır için artan) |
+| **Malzeme/Hizmet Açıklaması** | İngilizce teknik tanım: *Software Development Service, UI/UX Design Service, Engineering Consulting* |
+| Miktar | 1 Adet (genellikle) veya saat bazlı |
+| Birim Fiyat | Toplam tutar / miktar |
+| **KDV Oranı** | **%0,00** |
+| **KDV Tutarı** | 0,00 EUR (otomatik) |
+| Mal Hizmet Tutarı | Birim fiyat × miktar |
 
-GİB e-Fatura portalında (resmî), İhracat Fatura senaryosu altında "Hizmet İhracatı" tipi seçilir.
+## Para birimi ve döviz kuru
+
+Para birimi alanına **EUR / USD / GBP** seçtiğinizde sistem T.C. Merkez Bankası kurunu otomatik çekip TL karşılığını gösterir. Manuel kur girmeniz gerekmez; ancak girdiğiniz kurun TCMB ile uyumlu olması zorunludur.
+
+| Alan | Değer | Açıklama |
+| --- | --- | --- |
+| Para Birimi | EUR / USD / GBP | TL **olmaz** |
+| Döviz Kuru | TCMB Resmî Kuru (örn. 50,9294) | Otomatik veya manuel |
+| Mal Hizmet Toplam Tutarı | Döviz cinsinden | EUR |
+| Mal Hizmet Toplam Tutarı (TL) | TL karşılığı | Otomatik hesaplanır |
+| Ödenecek Tutar | Döviz cinsinden | EUR |
+
+## Kritik alan: Vergi İstisna Muafiyet Sebebi
+
+Faturanın altında yer alan **Vergi İstisna Muafiyet Sebebi** alanına şu metni **birebir** girin:
+
+> **302 - 11/1-a – Hizmet ihracatı (yurtdışındaki müşterilere hizmet)**
+
+Bu metin GİB e-Arşiv altyapısının tanıdığı standart muafiyet açıklamasıdır. Bazı entegratörler dropdown menüden seçtirir; o durumda "302 - 3065 sayılı KDV Kanunu'nun 11/1-a maddesi kapsamında hizmet ihracatı" benzeri seçeneği seçin.
+
+## Opsiyonel alanlar
+
+- **Yalnız** (Toplam tutarın yazıyla ifadesi): Bazı entegratörler otomatik üretir
+- **Not**: Hizmet dönemi belirtmek için iyi bir alan: `Time Period: 01.04.2026 - 30.04.2026`
+- **ETTN**: Sistem otomatik atar, müdahale etmeyin
+
+## Footer (e-Arşiv standartı)
+
+Düzenlenen e-Arşiv faturanın altında otomatik şu satır yer alır:
+
+> *e-Arşiv izni kapsamında elektronik ortamda iletilmiştir. İrsaliye yerine geçer.*
+
+Bu metni kaldırmanıza gerek yoktur; e-Arşiv yasal gerekliliğidir.
+
+## Yaygın hatalar
+
+> **Hata 1:** Fatura Tipi olarak "İhracat" veya "İhracKayıtlı" seçmek.
+> **Doğrusu:** Hizmet ihracatı için **ISTISNA** seçilir; ihracat tipleri sadece mal (gümrük çıkışı) ihracatı içindir.
+
+> **Hata 2:** Müşteri VKN'sine boş bırakmak veya rastgele rakam yazmak.
+> **Doğrusu:** Yurt dışı müşteri için her zaman **`2222222222`** (10 adet 2) yer tutucusu kullanılır.
+
+> **Hata 3:** Faturayı TL üzerinden kesmek.
+> **Doğrusu:** Para birimi USD/EUR/GBP gibi döviz olmalı; TL otomatik karşılık olarak gösterilir.
+
+> **Hata 4:** Hizmet açıklamasında "consulting" gibi genel ifade kullanmak.
+> **Doğrusu:** Spesifik teknik tanım yazın: "Software Development", "UI/UX Design", "Architectural Engineering Services". Vergi denetiminde net niyet beyanı için kritik.
+
+> **Hata 5:** Vergi İstisna Muafiyet Sebebi alanını boş bırakmak veya yanlış kod (301, 304) seçmek.
+> **Doğrusu:** **302 - 11/1-a – Hizmet ihracatı**. 301 mal ihracatı, 304 yolcu beraberi eşya ihracatıdır.
+
+> **Hata 6:** Müşterinin Türkiye'deki temsilcisi/iştiraki adına fatura kesmek.
+> **Doğrusu:** Fatura, yurt dışı mukim **ana firma** adına düzenlenmelidir. TR temsilcisi adına kesilen fatura istisna kapsamına girmez.
+
+## Tahsilat ve dosyalama
+
+Fatura kesildikten sonra ödeme tahsil edildiğinde:
+
+1. Banka, dövizi TL'ye çevirirken **Döviz Alım Belgesi (DAB)** düzenler; bu belge istisnanın kanıtıdır.
+2. Bedeli döviz hesabında tutmaya devam ederseniz **döviz hesabı dekontu** kabul edilir.
+3. DAB veya dekont, fatura ile birleştirilerek dosyalanır; YMM denetiminde gerekir.
+
+> **Önemli:** Hizmet ihracatı bedeli **yıllık beyanname verme süresine kadar** Türkiye'ye getirilmelidir. Geç getirilen tutarlar istisna dışı kalabilir.
 
 ## KDV beyannamesinde gösterimi
 
 Aylık KDV beyannamesinde:
 
-- **Tablo 8 - İstisnalar:** Hizmet ihracatı tutarı **302 satırı**na yazılır
-- KDV İade Talep Eden Mükellefler için **Tablo 6**'ya iade hesabı dahil edilir
-- Yıllık beyannamede (gelir veya kurumlar vergisi) ayrıca **kazanç indirimi tutarı** %100 olarak gösterilir
+- **Tablo 8 - İstisnalar**: hizmet ihracatı tutarı **302 satırı**na yazılır
+- KDV iade talep ediliyorsa **Tablo 6**'ya iade hesabı dahil edilir
+- Yıllık beyannamede (gelir veya kurumlar vergisi) **kazanç indirimi tutarı** %100 olarak gösterilir
 
-KDV iade talebinde bulunulacaksa, faturalara karşılık gelen DAB ve banka dekontları, sözleşmeler ve çıkış belgeleri YMM tarafından kontrol edilir.
-
-## Yaygın hatalar
-
-> **Hata 1:** Faturayı TL üzerinden kesmek.
-> **Doğrusu:** Döviz cinsinden kesilir, TL karşılığı yalnızca bilgi amaçlıdır.
-
-> **Hata 2:** Müşterinin Türkiye'deki temsilcisi/iştiraki adına fatura kesmek.
-> **Doğrusu:** Fatura, yurt dışı mukim ana firmanın adına kesilmelidir; aksi halde istisna uygulanamaz.
-
-> **Hata 3:** Açıklamada genel "consulting" ifadesi kullanmak.
-> **Doğrusu:** Hizmetin teknik niteliği "software development", "UI design", "engineering services" gibi spesifik tanımla yazılmalı.
-
-> **Hata 4:** İstisna kodunu boş bırakmak veya yanlış kod (örn. 301) seçmek.
-> **Doğrusu:** Hizmet ihracatı için kod **302**'dir. 301 mal ihracatı, 304 yolcu beraberi eşya ihracatı içindir.
-
-> **Hata 5:** Bedeli aracı platformda (Wise, Payoneer) tutmak.
-> **Doğrusu:** Tutar Türk bankasına döviz olarak gelmeli ve DAB düzenlenmeli; aksi halde Türkiye'ye getirilmiş sayılmaz.
-
-## Tahsilat ve döviz alım belgesi
-
-Fatura kesildikten sonra ödeme tahsil edildiğinde:
-
-1. Banka, dövizi TL'ye çevirirken **Döviz Alım Belgesi (DAB)** düzenler; bu belge istisnanın kanıtıdır
-2. Bedeli döviz olarak tutmaya devam etmek isterseniz, **döviz hesabı dekontu** da kabul edilir
-3. DAB veya dekont, fatura ile birleştirilerek dosyalanır; YMM denetiminde gerekir
-
-> Önemli: Hizmet ihracatı bedeli **yıllık beyanname verme süresine kadar** Türkiye'ye getirilmelidir. Geç getirilen tutarlar istisna dışı kalabilir.
+KDV iade talebinde bulunulacaksa faturalara karşılık gelen DAB ve banka dekontları, sözleşmeler ve döviz çıkış belgeleri YMM tarafından kontrol edilir.
 
 <CalculatorCTA />
 
 ## Kaynaklar
 
 - [3065 sayılı KDV Kanunu 11/1-a](https://www.gib.gov.tr): Hizmet ihracatı istisnası
-- [KDV Genel Uygulama Tebliği: II/A-2](https://www.gib.gov.tr)
+- [GİB e-Belge Portalı](https://earsivportal.efatura.gov.tr): Resmî e-Arşiv portalı
 - [Hizmet İhracatı Rehberi (Remote Vergi)](/hizmet-ihracati)
 - [Hizmet İhracatı İstisnası ve YMM Tasdiki](/hizmet-ihracati-istisnasi)
