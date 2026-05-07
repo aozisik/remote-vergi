@@ -202,7 +202,7 @@ const { mixed = false } = Astro.props;
       netAnnual() { const i = this.groupedResults.income; return i ? i.items.find(x => x[0].includes('Yıllık')) : null; },
       netMonthly() { const i = this.groupedResults.income; return i ? i.items.find(x => x[0].includes('Aylık Gelir') && !/[€$£]/.test(x[0])) : null; },
       netMonthlyForeign() { const i = this.groupedResults.income; return i ? i.items.find(x => /[€$£]/.test(x[0])) : null; },
-      parseAmount(s) { return s ? Number(String(s).replace(/[^\d]/g, '')) : 0; },
+      parseAmount(s) { return s ? Number(String(s).replace(/[^0-9]/g, '')) : 0; },
       formatTL(n) { return '₺' + new Intl.NumberFormat('tr-TR').format(Math.round(n)); },
       get pieNet() { return this.parseAmount(this.groupedResults.income?.items?.find(i => i[0].includes('Yıllık'))?.[1]); },
       get pieDamga() { return this.parseAmount(this.groupedResults.expenses?.items?.find(i => i[0].includes('Damga'))?.[1]); },
