@@ -1,0 +1,271 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  twitterCard?: 'summary' | 'summary_large_image';
+  dateModified?: string;
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/og-image.png',
+  ogType = 'website',
+  twitterCard = 'summary_large_image',
+  dateModified,
+} = Astro.props;
+
+const siteUrl = Astro.site?.toString() ?? 'https://remotevergi.com/';
+const canonicalUrl =
+  canonical ?? new URL(Astro.url.pathname, siteUrl).toString();
+const ogImageUrl = new URL(ogImage, siteUrl).toString();
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content="Ahmet Özışık" />
+    {dateModified && <meta name="last-modified" content={dateModified} />}
+
+    <title>{title}</title>
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:site_name" content="Remote Vergi" />
+
+    <meta name="twitter:card" content={twitterCard} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:creator" content="@ahmet_php" />
+
+    <meta
+      name="google-site-verification"
+      content="XB7geRnBWwTPHO2QKpGWLqsSw3uMxS9C7bZrDXVQ2P4"
+    />
+
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+    <meta name="theme-color" content="#6366f1" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      defer
+      data-domain="remotevergi.com"
+      src="https://plausible.io/js/script.js"></script>
+
+    <slot name="head" />
+  </head>
+  <body class="min-h-screen bg-[#fafafa] text-slate-900 antialiased font-sans">
+    <header class="border-b border-slate-200 bg-white">
+      <div
+        class="max-w-5xl mx-auto px-5 md:px-8 py-4 flex items-center justify-between"
+      >
+        <a href="/" class="flex items-baseline gap-2 no-underline">
+          <span class="text-[15px] font-semibold text-slate-900"
+            >Remote Vergi</span
+          >
+          <span class="text-[12px] text-slate-400 font-medium">2026</span>
+        </a>
+        <a
+          href="https://github.com/aozisik/remote-vergi"
+          target="_blank"
+          rel="noopener"
+          class="text-[13px] text-slate-500 hover:text-slate-900 font-medium inline-flex items-center gap-1.5 transition"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+            <path
+              d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.76 2.69 1.25 3.35.96.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.27-5.24-5.65 0-1.25.45-2.27 1.18-3.07-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.15 1.17.91-.25 1.89-.38 2.86-.38s1.95.13 2.86.38c2.18-1.48 3.14-1.17 3.14-1.17.62 1.57.23 2.73.11 3.02.74.8 1.18 1.82 1.18 3.07 0 4.39-2.7 5.36-5.27 5.64.41.36.78 1.06.78 2.14v3.17c0 .31.21.68.79.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"
+            ></path>
+          </svg>
+          GitHub
+        </a>
+      </div>
+    </header>
+
+    <main><slot /></main>
+
+    <footer class="border-t border-slate-200 bg-white mt-16">
+      <div class="max-w-5xl mx-auto px-5 md:px-8 py-8">
+        <div
+          class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-[13px]"
+        >
+          <div class="text-slate-600">
+            Geliştirici:
+            <a
+              href="https://ahmet.ee"
+              target="_blank"
+              rel="noopener"
+              class="font-medium text-slate-900 hover:text-indigo-600 transition"
+              >Ahmet Özışık</a
+            >,
+            <a
+              href="https://swiftmade.co"
+              target="_blank"
+              rel="noopener"
+              class="font-medium text-slate-900 hover:text-indigo-600 transition"
+              >Swiftmade OÜ</a
+            >
+            ·
+            <a
+              href="https://github.com/aozisik/remote-vergi/blob/master/LICENSE"
+              target="_blank"
+              rel="noopener"
+              class="font-medium text-slate-900 hover:text-indigo-600 transition"
+              >PolyForm Noncommercial 1.0.0</a
+            >
+          </div>
+          <div class="text-slate-400">
+            {dateModified ? `Son güncelleme: ${dateModified}` : 'Son güncelleme: 6 Mayıs 2026'}
+          </div>
+        </div>
+        <div
+          class="mt-6 pt-6 border-t border-slate-100 text-[12px] text-slate-500 leading-relaxed space-y-2"
+        >
+          <p>
+            Bu araç bilgilendirme amaçlıdır ve mali danışmanlık hizmeti yerine
+            geçmez. Vergi planlamanız için bir mali müşavire başvurunuz.
+            Hesaplamalar yaklaşık değerler içerir; gerçek vergi yükümlülükleriniz
+            farklılık gösterebilir.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <style is:global>
+      .num {
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-variant-numeric: tabular-nums;
+        font-feature-settings: 'tnum';
+      }
+
+      .field {
+        display: block;
+      }
+
+      .field-label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: #334155;
+        margin-bottom: 6px;
+      }
+
+      .field-input {
+        display: flex;
+        align-items: stretch;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        transition: border-color 150ms ease, box-shadow 150ms ease;
+        overflow: hidden;
+      }
+
+      .field-input:hover {
+        border-color: #cbd5e1;
+      }
+
+      .field-input:focus-within {
+        border-color: #6366f1;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+      }
+
+      .field-input .prefix {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-size: 14px;
+        font-weight: 500;
+        color: #64748b;
+        background: #f8fafc;
+        border-right: 1px solid #e2e8f0;
+      }
+
+      .field-input input {
+        flex: 1;
+        min-width: 0;
+        padding: 11px 14px;
+        font-family: 'Geist Mono', ui-monospace, monospace;
+        font-variant-numeric: tabular-nums;
+        font-size: 15px;
+        font-weight: 500;
+        color: #0f172a;
+        background: transparent;
+        border: 0;
+        outline: 0;
+      }
+
+      .field-input input::-webkit-outer-spin-button,
+      .field-input input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      .field-input input {
+        -moz-appearance: textfield;
+      }
+
+      .field-help {
+        font-size: 12px;
+        line-height: 1.5;
+        color: #64748b;
+        margin-top: 6px;
+      }
+
+      .card {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+      }
+
+      .chev {
+        transition: transform 200ms ease;
+      }
+
+      .chev.open {
+        transform: rotate(90deg);
+      }
+
+      ::selection {
+        background: #6366f1;
+        color: #ffffff;
+      }
+
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .rise {
+        animation: rise 400ms ease-out both;
+      }
+    </style>
+  </body>
+</html>

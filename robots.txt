@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://aozisik.github.io/remote-vergi/sitemap.xml 

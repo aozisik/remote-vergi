@@ -16,7 +16,7 @@ import {
   toTry,
 } from './support/money';
 
-const calculate = async (form: any): Promise<ResultLine[]> => {
+export const calculate = async (form: any): Promise<ResultLine[]> => {
   const { isValid, data } = validate(form);
 
   if (!isValid) {
@@ -143,11 +143,3 @@ const calculate = async (form: any): Promise<ResultLine[]> => {
 
   return result.getLines();
 };
-
-declare global {
-  interface Window {
-    calculate: any;
-  }
-}
-
-window.calculate = calculate;
