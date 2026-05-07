@@ -1,7 +1,6 @@
-import type Dinero from "dinero.js";
-
-import { toTry } from "./money";
-import { TAX_BRACKETS } from "../constants";
+import type Dinero from 'dinero.js';
+import { TAX_BRACKETS } from '../constants';
+import { toTry } from './money';
 
 export const incomeTax = (income: Dinero.Dinero): Dinero.Dinero => {
   let tax = toTry(0);

@@ -6,13 +6,15 @@ interface FrontmatterShape {
   description: string;
   dateModified?: string;
   faq?: Array<{ question: string; answer: string }>;
+  wide?: boolean;
 }
 
 // Astro passes MD/MDX frontmatter as Astro.props.frontmatter; .astro pages pass
 // props directly. Support both so this layout works with either.
 const frontmatter =
   (Astro.props as any).frontmatter ?? (Astro.props as FrontmatterShape);
-const { title, description, dateModified, faq } = frontmatter;
+const { title, description, dateModified, faq, wide } = frontmatter;
+const containerWidth = wide ? 'max-w-5xl' : 'max-w-3xl';
 const fullTitle = title.includes('Remote Vergi')
   ? title
  : `${title} | Remote Vergi`;
@@ -76,7 +78,7 @@ const faqSchema = faq && faq.length > 0
     )
   }
 
-  <div class="max-w-3xl mx-auto px-5 md:px-8 pt-10 md:pt-14 pb-16">
+  <div class={`${containerWidth} mx-auto px-5 md:px-8 pt-10 md:pt-14 pb-16`}>
     <nav class="text-[13px] text-slate-500 mb-6" aria-label="Breadcrumbs">
       <a href="/" class="hover:text-indigo-600 transition">Anasayfa</a>
       <span class="mx-2 text-slate-300">/</span>
@@ -84,19 +86,26 @@ const faqSchema = faq && faq.length > 0
     </nav>
 
     <article
-      class="prose prose-slate max-w-none
-        prose-headings:tracking-tight prose-headings:font-semibold
-        prose-h1:text-3xl md:prose-h1:text-4xl prose-h1:mb-4
-        prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
-        prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
-        prose-p:text-slate-600 prose-p:leading-relaxed prose-p:text-[15px]
-        prose-li:text-slate-600 prose-li:text-[15px]
-        prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium
-        prose-strong:text-slate-900
-        prose-table:text-[14px]
-        prose-th:text-slate-900 prose-th:font-semibold prose-th:bg-slate-50
-        prose-td:text-slate-600
-        prose-blockquote:border-indigo-200 prose-blockquote:bg-indigo-50/40 prose-blockquote:text-slate-700 prose-blockquote:not-italic prose-blockquote:rounded-r-lg prose-blockquote:py-1"
+      class:list={[
+        'prose prose-slate max-w-none',
+        'prose-headings:tracking-tight prose-headings:font-semibold',
+        'prose-h1:text-3xl md:prose-h1:text-4xl prose-h1:mb-4',
+        'prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4',
+        'prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3',
+        'prose-p:text-slate-600 prose-p:leading-relaxed prose-p:text-[15px]',
+        'prose-li:text-slate-600 prose-li:text-[15px]',
+        'prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium',
+        'prose-strong:text-slate-900',
+        'prose-table:text-[14px]',
+        'prose-th:text-slate-900 prose-th:font-semibold prose-th:bg-slate-50',
+        'prose-td:text-slate-600',
+        'prose-blockquote:border-indigo-200 prose-blockquote:bg-indigo-50/40 prose-blockquote:text-slate-700 prose-blockquote:not-italic prose-blockquote:rounded-r-lg prose-blockquote:py-1',
+        // In wide mode, constrain prose paragraphs/lists to a readable width
+        // while letting embedded blocks (e.g. Calculator) use the full container.
+        wide
+          ? '[&>p]:max-w-3xl [&>ul]:max-w-3xl [&>ol]:max-w-3xl [&>blockquote]:max-w-3xl [&>h2]:max-w-3xl [&>h3]:max-w-3xl [&>h4]:max-w-3xl [&>table]:max-w-3xl'
+          : '',
+      ]}
     >
       <slot />
     </article>

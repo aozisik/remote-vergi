@@ -1,0 +1,235 @@
+---
+layout: ../layouts/ArticleLayout.astro
+title: "Estonya OÜ 2026: TR'den Açmak Mantıklı mı? Maliyet, Avantaj, Riskler"
+description: "Türkiye'den Estonya OÜ açmak gerçekten avantajlı mı? Sabit yıllık maliyet, banka ve Stripe riski, VAT numarası sorunu, Startup Visa ile taşınma seçeneği. TR mukim girişimci için pratik karar rehberi."
+dateModified: "2026-05-07"
+faq:
+  - question: "Estonya OÜ açmak TR mukim için gerçekten vergi avantajı sağlar mı?"
+    answer: "Çoğu TR mukim için hayır. Türkiye'de hizmet ihracatı indirimi 1 Ocak 2026'dan itibaren %80'den %100'e çıktı, efektif gelir vergisi zaten sıfıra yakın. Estonya'nın %0 dağıtılmamış kâr rejimi, paraya kişisel olarak erişmediğin sürece geçerli; temettü çektiğinde Estonya %22 alır, ardından Türkiye'ye getirilince gelir vergisi tabanına girer. 2026 reformuyla yurt dışı iştirak kazancının **%50'si gerçek kişiler için gelir vergisinden istisna** (≥%20 sermaye payı ve aynı takvim yılı içinde Türkiye'ye transfer şartıyla). Bu önemli bir iyileşme ama hizmet ihracatı yapan TR şahıs şirketinin avantajını tersine çevirmez."
+  - question: "Estonya OÜ'nün yıllık sabit masrafı ne kadar?"
+    answer: "Hiç iş yapmasan bile yasal adres ve contact person 300–600 €, aylık muhasebe 1.000–3.000 €, banka/fintech ücretleri 100–400 € olmak üzere yıllık tipik 1.500–4.500 € sabit yük gelir. Ek olarak kuruluşta devlet harcı ~265 €, e-Residency 150 €, opsiyonel hizmet sağlayıcı paketi 200–500 €. Asgari sermaye 1 Şubat 2023'ten itibaren 1 cente kadar düştü; 2.500 €'nun altında kalan kısım iflas durumunda ortakların kollektif sorumluluğunda."
+  - question: "Estonya OÜ açan biri Estonya'ya taşınabilir mi? Startup Visa devam ediyor mu?"
+    answer: "Evet, Estonya Startup Visa 2026'da aktif. AB dışı kurucular (TC vatandaşları dahil) Startup Estonia komitesi onayıyla D-vize (1 yıl) veya Geçici Oturma İzni (TRP) alabilir. Aylık ~800 € geçim parası, Schengen sağlık sigortası (en az 30.000 €) ve ölçeklenebilir teknoloji projesi şart. e-Residency tek başına oturum vermez."
+  - question: "Estonya OÜ adına banka hesabı açmak garantili mi?"
+    answer: "Hayır. Yerel bankalar (LHV, SEB, Swedbank) AB dışı sahipli OÜ'lere hesap açmakta seçici, fiziki ziyaret ve Estonya'yla bağ kanıtı isteyebiliyor. LHV açılış 300 €, aylık 30 €. Pratikte e-resident'lerin çoğu Wise Business veya Payoneer üzerinden EU IBAN ile çalışır."
+  - question: "Estonya OÜ olarak Stripe ve PayPal alabilir miyim?"
+    answer: "PayPal Business kayıt nispeten sorunsuz. Stripe e-resident OÜ'leri destekliyor ancak başvuruda tüzel kişi belgesi, vergi mukimliği ve kişisel residency'nin Stripe destekli ülkede olması gerekiyor (Türkiye destekli ülkelerden). Yüksek riskli kategorilerde ret ihtimali var; alternatif olarak Paddle veya Lemon Squeezy gibi merchant of record platformları kullanılabilir."
+  - question: "TR mukim olarak Estonya'da VAT (KDV) numarası alabilir miyim?"
+    answer: "Otomatik değil. Estonya VAT kaydı için şirketin Estonya'yla bağ göstermesi gerekiyor: yerel müşteri, tedarikçi, mal hareketi veya yıllık 40.000 € yerel ciro. Yalnızca yurt dışına uzaktan hizmet satan TR sahipli OÜ voluntary VAT kaydı yapamayabilir. VAT ID olmaması bazı AB kurumsal müşterilerle sürtünme yaratır."
+---
+
+import CalculatorCTA from '../components/CalculatorCTA.astro';
+
+# Estonya OÜ 2026: TR'den Açmak Mantıklı mı?
+
+Türkiye'de remote yazılımcı veya girişimci olarak Estonya'da OÜ (Osaühing, AB karşılığı GmbH/Ltd) açma fikri yıllardır gündemde. e-Residency reklamları, "%0 vergi" başlıkları ve "AB şirketi sahibi ol" mesajları kararı kafa karıştırıcı hale getiriyor.
+
+Bu rehber teknik prosedürü değil, **insanların gerçekten merak ettiği soruları** cevaplıyor: Neden açarsın? Vergi avantajı gerçekten var mı? Banka açabilir misin? Stripe ret yer mi? Sonradan oraya taşınabilir misin?
+
+## Önce dürüst cevap: çoğu TR mukim için açmaya değmez
+
+Türkiye'de şahıs şirketiyle yurt dışına yazılım, tasarım veya danışmanlık satıyorsan Estonya OÜ sana **ek vergi avantajı vermiyor**. TR'de hizmet ihracatı indirimi 1 Ocak 2026'dan itibaren %80'den %100'e çıktı, gelir vergisi efektif olarak sıfıra yakın. Estonya'nın "%0 kurumlar vergisi" sloganı yalnızca **dağıtılmamış kâr** için geçerli; sen TR mukim olarak temettü çektiğin an Estonya %22 alıyor, ardından Türkiye'ye getirilen kâr payı gelir vergisi tabanına giriyor. 2026 reformuyla yurt dışı iştirak kazancının %50'si gerçek kişide istisna olsa da kalan %50 hâlâ gelir vergisi dilimine giriyor.
+
+Yine de bazı insanlar için açmak mantıklı. Devamı bunun ne zaman doğru, ne zaman yanlış olduğunu anlatıyor.
+
+## Estonya OÜ neden açılır? Gerçek motivasyonlar
+
+TR mukim girişimcilerin Estonya OÜ açma sebepleri pratikte şunlar:
+
+- **AB tüzel kişi gerektiren müşteriler.** Bazı Avrupa kurumsal müşterileri (özellikle KVKK ve ihale prosedürleri için) AB içinde tüzel kişiyle sözleşme yapmayı tercih ediyor. TR şahıs faturasıyla onboarding zorlaşıyor.
+- **Stripe, SEPA, EU ödeme altyapısı.** AB merkezli SaaS satışı, tekrarlayan abonelik, Apple/Google geliştirici hesabı için EU tüzel kişi entegrasyonu daha temiz.
+- **Yatırımcı yapısı.** SAFE, convertible note, hisse opsiyonu gibi araçlarla AB tabanlı yatırımcı çekecek startup'lar TR şahıs şirketine yatırım çekemez. AB tüzel kişi gerekiyor.
+- **Orta vadede AB'ye taşınma planı.** Estonya'ya, Portekiz'e veya başka bir AB ülkesine geçişi düşünenler için OÜ önceden hazırlanabilir.
+- **"AB şirketi" markası.** App store, B2B SaaS, kurumsal müşterilerde algı meselesi. Vergi değil, ticari pozisyonlama.
+
+Sırf "%0 vergi" diye açan kişi büyük ihtimalle yanılmış oluyor.
+
+## Gerçekten vergi avantajı var mı?
+
+Kısa cevap: **TR mukim kaldığın sürece yok ya da çok sınırlı.**
+
+Estonya'nın özelliği kurumlar vergisinin sadece **kâr dağıtımı sırasında** uygulanması:
+
+- Dağıtılmamış kâr: %0
+- Temettü dağıtımı: %22 (2025'ten itibaren; eski indirimli %14 oranı kaldırıldı)
+
+### 2026'da TR tarafında ne değişti?
+
+Resmi Gazete'de yayımlanan ve 1 Ocak 2026'dan itibaren yürürlüğe giren karar iki rejimi de etkiledi:
+
+- **Hizmet ihracatı indirimi (%80 → %100):** Yazılım, mimarlık, mühendislik, tasarım, eğitim ve sağlık hizmetlerinde yurt dışı müşteriden elde edilen kazançların **tamamı** vergi matrahından düşürülüyor. Kazancın tamamının Türkiye'ye getirilmesi şart. Bu doğrudan TR şahıs şirketini güçlendirdi.
+- **Yurt dışı iştirak kazançları istisnası:** Bir yabancı şirketin **ödenmiş sermayesinin en az %20'sine** sahip TR mukim gerçek kişi, elde ettiği kâr payının **%50'sini** gelir vergisinden istisna tutabiliyor. Şart: aynı takvim yılı içinde kazancın Türkiye'ye transfer edilmesi. Kurumlar vergisi mükellefleri için istisna oranı %80.
+
+İlk bakışta yurt dışı iştirak kazancı istisnası Estonya OÜ'yü cazip kılıyor görünüyor; ama hesap yaptığında TR şahıs şirketinin önünde değil arkasında kalıyor.
+
+### TR mukim gerçek kişi ortak için tablo
+
+100 € kâr üzerinden basit modelleme:
+
+- **Estonya OÜ + temettü:** Estonya'da %22 stopaj sonrası net 78 €. Türkiye'ye getirilince %50 istisna, kalan 39 € gelir vergisi tarifesine giriyor. Türkiye–Estonya çifte vergi anlaşması bazı mahsup hakları verir ama net 60–70 € bandında kalır.
+- **TR şahıs şirketi + hizmet ihracatı:** %100 indirim sonrası gelir vergisi sıfıra yakın. Bağ-Kur ve diğer yükler düştükten sonra net 90 €+ bandında kalır.
+
+Yani:
+
+> "Estonya OÜ açıp daha az vergi ödeyeyim" düşüncesi, TR mukim hizmet ihracatçısı için 2026'da daha da fazla yanılgıya dönüştü.
+
+### KKEK riski
+
+Türkiye'nin Kontrol Edilen Yabancı Kurum Kazancı (KKEK) kuralları, belirli şartlarda dağıtılmasa bile Estonya OÜ kazancını TR'de vergilendirebilir. Aktif hizmet geliri ağırlıklı şirketlerde tetiklenmesi düşük olasılık ama mali müşavirle yıllık değerlendirilmesi gerekir.
+
+## Sabit yıllık masraflar: gerçek rakam ne?
+
+İşte kimsenin önceden net söylemediği yer. Estonya OÜ açıkken **sıfır iş yapsan** bile şu masraflar her yıl önüne geliyor:
+
+| Kalem | Yıllık tutar |
+| --- | --- |
+| Yasal adres + contact person (zorunlu) | 300–600 € |
+| Aylık muhasebe (tipik küçük OÜ) | 1.000–3.000 € |
+| Banka ya da fintech ücretleri | 100–400 € |
+| e-Residency yenileme (5 yılda 1, ortalama) | ~30 €/yıl |
+| Yıllık beyanname ve raporlama | muhasebe paketinde |
+| **Tipik toplam** | **~1.500–4.500 €** |
+
+Bir kerelik kuruluş maliyeti:
+
+- Devlet harcı (e-Business Register): ~265 €
+- e-Residency başvurusu: 150 € + kargo
+- Sermaye: **1 cent yeterli.** 1 Şubat 2023 itibarıyla 2.500 €'luk asgari sermaye şartı tamamen kaldırıldı; sembolik tutarla (örneğin 1 €) kuruluş yapılabiliyor. Tek nokta: sermaye 2.500 €'nun altındaysa şirket iflas ederse ortaklar bu farkı şahsen karşılamakla yükümlü. Risk düşük gözüküyorsa pek çok kurucu 1–100 € ile geçiyor.
+- Hizmet sağlayıcı kuruluş paketi: 200–500 €
+
+VAT mükellefi olursan veya bordro açarsan muhasebe ücreti aylık 250 €'yu rahat aşar.
+
+**Anlamı:** Estonya OÜ'yü "iş çıkarsa kullanırım" yedek olarak kurmak yıllık ~2.000 € sabit maliyet. Şirketin somut bir kullanım senaryosu yoksa bu para boşa gider.
+
+## Operasyonel riskler: bilmediğin zorluklar
+
+Asıl kafa karıştıran kısım vergi değil, operasyonel altyapı. Şirket kurulur ama altyapısı çalışmayabilir.
+
+### Banka hesabı: ciddi risk
+
+Estonya yerel bankaları AB dışı sahipli OÜ'lere zor hesap açıyor:
+
+- **LHV:** Şu an Estonya'ya fiziki ziyaret istiyor. Açılış 300 €, aylık 30 €. "Estonya ile bağ" kanıtı bekliyor (yerel müşteri, çalışan, ofis).
+- **SEB ve Swedbank:** Fiziki başvuru, çoğu zaman ret.
+- **Wise Business:** Pratikte e-resident'lerin çoğunluğunun kullandığı çözüm. EU IBAN, SEPA, Stripe entegrasyonu çalışıyor. EMI olduğu için mevduat sigortası yok ama günlük operasyon için yeterli.
+- **Payoneer, Revolut Business, Paysera:** Ek alternatifler; başvuru inceleme süreçleri uzun olabilir.
+
+Yerel banka hesabı **açamama olasılığını gerçek bir risk** olarak hesaba kat. Çoğu TR sahipli OÜ Wise + Payoneer ikilisiyle yürür.
+
+### Stripe: alabilirsin ama garanti değil
+
+Stripe e-resident OÜ'leri destekliyor. Başvuruda istenen:
+
+- Estonya tüzel kişi belgesi (registry card)
+- Vergi mukimliği belgesi
+- Kişisel olarak Stripe'ın desteklediği bir ülkenin mukimi olman (Türkiye desteklenen ülkelerden)
+
+Ret riski olan durumlar: yüksek riskli kategoriler (kripto, dropshipping, abonelik dolandırıcılık geçmişi) veya yetersiz "substance" (şirket faaliyetinin gerçek olduğu belirsiz). Net SaaS, ajans, ürün işlerinde başvurular genellikle kabul ediliyor.
+
+Stripe ret yerse Paddle veya Lemon Squeezy gibi merchant of record platformları devreye alınabilir; bunlar VAT yükünü de üstlenir.
+
+### PayPal: sorunsuz
+
+Estonya OÜ adına PayPal Business hesabı açmak görece kolay. EU sicil kayıtlı şirketler için PayPal'ın altyapısı oturmuş durumda. US müşteri ve küçük freelance ödemeleri için Estonya OÜ'nin somut avantajlarından biri.
+
+### Kickstarter, Indiegogo, Gumroad
+
+- **Kickstarter:** Estonya AB üyesi; Estonya OÜ üzerinden kampanya açılabilir. TR şahsi başvuru zor olduğu için Estonya yapısı bu kanalı açıyor.
+- **Indiegogo:** Estonya tüzel kişiden kabul ediliyor.
+- **Gumroad, Lemon Squeezy:** Estonya OÜ'lerle çalışıyor, çoğu durumda merchant of record olarak VAT toplama yükünü üstleniyor.
+
+Crowdfunding ve global indie satış kanalları, pek çok TR'li için Estonya OÜ'nin gerçek operasyonel motivasyonu.
+
+### VAT (KDV) numarası: alamayabilirsin
+
+Bu çok bilinmeyen bir kısıt. Estonya'da voluntary VAT kaydı için şirketin **Estonya'yla bağ** göstermesi gerekiyor: yerel müşteri, tedarikçi, mal hareketi veya yıllık 40.000 € yerel ciro.
+
+- TR mukim sahipli, sadece yurt dışı müşterilere uzaktan hizmet satan OÜ Estonya VAT mükellefi olamayabilir.
+- VAT olmadan da AB B2B müşterilerine fatura kesilebilir (reverse charge mekanizması), ama bazı kurumsal müşteriler VAT ID şart koşuyor.
+- B2C dijital ürün satıyorsan EU müşterilerinin yerel KDV'sini toplamakla yükümlüsün; OSS (One-Stop Shop) bunu tek beyana indirir, fakat OSS için önce Estonya VAT kaydı bekleniyor.
+- Standart VAT oranı 1 Temmuz 2025'ten itibaren **%24**.
+
+VAT numarası alamamak EU pazarında operasyonel sürtünme yaratır. Açmadan önce muhasebecinle "bizim profilimizle voluntary VAT kaydı geçer mi?" diye sor.
+
+## Estonya'ya taşınabilir misin? Startup Vize 2026
+
+Evet, **Estonya Startup Visa** programı 2026'da aktif. Yapı:
+
+- **Kim için?** AB/EEA dışı kurucular, TC vatandaşları dahil.
+- **Şart:** Startup fikrinin Startup Estonia komitesinden onay alması. Ölçeklenebilir, teknoloji odaklı, en az MVP seviyesinde olması bekleniyor.
+- **D-vize (kısa):** 1 yıla kadar Estonya'da yaşama hakkı.
+- **Geçici Oturma İzni (TRP):** Şirket faaliyeti bazında yıllarca uzatılabilir.
+- **Maddi şart:** Aylık ~800 € geçim parası kanıtı.
+- **Sigorta:** Schengen'de geçerli, en az 30.000 € teminatlı sağlık sigortası.
+- **Süre:** D-vize ~30 gün, TRP ~2 ay.
+
+e-Residency tek başına oturum hakkı vermez. Estonya'ya taşınmak için **Startup Visa, TRP veya AB iş gücü vizelerinden** birine başvurmak gerekir. e-Residency süreçte avantaj sağlar (şirket kurulu, vergi geçmişi var) ama oturum kazandırmaz.
+
+Bir alternatif yol: Estonya OÜ üzerinden Avrupa'da iş geliştir, sonra başka bir AB ülkesinin (Portekiz, İspanya, Hollanda) startup veya dijital göçmen vizelerine geçiş yap.
+
+## Karar matrisi
+
+| Senaryon | Önerilen yapı |
+| --- | --- |
+| TR mukim, yurt dışı B2B yazılım/danışmanlık, yıllık ~500k € altı | TR şahıs şirketi yeterli |
+| TR mukim, AB B2B müşteri tüzel kişi sözleşmesi istiyor | Estonya OÜ + TR şahıs paralel |
+| EU SaaS, Stripe abonelik, Apple/Google store geliri | Estonya OÜ avantajlı |
+| Yatırım çekecek startup, AB yatırımcı planı | Estonya OÜ ana yapı |
+| 1–2 yıl içinde Estonya'ya taşınma | Startup Visa + OÜ |
+| Sadece USD geliri, US müşteri | TR şahıs şirketi yeterli |
+| "Daha az vergi öderim" beklentisi | Yanılgı, TR şahıs şirketinde kal |
+
+<CalculatorCTA title="Önce TR senaryonu gör" description="Şahıs şirketi yapısında %100 hizmet ihracatı istisnasıyla net kazancın ne olur? Hesaplayıcıda ek yapı kurmadan önce TR baz senaryonu görün." />
+
+## Sıkça sorulan sorular
+
+### Estonya OÜ açarsam Bağ-Kur'dan kurtulur muyum?
+
+Hayır. Bağ-Kur Türkiye sosyal güvenlik sisteminin parçası; yurt dışı şirket ortağı olman onu kaldırmaz. TR şahıs şirketini kapatırsan Bağ-Kur isteğe bağlı olarak devam eder. TR mukim kaldığın sürece sosyal güvenlik yükün durur.
+
+### Estonya OÜ açtım, TR şahıs şirketimi kapatmalı mıyım?
+
+Şart değil. Çoğu TR mukim, Estonya OÜ'yü AB tüzel müşterileri ve EU ödeme entegrasyonları için, TR şahıs şirketini diğer müşterileri için açık tutar. İkisi paralel çalışır, ikisi de ayrı muhasebe ve beyanname yükü demek.
+
+### Estonya'ya hiç gitmeden tüm süreç yürür mü?
+
+Evet, e-Residency kart sahibiysen kuruluş, beyannameler ve fintech bankacılığı tamamen uzaktan. Tek fiziki adım e-Residency kart teslim alımı; bu da İstanbul, Ankara konsolosluğu veya Avrupa'daki bir teslim noktasından yapılabilir. Yerel banka hesabı istiyorsan fiziki ziyaret büyük ihtimalle gerekiyor.
+
+### Maaş çekersem ne olur?
+
+Estonya OÜ'den kendine maaş ödemek hukuken mümkün ama TR mukim için iki yönlü vergiye yol açar: Estonya'da bordro vergisi (sosyal güvenlik ~%33, gelir vergisi %20), TR'de yine gelir vergisi. Çoğu TR mukim sahibi maaş yerine yıllık temettü modelini tercih eder ve mali müşaviriyle çifte vergilendirme anlaşmasının mahsup mekanizmalarını işletir.
+
+### Türkiye–Estonya çifte vergilendirme anlaşması ne sağlıyor?
+
+Aynı kazancı iki ülkede ödememek için temettü, faiz, lisans gibi gelir kalemlerinde indirimli stopaj oranları ve mahsup hakkı veriyor. Anlaşmanın seninle ilgili maddelerini mali müşavirinle birlikte oku; her gelir tipi farklı işliyor.
+
+### KKEK (CFC) kurallarından nasıl etkilenirim?
+
+Aktif hizmet geliri ağırlıklı (yazılım, danışmanlık) bir Estonya OÜ büyük olasılıkla KKEK eşiklerini tetiklemez. Ancak şirket nakit fazlasını faiz veya temettü getiren enstrümanlarda tutuyorsa pasif gelir oranı yükselir, KKEK riski doğar. Mali müşavirinle pasif gelir oranını yıllık takip edin.
+
+### "Her ihtimale karşı" Estonya OÜ açayım mı?
+
+Açma. Yıllık ~2.000 € sabit yük gerçek bir maliyet. Operasyonel olarak kullanmıyorsan paranı yakar. Açma kararı somut bir tetikleyiciye (AB müşteri sözleşmesi, yatırımcı, EU ödeme entegrasyonu, taşınma planı) bağlı olmalı.
+
+## Uzman desteği
+
+Estonya OÜ kararı TR mukimlik, KKEK riski ve Estonya tarafındaki muhasebe substance gereksinimlerine dokunduğu için tek başına alınmamalı. Tipik destek seti:
+
+- **TR mali müşavir:** Mukimlik durumu, KKEK eşikleri, çifte vergilendirme anlaşmasının senin gelir tipine etkisi.
+- **Uluslararası vergi danışmanı:** Aktif/pasif gelir ayrımı, Estonya OÜ'nin operasyonel substance gereksinimleri, taşınma senaryoları.
+- **Estonya muhasebe firması:** Aylık raporlama, VAT durumu, contact person hizmeti.
+
+## Sonraki adımlar
+
+- [Şahıs Şirketi](/sahis-sirketi): TR yapısının kapsamlı rehberi
+- [Şahıs Şirketi Maliyetleri](/sahis-sirketi-maliyet): TR baz yıllık yük
+- [Hizmet İhracatı](/hizmet-ihracati): %100 istisna uygulamasının şartları
+- [Vergi Hesaplayıcı](/): TR senaryonun net kazancı
+
+## Kaynaklar
+
+- [e-Residency](https://e-resident.gov.ee): resmi başvuru ve bilgi portalı
+- [Estonya e-Business Register](https://ariregister.rik.ee): şirket tescil sistemi
+- [Estonia Tax and Customs Board](https://www.emta.ee): kurumlar vergisi ve VAT mevzuatı
+- [Startup Estonia](https://startupestonia.ee): startup vize ve ekosistem programları
+- [Gelir İdaresi Başkanlığı](https://www.gib.gov.tr): KVK 7. madde (KKEK) ve çifte vergilendirme anlaşmaları

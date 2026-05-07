@@ -18,9 +18,9 @@ export interface ValidatedForm {
 export const validate = (form: RawFormDto) => {
   const invalidFields: string[] = [];
 
-  const data = {} as ValidatedForm["data"];
+  const data = {} as ValidatedForm['data'];
 
-  ["income", "exchangeRate", "accountingCosts"].forEach((key) => {
+  ['income', 'exchangeRate', 'accountingCosts'].forEach((key) => {
     const value = toNumber(form[key]);
     if (value === null || value < 1) {
       invalidFields.push(key);
@@ -40,11 +40,11 @@ export const validate = (form: RawFormDto) => {
 };
 
 const toNumber = (input: string) => {
-  input = (input ?? "").trim().replace(/(\.|,)$/, "");
+  input = (input ?? '').trim().replace(/(\.|,)$/, '');
 
-  if (input === "") {
+  if (input === '') {
     return null;
   }
 
-  return Number(input.replace(",", "."));
+  return Number(input.replace(',', '.'));
 };

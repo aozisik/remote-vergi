@@ -1,38 +1,24 @@
 ---
-// The calculator: form + result. Driven by Alpine.js.
-// Math lives in src/scripts/calculator.ts and is exposed as window.calculate.
+// Mixed-income calculator: yurt dışı (€) + yurt içi (₺).
+// Math lives in src/scripts/calculator-mixed.ts and is exposed as window.calculateMixed.
 ---
 
 <section
   x-data="{
-    currencies: {
-      EUR: { symbol: '€', label: 'EUR', defaultRate: '53' },
-      USD: { symbol: '$', label: 'USD', defaultRate: '35' },
-      GBP: { symbol: '£', label: 'GBP', defaultRate: '60' }
-    },
-    cycleCurrency() {
-      const order = ['EUR', 'USD', 'GBP'];
-      const idx = order.indexOf(this.form.currency);
-      const next = order[(idx + 1) % order.length];
-      this.form.currency = next;
-      this.form.exchangeRate = this.currencies[next].defaultRate;
-    },
     results: [],
     form: (() => {
       const params = new URLSearchParams(window.location.search);
       const encoded = params.get('data');
       if (encoded) {
         try {
-          const parsed = JSON.parse(atob(encoded));
-          if (!parsed.currency) parsed.currency = 'EUR';
-          return parsed;
+          return JSON.parse(atob(encoded));
         } catch (e) {
           console.error('Invalid share URL');
         }
       }
       return {
-        income: '3000',
-        currency: 'EUR',
+        yurtDisiIncome: '3000',
+        yurtIciIncome: '0',
         exchangeRate: '53',
         accountingCosts: '4500',
         ymmCost: '30000'
@@ -46,36 +32,49 @@
       setTimeout(() => this.copied = false, 1800);
     }
   }"
-  class="grid md:grid-cols-5 gap-5 md:gap-6 items-start"
+  class="not-prose grid md:grid-cols-5 gap-5 md:gap-6 items-start my-8"
 >
   <!-- Form -->
   <section class="card p-5 md:p-6 md:col-span-2 rise">
     <h2 class="text-sm font-semibold text-slate-900 mb-5">Bilgiler</h2>
     <div class="space-y-4">
       <label class="field">
-        <span class="field-label">Aylık kazanç</span>
+        <span class="field-label">Aylık yurt dışı kazanç</span>
         <span class="field-input">
-          <button
-            type="button"
-            class="prefix prefix-button"
-            @click="cycleCurrency()"
-            :title="`Para birimini değiştir (${currencies[form.currency].label})`"
-            x-text="currencies[form.currency].symbol"
-          ></button>
+          <span class="prefix">€</span>
           <input
             type="number"
             inputmode="decimal"
-            min="1"
+            min="0"
             step="1"
-            x-model="form.income"
+            x-model="form.yurtDisiIncome"
           />
         </span>
+        <span class="field-help"
+          >Yurt dışı tüzel kişi müşteriden döviz olarak gelen aylık tutar.</span
+        >
       </label>
 
       <label class="field">
-        <span
-          class="field-label"
-          x-text="`${currencies[form.currency].label} / TRY kuru`"></span>
+        <span class="field-label">Aylık yurt içi kazanç</span>
+        <span class="field-input">
+          <span class="prefix">₺</span>
+          <input
+            type="number"
+            inputmode="decimal"
+            min="0"
+            step="1"
+            x-model="form.yurtIciIncome"
+          />
+        </span>
+        <span class="field-help"
+          >Türkiye'deki müşterilerden gelen aylık brüt tutar. Yurt içi geliriniz
+          yoksa 0 bırakın.</span
+        >
+      </label>
+
+      <label class="field">
+        <span class="field-label">EUR / TRY kuru</span>
         <span class="field-input">
           <span class="prefix">₺</span>
           <input
@@ -95,14 +94,13 @@
           <input
             type="number"
             inputmode="decimal"
-            min="1"
+            min="0"
             step="1"
             x-model="form.accountingCosts"
           />
         </span>
         <span class="field-help"
-          >TÜRMOB 2026 asgari tarifesi serbest meslek erbabı için ₺4.492/ay'dan
-          başlar.</span
+          >TÜRMOB 2026 asgari tarifesi ₺4.492/ay'dan başlar.</span
         >
       </label>
 
@@ -119,7 +117,8 @@
           />
         </span>
         <span class="field-help"
-          >Yıllık indirim 500.000 ₺'yi aşmadığında hesaba katılmaz.</span
+          >Yıllık yurt dışı indirim tutarı 500.000 ₺'yi aşmadığında hesaba
+          katılmaz.</span
         >
       </label>
     </div>
@@ -133,7 +132,7 @@
       expandedSections: { expenses: true, taxes: true, income: true },
       groupedResults: {},
       async init() {
-        results = await window.calculate(form);
+        results = await window.calculateMixed(form);
         this.processResults(results);
         $watch('results', (value) => this.processResults(value));
       },
@@ -152,8 +151,8 @@
         }, {});
       },
       netAnnual() { const i = this.groupedResults.income; return i ? i.items.find(x => x[0].includes('Yıllık')) : null; },
-      netMonthly() { const i = this.groupedResults.income; return i ? i.items.find(x => x[0].includes('Aylık Gelir') && !/[€$£]/.test(x[0])) : null; },
-      netMonthlyForeign() { const i = this.groupedResults.income; return i ? i.items.find(x => /[€$£]/.test(x[0])) : null; },
+      netMonthly() { const i = this.groupedResults.income; return i ? i.items.find(x => x[0].includes('Aylık Gelir') && !x[0].includes('€')) : null; },
+      netMonthlyEur() { const i = this.groupedResults.income; return i ? i.items.find(x => x[0].includes('€')) : null; },
       parseAmount(s) { return s ? Number(String(s).replace(/[^\d]/g, '')) : 0; },
       formatTL(n) { return '₺' + new Intl.NumberFormat('tr-TR').format(Math.round(n)); },
       get pieNet() { return this.parseAmount(this.groupedResults.income?.items?.find(i => i[0].includes('Yıllık'))?.[1]); },
@@ -195,56 +194,45 @@
         return 'background: conic-gradient(' + stops.join(', ') + ');';
       }
     }"
-    x-init="results = await window.calculate(form); $watch('form', async (value) => results = await window.calculate(value))"
+    x-init="results = await window.calculateMixed(form); $watch('form', async (value) => results = await window.calculateMixed(value))"
   >
     <!-- Hero number card -->
     <div
-      class="card p-5 md:p-7 mb-5 bg-gradient-to-br from-indigo-50/40 via-white to-white border-indigo-100"
+      class="card p-5 md:p-6 mb-5 bg-gradient-to-br from-indigo-50/40 via-white to-white border-indigo-100"
     >
       <p
-        class="text-[12px] uppercase tracking-wider text-slate-500 font-semibold mb-2"
+        class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-1.5"
       >
         Net Yıllık Kazanç
       </p>
-      <template x-if="netAnnual()">
-        <p
-          class="num font-semibold text-slate-900 tracking-tight leading-none break-words"
-          style="font-size: clamp(2rem, 6vw, 3.25rem);"
-          x-text="netAnnual()[1]"
-        >
-        </p>
-      </template>
-      <template x-if="!netAnnual()">
-        <p
-          class="num font-semibold text-slate-300 tracking-tight"
-          style="font-size: clamp(2rem, 6vw, 3.25rem);"
-        >
-          –
-        </p>
-      </template>
+      <p
+        class="num font-semibold text-slate-900 tracking-tight leading-tight break-words text-2xl md:text-3xl"
+        x-text="netAnnual() ? netAnnual()[1] : '–'"
+      >
+      </p>
 
-      <div class="grid grid-cols-2 gap-4 mt-5 pt-5 border-t border-slate-100">
+      <div class="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-slate-100">
         <div>
           <p
-            class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-1"
+            class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mb-0.5"
           >
             Aylık (₺)
           </p>
           <p
-            class="num text-lg md:text-xl font-semibold text-slate-900 break-words"
-            x-text="netMonthly() ? netMonthly()[1]: '–'"
+            class="num text-base md:text-lg font-semibold text-slate-900 break-words"
+            x-text="netMonthly() ? netMonthly()[1] : '–'"
           >
           </p>
         </div>
         <div>
           <p
-            class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-1"
-            x-text="`Aylık (${currencies[form.currency].symbol})`"
+            class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mb-0.5"
           >
+            Aylık (€)
           </p>
           <p
-            class="num text-lg md:text-xl font-semibold text-slate-900 break-words"
-            x-text="netMonthlyForeign() ? netMonthlyForeign()[1] : '–'"
+            class="num text-base md:text-lg font-semibold text-slate-900 break-words"
+            x-text="netMonthlyEur() ? netMonthlyEur()[1] : '–'"
           >
           </p>
         </div>
@@ -265,18 +253,18 @@
     <template x-if="pieTotal > 0">
       <div class="card p-5 md:p-6 mb-5">
         <p
-          class="text-[12px] uppercase tracking-wider text-slate-500 font-semibold mb-5"
+          class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-4"
         >
           Dağılım
         </p>
         <div class="flex items-center gap-5 md:gap-7 flex-wrap">
           <div
-            class="relative w-28 h-28 md:w-32 md:h-32 rounded-full shrink-0"
+            class="relative w-24 h-24 md:w-28 md:h-28 rounded-full shrink-0"
             :style="pieStyle"
           >
             <div class="absolute inset-[22%] rounded-full bg-white"></div>
           </div>
-          <div class="flex-1 min-w-[180px] space-y-3">
+          <div class="flex-1 min-w-[180px] space-y-2.5">
             <template x-for="seg in pieSegments" :key="seg.label">
               <div
                 class="flex items-center justify-between gap-3 text-[13px]"
@@ -321,7 +309,7 @@
               <div class="flex items-center gap-3">
                 <span
                   class="chev text-slate-400"
-                  :class="expandedSections[groupName] ? 'open text-slate-700': ''"
+                  :class="expandedSections[groupName] ? 'open text-slate-700' : ''"
                 >
                   <svg
                     viewBox="0 0 24 24"
@@ -410,10 +398,10 @@
 
 <script>
   import Alpine from 'alpinejs';
-  import { calculate } from '../scripts/calculator';
+  import { calculateMixed } from '../scripts/calculator-mixed';
 
-  // Alpine x-init / x-data inline expressions reference window.calculate.
-  (window as any).calculate = calculate;
+  // Alpine x-init / x-data inline expressions reference window.calculateMixed.
+  (window as any).calculateMixed = calculateMixed;
   (window as any).Alpine = Alpine;
   Alpine.start();
 </script>

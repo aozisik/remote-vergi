@@ -9,7 +9,10 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "biome check src/scripts astro.config.mjs tailwind.config.mjs",
+    "format": "biome format --write src/scripts astro.config.mjs tailwind.config.mjs",
+    "check": "biome check --write src/scripts astro.config.mjs tailwind.config.mjs"
   },
   "author": "Swiftmade OÜ",
   "license": "PolyForm-Noncommercial-1.0.0",
@@ -24,6 +27,7 @@
     "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.14",
     "@tailwindcss/typography": "^0.5.16",
     "@types/alpinejs": "^3.13.11",
     "@types/dinero.js": "^1.9.4",

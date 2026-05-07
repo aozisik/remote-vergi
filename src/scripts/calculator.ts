@@ -1,24 +1,33 @@
 import type Dinero from 'dinero.js';
 import {
+  ANNUAL_STAMP_TAX,
   BAGKUR_PREMIUM,
   SOFTWARE_SERVICE_EXPORT_EXEMPTION,
-  ANNUAL_STAMP_TAX,
   YMM_TASDIK_THRESHOLD,
 } from './constants';
-import { Result } from './result';
 import type { ResultLine } from './result';
+import { Result } from './result';
 import { validate } from './support/form';
 import { incomeTax } from './support/incomeTax';
 import {
-  convertEurToTry,
-  convertTryToEur,
-  toEur,
+  CURRENCY_SYMBOL,
+  type ForeignCurrency,
+  convertForeignToTry,
+  convertTryToForeign,
+  toForeign,
   toText,
   toTry,
 } from './support/money';
 
+const isForeignCurrency = (v: unknown): v is ForeignCurrency =>
+  v === 'EUR' || v === 'USD' || v === 'GBP';
+
 export const calculate = async (form: any): Promise<ResultLine[]> => {
   const { isValid, data } = validate(form);
+  const currency: ForeignCurrency = isForeignCurrency(form.currency)
+    ? form.currency
+    : 'EUR';
+  const symbol = CURRENCY_SYMBOL[currency];
 
   if (!isValid) {
     return [
@@ -33,22 +42,26 @@ export const calculate = async (form: any): Promise<ResultLine[]> => {
   }
 
   const result = new Result();
-  const incomeInTry = await convertEurToTry(
-    toEur(data.income),
-    data.exchangeRate
+  const incomeInTry = await convertForeignToTry(
+    toForeign(data.income, currency),
+    data.exchangeRate,
   );
   const annualIncomeTry = incomeInTry.multiply(12);
 
   // Expenses section
   let costsTotal = toTry(0);
-  const addMonthlyCost = (name: string, amount: Dinero.Dinero, url?: string) => {
+  const addMonthlyCost = (
+    name: string,
+    amount: Dinero.Dinero,
+    url?: string,
+  ) => {
     const annualCost = amount.multiply(12);
     costsTotal = costsTotal.add(annualCost);
     result.addLine(
       `${name} (${toText(amount)} / ay)`,
       annualCost,
       url,
-      'expenses'
+      'expenses',
     );
   };
   const addAnnualCost = (name: string, amount: Dinero.Dinero, url?: string) => {
@@ -64,16 +77,16 @@ export const calculate = async (form: any): Promise<ResultLine[]> => {
   // Eşik kontrolü, YMM ücreti henüz eklenmeden önceki maliyetler üzerinden yapılır.
   const provisionalAfterCosts = annualIncomeTry.subtract(costsTotal);
   const provisionalExemption = provisionalAfterCosts.multiply(
-    SOFTWARE_SERVICE_EXPORT_EXEMPTION
+    SOFTWARE_SERVICE_EXPORT_EXEMPTION,
   );
   const ymmRequired = provisionalExemption.greaterThan(
-    toTry(YMM_TASDIK_THRESHOLD)
+    toTry(YMM_TASDIK_THRESHOLD),
   );
   if (ymmRequired && data.ymmCost > 0) {
     addAnnualCost(
       'YMM Tasdik Raporu (yıllık)',
       toTry(data.ymmCost),
-      'https://www.alomaliye.com/2025/12/30/istisna-ve-indirimler-icin-ymm-tasdik-raporu-zorunlulugu/'
+      'https://www.alomaliye.com/2025/12/30/istisna-ve-indirimler-icin-ymm-tasdik-raporu-zorunlulugu/',
     );
   }
 
@@ -88,21 +101,21 @@ export const calculate = async (form: any): Promise<ResultLine[]> => {
     'Vergilendirilebilir Gelir',
     annualIncomeAfterCosts,
     null,
-    'taxes'
+    'taxes',
   );
 
   const exemptionAmount = annualIncomeAfterCosts.multiply(
-    SOFTWARE_SERVICE_EXPORT_EXEMPTION
+    SOFTWARE_SERVICE_EXPORT_EXEMPTION,
   );
   result.addLine(
     `Hizmet İhracatı İstisnası (%${SOFTWARE_SERVICE_EXPORT_EXEMPTION * 100})`,
     exemptionAmount,
     'https://www.alomaliye.com/2026/01/27/yurtdisi-hizmet-ihraci-istisnasinda-yeni-donem/',
-    'taxes'
+    'taxes',
   );
 
   let taxableIncome = annualIncomeAfterCosts.multiply(
-    1 - SOFTWARE_SERVICE_EXPORT_EXEMPTION
+    1 - SOFTWARE_SERVICE_EXPORT_EXEMPTION,
   );
 
   if (taxableIncome.isNegative()) {
@@ -117,29 +130,23 @@ export const calculate = async (form: any): Promise<ResultLine[]> => {
       : (tax.getAmount() / taxableIncome.getAmount()) * 100;
 
   result.addLine('Vergi Matrahı', taxableIncome, null, 'taxes');
-  result.addLine(
-    `Gelir Vergisi (%${taxRate.toFixed(2)})`,
-    tax,
-    null,
-    'taxes'
-  );
+  result.addLine(`Gelir Vergisi (%${taxRate.toFixed(2)})`, tax, null, 'taxes');
   result.addLine('Vergiler', totalTax, null, 'taxes', 'total');
 
   // Final calculations (net income)
   const netAnnualIncome = annualIncomeTry.subtract(tax.add(costsTotal));
   result.addLine('Net Gelir', netAnnualIncome, null, 'income', 'total');
   result.addLine('Net Yıllık Gelir', netAnnualIncome, null, 'income');
+  result.addLine('Net Aylık Gelir', netAnnualIncome.divide(12), null, 'income');
   result.addLine(
-    'Net Aylık Gelir',
-    netAnnualIncome.divide(12),
+    `Net Aylık Gelir (${symbol})`,
+    await convertTryToForeign(
+      netAnnualIncome.divide(12),
+      1 / data.exchangeRate,
+      currency,
+    ),
     null,
-    'income'
-  );
-  result.addLine(
-    'Net Aylık Gelir (€)',
-    await convertTryToEur(netAnnualIncome.divide(12), 1 / data.exchangeRate),
-    null,
-    'income'
+    'income',
   );
 
   return result.getLines();

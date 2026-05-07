@@ -60,16 +60,16 @@ Aşağıdaki alanlar GİB altyapısı tarafından otomatik atanır; sizin manuel
 
 Bu, **en önemli alan**. e-Arşiv fatura formunda Fatura Tipi olarak şu seçenekler bulunur: `SATIS`, `IADE`, `TEVKIFAT`, `ISTISNA`, `OZELMATRAH`, `IHRACKAYITLI`.
 
-Yurt dışı hizmet ihracatı için **ISTISNA** seçilir. "İhracat" veya "ihracKayıtlı" değil — bunlar mal ihracatı içindir. Hizmet ihracatı her zaman ISTISNA tipi altında 302 koduyla işlenir.
+Yurt dışı hizmet ihracatı için **ISTISNA** seçilir. "İhracat" veya "ihracKayıtlı" değil; bunlar mal ihracatı içindir. Hizmet ihracatı her zaman ISTISNA tipi altında 302 koduyla işlenir.
 
 ## Müşteri (SAYIN) bilgileri
 
 | Alan | Ne yazılır | Örnek |
 | --- | --- | --- |
-| Unvan | Yurt dışı tüzel/gerçek kişinin tam adı | Acme Inc., Swiftmade OÜ |
+| Unvan | Yurt dışı tüzel/gerçek kişinin tam adı | Acme Inc., Beispiel GmbH |
 | Adres | Tam yurt dışı adres + ülke | Pärnu mnt 148, 11317, Tallinn, Estonia |
 | Ülke | Müşterinin yerleşik olduğu ülke | Estonya, USA, United Kingdom |
-| **VKN** | Yurt dışı müşteri için **`2222222222`** | (10 adet 2 — standart yer tutucusu) |
+| **VKN** | Yurt dışı müşteri için **`2222222222`** | (10 adet 2, standart yer tutucusu) |
 
 > **Püf nokta:** Yurt dışı müşterilerin TR vergi kimlik numarası olmadığı için GİB Portal ve özel entegratörler **`2222222222`** (10 adet 2) değerini standart yer tutucusu olarak kabul eder. Müşterinin kendi ülkesindeki VAT ID / EIN / TIN numarası varsa müşteri unvanı altına serbest metin olarak ekleyebilirsiniz; ancak VKN alanı her zaman `2222222222` kalır.
 
