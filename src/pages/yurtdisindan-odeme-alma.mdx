@@ -1,208 +1,217 @@
 ---
 layout: ../layouts/ArticleLayout.astro
-title: "Yurtdışından Para Alma 2026: Wise, Payoneer, Revolut, Deel Karşılaştırması"
-description: "Wise Türkiye, Payoneer, Revolut, Deel ve SWIFT havalesi ile yurtdışından para alma. DAB, hizmet ihracatı istisnası ve TR banka zorunluluğu. Remote yazılımcılar için 2026 rehberi."
+title: "Yurtdışından Ödeme Alma 2026: SWIFT, Payoneer, Wise, Müşterinizin Seçenekleri"
+description: "Yurtdışı müşteriden hizmet ihracatı kapsamında ödeme almanın yolları: doğrudan SWIFT havalesi, Payoneer, müşterinin Wise veya Revolut kullanması. Gelir vergisi %100 indirimi için TL/döviz farkı, KDV istisnası ve döviz alım belgesi (DAB) zorunluluğu üzerine 2026 rehberi."
 dateModified: "2026-05-07"
 faq:
-  - question: "Wise hesabı DAB belgesi düzenler mi?"
-    answer: "Hayır. Wise (eski TransferWise) bir Türkiye bankası değildir; dolayısıyla Döviz Alım Belgesi (DAB) düzenleme yetkisi yoktur. Wise üzerine gelen dövizi Türk bankasındaki döviz hesabınıza transfer ettiğinizde TR bankası DAB veya döviz hesabı dekontu düzenler. Hizmet ihracatı %100 istisnasından yararlanmak için bedelin TR bankasına ulaşması ve DAB ile belgelenmesi gerekir; Wise tek başına yeterli değildir."
-  - question: "Yurtdışından gelen ödemenin TR bankasına gelmesi şart mı?"
-    answer: "Evet. KDV Kanunu'nun 11/1-a maddesi ve Gelir İdaresi Başkanlığı uygulamalarında %100 hizmet ihracatı istisnasının ön şartı, hizmet bedelinin döviz olarak yurda getirilmesi ve bunun bir TR bankası tarafından düzenlenen DAB (veya döviz hesabı dekontu) ile belgelenmesidir. Wise, Payoneer, Revolut veya benzeri platformlar üzerinde tutulan bakiye DAB üretmez; istisna için bedeli TR bankasındaki şahıs şirketi hesabınıza çekmeniz gerekir."
-  - question: "Wise Türkiye'de nasıl çalışır?"
-    answer: "Wise, çoklu para birimi hesabı sunan bir İngiltere merkezli fintech'tir. Türkiye'de bireysel ve işletme hesabı açılabilir; USD, EUR, GBP gibi para birimlerinde 'yerel' IBAN'lar verir. Müşteriniz size Wise üzerinden ödeme yapar; bedeli TR bankasındaki döviz hesabınıza SWIFT veya yerel transferle çekersiniz. Wise komisyonları SWIFT havalesinden genelde düşüktür ve döviz kuru piyasaya yakın orta kurdur."
-  - question: "Deel veya Remote.com ile alınan ödeme hizmet ihracatı sayılır mı?"
-    answer: "Bu, ödemenin nasıl yapıldığına bağlıdır. Deel/Remote.com sizinle 'contractor' (yüklenici) ilişkisi kurar ve ödemeyi TR bankanıza döviz olarak transfer ederse normal hizmet ihracatı kuralları geçerlidir; faturanızı hizmet alıcısına keser, DAB alır, %100 istisnadan yararlanırsınız. Ancak Employer of Record (EOR) modelinde Deel sizi 'çalışan' olarak istihdam eder ve ücret bordro üzerinden TL olarak ödenirse, bu artık serbest meslek geliri değil ücret geliri olur ve farklı vergilendirilir."
-  - question: "Hangi platform en uygun?"
-    answer: "B2B yurt dışı müşterilerden düzenli döviz alıyorsanız doğrudan SWIFT havalesi (TR bankasındaki döviz hesabınıza) en temiz yoldur; banka DAB'ı otomatik düzenler. Müşteriniz SWIFT istemezse Wise veya Payoneer iyi aracılardır, ancak bedeli TR bankasına çekme adımını atlamayın. Revolut Türkiye için sınırlı entegredir, PayPal işletme hesabı 2016 sonrası TR'de zorlaşmıştır. Deel'i contractor modeliyle kullanmak hizmet ihracatı için en uyumlu seçenektir."
+  - question: "Ödeme TL olarak gelirse %100 kazanç indirimi geçerli mi?"
+    answer: "Evet, gelir/kurumlar vergisi tarafındaki %100 kazanç indirimi (GVK 89/13 ve KVK 10/ğ) için 03.02.2023 tarih ve 166967 sayılı özelge net bir cevap veriyor: gelirin döviz veya Türk lirası olması fark etmez, indirimden yararlanılabilir. Hatta paranın Türkiye'ye getirilme zorunluluğu bile bulunmuyor. Yani Wise üzerinden TL geldi diye gelir vergisi avantajınızı kaybetmezsiniz. Ancak KDV istisnası tarafındaki %0 fatura uygulaması farklı yoruma açık; ayrı bir KDV iadesi talep ediyorsanız döviz girişi ve DAB hâlâ önemli."
+  - question: "Müşterim Wise üzerinden ödeyebilir mi?"
+    answer: "Evet, müşteriniz Wise (veya Revolut, başka bir fintech) üzerinden ödeme yapabilir; Wise'ın 2023 sonrası TR-adresli kullanıcılara getirdiği kısıtlamalar yurt dışındaki müşterinizi kapsamaz. Müşteri ödemeyi Wise üzerinden gönderdiğinde: (1) EUR/USD/GBP cinsinden TR döviz hesabınıza gönderirse banka DAB düzenler, hem gelir vergisi hem KDV tarafı tartışmasız geçerli olur; (2) TL'ye çevrilip TR TL hesabınıza gelirse gelir vergisi indirimi yine geçerlidir (özelge 166967), ancak KDV %0 uygulaması ihtilaflıdır. Pratik öneri: mümkünse müşterinizi 'send in EUR' yönlendirin."
+  - question: "Türkiye'den Wise hesabı açabilir miyim?"
+    answer: "31 Mayıs 2023 tarihinden itibaren Wise, Türkiye'de kayıtlı adresi olan kullanıcılara yeni hesap özelliği (yerel IBAN, account details) vermiyor. Mevcut hesaplar da zamanla kapanabiliyor. Pratikte yeni bir TR mukim şahıs şirketi sahibi olarak Wise'ı kendi hesabınızda kullanmanız mümkün değil. Ancak bu kısıtlama yurt dışındaki müşterinizi kapsamaz; müşteriniz Wise'ı normal şekilde kullanabilir ve size ödeme gönderebilir."
+  - question: "DAB ne zaman gerçekten kritik?"
+    answer: "İki durumda kritiktir: (1) KDV iadesi talep edecekseniz (örn. yatırım veya ekipman alımları nedeniyle önemli yüklenilen KDV varsa), DAB veya döviz hesabı dekontu zorunludur; TL gelirse iade engellenir. (2) Vergi denetiminde KDV %0 uygulamasının sorgulanma riskini düşürmek için belgeli olmak değerlidir. Sade gelir/kurumlar vergisi indirimi açısından DAB zorunlu değildir; özelge 166967 bunu netleştirmiştir."
+  - question: "Hangi yöntem en uygun?"
+    answer: "Doğrudan SWIFT havalesi her zaman en temiz yoldur: tek adımda DAB üretir, hem gelir vergisi hem KDV tarafı tartışmasız. Birden çok küçük müşteri varsa Payoneer iyi bir aracıdır; bedeli TR döviz hesabınıza döviz olarak çekin. Müşteriniz SWIFT komisyonundan kaçınmak isterse Wise veya Revolut üzerinden EUR/USD/GBP olarak göndermesi tercih edilir. TL gönderdiğinde gelir vergisi tarafında özelge ile koruma var; KDV tarafında risk almak istemiyorsanız döviz akışına özen gösterin."
 ---
 
 import CalculatorCTA from '../components/CalculatorCTA.astro';
 
-# Yurtdışından Para Alma 2026: Wise, Payoneer, Deel ve TR Bankası
+# Yurtdışından Ödeme Alma 2026: SWIFT, Payoneer, Wise
 
-Yurt dışına remote çalışan bir yazılımcı, tasarımcı veya freelancer olarak ödemeleri nasıl alacağınız sadece komisyon meselesi değildir; doğrudan **vergi yükünüzü** etkiler. Türkiye'de %100 hizmet ihracatı istisnasından yararlanmak için bedelin döviz olarak bir Türk bankasına gelmesi ve **Döviz Alım Belgesi (DAB)** ile belgelenmesi şarttır.
+Yurt dışındaki müşterilere remote yazılım, tasarım veya danışmanlık hizmeti veriyorsunuz. Sıra ödemeyi almaya geldiğinde hangi yolu seçtiğiniz hem komisyonu hem de bazı durumlarda vergi belgelendirmenizi etkiler. Bu rehber 2026 itibarıyla TR mukim bir şahıs şirketi sahibi için doğrudan SWIFT havalesi, Payoneer ve müşterinizin Wise / Revolut kullanma seçeneklerini karşılaştırır.
 
-Bu rehber 2026 itibarıyla TR mukimi bir şahıs şirketi sahibi için Wise, Payoneer, Revolut, Deel/Remote.com ve doğrudan SWIFT havalesi seçeneklerini karşılaştırır.
+Önemli iki nokta baştan:
 
-**Tek cümlede özet:** Hangi platformu kullanırsanız kullanın, bedel sonunda Türk bankasındaki döviz hesabınıza ulaşmalı ve DAB veya döviz hesabı dekontu düzenlenmelidir. Aksi halde %100 hizmet ihracatı istisnasını **kaybedersiniz**.
+- %100 hizmet ihracatı **kazanç indirimi** (gelir/kurumlar vergisi tarafı) için **paranın döviz veya TL olarak gelmesi fark etmez**. Bu, 03.02.2023 tarih ve 166967 sayılı özelge ile netleşmiştir.
+- Ancak kazancın **tamamının beyanname verme tarihine kadar Türkiye'ye transfer edilmesi şarttır**. KVK 10/ğ ve GVK 89/13'e göre kısmi transfer indirim hakkını düşürür.
+- KDV %0 fatura uygulaması ve KDV iadesi tarafı ise farklı şartlara tabi; aşağıda iki tarafı ayrı ayrı ele alıyoruz.
 
-## Neden TR bankası ve DAB zorunlu?
+Detaylı yorum için: [Alomaliye — Yurt Dışı Mukimlere Verilen Hizmetlerde Kazanç İndirimi](https://www.alomaliye.com/2026/04/20/yurt-disi-mukimlere-verilen-hizmetlerde-kazanc-indirimi/).
 
-KDV Kanunu'nun 11/1-a maddesi ve Gelir Vergisi Kanunu'nun ilgili istisna hükümleri, hizmet ihracatından elde edilen kazancın %100'ünün vergiden istisna tutulması için iki ön şart koyar:
+## Önce kavramlar
 
-1. Hizmet, **yurt dışındaki müşteriye** ifa edilmiş olmalı (faturada alıcı yurt dışı tüzel kişi)
-2. Hizmet bedeli **döviz olarak Türkiye'ye getirilmiş** olmalı ve bu durum bir TR bankası tarafından düzenlenen **DAB** veya **döviz hesabı dekontu** ile belgelenmeli
+| Kısaltma | Anlamı |
+| --- | --- |
+| **DAB** | Döviz Alım Belgesi: TR bankasının yurt dışından gelen dövizi TL'ye çevirirken düzenlediği resmi belge |
+| **Döviz hesabı dekontu** | Dövizi TL'ye çevirmeden döviz hesabında tuttuğunuzda banka tarafından düzenlenen ve hizmet ihracatı evrakı için DAB ile aynı işlevi gören belge |
+| **Yetkili müessese** | TCMB tarafından döviz alım/satımına yetkili kılınmış kuruluşlar (TR bankaları). Wise, Payoneer ve Revolut bu listede değildir |
 
-Wise, Payoneer veya Revolut üzerinde tuttuğunuz bakiye Türkiye'ye girmiş sayılmaz; bu platformlar TR bankası değildir ve DAB düzenleme yetkileri yoktur. Bedeli TR bankasındaki döviz hesabınıza çektiğinizde, banka size DAB veya hesap dekontu düzenler ve istisna evrakınız tamamlanır.
+## İki ayrı vergi tarafı, iki ayrı kural
 
-> Pratik kural: TR bankasına ulaşmamış döviz, hizmet ihracatı istisnası açısından **yok hükmündedir**.
+Hizmet ihracatı dediğimizde aslında **iki ayrı vergi avantajı** vardır ve TL/döviz sorusu bu ikisini farklı etkiler:
+
+### 1. Gelir / Kurumlar Vergisi %100 Kazanç İndirimi (GVK 89/13, KVK 10/ğ)
+
+Bu, sayfaların büyük çoğunluğunda anlatılan ve TR mukim freelancer'ın efektif vergi yükünü neredeyse sıfıra indiren ana avantajdır.
+
+- **TL veya döviz fark etmez.** Özelge 03.02.2023, 166967: "Madde kapsamında elde edilen gelirin döviz veya Türk Lirası olması önemli değildir."
+- Hizmet bedelinin Türkiye'ye getirilme zorunluluğu da bulunmuyor (hizmet ihracatı kambiyo zorunluluğu kapsamında değil).
+- Tek koşul: hizmet yurt dışındaki bir müşteriye ifa edilmiş ve faturanın yurt dışı tüzel kişiye kesilmiş olması.
+
+Pratik sonuç: Müşteriniz Wise üzerinden TL gönderse bile gelir vergisi indiriminden yararlanmaya devam edersiniz.
+
+### 2. KDV İstisnası %0 (KDV K. 11/1-a)
+
+Bu, faturada KDV oranını %0 olarak gösterebilmenizi (302 kodu) sağlayan tarafıdır.
+
+- Klasik yorum, DAB veya döviz hesabı dekontu ister.
+- TL girişi durumunda KDV %0 uygulaması **ihtilaflıdır**; vergi denetiminde sorgulanma riski vardır.
+- Mali müşavirinizin yorumu ve dosyalama disiplini önemlidir.
+
+### 3. KDV İadesi Talebi
+
+Üretiminizde önemli yüklenilen KDV varsa (yatırım, ekipman, lisans alımları) bu KDV'yi iade alabilirsiniz.
+
+- DAB veya döviz hesabı dekontu **zorunludur**, ihtilaf yok.
+- TL girişi varsa o işlem için iade talep edilemez.
+
+### Pratik özet
+
+| Durum | Gelir/Kurumlar Vergisi İndirimi | KDV %0 Fatura | KDV İadesi |
+| --- | --- | --- | --- |
+| Döviz girişi + DAB var | Geçerli ✓ | Geçerli ✓ | Talep edilebilir ✓ |
+| TL geldi (banka TL hesabınıza) | Geçerli ✓ (özelge 166967) | İhtilaflı, mali müşavire teyit | Talep edilemez ✗ |
+
+Çoğu yazılım freelancer'ı için ikinci ve üçüncü tarafların pratik etkisi sınırlıdır (üretimde önemli yüklenilen KDV genelde yoktur). Asıl avantaj olan gelir/kurumlar vergisi indirimi, TL/döviz sorusundan bağımsız çalışır.
 
 ## Karşılaştırma tablosu
 
-| Yöntem | DAB destekler? | TR bankası gerekli? | Tipik komisyon | Hız | Hizmet ihracatına uygun? |
-| --- | --- | --- | --- | --- | --- |
-| Doğrudan SWIFT havalesi | Evet (banka düzenler) | Evet | $20–$50 sabit | 1–3 gün | Çok uygun |
-| Wise (Business) | Hayır (Wise düzenlemez) | Evet, çekiş için | %0,3–%0,5 + sabit | Aynı gün–1 gün | Uygun, çekiş şart |
-| Payoneer | Hayır | Evet, çekiş için | %1–%2 (TR bankaya çekiş) | 1–3 gün | Uygun, çekiş şart |
-| Revolut | Sınırlı | Evet | Plana göre değişir | 1–2 gün | Sınırlı, bireysel ağırlıklı |
-| PayPal | Hayır | Evet | %3,4 + sabit | Çekiş zor | Zor, 2016 sonrası kısıtlı |
-| Deel/Remote (contractor) | Hayır (Deel düzenlemez) | Evet, çekiş için | %1–%3 | 1–2 gün | Uygun, contractor modeliyle |
-| Deel/Remote (EOR/employee) | İlgili değil | Hayır | Deel ücreti müşteri öder | Bordro takvimi | Hayır, ücret geliri olur |
+| Yöntem | TR mukim için durumu | Hizmet ihracatı uyumu |
+| --- | --- | --- |
+| Doğrudan SWIFT havalesi | Tüm TR bankalarında mevcut | **En uyumlu**: DAB tek adımda gelir |
+| Payoneer | TR mukim/işletmeye açık | Uygun: bedeli TR döviz hesabınıza döviz olarak çekmek şart |
+| Müşterinin Wise / Revolut kullanması | Müşteri yurt dışında, kısıtlama yok | Şartlı: müşteri **EUR/USD/GBP** olarak TR döviz hesabınıza göndermeli |
+| PayPal | TR işletme hesabı 2016 sonrası pratikte kapalı | Pratik değil |
 
-## Wise (eski TransferWise)
+## Doğrudan SWIFT havalesi (en temiz yol)
 
-Wise, çoklu para birimi hesabı sunan İngiltere merkezli bir fintech'tir. TR'de **bireysel** ve **Business (işletme)** hesap açılabilir.
-
-### Nasıl çalışır?
-
-- USD, EUR, GBP, AUD ve onlarca para biriminde **yerel IBAN'lar** alırsınız
-- Müşteriniz Wise üzerinden ödeme yaparsa veya yerel banka transferiyle bu IBAN'lara öder
-- Wise üzerinde döviz olarak tutabilir veya başka bir hesaba çekebilirsiniz
-
-### Wise Türkiye için kritik nokta
-
-**Wise DAB düzenleyemez.** Wise bir Türkiye bankası değildir; Türkiye Cumhuriyet Merkez Bankası tarafından düzenlenen "yetkili müessese" listesinde değildir. Bu nedenle:
-
-- Wise hesabınızdaki USD/EUR bakiye, hizmet ihracatı istisnası açısından **henüz Türkiye'ye girmemiştir**
-- Bedeli TR bankasındaki **şahıs şirketi adına açılı döviz hesabınıza** transfer ettiğinizde, TR bankası size DAB veya döviz hesabı dekontu düzenler
-- Bu transferi **döviz olarak** yapın; Wise üzerinde TL'ye çevirip TL hesabına atmak DAB akışını bozar
-
-### Wise Business açma
-
-Wise Business açmak için şahıs şirketi belgeleriniz (vergi levhası, MERSİS çıktısı, imza beyannamesi) gerekir. Süreç tipik olarak 1–5 iş günü sürer ve genellikle ücretsizdir; bazı bölgelerde tek seferlik düşük bir kuruluş ücreti alınabilir.
-
-### Avantajlar ve dezavantajlar
-
-- Komisyon SWIFT'ten genelde düşük
-- Döviz kuru orta piyasa kuruna yakın
-- Yerel IBAN'lar müşteri tarafında entegrasyonu kolaylaştırır
-- DAB için TR bankaya çekiş zorunlu, ekstra adım
-- Yüksek tutarlı transferlerde TR banka kompliyans soruları gelebilir
-
-## Payoneer
-
-Payoneer, freelance ve e-ticaret odaklı, Wise'a benzer bir uluslararası ödeme platformudur. Marketplace ve B2B faturalama tarafında güçlüdür.
-
-### Nasıl çalışır?
-
-- Payoneer üzerinde USD, EUR, GBP receiving account'lar açabilirsiniz
-- Müşterileriniz Payoneer'a ödeme yapar veya marketplace (Upwork, Fiverr) entegrasyonuyla otomatik aktarım olur
-- Bakiyeyi TR bankasındaki hesabınıza çekersiniz
-
-### TR için durum
-
-- Payoneer da DAB düzenlemez; TR bankaya çekiş şart
-- TR bankaya çekişte komisyon Wise'tan biraz yüksek olabilir (%1–%2)
-- Payoneer prepaid kart sunar; ancak **kartla harcama yaparsanız bedel TR'ye girmez** ve hizmet ihracatı istisnası kaybolur
-
-> Önemli: Payoneer kartıyla yurt içi/dışı harcama yapmak vergi avantajı açısından **kötü stratejidir**. Bedel TR bankasına çekilmeli, sonra harcamalar yapılmalıdır.
-
-## Revolut
-
-Revolut, çoklu para birimi sunan başka bir fintech'tir. Türkiye'de doğrudan kuruluş hizmeti sunmaz; ancak TR vatandaşları AB üzerinden hesap açabilmektedir.
-
-### TR için durum
-
-- Türkiye için **Revolut Business** doğrudan yerli bir ürün olarak sunulmuyor
-- Bireysel hesap çoğu TR mukim için hizmet ihracatı akışına entegre değildir
-- Wise/Payoneer gibi alternatifler şahıs şirketi açısından daha uygundur
-
-Revolut'u seyahat ve günlük harcama için kullanmak makul olabilir; ancak **işletme tahsilatı için tercih edilmemelidir.**
-
-## PayPal
-
-2016 yılında BDDK düzenlemesi sonrası PayPal Türkiye operasyonlarını durdurdu. TR mukim işletmeler için PayPal Business hesabı açmak zorlaştı; bireysel hesaplar dahi sınırlı işlevle çalışır.
-
-### Mevcut durum
-
-- TR mukim işletme hesapları için PayPal sınırlıdır
-- Bireysel hesaplarla gelen bakiyenin TR'ye çekilmesi zor; çoğu kullanıcı yurt dışı banka aracılığıyla yönlendirir
-- Hizmet ihracatı istisnası akışında pratik bir seçenek değildir
-
-Müşteriniz sadece PayPal kabul ediyorsa, alternatif olarak Wise/Payoneer üzerinden fatura kesilmesini önerin.
-
-## Deel ve Remote.com (EOR platformları)
-
-Deel ve Remote.com, uluslararası işveren-yüklenici ilişkilerini düzenleyen platformlardır. **Hangi modelle çalıştığınız** vergi sonucunu kökten etkiler.
-
-### Contractor (yüklenici) modeli
-
-- Siz bir TR şahıs şirketi olarak Deel üzerinden yurt dışı müşteriye **fatura kesersiniz**
-- Deel ödemeyi TR bankanıza döviz olarak transfer eder
-- Normal hizmet ihracatı kuralları işler: müşteri yurt dışı, döviz TR'ye giriyor, DAB alıyorsunuz, %100 istisna uygulanıyor
-- Deel sadece bir aracı/ödeme servisidir, bu modelde Deel'in kendisi DAB düzenlemez
-
-### EOR (Employer of Record) modeli
-
-- Deel sizi **çalışan** olarak istihdam eder; siz Deel'in TR yan kuruluşunun çalışanısınız
-- Ödeme bordro üzerinden, TL veya döviz olarak yapılır
-- Bu artık **ücret geliri**dir, hizmet ihracatı istisnası geçerli değildir
-- Bordro üzerinden gelir vergisi, SGK ve diğer kesintiler işler
-
-EOR modeli müşteriniz için yasal işveren riskini azaltır; ama sizin için %100 istisna avantajını kaldırır. TR şahıs şirketi yapısı ile EOR genellikle **uyumsuz**dur.
-
-> Karar: Eğer şahıs şirketinizi koruyup %100 istisnadan yararlanmak istiyorsanız Deel/Remote ile **contractor** olarak çalışın, EOR'dan kaçının.
-
-## Doğrudan SWIFT havalesi
-
-Eski moda gibi görünür, ama B2B müşteriler için en temiz yoldur.
+Eski moda gibi görünür, ama düzenli ödeme alan B2B müşteriler için **en sağlam yoldur**.
 
 ### Akış
 
-- TR bankasında şahıs şirketi adına bir **döviz hesabı** açın (USD/EUR ayrı hesaplar mantıklı)
-- Müşteriye SWIFT bilgilerinizi iletin (banka adı, SWIFT/BIC kodu, IBAN, hesap adı)
-- Müşteri ödediğinde TR bankası **DAB veya döviz hesabı dekontu** otomatik düzenler
+1. TR bankasında şahıs şirketi adına bir döviz hesabı açın (USD ve EUR ayrı hesaplar mantıklı olabilir).
+2. Müşterinize SWIFT bilgilerinizi iletin: banka adı, SWIFT/BIC kodu, IBAN, hesap sahibi unvanı.
+3. Müşteri ödemeyi gönderdiğinde TR bankası DAB veya döviz hesabı dekontu otomatik düzenler.
 
 ### Avantajlar
 
-- DAB tek adımda gelir, ekstra çekiş yok
-- Mali müşaviriniz dekontu doğrudan istisna uygulamasına ekler
-- Kompliyans sorgulaması az; banka müşteri ilişkisi düzenli
+- DAB tek adımda gelir, ekstra çekiş yoktur.
+- Mali müşaviriniz dekontu doğrudan istisna uygulamasına ekler.
+- Banka müşteri ilişkisi düzenli olduğunda uyum (compliance) sorgusu azdır.
 
 ### Dezavantajlar
 
-- Sabit SWIFT komisyonu ($20–$50)
-- Aracı bankalar (correspondent bank) küçük tutarlardan kesinti yapabilir
-- Müşteri Wise/ACH alışkınsa SWIFT'i kabul ettirmek pazarlık gerektirebilir
+- Sabit SWIFT komisyonu yaklaşık 20–50 USD aralığındadır.
+- Aracı bankalar (correspondent bank) küçük tutarlardan kesinti yapabilir.
+- Müşteri Wise veya yerel banka transferine alışkınsa SWIFT'i kabul ettirmek pazarlık gerektirebilir.
 
-Aylık tek bir büyük transferde SWIFT komisyonu Wise'tan ucuz çıkabilir; çok parçalı küçük ödemelerde Wise daha avantajlıdır.
+Aylık tek bir büyük transferde SWIFT komisyonu küçük kalır; çok parçalı küçük ödemelerde alternatif yöntemler daha avantajlı olabilir.
+
+## Payoneer
+
+Payoneer, freelance ve e-ticaret odaklı bir uluslararası ödeme platformudur. Wise'ın aksine **TR mukim/işletme hesabı açmak hâlâ mümkündür**.
+
+### Nasıl çalışır?
+
+- Payoneer üzerinde USD, EUR, GBP "receiving account" (alıcı hesap) açabilirsiniz.
+- Müşterileriniz Payoneer'a ödeme yapar veya Upwork, Fiverr gibi marketplace entegrasyonuyla otomatik aktarım gerçekleşir.
+- Bakiyeyi TR bankasındaki döviz hesabınıza döviz olarak çekersiniz.
+
+### Hizmet ihracatı için kritik kural
+
+- Payoneer DAB düzenleyemez; bedeli TR bankaya çekmek **şart**.
+- Çekiş sırasında **döviz olarak** çekin (USD → USD hesabınıza, EUR → EUR hesabınıza). TR bankası size DAB veya döviz hesabı dekontu düzenler.
+- Payoneer kartıyla doğrudan harcama yapmak bedeli TR'ye getirmiş sayılmaz; istisnayı kaybedersiniz.
+
+> Önemli: Payoneer kartıyla yurt içi veya yurt dışı harcama yapmak, vergi avantajı açısından **kötü stratejidir**. Bedel önce TR bankasına çekilmeli, harcamalar oradan yapılmalıdır.
+
+## Müşteriniz Wise veya Revolut kullanmak isterse
+
+SWIFT komisyonu küçük ödemelerde orantısız kalabiliyor. Müşteriniz "Wise üzerinden gönderebilir miyim?" diye sorduğunda kısa cevap: **Evet, ama döviz olarak göndermesi şart**.
+
+### Müşteri tarafında durum
+
+- Yurt dışında yaşayan müşteriniz Wise'ı veya Revolut'u serbestçe kullanabilir; TR'de yaşayan kullanıcılara yönelik kısıtlamalar müşterinizi etkilemez.
+- Wise ve Revolut, sizin TR'deki banka hesabınıza ödeme gönderebilir.
+
+### Kritik nokta: para birimi seçimi
+
+Wise ve Revolut, gönderim arayüzünde alıcının ülkesine göre **varsayılan olarak yerel para birimine çevirip gönderir**. Türkiye'ye gönderirken, varsayılan TRY olur. Bu durumda:
+
+- Gönderici tarafta döviz TL'ye çevrilir.
+- TR bankası TL transferi alır (yurt içi rail üzerinden).
+- Banka için bu **döviz girişi değildir**; DAB üretmez.
+- Hizmet ihracatı istisnası **kaybolur**.
+
+Doğru kullanım için müşterinizden iki şeyi talep edin:
+
+1. **Para birimini EUR (veya USD/GBP) olarak seçsin** ve bu para biriminde göndersin.
+2. **Sizin TR döviz hesabınızın IBAN'ını** kullansın (TL hesabı değil).
+
+Wise tarafında bu seçenek "Send in EUR" ya da "Recipient gets EUR" olarak görünür. Revolut'ta benzer bir seçenek bulunur. Bu yapılandırmada Wise/Revolut, ödemeyi SWIFT veya benzeri uluslararası rail üzerinden EUR olarak iletir, TR bankası döviz girişi görür ve DAB veya döviz hesabı dekontu düzenler.
+
+### Wise / Revolut'un avantajı
+
+- Komisyon SWIFT'in sabit ücretine göre düşüktür.
+- Döviz kuru piyasaya yakındır.
+- Müşteriniz Wise / Revolut'a alışkınsa süreç onun tarafında hızlı.
+
+### Dezavantajları
+
+- Müşteri yanlışlıkla TRY göndermeyi seçerse istisna kaybolur; bu konuda müşteriyi açıkça bilgilendirmeniz gerekir.
+- Bazı dönemlerde Wise / Revolut Türkiye'ye EUR/USD gönderim seçeneğini kapatabilir; transferden önce müşteri seçeneklerin var olduğunu teyit etmelidir.
+- TR bankası ilk yüksek transferde uyum (compliance) soruları yöneltebilir; sözleşme örneği hazır olsun.
+
+> Müşteriye söyleyebileceğiniz net cümle: "Lütfen ödemeyi **EUR cinsinden** sizin (gönderici) hesabınızdan, **benim TR EUR IBAN'ıma** gönderin. Tutarın TRY'ye çevrilmemesi gerekir."
+
+## TL olarak ödeme alırsam ne olur?
+
+Yasal olarak TL kabul etmek serbesttir. Müşteriniz Wise üzerinden TRY göndermeyi tercih ederse hesabınıza TL gelir. Bu durumda:
+
+- **Gelir / kurumlar vergisi tarafı:** %100 kazanç indirimi geçerli kalır (özelge 166967). Hizmet yurt dışı müşteriye verildiği sürece TL/döviz fark etmez.
+- **KDV %0 uygulaması:** İhtilaflı bir alan. Klasik yorum DAB ister; mali müşavirinizle riski değerlendirin. Pratikte küçük freelance işlerde sorun çıkma olasılığı düşüktür ama belirsizlik vardır.
+- **KDV iadesi:** Talep edilemez. Üretiminizde yüklenilen KDV iadesi alacaksanız o işlem için döviz girişi şarttır.
+
+Sade bir freelance ekonomi senaryosunda (üretim girdisi az, KDV iadesi yok) TL girişi büyük bir vergi avantajı kaybı yaratmaz. Yine de denetim sürtünmesinden kaçınmak için mümkünse döviz akışını tercih edin; hem belge disiplini sağlar hem KDV tarafını netleştirir.
 
 <CalculatorCTA title="Net kazancınızı hesaplayın" description="Aylık döviz gelirinizi ve kuru girin; hizmet ihracatı istisnası uygulandığında elinize geçecek net tutarı görün." />
 
 ## Faturada hangi tutarı yazmalıyım?
 
-Faturanızı **gönderim para birimi cinsinden** ve **müşteriden alacağınız tutar** üzerinden kesin. Komisyonlar düşülmeden önceki **brüt tutar** faturada yer alır; banka veya Wise komisyonu şahıs şirketi gideri olarak ayrı kayıt edilir.
+Faturanızı **müşterinin size ödeyeceği brüt tutar** üzerinden ve **gönderim para birimi cinsinden** kesin. Banka veya aracı platform komisyonu (Payoneer ücreti, Wise ücreti) faturanın altına yansıtılmaz; bu komisyon size ait bir gider kalemidir ve şahıs şirketi defterlerine ayrı kaydedilir.
 
-Hizmet ihracatı için fatura örneği ve KDV 11/1-a kodlamaya bakın: [302 (KDV 11/1-a) Fatura Örneği](/302-11-1-a-fatura-ornegi).
+Hizmet ihracatı için fatura örneği ve KDV 11/1-a kodlamasının detayları: [302 (KDV 11/1-a) Fatura Örneği](/302-11-1-a-fatura-ornegi).
 
-## Banka tarafında dikkat edilmesi gereken noktalar
+## Banka tarafında dikkat edilecek noktalar
 
-- **Şahıs şirketi adına döviz hesabı:** Bireysel hesabınıza gelen ödemeler işletme geliri sayılmaz; mutlaka şahıs şirketi unvanı altındaki hesaba gelmelidir
-- **DAB veya hesap dekontu:** Her ay mali müşavirinize iletin; dosya tutmadan istisna uygulanamaz
-- **Banka kompliyans:** Yüksek tutarlı ilk transferde banka müşteri kim, hizmet ne sorgusu yapar; sözleşme veya fatura örneği hazır olsun
-- **Döviz tutmak veya bozdurmak:** Döviz hesabında tutarsanız hesap dekontu, TL'ye çevirirseniz DAB düzenlenir; her ikisi de istisna evrakı için yeterlidir
+- **Şahıs şirketi adına döviz hesabı.** Bireysel hesabınıza gelen ödemeler işletme geliri sayılmaz. Mutlaka şahıs şirketi unvanı altında açılmış bir hesap kullanın.
+- **DAB veya hesap dekontu dosyası.** Her ay aldığınız belgeleri mali müşavirinize iletin. Dosya tutmadan istisna uygulanamaz.
+- **İlk yüksek transferde uyum sorgusu.** Banka müşteri kim, hizmet ne sorgusu yapar. Müşteri sözleşmenizi ve fatura örneğinizi hazır bulundurun.
+- **Döviz tutmak veya bozdurmak.** Dövizi hesabınızda tutarsanız hesap dekontu, TL'ye çevirirseniz DAB düzenlenir. Her ikisi de istisna evrakı için yeterlidir.
 
 ## Sıkça sorulan sorular
 
 ### Wise üzerinde 6 ay tutup sonra TR'ye getirsem istisna geçerli mi?
 
-Mevzuatta net bir süre sınırı yoktur, ancak **kazancın elde edildiği yıl içinde** TR'ye getirilmesi pratiği yerleşiktir. Dönem sonunda Wise'da bekleyen bakiye için mali müşaviriniz tutanak hazırlayabilir; yine de istisnayı korumak için bedeli **mümkün olan en kısa sürede** TR bankasına çekmek en güvenli yoldur.
+Bu senaryo TR mukim olarak Wise hesabınız varsayımıyla geçerli; ancak 31 Mayıs 2023 sonrası TR-adresli yeni hesaplar için bu yapı kurulamıyor. Eski hesabınız varsa, mevzuatta net süre sınırı yoktur ama kazancın elde edildiği yıl içinde Türkiye'ye getirilmesi yerleşik uygulamadır. İstisnayı korumak için bedeli en kısa sürede TR bankasındaki döviz hesabınıza çekin.
 
 ### Stripe ile ödeme alabilir miyim?
 
-Stripe, TR mukim işletmeler için resmi olarak desteklenmemektedir; çoğu remote yazılımcı yurt dışında bir LLC veya OÜ kurarak Stripe entegrasyonu yapar. TR şahıs şirketi adına Stripe hesabı açmak pratik değildir.
+Stripe, TR mukim işletmeler için resmi olarak desteklenmemektedir. Çoğu remote yazılımcı yurt dışında bir LLC veya OÜ kurarak Stripe entegrasyonu yapar; ancak bu yapı KKEK ve mukimlik açısından ek dikkat gerektirir. Şahıs şirketi adına Stripe hesabı açmak pratikte mümkün değildir.
 
 ### Kripto ile ödeme almak mümkün mü?
 
-Müşteri size USDT/USDC gönderirse bu döviz değildir; Türkiye'de kripto varlıklar para birimi olarak tanınmaz ve TCMB tarafından **ödeme aracı olarak kullanılması yasaktır** (2021 düzenlemesi). Şahıs şirketi gelir akışında kripto kabul etmek hizmet ihracatı istisnasını **kaybettirir** ve düzenleyici risk taşır.
+Müşteri size USDT veya USDC gönderirse bu döviz değildir. Türkiye'de kripto varlıklar para birimi olarak tanınmaz ve TCMB'nin 2021 düzenlemesi gereği ödemelerde araç olarak kullanılması yasaktır. Şahıs şirketi gelir akışında kripto kabul etmek hizmet ihracatı istisnasını kaybettirir ve düzenleyici risk taşır.
 
-### Wise üzerinden TL'ye çevirip TL hesabıma atsam ne olur?
+### Müşteri Wise üzerinden TRY gönderdi, şimdi ne yapayım?
 
-Wise üzerinde döviz TL'ye çevrildiğinde, TR bankasına gelen tutar zaten TL'dir. Banka DAB düzenleyemez (çünkü zaten TL geldi). Bu durumda istisna belgenizi kaybedersiniz. Doğru akış: Wise → TR döviz hesabı (döviz olarak) → istersen banka içinde TL'ye çevir, banka **DAB** düzenler.
+Banka hesabınıza TL olarak gelen tutar için DAB üretilmez. Yine de iyi haber: gelir/kurumlar vergisi tarafındaki %100 kazanç indirimi özelge 166967 uyarınca geçerli kalır. Sadece KDV iadesi alacaksanız o işlem için iade hakkınızı kaybedersiniz; KDV %0 fatura uygulamasında ise mali müşavirinize danışmanız önerilir. Bir sonraki ödeme için müşterinize "EUR olarak gönder" yapılandırmasını iletmeniz hem belgelendirmeyi temizler hem KDV tarafını rahatlatır.
 
 ### Birden çok platform kullanabilir miyim?
 
-Evet. Bazı müşterileriniz Wise, bazıları SWIFT, bazıları Deel contractor olabilir. Her biri için bedel TR bankasına döviz olarak ulaştığı sürece istisna geçerlidir. Mali müşavirinize her platform için ayrı tahsilat dosyası tutması talimatı verin.
+Evet. Bazı müşterileriniz doğrudan SWIFT, bazıları Payoneer, bazıları Wise üzerinden ödeme yapabilir. Her biri için bedel TR bankasına döviz olarak ulaştığı sürece istisna geçerlidir. Mali müşavirinize her platform için ayrı tahsilat dosyası tutması talimatı verin.
 
 ## Sonraki adımlar
 
@@ -214,6 +223,8 @@ Evet. Bazı müşterileriniz Wise, bazıları SWIFT, bazıları Deel contractor 
 ## Kaynaklar
 
 - [Gelir İdaresi Başkanlığı](https://www.gib.gov.tr): KDV ve gelir vergisi mevzuatı
+- Özelge 03.02.2023 / 166967: hizmet ihracatı kazanç indiriminde gelirin döviz veya TL olması farkı yaratmaz (PwC ve mali müşavirlik kaynaklarına atıf yapılır)
 - [TCMB](https://www.tcmb.gov.tr): yetkili müessese listesi ve döviz mevzuatı
-- [Wise yardım merkezi](https://wise.com/help): TR için ürün ve limit bilgileri
+- [Wise yardım merkezi: Türkiye kısıtlamaları](https://wise.com/tr/help/articles/18ewShSmFf7tJ7mm2Zp6H7/turkiyedeki-musteriler-icin-k%C4%B1s%C4%B1tlamalar)
+- [PwC: hizmet ihracından elde edilen kazançlarda indirim](https://www.pwc.com.tr/tr/medya/kose-yazilari/recep-biyik/hizmet-ihracindan-elde-edilen-kazanclarda-indirim.html)
 - [Alomaliye](https://www.alomaliye.com): hizmet ihracatı uygulama yorumları

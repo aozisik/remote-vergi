@@ -31,6 +31,11 @@ jobs:
         run: npm ci
       - name: Build with Astro
         run: npm run build
+      - name: Check for broken internal links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --offline --base ./dist './dist/**/*.html'
+          fail: true
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
