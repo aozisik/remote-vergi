@@ -10,7 +10,7 @@
     "build": "parcel build --public-url ./"
   },
   "author": "Swiftmade OÜ",
-  "license": "MIT",
+  "license": "PolyForm-Noncommercial-1.0.0",
   "dependencies": {
     "dinero.js": "^1.9.1"
   },
