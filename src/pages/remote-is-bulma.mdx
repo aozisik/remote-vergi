@@ -1,0 +1,268 @@
+---
+layout: ../layouts/ArticleLayout.astro
+title: "Remote İş Bulma 2026: Yurtdışı Şirketlerden İş Bulma Rehberi (Yazılımcı, Tasarımcı)"
+description: "Türkiye'den yurtdışı şirketlere remote çalışmak için iş bulma rehberi: en iyi remote iş ilanı siteleri, Hacker News Who is Hiring, LinkedIn ve GitHub stratejisi, CV hazırlığı, mülakat farkları ve sık yapılan hatalar. Yazılımcı, tasarımcı, ürün yöneticisi ve veri/AI rolleri için 2026 güncel kaynak listesi."
+dateModified: "2026-05-07"
+faq:
+  - question: "Yurtdışı şirketlerin remote iş ilanlarını nerede bulabilirim?"
+    answer: "Genel remote ilanlar için We Work Remotely, RemoteOK, Remotive, Himalayas ve Working Nomads en yoğun listelerdir. Yazılım için ek olarak Hacker News'in her ayın 1'inde yayımlanan 'Who is Hiring?' başlığı, Wellfound (eski adıyla AngelList Talent), arc.dev ve LinkedIn'in 'Remote' filtresi etkilidir. Tasarım için Dribbble Jobs, Authentic Jobs ve Working Not Working öne çıkar. Türkiye odaklı remote ilanlar için TalentGrid ve Kodilan yararlıdır. Marketplace tarafında Toptal, Malt, Contra ve Upwork ile başlayabilirsiniz."
+  - question: "TR'de yaşıyorum, hangi şirketler vize sponsorsuz remote alıyor?"
+    answer: "Tamamen remote-first ve coğrafyadan bağımsız çalışan şirketler en iyi seçenektir: GitLab, Automattic, Doist, Buffer, Zapier, Toptal, Canonical, Hugging Face, Hashnode, Sourcegraph. Bunlar TR mukimleri contractor veya EOR yapısıyla istihdam etmeye açıktır. Bunun dışında 'visa sponsorship' yerine 'remote anywhere' veya 'remote (EU/global)' ifadesini ilanlarda arayın. Hacker News Who is Hiring threadlerinde her ay 'REMOTE' etiketli ilanları arayabilirsiniz."
+  - question: "Hacker News 'Who is Hiring' threadini nasıl kullanırım?"
+    answer: "Her ay 1'inde news.ycombinator.com/submitted?id=whoishiring adresinde yeni bir thread açılır. 'REMOTE' kelimesini Cmd+F ile arayarak remote ilanları filtreleyin. hnhiring.com sitesi aynı içeriği indekslenmiş ve aranabilir hale getirir. İlana doğrudan e-posta ile yanıt verin (genelde ilan içinde adres olur), generic CV göndermek yerine ilandaki spesifik teknolojilere değinin. HN ilanlarına başvuru oranı LinkedIn'e göre çok düşüktür, dolayısıyla geri dönüş şansı yüksektir."
+  - question: "Mülakat sürecinde TR mukimi olduğumu nasıl açıklamalıyım?"
+    answer: "Açık ve net olun: 'I am based in Türkiye and work as an independent contractor through my registered sole proprietorship. I invoice in USD/EUR and handle my own taxes and social security.' İşveren tipik olarak iki seçenek sunar: doğrudan contractor sözleşmesi veya Deel/Remote.com gibi bir EOR/contractor platformu üzerinden ödeme. Her iki durumda da TR mukim contractor için %100 hizmet ihracatı kazanç istisnası uygulanır. Detaylar için 'Yurtdışına Remote Çalışmak' rehberine bakın."
+  - question: "Vize sponsorluğu mu remote mu daha avantajlı?"
+    answer: "Tek bir doğru cevap yoktur ve hedeflerinize bağlıdır. Türkiye'de yaşamaya devam edip yurtdışı şirkete remote contractor olarak çalışmak vergi tarafında avantaj sağlar (hizmet ihracatı %100 kazanç istisnası); ancak teklif edilen brüt ücret yurtdışı yerleşik çalışana göre genelde daha düşüktür. Vize sponsorluğu ile yurtdışına taşınmak kariyer büyümesi, yerel ağ ve uzun vadeli vatandaşlık hedefleri için anlamlı olabilir ama TR vergi avantajı kaybolur ve yaşam maliyeti yükselir. İki yapıyı kendi rakamlarınızla net ücret bazında karşılaştırmak için ana sayfadaki hesaplayıcıyı kullanabilirsiniz."
+---
+
+import CalculatorCTA from '../components/CalculatorCTA.astro';
+
+# Remote İş Bulma 2026: Yurtdışı Şirketlerden İş Bulma Rehberi
+
+Türkiye'de yaşayıp yurtdışı şirketlere remote çalışmak son yıllarda gerçekçi bir kariyer alternatifi haline geldi; ancak pazar görece kıdemli rollere odaklı, ilan başına rekabet yüksek ve süreç kolay değildir. Bu sayfa, "hangi siteye bakmalıyım, ilanlar nasıl filtrelenir, başvuru nasıl yapılır" sorularına yoğunlaşır. İş aldıktan sonra TR tarafında nasıl çalışmanız gerektiğini ise [Yurtdışına Remote Çalışmak](/yurtdisina-remote-calismak) rehberinde anlatıyoruz.
+
+> Beklenti uyarısı: Yurtdışı remote pazarı çoğunlukla mid-level ve senior yazılımcı/tasarımcı pozisyonlarına odaklıdır, junior pozisyonlar nadiren TR mukimine açıktır. ABD üst seviyesindeki yüksek ücretli ilanlar (yıllık 100.000 USD ve üzeri) için yoğun bir rekabet ve sıkı bir mülakat süreci vardır; bu bant tipik bir TR yazılımcısının doğrudan ulaşacağı bir piyasa değildir. EU mid-tier şirketler (aylık 3.000 – 6.000 EUR aralığı) çoğu mid/senior aday için daha gerçekçi hedef bandtır. Ayrıntılar bu sayfanın Ücret Pazarlığı bölümünde.
+
+Önce zihin haritası: yurtdışı şirketlerden iş bulmanın üç ana yolu vardır.
+
+1. **Tam zamanlı remote pozisyon**: Şirketin "remote anywhere" veya "remote (EU/Global)" etiketiyle yayımladığı pozisyon. Çoğunlukla contractor veya EOR sözleşmesiyle çalışırsınız.
+2. **Marketplace üzerinden freelance**: Upwork, Toptal, Contra gibi platformlarda kısa veya uzun süreli iş alırsınız. Komisyon ödersiniz.
+3. **Doğrudan ağ**: Eski iş arkadaşları, GitHub portföyünüz, açık kaynak katkılarınız ve LinkedIn üzerinden gelen referanslar. En yüksek dönüş oranlı kanaldır.
+
+Sıralama önemlidir: yetkin bir CV ve portföyle ağ yoluyla başlamak, ardından doğrudan ilan ve marketplace ile genişletmek en hızlı sonucu verir.
+
+## En iyi remote iş siteleri (kategoriye göre)
+
+### Genel remote iş ilanı siteleri
+
+| Site | Odak | Notlar |
+| --- | --- | --- |
+| **[We Work Remotely](https://weworkremotely.com)** | Tüm roller, dev ağırlıklı | En eski ve yoğun listelerden biri |
+| **[RemoteOK](https://remoteok.com)** | Yazılım, ürün, tasarım | Nick Frost'un kurduğu, RSS/JSON desteği |
+| **[Remotive](https://remotive.com)** | Yazılım, ürün, pazarlama | Topluluk Slack'i ve newsletter |
+| **[Himalayas](https://himalayas.app)** | Tüm roller, profil tabanlı | Şirket profilleri detaylı |
+| **[JustRemote](https://justremote.co)** | Yazılım, müşteri destek | Filtre tarafı güçlü |
+| **[Working Nomads](https://workingnomads.com)** | Tüm roller | Newsletter daha aktif |
+| **[Remote.co](https://remote.co)** | Yönetim, müşteri destek | Yazılım ilanı az |
+
+### Yazılımcılar için niş siteler
+
+| Site | Odak |
+| --- | --- |
+| **[Hacker News "Who is Hiring?"](https://news.ycombinator.com/submitted?id=whoishiring)** | Her ayın 1'inde startup ilanları |
+| **[hnhiring.com](https://hnhiring.com)** | HN Who is Hiring'in aranabilir versiyonu |
+| **[Wellfound (AngelList Talent)](https://wellfound.com)** | Startup'lar, hisse opsiyonu açık |
+| **[arc.dev](https://arc.dev)** | Senior+ developer, 30 saatlik aday değerlendirmesi |
+| **[Lemon.io](https://lemon.io)** | Senior developer, hızlı match |
+| **[Toptal](https://toptal.com)** | Üst yüzde 3, agresif eleme |
+| **[Turing](https://turing.com)** | Algoritmik match, US bazlı |
+| **[Codementor](https://codementor.io)** | Saatlik proje veya mentorluk |
+| **[Stack Overflow Jobs](https://stackoverflow.com/jobs)** | 2024 sonu kapandı, alternatifler aşağıda |
+
+### Tasarım ve ürün rolleri için
+
+| Site | Odak |
+| --- | --- |
+| **[Dribbble Jobs](https://dribbble.com/jobs)** | UI/UX, illüstrasyon |
+| **[Working Not Working](https://workingnotworking.com)** | Yaratıcı endüstri, üst seviye |
+| **[Authentic Jobs](https://authenticjobs.com)** | Tasarım ve ön uç |
+| **[Behance Jobs](https://behance.net/joblist)** | Tasarım |
+| **[ProductHunt Hiring](https://www.producthunt.com/jobs)** | Ürün yöneticisi, growth |
+
+### AI / ML / Data
+
+| Site | Odak |
+| --- | --- |
+| **[AI/ML Jobs](https://aijobs.net)** | ML mühendisi, veri bilimci |
+| **[Hugging Face Jobs](https://huggingface.co/jobs)** | NLP, açık kaynak ML |
+| **[KDnuggets Jobs](https://www.kdnuggets.com/jobs)** | Veri bilimi, analitik |
+| **[Y Combinator Work at a Startup](https://www.workatastartup.com)** | YC startup'ları, AI ağırlıklı |
+
+### Marketplace ve freelance platformları
+
+| Platform | Komisyon | Özellik |
+| --- | --- | --- |
+| **[Upwork](https://upwork.com)** | %5 – %10 (kademeli) | En geniş havuz, çok rekabetçi |
+| **[Contra](https://contra.com)** | %0 (premium üyelik) | Senior freelancer, profil tabanlı |
+| **[Malt](https://malt.com)** | %5 – %10 | Avrupa ağırlıklı |
+| **[Fiverr Pro](https://pro.fiverr.com)** | %20 | Paket bazlı |
+| **[Braintrust](https://app.usebraintrust.com)** | %10 (talent) | Token tabanlı, US/EU müşteri |
+
+### Türkiye'de TR mukimlere remote ilan listeleyen platformlar
+
+| Platform | Odak |
+| --- | --- |
+| **[TalentGrid](https://talentgrid.io)** | Yazılım, kıdemli ve mid-level, çoğu yurtdışı şirket |
+| **[Kodilan](https://kodilan.com)** | Yazılım, hem yerel hem yurtdışı |
+| **[Workly](https://workly.io)** | Tasarım, ürün ve yazılım |
+
+## Tam zamanlı remote alan şirketler (vize gerektirmeden)
+
+Coğrafyadan bağımsız çalışmaya kalibre edilmiş, TR mukimi contractor veya EOR ile istihdam etmeye açık şirketler. Kariyer sayfalarını doğrudan takip etmek, iş ilanlarını yakalamanın en sağlam yoludur.
+
+- [GitLab](https://about.gitlab.com/jobs/)
+- [Automattic](https://automattic.com/work-with-us/)
+- [Doist](https://doist.com/careers/)
+- [Buffer](https://buffer.com/journey)
+- [Zapier](https://zapier.com/jobs)
+- [Toptal](https://www.toptal.com/careers)
+- [Canonical](https://canonical.com/careers)
+- [Hugging Face](https://huggingface.co/jobs)
+- [Sourcegraph](https://about.sourcegraph.com/jobs)
+- [Hashnode](https://hashnode.com/jobs)
+- [Vercel](https://vercel.com/careers)
+- [Supabase](https://supabase.com/careers)
+
+İlanda "Remote (Worldwide)", "Remote Anywhere" veya "Remote Global" görmüyorsanız bölge kısıtlaması vardır. "Remote (EU)" çoğunlukla TR'yi de kabul eder ama her şirketin politikası farklıdır; başvurunuzdan önce karyer sayfasındaki kısıtlamaları okuyun.
+
+## CV ve portföy hazırlığı
+
+Yurtdışı işveren TR'deki klasik CV formatından farklı bir yapı bekler.
+
+### CV (yazılımcı için)
+
+- **Tek sayfa** (10+ yıllık değilseniz). PDF olarak gönderin, ATS okuyabilen sade bir şablon kullanın (LaTeX şablonu veya bir Notion/Tally export).
+- **Üst kısımda kısa bir özet** (3 – 4 satır). Son 5 yılınızı özetler, ana stack'i belirtir.
+- **Deneyim**: Sırayla ters kronolojik. Her pozisyonda 3 – 5 madde, her madde **etki** gösterir: "Reduced API latency by 40% by adding Redis caching layer". Çıktı + sayı + sebep formülü işe yarar.
+- **Açık kaynak ve yan projeler**: Yurtdışı işveren GitHub profilinizi açacaktır. README'leri açıklayıcı olan birkaç repo, generic CV'den daha güçlüdür.
+- **Eğitim**: En altta, kısa.
+- **Türkçe karakterler işveren ATS'sini bozabilir**: özel isimler dışında "Istanbul" yazımına geçmek riski azaltır.
+
+### Portföy (tasarımcı için)
+
+- Dribbble veya Behance yerine **kendi domain'inizde** bir portföy daha güçlü sinyal verir (örn. yourname.com).
+- Her vaka çalışması (case study) için **problem, süreç, sonuç** anlatın. Sadece şık görseller yetmez; nedeni anlatan vakalar yetenek seviyenizi gösterir.
+- Yurtdışı işveren sürece (research, wireframe, iterasyon) ağırlık verir; sadece son ürün ekran görüntüleri yetersizdir.
+
+### GitHub profili (yazılımcı için)
+
+- **Pinned repos**: 4 – 6 adet, açıklayıcı README'li, README'de bir gif veya ekran görüntüsü olan.
+- **Aktivite**: Boş ay yoksa daha iyi. Açık kaynak katkıları (issue, PR, review) görünürdür.
+- **Profil README**: Kısa biyo, iletişim ve şu an üzerinde çalıştığınız teknolojiler.
+
+## Başvuru stratejisi
+
+### 1. Hacker News "Who is Hiring?" (yüksek ROI)
+
+Her ayın 1'inde [news.ycombinator.com/submitted?id=whoishiring](https://news.ycombinator.com/submitted?id=whoishiring) adresinde yeni bir başlık açılır. Yorumlarda her ilan tek satır halinde başlar: "Şirket | Pozisyon | REMOTE | Teknolojiler". `Cmd+F` ile "REMOTE" araması yaparak filtreleyin.
+
+- Başvuru oranı LinkedIn'e göre çok düşüktür (HN'i çoğu aday bilmez).
+- İlanın altındaki e-posta adresine doğrudan yanıt verin. CV'yi PDF olarak ekleyin.
+- E-postayı 3 – 5 cümleyle açın: hangi ilana yanıt verdiğiniz, neden uygun olduğunuz, GitHub/portföy linki. "I am a Türkiye-based contractor with 7 years of Python/Django experience. I noticed your team uses Postgres + ElasticSearch, which I worked with at..." gibi.
+- Geri dönüş hızı genellikle 24 – 72 saattir.
+- HN'i her ay aramak zorsa [hnhiring.com](https://hnhiring.com) yapay zeka filtreli ve aranabilir bir arşiv sunar.
+
+### 2. LinkedIn (orta ROI, yüksek hacim)
+
+- Profilinizi **İngilizce** yapın. About bölümü 3 – 4 paragraf, son cümle "Open to remote contracts (Türkiye-based, full-time or part-time)" gibi açık bir CTA içersin.
+- Şehir alanını "Istanbul, Türkiye" olarak bırakın; "Remote" yazmayın (LinkedIn algoritması yer için tercih kullanır, oradaki yer öyle başvurularda kayıt olur).
+- "Open to Work" rozetini sadece recruiter'lara görünür yapın (genel görünür yapmak inbound'u artırır ama bazı işverenlerde olumsuz sinyal sayılabilir).
+- "Remote" filtresi + "Worldwide" kombinasyonu en açık ilanları getirir.
+- LinkedIn'de soğuk e-posta yerine, ilan yayınlayan recruiter'a kısa bir bağlantı isteği + 1 cümle mesaj atın.
+
+### 3. Doğrudan kariyer sayfası (en yüksek ROI)
+
+Yukarıda listelediğimiz remote-first şirketlerin kariyer sayfasını her hafta tarayın. İlanlar kariyer sayfasında çoğunlukla LinkedIn'den önce çıkar; başvuru havuzu da daha küçüktür.
+
+İlk başvuruda referrer'ınız varsa (LinkedIn'de o şirkette tanıdığınız biri), o kişiden referral isteyin. Bazı şirketlerde referral ile gelen başvuru otomatik olarak insan recruiter'a düşer.
+
+### 4. Ağ ve referral
+
+En yüksek dönüş oranlı kanal. Eski iş arkadaşları, eski mentorlar, açık kaynak topluluklarındaki kişiler. Twitter/X, GitHub Discussions ve Reddit r/cscareerquestions gibi yerlerde aktiflik gösterin. "I am looking for remote contract roles" şeklinde periyodik LinkedIn paylaşımları yapmak da işe yarar.
+
+### 5. Soğuk e-posta (düşük ROI ama deneyebilir)
+
+Sevdiğiniz bir şirket ilan vermiyorsa CTO veya engineering manager'ın e-postasını [Hunter.io](https://hunter.io) gibi araçlarla bulup kısa bir tanıtım e-postası göndermek bazen kapı aralar. 50 e-postaya 1 – 2 yanıt normaldir; düşük ihtimal ama ilana başvurmak ile arada belirgin fark.
+
+## Mülakat süreci farkları
+
+- **Yapı**: Yurtdışı şirketlerin teknik mülakatı 4 – 6 turdan oluşur. İlk recruiter screen, ardından teknik (live coding veya take-home), sistem tasarımı (senior+), takım fit, hiring manager.
+- **Take-home assignment**: 4 – 8 saatlik bir görev verilir. Çoğu zaman ödeme yoktur; düzgün şirketler 2 – 4 saatlik bir tasarım üzerinden ilerler. 16+ saatlik görevleri reddetmek mantıklıdır.
+- **System design**: Senior pozisyonlarda en zor turdur. Türkiye'deki yazılımcılar bu turda zayıf görüldüklerinden, "Designing Data-Intensive Applications" (Martin Kleppmann) ve "System Design Interview" (Alex Xu) hazırlık için iyi temellerdir.
+- **Behavioral**: STAR formatı (Situation, Task, Action, Result). Hazırlamadan girmek ABD/AB işverenlerinde yaygın bir hata.
+- **Saat dilimi**: Mülakatları İngiltere/Avrupa şirketleri için TSİ 11:00 – 18:00 arasında, ABD East Coast için TSİ 16:00 – 22:00 arasında ayarlamak en kolay.
+
+## Ücret pazarlığı
+
+Bantlar geniştir ve gerçekçi olmak gerekir. Yurtdışı remote pazarında ücretler **şirket ülkesi, şirket büyüklüğü, rolün kıdemi ve sözleşme tipine göre çok geniş bir aralıkta** dağılır.
+
+- **EU mid-tier** şirketlerde (KOBİ, kurumsal startup) full-time contractor pozisyonları yaygın olarak aylık 3.000 – 6.000 EUR aralığında teklif gelir. Bu band çoğu mid-level / senior yazılımcı ve tasarımcı için gerçekçi piyasa standardıdır.
+- **EU üst ligi** (büyük SaaS şirketleri, hızlı büyüyen scaleup'lar) aylık 6.000 – 10.000 EUR aralığına çıkabilir. Bu band için 5+ yıl kıdem ve ilan başına yoğun rekabet beklenir.
+- **ABD üst ligi** (FAANG, üst tier startup) yıllık 100.000 USD ve üzeri teklifler verebilir, ancak bu pozisyonlar için **çok ciddi bir mülakat eleme süreci ve yoğun rekabet** vardır; sektörde üst yüzde diliminde yer alan adaylara yöneliktir, tipik bir TR yazılımcısının doğrudan ulaşacağı bir piyasa değildir.
+- **Junior ve mid-level** pozisyonlarda yurtdışı remote pazarı zayıftır. İşveren çoğunlukla kıdemli adayları tercih eder; bu bandın altındaki rolleri yerel piyasa yapar.
+
+Tavsiye:
+
+- Pazarlık yaparken "What is your salary expectation?" sorusuna sayısal bant verin ama bandı kendi kıdeminize, hedef şirketin ülkesine ve büyüklüğüne göre kalibre edin. Mid-level bir TR mühendisi için 4.000 – 6.000 EUR/ay aralığı çoğu EU pozisyonu için makul başlangıç pazarlık noktasıdır.
+- Levels.fyi, Glassdoor ve [pari.com](https://pari.com) gibi kaynaklarda rolün şirket ve ülke bazında bandını araştırın.
+- TR mukimleri çoğu zaman bandın alt yarısında teklif alır; bu normaldir, ama dibi kabul etmek zorunda değilsiniz.
+- Sözleşme tipini netleştirin: contractor mı, EOR ile bordrolu mu? Vergi ve net hesabı bu seçime göre çok değişir. Ana sayfadaki hesaplayıcıda iki yapıyı karşılaştırabilirsiniz.
+
+<CalculatorCTA title="Yurtdışı teklifi aldınız mı? Net kazancınızı hesaplayın" description="Aylık döviz gelirinizi ve kuru girin; %100 hizmet ihracatı istisnası ile elinize geçecek net tutarı 2026 mevzuatına göre görün." />
+
+## Sık yapılan hatalar
+
+- **Türkçe CV göndermek**: Yurtdışı recruiter okuyamaz; otomatik elemenizdir.
+- **GitHub profili boş**: Yazılımcı için profil ve birkaç pinned repo, CV kadar önemlidir.
+- **"Remote (US only)" ilanlarına başvurmak**: Saat dilimi kısıtı veya çalışma izni gerekçesiyle TR mukimi alınmaz. Filtreyi okuyun.
+- **Saat dilimi netleştirmemek**: Mülakat ve daily standup saat dilimi açıkça konuşulmadan iş başlamak, sonradan sürtünme yaratır.
+- **Ödeme aracını sözleşmeden önce kararlaştırmak**: Müşteri "We pay through Wise" derse, TR mukim olarak kendi banka hesabınızdan değil müşteri tarafından ödeme yapılması gerektiğini ve döviz girişi yapılmasını netleştirin. Detay: [Yurtdışından Ödeme Alma](/yurtdisindan-odeme-alma).
+- **Vergi planlamasını sonraya bırakmak**: Sözleşmeyi imzalamadan önce TR'de hangi mükellefiyetle çalışacağınızı belirleyin. [Yurtdışına Remote Çalışmak](/yurtdisina-remote-calismak) rehberi tüm yapıları karşılaştırır.
+
+## İş aldıktan sonra: TR tarafında ne yapmalı?
+
+Teklifi imzaladığınızda, TR mukim olarak yasal yapınızı kurmanız gerekir. Üç ana adım vardır:
+
+1. **Mükellefiyet seçimi**: Çoğu yazılımcı/tasarımcı için [şahıs şirketi](/sahis-sirketi). Mühendis, mimar, doktor gibi VUK'ta sayılan mesleklerde serbest meslek erbabı olunabilir.
+2. **Sözleşme tipi**: Contractor agreement (consultancy değil). Bu, hizmet ihracatı %100 kazanç istisnasından yararlanmak için kritiktir.
+3. **Fatura ve döviz akışı**: Yurtdışı tüzel kişiye fatura keser, dövizi TR banka hesabına çekersiniz.
+
+Detaylı kurulum: [Yurtdışına Remote Çalışmak](/yurtdisina-remote-calismak).
+
+## Sıkça sorulan sorular
+
+### Hangi iş arama sitesi en yüksek dönüş veriyor?
+
+Tek bir cevap yok ama pratik gözlem şudur: Hacker News "Who is Hiring?" en yüksek geri dönüş oranını verir (düşük başvuru hacmi sayesinde). LinkedIn en yüksek mutlak ilan sayısını ama düşük dönüş oranını verir. Doğrudan kariyer sayfası ortada bir yerdedir. Marketplace platformları (Upwork, Toptal) profil hazırlanması ve ilk işin bulunması zaman alır ama uzun vadeli müşteri ilişkisi kuruldukça stabil hale gelir.
+
+### Senior değilim (1 – 3 yıl deneyim), TR'den remote bulabilir miyim?
+
+Açık konuşmak gerekirse: çok zor. Yurtdışı remote pazarı senior ağırlıklıdır; junior ve mid-level pozisyonların büyük çoğunluğu yerel piyasada alınır çünkü işveren mesai içinde mentorluk yapması gereken bir profili saat dilimi farklı bir contractor'la halletmek istemez. Bu nedenle bu kıdem aralığında yerel TR piyasasında kıdem biriktirmek (mid → senior geçişi) çoğu zaman daha gerçekçi bir kariyer adımıdır. Yine de denemek istiyorsanız iki strateji görece işe yarar: (1) marketplace üzerinde küçük projelerle başlamak ve referans biriktirmek (Upwork, Contra), (2) açık kaynak katkılarıyla görünür hale gelmek ve niş bir teknoloji etrafında uzmanlaşmak. Bu süreç tipik olarak 6 – 18 ay alır ve sonuç garanti değildir.
+
+### TR'de full-time çalışırken remote yan iş arayabilir miyim?
+
+Mevcut iş sözleşmenizde rekabet yasağı veya yan iş yasağı klozu yoksa yasal olarak mümkündür. Şahıs şirketi açıp yan işten gelir kazanabilirsiniz; mevcut SGK'lı işiniz devam eder, şahıs şirketi tarafında Bağ-Kur prim yükümlülüğü oluşur (full-time SGK varsa Bağ-Kur'dan muaf olabilirsiniz, mali müşavire teyit ettirin). Vergi açısından şahıs şirketi geliri ayrı beyan edilir ve hizmet ihracatı kazanç indiriminden yararlanabilir.
+
+### Yurtdışından gelen ödeme TR'ye nasıl ulaşır?
+
+SWIFT havalesi en sağlam yoldur, müşteri tercih ediyorsa Wise/Revolut ile EUR/USD/GBP olarak gönderebilir, Payoneer aracı olarak kullanılabilir. Vergi avantajını korumak için bedelin döviz olarak TR banka hesabınıza ulaşması ve döviz alım belgesi (DAB) düzenlenmesi tercih edilir. Detaylı karşılaştırma: [Yurtdışından Ödeme Alma](/yurtdisindan-odeme-alma).
+
+### Yurtdışı şirketten saatlik mi yoksa aylık mı sözleşme almalıyım?
+
+Aylık sabit ücret (full-time contractor), gelir tahminlenebilirliği ve vergi planlaması açısından kolaydır. Saatlik (örn. $60/saat) çalışmak özellikle kısa vadeli projelerde daha esnek ama gelir dalgalı olur. Yurtdışı işveren çoğu zaman seçim hakkı verir; gelir istikrarınız önemliyse aylık sabiti tercih edin.
+
+### Birden çok yurtdışı müşteriye aynı anda fatura kesebilir miyim?
+
+Evet, şahıs şirketi olarak birden çok yurtdışı müşteriye fatura kesmek mümkün ve yaygındır. Her bir hizmet ihracatı için %100 kazanç istisnasından yararlanırsınız. Tek dikkat: bedel her müşteri için TR banka hesabınıza döviz olarak ulaşmalı.
+
+### TR mukimi olarak çalışıyorken yurtdışına taşınırsam ne olur?
+
+Mukimlik değişimi vergi tablonuzu temelden değiştirir. TR'den ayrılıp tam yıl başka bir ülkenin mukimi olduğunuzda TR vergi yükümlülüğünüz biter (kaynak gelir hariç) ve yeni ülkenin sistemine girersiniz. Çift mukimlik ve geçiş yılı senaryoları karmaşıktır; bir uluslararası vergi danışmanına başvurun.
+
+## Sonraki adımlar
+
+- [Yurtdışına Remote Çalışmak](/yurtdisina-remote-calismak): TR mukimi olarak sözleşme, mükellefiyet, vergi ve SGK kurulumu
+- [Hizmet İhracatı](/hizmet-ihracati): %100 istisnanın tüm şartları
+- [Şahıs Şirketi Nasıl Kurulur](/sahis-sirketi-nasil-kurulur): Mali müşavir, MERSİS ve vergi dairesi adımları
+- [Yurtdışından Ödeme Alma](/yurtdisindan-odeme-alma): SWIFT, Wise, Payoneer karşılaştırması
+- [Şahıs Şirketi Vergi Hesaplama](/sahis-sirketi-vergi-hesaplama): Net kazanç hesaplayıcı
+
+## Kaynaklar
+
+- [Hacker News "Who is Hiring?"](https://news.ycombinator.com/submitted?id=whoishiring): Aylık startup remote ilanları
+- [hnhiring.com](https://hnhiring.com): HN Who is Hiring'in aranabilir versiyonu
+- [Levels.fyi](https://levels.fyi): Yurtdışı yazılım rolleri için ücret bandı
+- [TalentGrid Blog: Yurtdışına remote çalışma](https://talentgrid.io/tr/yurdisina-remote-calismak/): TR perspektifinden detaylı rehber
+- [GitHub: Awesome Remote Job](https://github.com/lukasz-madon/awesome-remote-job): Topluluk tarafından derlenen remote iş kaynakları listesi
+- [r/cscareerquestions](https://www.reddit.com/r/cscareerquestions/): Yurtdışı yazılım kariyeri için en aktif topluluk

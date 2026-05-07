@@ -1,0 +1,309 @@
+---
+layout: ../layouts/ArticleLayout.astro
+title: "Yurtdışına Remote Çalışmak 2026: Sözleşme, Mükellefiyet, Vergi ve SGK Tam Rehberi"
+description: "Türkiye'den yurtdışı şirkete remote çalışmak isteyen yazılımcı, tasarımcı ve mühendis için 2026 rehberi. Contractor mı EOR mi, şahıs şirketi mi serbest meslek mi, hizmet ihracatı %100 kazanç istisnası, Bağ-Kur ve döviz akışı. Deel ve Remote.com tipi platformların TR mukim için gerçek vergi etkisi."
+dateModified: "2026-05-07"
+faq:
+  - question: "Yurtdışına remote çalışırken contractor mı yoksa EOR (bordrolu) yapı mı daha avantajlı?"
+    answer: "TR mukimleri için neredeyse her zaman contractor yapı vergi olarak çok daha avantajlıdır. Contractor olarak şahıs şirketi veya serbest meslek erbabı sıfatıyla yurtdışı şirkete fatura keserseniz, hizmet ihracatı %100 kazanç istisnasından (GVK 89/13, KVK 10/ğ) yararlanırsınız: efektif gelir vergisi neredeyse sıfıra iner. EOR (Employer of Record) yapısında ise Deel/Remote.com gibi bir aracı şirket sizi TR'de yerel çalışan olarak istihdam eder; gelir ücret olur, hizmet ihracatı istisnası uygulanmaz, gelir vergisi dilimleri (%15 – %40) ve SGK işveren payı tam uygulanır. Net farkı görmek için ana sayfadaki hesaplayıcıyı kullanabilirsiniz."
+  - question: "Yurtdışı şirkete fatura keserken şahıs şirketi mi serbest meslek erbabı mı seçmeli?"
+    answer: "Mesleğe göre değişir. Mühendis, mimar, doktor, avukat, mali müşavir, sanatçı gibi Vergi Usul Kanunu'nda sayılan meslek mensupları serbest meslek erbabı olarak kayıt yaptırıp serbest meslek makbuzu düzenler. Yazılımcı, dijital tasarımcı, içerik üreticisi, ürün yöneticisi ve dijital pazarlamacı yasal sınıflandırmada serbest meslek sayılmadığından şahıs şirketi (ticari kazanç) açar ve fatura keser. Hizmet ihracatı %100 kazanç istisnası her iki yapı için de geçerlidir; ancak gider kalemleri ve stopaj uygulamaları farklılık gösterir. Mali müşavire danışmak gereklidir."
+  - question: "Sözleşmede 'consultancy' yazıyorsa hizmet ihracatı istisnasından yararlanabilir miyim?"
+    answer: "Hayır. Hizmet ihracatı kazanç indirimi (KVK 10/ğ ve GVK 89/13) için sözleşmenin contractor / independent contractor yapısında olması ve verilen hizmetin yurt dışında değerlendirilmesi gerekir. 'Consultancy' (danışmanlık) sözleşmesi mevzuat yorumunda istisna kapsamı dışında kalabilir; özellikle TR'deki bir entity için verilen danışmanlık hizmeti istisnaya girmez. Sözleşmenizde 'service provider', 'contractor' veya 'independent contractor' ifadelerini kullanın; faturada 'contractor fee' yazın. Kritik bir nokta: sözleşmeyi imzalamadan önce mali müşavirinizin görmesi maliyetli yanlışları önler."
+  - question: "Bağ-Kur prim yükümlülüğüm ne olacak?"
+    answer: "TR mukim olarak şahıs şirketi veya serbest meslek erbabı sıfatıyla yurtdışı şirkete contractor çalışmak, sizi 4/b sigortalısı (eski Bağ-Kur) yapar. Asgari aylık prim 2026 itibarıyla yaklaşık 11.808 TL'dir; geliriniz arttıkça matrah üst sınıra kadar çıkar. Eğer aynı anda TR'de bir şirkette tam zamanlı SGK 4/a'lı (eski SSK) iseniz, aktivite çakışması nedeniyle 4/b primi muaf olabilir veya isteğe bağlı sigorta yapısı uygulanır; mali müşavirinize teyit ettirin. EOR yapısında çalışıyorsanız işveren TR'de SGK primlerini öder ve sizin ek bir Bağ-Kur yükümlülüğünüz olmaz, ancak vergi tarafı çok daha pahalı olur."
+  - question: "Deel veya Remote.com kullanmalı mıyım?"
+    answer: "Gerek yoktur ama opsiyondur. TR mukim contractor olarak yurtdışı şirkete doğrudan fatura kesip SWIFT veya banka transferi ile dolar/euro alabilir, hizmet ihracatı %100 istisnasından yararlanabilirsiniz. Deel ve Remote.com çoğunlukla 'contractor management' ürünlerini kullanır: yurtdışı işveren sözleşme, fatura ve ödeme akışını platform üzerinden yönetir, sizin tarafta hâlâ TR mukim contractor olarak fatura keser ve vergi yükümlülüklerinizi takip edersiniz. EOR (Employer of Record) ürünü ise sizi yerel çalışan haline getirir ve hizmet ihracatı istisnasını kaybettirir. Pratik öneri: contractor yapı tercih edin, platform sadece sözleşme ve ödeme aracı olarak kullanılabilir."
+  - question: "Yurtdışı şirket TL göndermek istiyor, bu vergi avantajımı bozar mı?"
+    answer: "Hayır, gelir/kurumlar vergisi tarafındaki %100 kazanç indirimi 03.02.2023 tarih ve 166967 sayılı özelge ile netleştirildi: gelirin döviz veya TL olması fark etmez. Tek kritik şart, kazancın tamamının yıllık beyanname verme süresine kadar Türkiye'ye transfer edilmiş olmasıdır. KDV %0 fatura uygulaması ise farklı; TL girişi durumunda klasik yorum tartışmalıdır ve denetimde sorgulanabilir. Pratikte yazılımcı/tasarımcı için KDV iadesi söz konusu olmadığından gelir vergisi tarafı önemli olur. Detaylı karşılaştırma: Yurtdışından Ödeme Alma rehberi."
+---
+
+import CalculatorCTA from '../components/CalculatorCTA.astro';
+
+# Yurtdışına Remote Çalışmak 2026: Tam Kurulum Rehberi
+
+Yurtdışı şirketten teklifi aldınız. Şimdi sıra TR tarafında yasal yapıyı doğru kurmaya geldi. Bu rehber 2026 mevzuatına göre dört şeyin nasıl seçileceğini anlatır:
+
+1. **Sözleşme tipi**: Contractor mı, EOR (bordrolu) mi
+2. **Mükellefiyet**: Şahıs şirketi mi, serbest meslek erbabı mı
+3. **Vergi**: Hizmet ihracatı %100 kazanç istisnasından nasıl yararlanılacağı
+4. **Sosyal güvenlik**: Bağ-Kur, sağlık ve emeklilik
+
+İş bulma sürecini henüz tamamlamadıysanız: [Remote İş Bulma](/remote-is-bulma) rehberi yurtdışı şirketlerden iş alma stratejisini anlatır.
+
+## Bir bakışta dört seçenek
+
+| Yapı | Vergi | SGK | Pratik | Net etki |
+| --- | --- | --- | --- | --- |
+| **Contractor + Şahıs Şirketi** | %100 hizmet ihracatı istisnası | 4/b (Bağ-Kur) | Çoğu yazılımcı için en yaygın | Net en yüksek |
+| **Contractor + Serbest Meslek** | %100 hizmet ihracatı istisnası | 4/b (Bağ-Kur) | Mühendis, mimar, sanatçı | Net en yüksek |
+| **EOR (Deel, Remote.com)** | Ücret geliri, dilimden vergi | 4/a (SGK) | Sözleşme/SGK işveren halleder | Net %30 – 50 daha düşük |
+| **Yurtdışı şirkette doğrudan bordro** | TR'de beyan + ÇVÖA | Kaynak ülke + TR | Pratik değil | Karmaşık |
+
+İlk iki seçenek (contractor yapı) TR mukimi yazılımcı/tasarımcı için neredeyse her zaman doğru cevap. EOR yapısı kolay ama pahalı; sadece çok özel durumlarda mantıklıdır.
+
+## Contractor mı, EOR mi?
+
+### Contractor (önerilen)
+
+- TR'de şahıs şirketi veya serbest meslek erbabı olarak kaydolursunuz.
+- Yurtdışı şirkete doğrudan fatura veya serbest meslek makbuzu kesersiniz.
+- Yurtdışı şirket size ücret değil **hizmet bedeli** öder.
+- Hizmet ihracatı %100 kazanç istisnasından yararlanırsınız (GVK 89/13 / KVK 10/ğ).
+- 2026'da Resmî Gazete'de yayımlanan 11257 sayılı Cumhurbaşkanı Kararı ile istisna oranı %80'den **%100'e** yükseltildi: detaylar [Hizmet İhracatı İstisnası](/hizmet-ihracati-istisnasi).
+
+### EOR (Employer of Record)
+
+- Deel, Remote.com, Multiplier gibi platformlar TR'de bir entity'ye sahiptir veya partner kullanır.
+- Sizi TR'de yerel çalışan olarak istihdam ederler; iş sözleşmesi imzalarsınız.
+- Yurtdışı şirket sizin EOR'a "ücret + komisyon" öder; EOR sizi TR mevzuatına göre bordroya yansıtır.
+- Geliriniz **ücret** olarak vergilenir; hizmet ihracatı kazanç istisnası yoktur.
+- TR gelir vergisi dilimleri (%15 – %40) tam uygulanır, SGK işveren payı dahil.
+
+### İki yapının farkı
+
+Yapıların net farkı, geliriniz arttıkça kademeli olarak büyür. EOR yapısında gelir vergisi dilimleri (%15, %20, %27, %35, %40) artan oranlı uygulandığından, yıllık brüt arttıkça efektif vergi yükü de yükselir; contractor yapısında ise hizmet ihracatı %100 istisnası sayesinde gelir vergisi tabanı tamamen sıfıra iner ve yapı sabit (Bağ-Kur primi + mali müşavir ücreti + küçük damga giderleri) kalır.
+
+Genel bir yönelim:
+
+- Aylık net döviz geliri yaklaşık 2.000 EUR ve altında ise EOR ile contractor arasındaki fark görece küçük olur (Bağ-Kur ve mali müşavir sabit yükü contractor tarafında etkili olduğu için).
+- Aylık 3.000 – 5.000 EUR aralığında EOR ile contractor farkı belirgin biçimde contractor lehine açılır.
+- Aylık 5.000 EUR üzerine çıkıldıkça fark daha da büyür çünkü EOR tarafında üst gelir dilimleri devreye girer.
+
+Bu sadece kabaca bir çerçevedir; rolünüze, müşterinizin profiline ve mali müşavir ücretinize göre değişir.
+
+Kendi rakamınız üzerinden net hesabı görmek için ana sayfadaki hesaplayıcıyı kullanın; aylık döviz geliri ve kur girişiyle 2026 mevzuatına göre hem brüt hem net kazancı çıkarır.
+
+<CalculatorCTA title="Net kazancınızı hesaplayın" description="Aylık döviz gelirinizi ve kuru girin; %100 hizmet ihracatı istisnası uygulandığında elinize geçecek net tutarı 2026 mevzuatına göre görün." />
+
+### EOR ne zaman mantıklı olur?
+
+- Yurtdışı şirket contractor yapıyı kabul etmiyor (büyük corporate, compliance ekibi katı).
+- Sadece kısa süreli (3 – 6 ay) bir proje için işe başlayacaksınız ve şahıs şirketi açma maliyetini almak istemiyorsunuz.
+- Sağlık sigortası, emeklilik primi ve yıllık izin gibi paketin EOR tarafında sağlanması net hesabı dengeliyor (nadiren).
+
+Bu durumlar dışında contractor yapı her zaman daha iyi sonuç verir.
+
+## Mükellefiyet seçimi: şahıs şirketi mi, serbest meslek mi?
+
+Bu seçim mesleğinize göre çoğunlukla **otomatiktir**, tercihe bağlı değildir.
+
+### Serbest meslek erbabı
+
+Vergi Usul Kanunu'nda **bilfiil sayılan** meslekler:
+
+- Mühendis (yazılım mühendisi dahil mi konusu tartışmalıdır, **çoğu mali müşavir 'hayır' der**: yazılım geliştirme ticari faaliyet sayılır)
+- Mimar
+- Doktor, diş hekimi, veteriner
+- Avukat, mali müşavir, denetçi
+- Sanatçı, fotoğrafçı, müzisyen
+- Yazar, çevirmen
+- Eczacı
+
+Serbest meslek erbabı *serbest meslek makbuzu* keser, defter-beyan sistemi üzerinden kayıt tutar.
+
+### Şahıs şirketi (gerçek usulde ticari kazanç)
+
+VUK'ta sayılı meslek değilseniz şahıs şirketi yolu:
+
+- Yazılımcı, full-stack geliştirici, ML mühendisi
+- Dijital tasarımcı, UX/UI designer, illustrator
+- İçerik üreticisi, video editör
+- Ürün yöneticisi (PM)
+- Dijital pazarlamacı, SEO uzmanı, growth hacker
+- Veri analisti
+
+Şahıs şirketi *e-Arşiv fatura* keser, e-Defter ve diğer dijital yükümlülükleri vardır.
+
+### Hangisi vergi olarak daha iyi?
+
+Hizmet ihracatı %100 kazanç istisnası **her iki yapı için de geçerlidir**. Pratik farklar:
+
+- **Gider kalemleri**: Şahıs şirketi daha geniş gider kabul yelpazesine sahiptir (kira, ekipman, eğitim, yazılım abonelikleri).
+- **Stopaj**: Serbest meslek erbabında çoğu zaman stopaj uygulanır; ödeyen yurtdışı tüzel kişi olduğu için pratikte stopaj çıkmaz ama TR mukim ödeyici varsa farklılaşır.
+- **Bürokrasi**: Serbest meslek defterleri daha sade, şahıs şirketinde e-Defter ve YMM eşik takibi daha karmaşık.
+- **Karşı taraf algısı**: Yurtdışı işveren "company invoice" beklediğinde şahıs şirketi faturası daha az soru yaratır.
+
+Detaylı karşılaştırma: [Şahıs Şirketi Genel Rehber](/sahis-sirketi).
+
+## Sözleşme tipi: contractor, consultancy değil
+
+Hizmet ihracatı %100 kazanç indiriminden yararlanmak için sözleşmenizin tipi kritik. Mevzuat ve özelgeler:
+
+- **Independent contractor / service provider** sözleşmesi istisna kapsamındadır.
+- **Consultancy / advisory** sözleşmeleri yorumda istisna dışı bırakılabilir; özellikle TR'deki bir entity için verilen danışmanlık tartışmalıdır.
+- Hizmetin **yurt dışında değerlendirilmesi** gerekir. Yani müşteri yurt dışında olmalı, ürün/hizmet TR'de tüketilmemeli.
+
+> Pratik öneri: Sözleşmenizde "Independent Contractor Agreement", "Service Agreement" veya "Master Services Agreement" başlıklarını tercih edin. Faturada açıklamayı "software development services", "design services" veya "contractor fee" olarak yazın.
+
+Sözleşmeyi imzalamadan önce mali müşavirinizin görmesini şiddetle öneririz; sonradan değiştirmek zor olabilir.
+
+## Vergi: hizmet ihracatı %100 kazanç istisnası
+
+30 Nisan 2026 Resmî Gazete'de yayımlanan **11257 sayılı Cumhurbaşkanı Kararı** ile yurt dışına verilen yazılım, mühendislik, mimarlık, tasarım, eğitim ve sağlık hizmetlerinde uygulanan kazanç indirimi oranı **%80'den %100'e** yükseltildi.
+
+### Şartlar
+
+- Hizmet **yurt dışı mukim** bir kişi/şirkete verilmiş olmalı.
+- Hizmetten **münhasıran yurt dışında** yararlanılmalı.
+- Fatura/makbuz **yurt dışı tüzel kişi** adına kesilmiş olmalı.
+- **Kazancın tamamı** yıllık beyanname verme tarihine kadar (gelir vergisinde Mart sonu, kurumlar vergisinde Nisan sonu) Türkiye'ye transfer edilmeli. Kısmi transfer indirim hakkını düşürür.
+- Para birimi (TL veya döviz) fark etmez; özelge 03.02.2023 / 166967 bunu netleştirdi.
+
+### YMM tasdik raporu zorunluluğu
+
+49 No'lu Genel Tebliğ ile birlikte hizmet ihracatı kazanç indiriminden yararlanmak için belirli eşiklerin aşılması durumunda YMM tasdik raporu zorunludur:
+
+- Yıllık hizmet ihracatı indirim tutarı **500.000 TL**'yi aşıyorsa zorunlu.
+- Toplam istisna ve indirimler **1.000.000 TL**'yi aşıyorsa zorunlu.
+- Beyanname verme süresinden itibaren 2 ay içinde ibraz edilmelidir.
+- Süresinde ibraz edilmezse istisna iptal, asgari 400.000 TL özel usulsüzlük cezası.
+
+Detaylar: [Hizmet İhracatı İstisnası ve YMM Tasdiki](/hizmet-ihracati-istisnasi).
+
+### KDV tarafı
+
+KDV K. 11/1-a kapsamında ihraç edilen hizmetler %0 KDV ile faturalanır. Faturada özel "302" kodu kullanılır. Detaylı şablon: [302 (KDV 11/1-a) Fatura Örneği](/302-11-1-a-fatura-ornegi).
+
+## Sosyal güvenlik (Bağ-Kur)
+
+TR mukim olarak şahıs şirketi veya serbest meslek erbabı çalışırsanız **4/b sigortalı** (eski adıyla Bağ-Kur) olursunuz.
+
+### 2026 baz primi
+
+- Aylık asgari Bağ-Kur primi: yaklaşık **11.808 TL** (asgari ücret bazında, %32 oranında).
+- Geliriniz arttıkça matrah üst sınırına kadar (asgari ücretin 7,5 katı) prim de artar; çoğu freelancer asgari kademede ödemeyi tercih eder.
+- 2026'dan itibaren genç girişimci Bağ-Kur prim desteği **kaldırılmıştır**: 1 Ocak 2026 sonrası işe başlayanlar için ilk yıl prim muafiyeti yoktur.
+
+### Sağlık hizmeti
+
+4/b primi ödedikçe siz ve aile bireyleriniz Genel Sağlık Sigortası'ndan yararlanırsınız. Aile üyelerinin ayrıca GSS primi ödemesine gerek yoktur.
+
+### Emeklilik
+
+4/b sigortalı olarak biriken primler kıdem hesabında geçerlidir. 4/a (SSK) ile 4/b (Bağ-Kur) süreleri toplam emekli aylığında ayrı katsayılarla hesaplanır; uzun vadeli planlama için bir SGK uzmanına danışın.
+
+### Aynı anda 4/a sigortalı iseniz
+
+TR'de bir şirkette tam zamanlı çalışıyor ve 4/a (SSK) primleriniz yatıyorsa, şahıs şirketi açtığınızda 4/b prim yükümlülüğünüz **muafiyete tabi** olabilir (4/a önceliklidir). Mali müşavirinize ve SGK'ya teyit ettirin.
+
+Detaylar: [Şahıs Şirketi Maliyetleri](/sahis-sirketi-maliyet).
+
+## Deel, Remote.com ve diğer EOR/Contractor platformları
+
+Yurtdışı işveren çoğu zaman size "We use Deel for contractors" veya "We hire through Remote.com" diyebilir. Bu platformların iki ayrı ürünü vardır ve TR mukim için etkileri farklıdır.
+
+### Contractor management ürünü (önerilen kullanım)
+
+- Yurtdışı şirket sözleşmeyi platform üzerinden gönderir.
+- Siz TR mukim contractor olarak imzalarsınız.
+- Aylık ödeme platform üzerinden tetiklenir; SWIFT, ACH veya Wise üzerinden TR banka hesabınıza gelir.
+- TR tarafında siz **kendi adınıza** fatura keser, hizmet ihracatı istisnasından yararlanırsınız.
+- Platform tarafı sözleşme + ödeme akışı için sadece bir araçtır; vergi açısından mevcut yapınız değişmez.
+
+Bu yapı TR mukim için **en avantajlı seçenektir** ve direkt SWIFT havale ile elde edeceğiniz vergi sonucunun aynısını verir.
+
+### EOR ürünü (genelde kaçınılmalı)
+
+- Platform sizi TR'de yerel çalışan olarak istihdam eder.
+- Geliriniz **ücret** olur, hizmet ihracatı istisnası uygulanmaz.
+- Net etki contractor yapıya göre %30 – 50 daha düşüktür (yukarıdaki örneğe bakın).
+
+İşveren ısrarcıysa: "I can work as an independent contractor based in Türkiye. I have a registered sole proprietorship and handle my own taxes, social security, and compliance. Deel/Remote.com supports this exact setup through their contractor product." şeklinde geri dönmek genelde sorun çözer.
+
+## Döviz akışı ve fatura
+
+Hizmet ihracatı kazanç indirimi için bedelin TR'ye getirilmesi şarttır. Para birimi (TL veya döviz) fark etmez ama döviz akışı vergi belge disiplinini en temiz hale getirir.
+
+### Önerilen sıra
+
+1. Müşteriye **EUR/USD/GBP olarak** kendi TR döviz hesabınızın IBAN'ını verin.
+2. Müşteri SWIFT veya Wise üzerinden döviz olarak göndersin.
+3. TR bankası size **döviz alım belgesi (DAB)** veya döviz hesabı dekontu düzenler.
+4. Mali müşavirinize her ay belgeleri iletin.
+
+### Wise / Revolut tuzağı
+
+Müşteriniz Wise veya Revolut kullandığında varsayılan olarak alıcı ülke para birimine (TRY) çevirip gönderir. Bu durumda TR bankası **döviz girişi görmez**, DAB üretmez ve KDV %0 uygulaması ihtilaflı hale gelir. Müşteriden açıkça isteyin: "Send in EUR (or USD/GBP), recipient gets EUR. My IBAN is for a foreign-currency account."
+
+Detaylı karşılaştırma: [Yurtdışından Ödeme Alma](/yurtdisindan-odeme-alma).
+
+### Faturada hangi tutarı yazmalı?
+
+Müşterinin size ödediği **brüt tutarı**, gönderim para birimi cinsinden yazın. Banka komisyonu, Wise ücreti veya Payoneer ücreti faturaya yansıtılmaz; bunlar sizin gider kaleminizdir ve şahıs şirketi defterlerine ayrı kaydedilir.
+
+## Mali müşavir maliyeti
+
+Şahıs şirketi açıp aktif olarak hizmet ihracatı yapmak için mali müşavir gereklidir; e-Defter, beyannameler ve YMM tasdiki süreçleri profesyonel takip ister.
+
+- 2026 TÜRMOB asgari ücreti: aylık **4.492 TL** (yıllık ~54.000 TL).
+- Yurtdışı müşteri ile çalışan freelancer için mali müşavirin daha bilgili olması beklendiğinden pratikte 6.000 – 12.000 TL/ay aralığında çalışan müşavirler yaygındır.
+- YMM tasdiki ayrı ücretlendirilir (gerektiğinde 30.000 – 100.000 TL aralığı).
+
+Mali müşavir seçimi kritik: hizmet ihracatı istisnası ve YMM eşik takibi konusunda deneyimli olduğundan emin olun. Detay: [Şahıs Şirketi Maliyetleri](/sahis-sirketi-maliyet).
+
+## Sık yapılan hatalar
+
+- **Sözleşmede "consultancy" geçirmek**: İstisna riskine sokar. "Service" / "contractor" tercih edin.
+- **Faturayı bireysel hesabınıza ödetmek**: İşletme geliri sayılmaz, istisna uygulanmaz. Şahıs şirketi unvanı altında açılmış banka hesabı kullanın.
+- **Wise üzerinden TRY almak**: Gelir vergisi tarafı özelge ile korunur ama KDV tarafı tartışmalıdır. Mümkünse döviz akışı tercih edin.
+- **Kazancın bir kısmını yurtdışında bırakmak**: Hizmet ihracatı istisnası için kazancın **tamamı** beyanname tarihine kadar TR'ye transfer edilmeli. Wise hesabınızda bekleyen veya yurtdışı banka hesabında kalan bakiyeler indirim hakkını düşürür.
+- **Birden fazla iş arasında geçiş yaparken eski sözleşmeyi feshetmemek**: SGK ve vergi tarafında çakışma yaratır.
+- **Genç girişimci muafiyetine güvenmek**: 1 Ocak 2026 sonrası işe başlayanlar için Bağ-Kur prim desteği yoktur. Gelir vergisi tarafında 400.000 TL kazanç istisnası halen var ama hizmet ihracatı %100 istisnasından yararlananlar için ek bir avantaj sağlamaz.
+- **YMM tasdiki eşiğini takip etmemek**: 500.000 TL eşiği aşıldığında 2 ay içinde rapor ibraz edilmezse istisna iptal + 400.000 TL ceza.
+- **EOR yapısını sorgulamadan kabul etmek**: Yurtdışı işverenin "we use EOR" demesi yapının pahalı olduğu gerçeğini değiştirmez. Contractor talep edin.
+
+## Sıkça sorulan sorular
+
+### TR'de yaşayan biriyim, yurtdışı şirketin TR'de "office" yoksa nasıl ödeme alırım?
+
+Yurtdışı şirket SWIFT havalesi, Wise, Payoneer veya Deel/Remote.com gibi platformlar üzerinden TR banka hesabınıza ödeme gönderebilir. Şirketin TR'de ofisi olmasına gerek yoktur. Detay: [Yurtdışından Ödeme Alma](/yurtdisindan-odeme-alma).
+
+### Vize sorum yok ama saat dilimi farkı önemli mi?
+
+Yurtdışı işveren çoğunlukla "EU working hours" veya "US East Coast 9-5" beklentisi koyar. TR (UTC+3), Avrupa şirketleriyle 0-2 saat fark, ABD East Coast ile 7 saat ileridedir. ABD West Coast ile 10 saat ileri olduğundan günlük overlap zorlaşır. Sözleşme imzalamadan saat dilimi beklentisini netleştirin.
+
+### EOR yapısında hangi durumlarda kazanırım?
+
+Sözleşmeniz çok kısa süreli (3 – 6 ay) ve şahıs şirketi açma + kapatma maliyetinin yıllık vergi farkından büyük olduğu çok özel durumlarda EOR mantıklı olabilir. Ayrıca sağlık sigortası, emeklilik primi ve yıllık izin paketinin TR'de değerlendirilebileceği üst düzey rolllerde EOR cazip görünebilir. Yine de net hesap çoğu zaman contractor lehinedir.
+
+### Yurtdışı müşterimle aynı zamanda TR'deki bir şirkete fatura kesebilir miyim?
+
+Evet. Şahıs şirketi olarak hem TR mukim hem yurtdışı mukim müşterilere fatura keser, gelirlerinizi tek beyannamede toplarsınız. TR mukim müşterilerden gelen gelir hizmet ihracatı istisnasından yararlanmaz; yurtdışı kısmı için %100 indirim ayrıca uygulanır.
+
+### Genç girişimci 400.000 TL kazanç istisnası hizmet ihracatı ile birlikte uygulanır mı?
+
+Pratikte ek avantaj sağlamaz. Hizmet ihracatı %100 kazanç indirimi zaten gelirin tamamını vergiden istisna kıldığında, üstüne genç girişimci kazanç istisnasının ek bir kıymeti olmaz. Bu nedenle 1 Ocak 2026 sonrası kalkan Bağ-Kur prim desteği bu rehberin kapsamında bir avantaj kaybı yaratmaz.
+
+### TR mukimi olduğum süre boyunca yurtdışı bankada da hesap tutabilir miyim?
+
+Evet, kambiyo mevzuatı yurtdışı banka hesabı tutmayı yasaklamaz. Ancak hizmet ihracatı istisnasından yararlanmak için kazancın tamamı yıllık beyanname verme süresine kadar TR'ye transfer edilmiş olmalı. Yurtdışı hesapta yıl sonunu geçen bakiye indirim hakkını düşürür.
+
+### Sözleşmemi feshettiğimde şahıs şirketini hemen kapatmalı mıyım?
+
+Hayır, hemen kapatmaya gerek yoktur. Aktif sözleşmeniz olmasa bile şahıs şirketinizi açık tutarak Bağ-Kur primlerinizi ödemeye devam edebilirsiniz; bu, sağlık sigortanız ve emeklilik priminizin kesilmemesini sağlar. 6 – 12 aydan uzun bir ara verecekseniz vergi dairesi ve mali müşaviriniz ile uzun süreli faaliyetsizlik beyanı seçeneklerini görüşebilirsiniz.
+
+### Kripto ile ödeme alabilir miyim?
+
+Hayır. TCMB'nin 2021 düzenlemesi gereği kripto varlıklar TR'de ödeme aracı olarak kullanılamaz. Yurtdışı müşteri size USDT veya USDC göndermek isterse, bu döviz girişi sayılmaz ve hizmet ihracatı istisnasını kaybettirir; ayrıca düzenleyici risk taşır.
+
+## Sonraki adımlar
+
+- [Hesaplayıcı](/): Aylık döviz gelirinize göre net kazancınızı 2026 mevzuatına göre hesaplayın
+- [Remote İş Bulma](/remote-is-bulma): Yurtdışı şirketlerden iş bulma rehberi (henüz iş aramadıysanız)
+- [Hizmet İhracatı](/hizmet-ihracati): %100 istisnanın tüm şartları
+- [Şahıs Şirketi Genel Rehber](/sahis-sirketi): Yaşam döngüsü ve hızlı bakış
+- [Şahıs Şirketi Nasıl Kurulur](/sahis-sirketi-nasil-kurulur): Mali müşavir, MERSİS ve vergi dairesi adımları
+- [Şahıs Şirketi Maliyetleri](/sahis-sirketi-maliyet): Bağ-Kur, mali müşavir ve damga vergisi
+- [Yurtdışından Ödeme Alma](/yurtdisindan-odeme-alma): SWIFT, Wise, Payoneer karşılaştırması
+- [302 (KDV 11/1-a) Fatura Örneği](/302-11-1-a-fatura-ornegi): Kopyalanabilir fatura şablonu
+
+## Kaynaklar
+
+- [Gelir İdaresi Başkanlığı](https://www.gib.gov.tr): KDV ve gelir vergisi mevzuatı
+- [Resmî Gazete: 11257 sayılı Cumhurbaşkanı Kararı](https://www.resmigazete.gov.tr): Hizmet ihracatı %100 istisna oranı
+- [Alomaliye: Yurt Dışı Hizmet İhracı İstisnasında Yeni Dönem](https://www.alomaliye.com/2026/01/27/yurtdisi-hizmet-ihraci-istisnasinda-yeni-donem/): 2026 mevzuat yorumu
+- [Alomaliye: Yurt Dışı Mukimlere Verilen Hizmetlerde Kazanç İndirimi](https://www.alomaliye.com/2026/04/20/yurt-disi-mukimlere-verilen-hizmetlerde-kazanc-indirimi/): TL/döviz farkı, transfer şartı
+- Özelge 03.02.2023 / 166967: gelirin döviz veya TL olması indirim uygulamasını engellemez
+- [SGK 4/b mevzuatı](https://www.sgk.gov.tr): Bağ-Kur sigortalılık şartları ve prim oranları
+- [Deel: Contractor vs EOR karşılaştırması](https://www.deel.com/blog/contractor-vs-employee/): Platform tarafının açıklaması

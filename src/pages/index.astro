@@ -1,0 +1,391 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Calculator from '../components/Calculator.astro';
+
+const title = 'Remote Vergi 2026: Yurtdışı Çalışanlar Vergi Hesaplayıcı';
+const description =
+  'Yurtdışına remote çalışan yazılımcılar için 2026 vergi hesaplama aracı. %100 hizmet ihracatı kazanç istisnası, YMM tasdik raporu ve net kazanç hesaplayıcı.';
+const dateModified = '2026-05-07';
+---
+
+<Layout title={title} description={description} dateModified={dateModified}>
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'Remote Vergi',
+      description:
+        'Yurtdışına remote çalışan yazılımcılar için 2026 mevzuatına göre vergi hesaplama aracı',
+      url: 'https://remotevergi.com/',
+      applicationCategory: 'FinanceApplication',
+      operatingSystem: 'Any',
+      author: {
+        '@type': 'Person',
+        name: 'Ahmet Özışık',
+        url: 'https://ahmet.ee',
+      },
+      isAccessibleForFree: true,
+      dateModified,
+    })}
+    slot="head"
+  />
+
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Yurtdışına remote çalışırken hangi mükellefiyet türü açılır?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text:
+              "Mesleğe göre değişir. Mühendis, mimar, doktor, avukat, mali müşavir, sanatçı gibi Vergi Usul Kanunu'nda sayılan meslek mensupları serbest meslek erbabı olarak kayıt yaptırabilir. Yazılımcı, dijital tasarımcı, içerik üreticisi gibi roller şahıs şirketi (ticari kazanç) üzerinden fatura keser. Yurt dışı hizmet ihracatı %100 kazanç istisnası her iki yapı için de geçerlidir.",
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Hizmet ihracatında %100 kazanç istisnası nasıl uygulanıyor?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text:
+              "30 Nisan 2026 tarihli Resmî Gazete'de yayımlanan 11257 sayılı Cumhurbaşkanı Kararı ile yurt dışına verilen yazılım, mühendislik, mimarlık, tasarım, eğitim ve sağlık hizmetlerinde uygulanan kazanç indirimi oranı %80'den %100'e yükseltilmiştir.",
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'YMM tasdik raporu ne zaman zorunlu olur?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text:
+              "Yıllık hizmet ihracatı indirim tutarı 500.000 TL'yi veya toplam istisna ve indirimler 1.000.000 TL'yi aştığında YMM tasdik raporu zorunludur.",
+          },
+        },
+      ],
+    })}
+    slot="head"
+  />
+
+  <div class="max-w-5xl mx-auto px-5 md:px-8 pt-12 md:pt-16 pb-16">
+    <!-- Hero -->
+    <div class="max-w-2xl mb-10 md:mb-12">
+      <h1
+        class="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 mb-3"
+      >
+        Yurt dışına çalışanlar için vergi hesaplayıcı
+      </h1>
+      <p class="text-[15px] md:text-base text-slate-600 leading-relaxed">
+        Türkiye'den yurt dışı firmalara döviz kazanan yazılımcılar, mühendisler
+        ve tasarımcılar için. 2026 mevzuatına göre %100 hizmet ihracatı
+        istisnası ve YMM tasdiki dahil.
+      </p>
+    </div>
+
+    <Calculator />
+
+    <!-- Article -->
+    <article
+      class="prose prose-slate max-w-2xl mx-auto mt-24 md:mt-32
+        prose-headings:tracking-tight prose-headings:font-semibold
+        prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
+        prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
+        prose-p:text-slate-600 prose-p:leading-relaxed prose-p:text-[15px]
+        prose-li:text-slate-600 prose-li:text-[15px]
+        prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium
+        prose-strong:text-slate-900"
+    >
+      <h2>2026 vergi rehberi</h2>
+      <p>
+        30 Nisan 2026 tarihli Resmî Gazete'de yayımlanan <strong
+          ><a href="/hizmet-ihracati-istisnasi"
+            >11257 sayılı Cumhurbaşkanı Kararı</a
+          ></strong
+        > ile yurt dışına verilen yazılım, mühendislik, mimarlık, tasarım, eğitim
+        ve sağlık hizmetlerinde uygulanan kazanç indirimi oranı %80'den <strong
+          >%100'e</strong
+        > yükseltildi. Şartların sağlanması durumunda kazancın tamamı gelir vergisinden
+        istisna tutulabilmektedir.
+      </p>
+
+      <h3>YMM tasdik raporu zorunluluğu</h3>
+      <p>
+        49 No'lu Genel Tebliğ ile birlikte <a href="/hizmet-ihracati"
+          >hizmet ihracatı kazanç indiriminden</a
+        > yararlanmak için belirli eşiklerin aşılması durumunda Yeminli Mali Müşavir
+        tasdik raporu hazırlatmanız zorunludur:
+      </p>
+      <ul>
+        <li>
+          Yıllık hizmet ihracatı indirim tutarı <strong>500.000 ₺</strong>'yi
+          aşıyorsa zorunlu.
+        </li>
+        <li>
+          Toplam istisna ve indirimler <strong>1.000.000 ₺</strong>'yi aşıyorsa
+          zorunlu.
+        </li>
+        <li>Beyanname verme süresinden itibaren 2 ay içinde ibraz edilmelidir.</li>
+        <li>
+          Süresinde ibraz edilmezse istisna iptal, asgari 400.000 ₺ özel
+          usulsüzlük cezası.
+        </li>
+      </ul>
+
+      <h3>Sıkça sorulan sorular</h3>
+
+      <h4>Hangi mükellefiyet türü uygun: şahıs şirketi mi, serbest meslek mi?</h4>
+      <p>
+        Mesleğe göre değişir. <strong
+          >Mühendis, mimar, doktor, avukat, mali müşavir, sanatçı</strong
+        > gibi Vergi Usul Kanunu'nda sayılan meslek mensupları <strong
+          >serbest meslek erbabı</strong
+        > olarak kayıt yaptırabilir ve hizmetleri için <em
+          >serbest meslek makbuzu</em
+        > düzenler. <strong
+          >Yazılımcı, dijital tasarımcı, içerik üreticisi, dijital
+          pazarlamacı</strong
+        > gibi roller ise yasal sınıflandırmada serbest meslek sayılmadığı için <strong
+          ><a href="/sahis-sirketi">şahıs şirketi (ticari kazanç)</a></strong
+        > üzerinden fatura keser.
+      </p>
+      <p>
+        Yurt dışı hizmet ihracatı %100 kazanç istisnası <strong
+          >her iki yapı için de geçerli</strong
+        >; kazanç indirimi şartları (faturanın yurt dışı müşteri adına
+        kesilmesi, dövizin Türkiye'ye getirilmesi) aynıdır. Hangi yapı sizin için
+        uygunsa onunla ilerleyebilirsiniz; ikisi arasında gider kalemleri ve
+        stopaj uygulamaları farklılık gösterdiği için bir mali müşavire
+        danışmanız önerilir.
+      </p>
+
+      <h4>%100 istisnadan nasıl yararlanılır?</h4>
+      <p>
+        <a href="/302-11-1-a-fatura-ornegi"
+          >Faturanın yurt dışındaki müşteri adına kesilmesi</a
+        >, <a href="/yurtdisindan-odeme-alma"
+          >bedelin Türkiye'ye döviz olarak getirilmesi</a
+        > ve hizmetin yurt dışında değerlendirilmesi gerekir.
+      </p>
+
+      <h4>Genç girişimci desteği 2026'da hâlâ var mı?</h4>
+      <p>
+        Gelir vergisi tarafı yürürlükte: 29 yaşını doldurmamış ve ilk defa iş
+        kuran girişimciler için 3 takvim yılı boyunca 400.000 ₺'ye kadar kazanç
+        istisnası uygulanır. Ancak <strong
+          >1 Ocak 2026 sonrasında işe başlayanlar için Bağ-Kur prim desteği
+          kaldırılmıştır.</strong
+        > %100 hizmet ihracatı istisnasından yararlananlar için bu istisna ek bir
+        vergi avantajı sağlamadığından hesaplayıcıdan çıkarılmıştır.
+      </p>
+
+      <h3>2026 oran ve limitleri</h3>
+      <ul>
+        <li>Hizmet ihracatı kazanç istisnası: <strong>%100</strong></li>
+        <li>YMM tasdik raporu zorunluluk eşiği: 500.000 ₺</li>
+        <li>Genç girişimci kazanç istisnası: 400.000 ₺</li>
+        <li>Bağ-Kur primi (asgari, aylık): ~11.808 ₺</li>
+        <li>SMMM aylık asgari (TÜRMOB): 4.492 ₺</li>
+        <li>Gelir vergisi dilim aralığı: %15 ile %40</li>
+      </ul>
+
+      <h3>Kaynaklar</h3>
+      <ul>
+        <li>
+          <a href="https://www.gib.gov.tr" target="_blank" rel="noopener">Gelir İdaresi Başkanlığı</a>
+        </li>
+        <li>
+          <a
+            href="https://www.alomaliye.com/2026/01/27/yurtdisi-hizmet-ihraci-istisnasinda-yeni-donem/"
+            target="_blank"
+            rel="noopener">Yurt Dışı Hizmet İhracı İstisnasında Yeni Dönem</a>
+        </li>
+        <li>
+          <a
+            href="https://www.alomaliye.com/2025/12/30/istisna-ve-indirimler-icin-ymm-tasdik-raporu-zorunlulugu/"
+            target="_blank"
+            rel="noopener">İstisna ve İndirimler İçin YMM Tasdik Raporu Zorunluluğu</a>
+        </li>
+      </ul>
+    </article>
+
+    <section class="mt-20 md:mt-28">
+      <div class="max-w-2xl mb-8 md:mb-10">
+        <h2
+          class="text-2xl font-semibold tracking-tight text-slate-900 mb-3"
+        >
+          Detaylı rehberler
+        </h2>
+        <p class="text-[15px] text-slate-600 leading-relaxed">
+          Konu başlıklarına göre derinlemesine içerikler ve uygulama
+          örnekleri.
+        </p>
+      </div>
+
+      <div class="space-y-10 md:space-y-12">
+        <div>
+          <h3
+            class="text-[12px] font-semibold uppercase tracking-[0.08em] text-slate-500 mb-4"
+          >
+            Remote Çalışma
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <a
+              href="/remote-is-bulma"
+              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
+            >
+              <div
+                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
+              >
+                Remote İş Bulma
+              </div>
+              <div class="text-[13px] text-slate-500 leading-relaxed">
+                Yurtdışı iş ilanları, başvuru stratejisi, en iyi siteler
+              </div>
+            </a>
+            <a
+              href="/yurtdisina-remote-calismak"
+              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
+            >
+              <div
+                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
+              >
+                Yurtdışına Remote Çalışmak
+              </div>
+              <div class="text-[13px] text-slate-500 leading-relaxed">
+                Sözleşme, mükellefiyet, vergi, SGK ve döviz akışı
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h3
+            class="text-[12px] font-semibold uppercase tracking-[0.08em] text-slate-500 mb-4"
+          >
+            Hizmet İhracatı
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <a
+              href="/hizmet-ihracati"
+              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
+            >
+              <div
+                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
+              >
+                Genel Rehber
+              </div>
+              <div class="text-[13px] text-slate-500 leading-relaxed">
+                2026 mevzuatı ve %100 istisnanın temelleri
+              </div>
+            </a>
+            <a
+              href="/hizmet-ihracati-istisnasi"
+              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
+            >
+              <div
+                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
+              >
+                İstisna ve YMM Tasdiki
+              </div>
+              <div class="text-[13px] text-slate-500 leading-relaxed">
+                11257 sayılı Karar, 49 No'lu Tebliğ ve eşikler
+              </div>
+            </a>
+            <a
+              href="/302-11-1-a-fatura-ornegi"
+              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
+            >
+              <div
+                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
+              >
+                e-Arşiv 302 Faturası
+              </div>
+              <div class="text-[13px] text-slate-500 leading-relaxed">
+                Alan adları, muafiyet kodu ve döviz beyanı
+              </div>
+            </a>
+            <a
+              href="/yurtdisindan-odeme-alma"
+              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
+            >
+              <div
+                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
+              >
+                Yurtdışından Ödeme Alma
+              </div>
+              <div class="text-[13px] text-slate-500 leading-relaxed">
+                Wise, Payoneer, Revolut, Deel ve DAB süreci
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h3
+            class="text-[12px] font-semibold uppercase tracking-[0.08em] text-slate-500 mb-4"
+          >
+            Şahıs Şirketi
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <a
+              href="/sahis-sirketi"
+              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
+            >
+              <div
+                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
+              >
+                Genel Rehber
+              </div>
+              <div class="text-[13px] text-slate-500 leading-relaxed">
+                Yaşam döngüsü, mükellefiyet ve hızlı bakış
+              </div>
+            </a>
+            <a
+              href="/sahis-sirketi-nasil-kurulur"
+              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
+            >
+              <div
+                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
+              >
+                Nasıl Kurulur
+              </div>
+              <div class="text-[13px] text-slate-500 leading-relaxed">
+                Mali müşavir, MERSİS ve vergi dairesi adımları
+              </div>
+            </a>
+            <a
+              href="/sahis-sirketi-maliyet"
+              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
+            >
+              <div
+                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
+              >
+                Maliyet
+              </div>
+              <div class="text-[13px] text-slate-500 leading-relaxed">
+                Bağ-Kur, mali müşavir ücreti, damga vergisi
+              </div>
+            </a>
+            <a
+              href="/sahis-sirketi-vergi-hesaplama"
+              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
+            >
+              <div
+                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
+              >
+                Vergi Hesaplama
+              </div>
+              <div class="text-[13px] text-slate-500 leading-relaxed">
+                Net kazanç hesaplayıcı ve gelir vergisi dilim aralığı
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

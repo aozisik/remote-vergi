@@ -1,0 +1,38 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Vergi yükünüzü hesaplayın',
+  description = '2026 mevzuatına göre net kazancınızı, ödeyeceğiniz vergileri ve YMM dahil giderleri saniyeler içinde görün.',
+} = Astro.props;
+---
+
+<aside
+  class="not-prose my-8 rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50/60 via-white to-white p-5 md:p-6"
+>
+  <div class="flex items-start gap-4 flex-col md:flex-row md:items-center">
+    <div class="flex-1 min-w-0">
+      <h3 class="text-[15px] font-semibold text-slate-900 mb-1">{title}</h3>
+      <p class="text-[13px] text-slate-600 leading-relaxed">{description}</p>
+    </div>
+    <a
+      href="/"
+      class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-indigo-600 text-white text-[13px] font-medium hover:bg-indigo-700 transition shrink-0"
+    >
+      Hesaplayıcıyı aç
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        class="w-3.5 h-3.5"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"
+        ></path>
+      </svg>
+    </a>
+  </div>
+</aside>

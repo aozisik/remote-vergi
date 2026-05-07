@@ -1,0 +1,290 @@
+---
+import Layout from './Layout.astro';
+
+interface FrontmatterShape {
+  title: string;
+  description: string;
+  dateModified?: string;
+  faq?: Array<{ question: string; answer: string }>;
+  wide?: boolean;
+}
+
+// Astro passes MD/MDX frontmatter as Astro.props.frontmatter; .astro pages pass
+// props directly. Support both so this layout works with either.
+const frontmatter =
+  (Astro.props as any).frontmatter ?? (Astro.props as FrontmatterShape);
+const { title, description, dateModified, faq, wide } = frontmatter;
+const containerWidth = wide ? 'max-w-5xl' : 'max-w-3xl';
+const fullTitle = title.includes('Remote Vergi')
+  ? title
+ : `${title} | Remote Vergi`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  author: {
+    '@type': 'Person',
+    name: 'Ahmet Özışık',
+    url: 'https://ahmet.ee',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Remote Vergi',
+    url: 'https://remotevergi.com/',
+  },
+  datePublished: dateModified ?? '2026-05-07',
+  dateModified: dateModified ?? '2026-05-07',
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': new URL(Astro.url.pathname, Astro.site).toString(),
+  },
+};
+
+const faqSchema = faq && faq.length > 0
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map((q) => ({
+        '@type': 'Question',
+        name: q.question,
+        acceptedAnswer: { '@type': 'Answer', text: q.answer },
+      })),
+    }
+ : null;
+
+const slug = Astro.url.pathname.replace(/^\/+|\/+$/g, '');
+const editUrl = `https://github.com/aozisik/remote-vergi/edit/master/src/pages/${slug}.mdx`;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const shareTitle = encodeURIComponent(title);
+const shareLink = encodeURIComponent(pageUrl);
+const twitterUrl = `https://x.com/intent/post?text=${shareTitle}&url=${shareLink}`;
+const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${shareLink}`;
+const whatsappUrl = `https://wa.me/?text=${shareTitle}%20${shareLink}`;
+---
+
+<Layout
+  title={fullTitle}
+  description={description}
+  ogType="article"
+  dateModified={dateModified}
+>
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(articleSchema)}
+    slot="head"
+  />
+  {
+    faqSchema && (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify(faqSchema)}
+        slot="head"
+      />
+    )
+  }
+
+  <div class={`${containerWidth} mx-auto px-5 md:px-8 pt-10 md:pt-14 pb-16`}>
+    <nav class="text-[13px] text-slate-500 mb-6" aria-label="Breadcrumbs">
+      <a href="/" class="hover:text-indigo-600 transition">Anasayfa</a>
+      <span class="mx-2 text-slate-300">/</span>
+      <span class="text-slate-700">{title}</span>
+    </nav>
+
+    <div
+      data-share-top
+      class="hidden mt-6 mb-8 pb-6 border-b border-slate-100 flex-wrap items-center gap-2 text-[12px] text-slate-500"
+    >
+      <span class="text-slate-500 mr-0.5">Paylaş:</span>
+      <a
+        href={twitterUrl}
+        target="_blank"
+        rel="noopener"
+        aria-label="X'te paylaş"
+        class="inline-flex items-center justify-center w-7 h-7 rounded-md border border-slate-200 bg-white hover:border-slate-300 hover:text-slate-900 transition"
+      >
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+        </svg>
+      </a>
+      <a
+        href={linkedinUrl}
+        target="_blank"
+        rel="noopener"
+        aria-label="LinkedIn'de paylaş"
+        class="inline-flex items-center justify-center w-7 h-7 rounded-md border border-slate-200 bg-white hover:border-slate-300 hover:text-slate-900 transition"
+      >
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3">
+          <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.36 4.26 5.43zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"></path>
+        </svg>
+      </a>
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener"
+        aria-label="WhatsApp'ta paylaş"
+        class="inline-flex items-center justify-center w-7 h-7 rounded-md border border-slate-200 bg-white hover:border-slate-300 hover:text-slate-900 transition"
+      >
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3">
+          <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.81 11.81 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"></path>
+        </svg>
+      </a>
+      <button
+        type="button"
+        data-copy-link
+        data-url={pageUrl}
+        aria-label="Bağlantıyı kopyala"
+        class="inline-flex items-center justify-center w-7 h-7 rounded-md border border-slate-200 bg-white hover:border-slate-300 hover:text-slate-900 transition"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3 h-3">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 0 0-5.656 0l-4 4a4 4 0 1 0 5.656 5.656l1.102-1.101"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.172 13.828a4 4 0 0 0 5.656 0l4-4a4 4 0 1 0-5.656-5.656l-1.102 1.101"></path>
+        </svg>
+        <span data-copy-label class="sr-only">Bağlantıyı kopyala</span>
+      </button>
+    </div>
+
+    <article
+      class:list={[
+        'prose prose-slate max-w-none',
+        'prose-headings:tracking-tight prose-headings:font-semibold',
+        'prose-h1:text-3xl md:prose-h1:text-4xl prose-h1:mb-4',
+        'prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4',
+        'prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3',
+        'prose-p:text-slate-600 prose-p:leading-relaxed prose-p:text-[15px]',
+        'prose-li:text-slate-600 prose-li:text-[15px]',
+        'prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium',
+        'prose-strong:text-slate-900',
+        'prose-table:text-[14px]',
+        'prose-th:text-slate-900 prose-th:font-semibold prose-th:bg-slate-50',
+        'prose-td:text-slate-600',
+        'prose-blockquote:border-indigo-200 prose-blockquote:bg-indigo-50/40 prose-blockquote:text-slate-700 prose-blockquote:not-italic prose-blockquote:rounded-r-lg prose-blockquote:py-1',
+        // In wide mode, constrain prose paragraphs/lists to a readable width
+        // while letting embedded blocks (e.g. Calculator) use the full container.
+        wide
+          ? '[&>p]:max-w-3xl [&>ul]:max-w-3xl [&>ol]:max-w-3xl [&>blockquote]:max-w-3xl [&>h2]:max-w-3xl [&>h3]:max-w-3xl [&>h4]:max-w-3xl [&>table]:max-w-3xl'
+          : '',
+      ]}
+    >
+      <slot />
+    </article>
+
+    <div class="mt-12 pt-8 border-t border-slate-200">
+      <div class="flex flex-wrap items-center gap-2 text-[12px] text-slate-500">
+        <span class="text-slate-500 mr-0.5">Paylaş:</span>
+        <a
+          href={twitterUrl}
+          target="_blank"
+          rel="noopener"
+          aria-label="X'te paylaş"
+          class="inline-flex items-center justify-center w-7 h-7 rounded-md border border-slate-200 bg-white hover:border-slate-300 hover:text-slate-900 transition"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+          </svg>
+        </a>
+        <a
+          href={linkedinUrl}
+          target="_blank"
+          rel="noopener"
+          aria-label="LinkedIn'de paylaş"
+          class="inline-flex items-center justify-center w-7 h-7 rounded-md border border-slate-200 bg-white hover:border-slate-300 hover:text-slate-900 transition"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3">
+            <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.36 4.26 5.43zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"></path>
+          </svg>
+        </a>
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener"
+          aria-label="WhatsApp'ta paylaş"
+          class="inline-flex items-center justify-center w-7 h-7 rounded-md border border-slate-200 bg-white hover:border-slate-300 hover:text-slate-900 transition"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3">
+            <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.81 11.81 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"></path>
+          </svg>
+        </a>
+        <button
+          type="button"
+          data-copy-link
+          data-url={pageUrl}
+          aria-label="Bağlantıyı kopyala"
+          class="inline-flex items-center justify-center w-7 h-7 rounded-md border border-slate-200 bg-white hover:border-slate-300 hover:text-slate-900 transition"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-3 h-3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 0 0-5.656 0l-4 4a4 4 0 1 0 5.656 5.656l1.102-1.101"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.172 13.828a4 4 0 0 0 5.656 0l4-4a4 4 0 1 0-5.656-5.656l-1.102 1.101"></path>
+          </svg>
+          <span data-copy-label class="sr-only">Bağlantıyı kopyala</span>
+        </button>
+      </div>
+
+      <div class="mt-6 rounded-xl border border-amber-200 bg-amber-50/60 px-4 py-3.5 text-[13px] leading-relaxed text-amber-900">
+        <p>
+          <strong class="font-semibold">Bir hata mı buldunuz?</strong>{' '}
+          Bu rehber açık kaynaktır. Yanlış veya eksik bulduğunuz bilgi varsa{' '}
+          <a
+            href={editUrl}
+            target="_blank"
+            rel="noopener"
+            class="font-medium underline decoration-amber-400 underline-offset-2 hover:decoration-amber-700"
+          >
+            GitHub'da bu sayfayı düzenleyin
+          </a>{' '}
+          ve düzeltme PR'ı gönderin.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-10 pt-6 border-t border-slate-100">
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 text-[14px] font-medium text-indigo-600 hover:text-indigo-800 transition"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="w-4 h-4"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l-7 7 7 7"
+          ></path>
+        </svg>
+        Vergi hesaplayıcıya dön
+      </a>
+    </div>
+  </div>
+
+  <script>
+    const shareTop = document.querySelector<HTMLDivElement>('[data-share-top]');
+    const articleH1 = document.querySelector<HTMLHeadingElement>('article > h1');
+    if (shareTop && articleH1) {
+      articleH1.insertAdjacentElement('afterend', shareTop);
+      shareTop.classList.remove('hidden');
+      shareTop.classList.add('flex');
+    }
+
+    document.querySelectorAll<HTMLButtonElement>('[data-copy-link]').forEach((btn) => {
+      btn.addEventListener('click', async () => {
+        const url = btn.dataset.url ?? window.location.href;
+        const label = btn.querySelector<HTMLSpanElement>('[data-copy-label]');
+        if (!label) return;
+        const original = label.textContent;
+        try {
+          await navigator.clipboard.writeText(url);
+          label.textContent = 'Kopyalandı!';
+        } catch {
+          label.textContent = 'Kopyalanamadı';
+        }
+        setTimeout(() => {
+          label.textContent = original;
+        }, 1800);
+      });
+    });
+  </script>
+</Layout>

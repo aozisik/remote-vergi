@@ -1,0 +1,171 @@
+---
+layout: ../layouts/ArticleLayout.astro
+title: "Şahıs Şirketi Gelir Vergisi Hesaplayıcı 2026: Yurt Dışı + Yurt İçi"
+description: "2026 mevzuatına göre şahıs şirketi gelir vergisi hesaplayıcısı. Yurt dışı döviz geliriniz için %100 hizmet ihracatı istisnası, yurt içi TL geliriniz için artan oranlı vergi dilimleri. Bağ-Kur, mali müşavir, damga vergisi ve YMM dahil tüm sabit giderler hesaba katılır."
+dateModified: "2026-05-07"
+wide: true
+faq:
+  - question: "Bu hesaplayıcı kimler için doğru?"
+    answer: "Türkiye'de mukim, ticari kazanç ya da serbest meslek esasıyla şahıs şirketi açmış ya da açmayı planlayan herkes için. İster yalnızca yurt dışı tüzel kişi müşterilere fatura kesin (döviz, %100 hizmet ihracatı istisnası), ister yalnızca yurt içi (TL, standart dilimler), ister her ikisini birlikte yapın: hesaplayıcı her senaryoyu doğru modeller. Yurt içi geliri olmayanlar bu alanı 0 bırakır; sonuç anasayfadaki hesaplayıcıyla aynı olur."
+  - question: "2026 gelir vergisi dilimleri nedir?"
+    answer: "2026 yılı için ticari kazanç gelir vergisi dilimleri (yaklaşık eşiklerle): 158.000 ₺'ye kadar %15, 330.000 ₺'ye kadar %20, 1.200.000 ₺'ye kadar %27, 4.300.000 ₺'ye kadar %35, 4.300.000 ₺ üstü %40. Eşik tutarları her yıl Yeniden Değerleme Oranı ile güncellenir; mali müşavirinizden 2026 nihai tablosunu teyit alın."
+  - question: "Hizmet ihracatı istisnası gelir vergisini nasıl etkiler?"
+    answer: "1 Ocak 2026 itibarıyla yürürlükteki düzenleme, yurt dışı mukim müşterilere verilen yazılım, tasarım, danışmanlık ve benzeri hizmetlerden elde edilen kazancın %100'ünün gelir vergisinden istisna olmasını sağlar. İstisnayı uygulayabilmek için faturanın yurt dışı tüzel kişiye kesilmiş olması, hizmetten münhasıran yurt dışında faydalanılması ve kazancın tamamının beyanname verme süresine kadar Türkiye'ye transfer edilmiş olması gerekir. Para birimi TL veya döviz olabilir (özelge 166967). Belirli ciro eşiğini aşan mükellefler için YMM tasdik raporu zorunludur."
+  - question: "Hesaplayıcı hangi giderleri hesaba katar?"
+    answer: "Hesaplayıcı 2026 mevzuatına göre Bağ-Kur primi (asgari), aylık mali müşavir ücreti, damga vergisi, oda aidatı ve YMM tasdik ücretini sabit gider olarak modeller. Aylık döviz gelirinizi ve kuru girdiğinizde brüt TL gelirinizi, hizmet ihracatı istisnası sonrası matrahı, vergi dilimi uygulamasını ve net cebe geçen tutarı detaylı olarak gösterir."
+  - question: "İstisnasız senaryoda efektif vergi oranı ne olur?"
+    answer: "Hizmet ihracatı istisnasını uygulamayan, yıllık brüt 6.000.000 ₺ kazancı olan bir şahıs şirketi mükellefinin marjinal oranı %40, ortalama efektif oranı yaklaşık %30 civarındadır. İstisna uygulandığında efektif oran %0'a yaklaşır; sadece sabit giderler (Bağ-Kur, mali müşavir, damga vergisi) yıllık ~200.000–250.000 ₺ olarak kalır."
+---
+
+import Calculator from '../components/Calculator.astro';
+import CalculatorCTA from '../components/CalculatorCTA.astro';
+
+# Şahıs Şirketi Gelir Vergisi Hesaplayıcı 2026
+
+Türkiye'de bir şahıs şirketi mükellefisiniz veya açmayı düşünüyorsunuz. Yıl sonunda ne kadar net kazanç görürsünüz? Aşağıdaki hesaplayıcı **hem yurt dışı döviz gelirinizi** hem de **yurt içi TL gelirinizi** ayrı ayrı alır, 2026 mevzuatını uygular ve cebinize geçen tutarı gösterir.
+
+İki gelir akışı farklı kurallara tabi:
+
+- **Yurt dışı kazanç (döviz fatura, yurt dışı mukim müşteri):** %100 hizmet ihracatı istisnası kapsamında. Şartlar sağlanırsa gelir vergisi sıfıra yakın. Detay: [Hizmet İhracatı Rehberi](/hizmet-ihracati).
+- **Yurt içi kazanç (TL fatura, yurt içi müşteri):** İstisna yok. 2026 ticari kazanç dilimleri (%15'ten %40'a) uygulanır.
+
+Sabit giderleriniz (Bağ-Kur primi, mali müşavir ücreti, damga vergisi, eşik aşılırsa YMM tasdiki) iki gelir akışına **orantılı olarak** (müşterek genel giderler kuralı) dağıtılır. Yurt dışı geliriniz yoksa alanı 0 bırakın; yurt içi geliriniz yoksa onu 0 bırakın.
+
+<Calculator mixed={true} />
+
+## Hesaplama nasıl çalışır?
+
+Hesaplayıcının arka planında uygulanan akış:
+
+1. **Brüt TL geliri:** Aylık döviz gelirini (€ veya $) güncel kurla TL'ye çevirir, yıllığa vurur
+2. **Sabit giderler:** Bağ-Kur primi, mali müşavir aylık ücreti, damga vergisi, oda aidatı ve (eşik aşılırsa) YMM tasdik ücretini gider olarak düşer
+3. **İstisna sonrası matrah:** Hizmet ihracatı %100 istisnası uygulandığında istisna kazancı matrahtan düşer; net kazancınız doğrudan istisna kapsamında olur
+4. **Vergi dilimi uygulaması:** İstisnasız senaryoda 2026 ticari kazanç dilimleri sırayla uygulanır (%15, %20, %27, %35, %40)
+5. **Net kazanç:** Brüt gelir, sabit giderler ve gelir vergisi düşüldükten sonra cebinize geçecek tutar
+
+İstisnayı uygulayan **çoğu remote çalışan** için efektif gelir vergisi oranı **%0'a yakındır**; gerçek yük neredeyse tamamen sabit giderlerden (~200.000–250.000 ₺/yıl) oluşur.
+
+## 2026 gelir vergisi dilimleri (ticari kazanç)
+
+Hizmet ihracatı istisnası uygulanmadığı senaryoda, 2026 yılı için ticari kazanç vergi dilimleri **artan oranlı** olarak işler:
+
+| Matrah dilimi (yaklaşık) | Oran |
+| --- | --- |
+| 0 – 158.000 ₺ | %15 |
+| 158.001 – 330.000 ₺ | %20 |
+| 330.001 – 1.200.000 ₺ | %27 |
+| 1.200.001 – 4.300.000 ₺ | %35 |
+| 4.300.001 ₺ üstü | %40 |
+
+Eşik tutarları her yıl **Yeniden Değerleme Oranı (YDO)** ile güncellenir. Yukarıdaki tablo 2026 yılı için yaklaşık değerleri gösterir; nihai eşikler için mali müşavirinizden son Resmî Gazete tebliğine göre güncel tabloyu isteyin.
+
+> Ticari kazanç ve serbest meslek kazancı vergi dilimleri **aynı tarifeye** tabidir. Hizmet ihracatı istisnası her iki yapı için de %100 olarak uygulanır.
+
+### Dilim mantığı (örnek)
+
+İstisnasız bir senaryoda yıllık net kazanç matrahı **750.000 ₺** olan bir mükellefin gelir vergisi:
+
+- 0 – 158.000 ₺ arası: 158.000 × %15 = **23.700 ₺**
+- 158.000 – 330.000 ₺ arası: 172.000 × %20 = **34.400 ₺**
+- 330.000 – 750.000 ₺ arası: 420.000 × %27 = **113.400 ₺**
+- **Toplam gelir vergisi:** ~171.500 ₺
+- Efektif ortalama oran: ~%23
+
+Aynı kişi **%100 hizmet ihracatı istisnası** uyguladığında, 750.000 ₺ kazancın tamamı istisna olur ve gelir vergisi tutarı **0 ₺**'ye düşer; sadece sabit giderler kalır.
+
+## Sabit giderler ve hesaplayıcı varsayımları
+
+Hesaplayıcı 2026 yılı için aşağıdaki varsayılan tutarları kullanır; siz kendi tarifenize göre ayarlayabilirsiniz:
+
+| Kalem | Varsayılan (2026) |
+| --- | --- |
+| Bağ-Kur primi (asgari) | ~11.808 ₺/ay |
+| Mali müşavir | ~4.500 ₺/ay |
+| Damga vergisi | ~1.150 ₺/ay |
+| Oda aidatı (yıllık) | ~1.500 ₺ |
+| Yıllık beyanname tahakkuku | ~7.500 ₺ |
+| YMM tasdik (eşik aşılırsa) | ~30.000 ₺/yıl |
+
+Yıllık baz yük (YMM hariç): **~200.000–250.000 ₺**. YMM tasdiki eşik aşılırsa toplam **~230.000–310.000 ₺**'ye çıkar. Detaylı kalem analizi için: [Şahıs Şirketi Maliyetleri](/sahis-sirketi-maliyet).
+
+## Hizmet ihracatı istisnası: efektif vergi neden 0?
+
+%100 hizmet ihracatı kazanç istisnası, yurt dışı mukim müşterilere ifa edilen yazılım/tasarım/danışmanlık hizmetlerinden elde edilen kazancın **tamamını** gelir vergisi matrahından düşer. Para birimi TL veya döviz olabilir (özelge 166967); kazancın tamamının beyanname son tarihine kadar Türkiye'ye transfer edilmiş olması yeterlidir. Detay: [Hizmet İhracatı](/hizmet-ihracati).
+
+İstisna uygulamanın şartları:
+
+- Faturanın **yurt dışı tüzel kişiye** kesilmiş olması
+- Hizmetin **yurt dışında değerlendirilmesi** (alıcının yararlanması yurt dışında)
+- Bedelin **döviz olarak TR bankasına** gelmesi ve **DAB** veya döviz hesabı dekontu ile belgelenmesi
+- Belirli ciro eşiğini aşan mükellefler için **YMM tasdik raporu**
+
+Şartlar tamam ise yıllık brüt 6.000.000 ₺ kazancınız bile gelir vergisi açısından **0 matrah** olarak beyan edilir. KDV tarafında da %100 istisna uygulanır; KDV tahsil etmezsiniz.
+
+Detay: [Hizmet İhracatı](/hizmet-ihracati) ve [Hizmet İhracatı İstisnası ve YMM Tasdiki](/hizmet-ihracati-istisnasi).
+
+## Tipik senaryo: aylık €10.000 remote yazılımcı
+
+Aylık brüt €10.000 (1 € = 53 ₺) gelirli, hizmet ihracatı istisnasını kullanan, YMM tasdik eşiğini aşan bir şahıs şirketi sahibi için yıllık tablo:
+
+| Kalem | Tutar (₺) |
+| --- | --- |
+| Yıllık brüt gelir | 6.360.000 |
+| Bağ-Kur primi | -141.696 |
+| Mali müşavir | -54.000 |
+| Damga vergisi | -13.836 |
+| Yıllık beyanname tahakkuku | -7.500 |
+| Oda aidatı | -1.500 |
+| YMM tasdik raporu | -30.000 |
+| **Toplam sabit gider** | **-248.532** |
+| Hizmet ihracatı istisnası matrahı | -6.111.468 |
+| **Vergi matrahı (istisna sonrası)** | **0** |
+| Gelir vergisi | 0 |
+| **Net kazanç** | **~6.111.468** |
+
+Bu modelde gelir vergisi yükü 0'dır; yıllık taşıma maliyeti **~250.000 ₺** olarak yapısal sabit giderler kalır. Aynı senaryo istisnasız hesaplandığında 6.000.000 ₺+ matrah üzerinden **yaklaşık 1.800.000 ₺** gelir vergisi tahakkuk eder.
+
+## Hesaplayıcıyı kullanırken dikkat edilecekler
+
+- **Aylık değil yıllık düşünün:** Tek aylık tutar yerine yıllık ortalamayı girin
+- **Kur sabit kabul edilir:** Yıl içinde döviz kuru değişirse hesaplama yaklaşıktır
+- **Sabit giderler ortalama:** Mali müşavir tarifeniz farklıysa kendi tutarınızı girin
+- **YMM eşiği:** Eşik altında iseniz YMM tutarını sıfırlayın
+- **KDV iadesi:** Hizmet ihracatı KDV iadesi modele dahil değildir; yıllık beyannamede ayrıca takip edilir
+
+<CalculatorCTA title="Kendi rakamlarınızla yeniden hesaplayın" description="Aylık döviz gelirinizi, mali müşavir ücretinizi ve YMM kalemini girin; net kazancınızı saniyeler içinde görün." />
+
+## Sıkça sorulan sorular
+
+### Geçici vergi (peşin vergi) ne zaman ödenir?
+
+Geçici vergi yılda **dört dönem** halinde tahakkuk eder (Mart, Haziran, Eylül, Aralık). Hizmet ihracatı istisnası uyguluyorsanız geçici vergi tahakkukunuz da 0 olur; ancak beyanname yine verilir. İstisnasız mükellefler için geçici vergi yıllık beyannamede mahsup edilir.
+
+### KDV beyannamesi vermek zorunda mıyım?
+
+Evet. Hizmet ihracatı %100 KDV istisnasından yararlansanız bile aylık KDV beyannamesi verme yükümlülüğünüz devam eder; istisna kazancınızı **istisna kodlarıyla** beyan edersiniz. Damga vergisi her beyanname için tahakkuk eder.
+
+### Eşim ortak olursa vergi düşer mi?
+
+Şahıs şirketi tek kişiliktir; ortaklık yoktur. Adi ortaklık (iki gerçek kişi) kurulabilir, ancak hizmet ihracatı istisnası ortakların payına göre uygulanır ve YMM tasdik gerekleri ortaklık üzerinden değerlendirilir. Aile içi vergi optimizasyonu için mali müşavirinizle çifte mukimlik ve gelir bölme stratejilerini görüşün.
+
+### Hesaplayıcı kuruma vergisi de hesaplıyor mu?
+
+Hayır. Hesaplayıcı **şahıs şirketi (gelir vergisi)** modeline odaklanır. Limited veya anonim şirket için kurumlar vergisi (%25) ve kâr dağıtımında stopaj (%10–%15) ayrı modellenir; bu sayfa kapsamında değildir.
+
+### Yıllık 4.300.000 ₺ üstü için gerçekten %40 mı?
+
+Evet, en üst dilim. Ancak %100 hizmet ihracatı istisnası uyguluyorsanız bu dilime hiç girmezsiniz; istisna sonrası matrah 0 olduğunda dilim uygulanmaz. Marjinal oran %40 olsa da efektif oranınız sıfıra yakındır.
+
+## Sonraki adımlar
+
+- [Hizmet İhracatı](/hizmet-ihracati): %100 istisnadan nasıl yararlanırsınız?
+- [Şahıs Şirketi Nasıl Kurulur](/sahis-sirketi-nasil-kurulur): adım adım kuruluş
+- [Şahıs Şirketi Maliyetleri](/sahis-sirketi-maliyet): yıllık taşıma maliyeti
+- [302 (KDV 11/1-a) Fatura Örneği](/302-11-1-a-fatura-ornegi): kopyalanabilir şablon
+
+## Kaynaklar
+
+- [Gelir İdaresi Başkanlığı](https://www.gib.gov.tr): Gelir Vergisi Kanunu, dilim ve istisna mevzuatı
+- [Resmî Gazete](https://www.resmigazete.gov.tr): Yıllık YDO ve dilim güncellemeleri
+- [TÜRMOB](https://www.turmob.org.tr): mali müşavir asgari ücret tarifesi
+- [Alomaliye](https://www.alomaliye.com): vergi dilimi ve istisna uygulama yorumları
