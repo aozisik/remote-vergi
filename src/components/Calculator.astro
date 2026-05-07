@@ -128,10 +128,10 @@
           return acc;
         }, {});
       },
-      netAnnual() { const i = this.groupedResults.income; return i ? i.items.find(x => x[0].includes('Yıllık')) : null; },
-      netMonthly() { const i = this.groupedResults.income; return i ? i.items.find(x => x[0].includes('Aylık Gelir') && !x[0].includes('€')) : null; },
-      netMonthlyEur() { const i = this.groupedResults.income; return i ? i.items.find(x => x[0].includes('€')) : null; },
-      parseAmount(s) { return s ? Number(String(s).replace(/[^\d]/g, '')) : 0; },
+      netAnnual() { const i = this.groupedResults.income; return i ? i.items.find(x => x[0].includes('Yıllık')): null; },
+      netMonthly() { const i = this.groupedResults.income; return i ? i.items.find(x => x[0].includes('Aylık Gelir') && !x[0].includes('€')): null; },
+      netMonthlyEur() { const i = this.groupedResults.income; return i ? i.items.find(x => x[0].includes('€')): null; },
+      parseAmount(s) { return s ? Number(String(s).replace(/[^\d]/g, '')): 0; },
       formatTL(n) { return '₺' + new Intl.NumberFormat('tr-TR').format(Math.round(n)); },
       get pieNet() { return this.parseAmount(this.groupedResults.income?.items?.find(i => i[0].includes('Yıllık'))?.[1]); },
       get pieDamga() { return this.parseAmount(this.groupedResults.expenses?.items?.find(i => i[0].includes('Damga'))?.[1]); },
@@ -196,7 +196,7 @@
           class="num font-semibold text-slate-300 tracking-tight"
           style="font-size: clamp(2rem, 6vw, 3.25rem);"
         >
-          —
+          –
         </p>
       </template>
 
@@ -209,7 +209,7 @@
           </p>
           <p
             class="num text-lg md:text-xl font-semibold text-slate-900 break-words"
-            x-text="netMonthly() ? netMonthly()[1] : '—'"
+            x-text="netMonthly() ? netMonthly()[1]: '–'"
           >
           </p>
         </div>
@@ -221,7 +221,7 @@
           </p>
           <p
             class="num text-lg md:text-xl font-semibold text-slate-900 break-words"
-            x-text="netMonthlyEur() ? netMonthlyEur()[1] : '—'"
+            x-text="netMonthlyEur() ? netMonthlyEur()[1]: '–'"
           >
           </p>
         </div>
@@ -298,7 +298,7 @@
               <div class="flex items-center gap-3">
                 <span
                   class="chev text-slate-400"
-                  :class="expandedSections[groupName] ? 'open text-slate-700' : ''"
+                  :class="expandedSections[groupName] ? 'open text-slate-700': ''"
                 >
                   <svg
                     viewBox="0 0 24 24"
