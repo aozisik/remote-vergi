@@ -17,7 +17,7 @@ faq:
     answer: "Hizmet ihracatı istisnasını uygulamayan, yıllık brüt 6.000.000 ₺ kazancı olan bir şahıs şirketi mükellefinin marjinal oranı %40, ortalama efektif oranı yaklaşık %30 civarındadır. İstisna uygulandığında efektif oran %0'a yaklaşır; sadece sabit giderler (Bağ-Kur, mali müşavir, damga vergisi) yıllık ~200.000–250.000 ₺ olarak kalır."
 ---
 
-import CalculatorMixed from '../components/CalculatorMixed.astro';
+import Calculator from '../components/Calculator.astro';
 import CalculatorCTA from '../components/CalculatorCTA.astro';
 
 # Şahıs Şirketi Gelir Vergisi Hesaplayıcı 2026
@@ -31,7 +31,7 @@ Türkiye'de bir şahıs şirketi mükellefisiniz veya açmayı düşünüyorsunu
 
 Sabit giderleriniz (Bağ-Kur primi, mali müşavir ücreti, damga vergisi, eşik aşılırsa YMM tasdiki) iki gelir akışına **orantılı olarak** (müşterek genel giderler kuralı) dağıtılır. Yurt dışı geliriniz yoksa alanı 0 bırakın; yurt içi geliriniz yoksa onu 0 bırakın.
 
-<CalculatorMixed />
+<Calculator mixed={true} />
 
 ## Hesaplama nasıl çalışır?
 
