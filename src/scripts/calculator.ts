@@ -1,11 +1,12 @@
-import { Dinero } from 'dinero.js';
+import type Dinero from 'dinero.js';
 import {
   BAGKUR_PREMIUM,
   SOFTWARE_SERVICE_EXPORT_EXEMPTION,
   ANNUAL_STAMP_TAX,
   YMM_TASDIK_THRESHOLD,
 } from './constants';
-import { Result, ResultLine } from './result';
+import { Result } from './result';
+import type { ResultLine } from './result';
 import { validate } from './support/form';
 import { incomeTax } from './support/incomeTax';
 import {
@@ -40,7 +41,7 @@ export const calculate = async (form: any): Promise<ResultLine[]> => {
 
   // Expenses section
   let costsTotal = toTry(0);
-  const addMonthlyCost = (name: string, amount: Dinero, url?: string) => {
+  const addMonthlyCost = (name: string, amount: Dinero.Dinero, url?: string) => {
     const annualCost = amount.multiply(12);
     costsTotal = costsTotal.add(annualCost);
     result.addLine(
@@ -50,7 +51,7 @@ export const calculate = async (form: any): Promise<ResultLine[]> => {
       'expenses'
     );
   };
-  const addAnnualCost = (name: string, amount: Dinero, url?: string) => {
+  const addAnnualCost = (name: string, amount: Dinero.Dinero, url?: string) => {
     costsTotal = costsTotal.add(amount);
     result.addLine(name, amount, url, 'expenses');
   };

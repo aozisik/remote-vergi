@@ -1,9 +1,9 @@
-import { Dinero } from "dinero.js";
+import type Dinero from "dinero.js";
 
 import { toTry } from "./money";
 import { TAX_BRACKETS } from "../constants";
 
-export const incomeTax = (income: Dinero): Dinero => {
+export const incomeTax = (income: Dinero.Dinero): Dinero.Dinero => {
   let tax = toTry(0);
 
   for (let i = 0; i < TAX_BRACKETS.length; i++) {

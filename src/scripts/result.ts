@@ -1,6 +1,3 @@
-import { Dinero } from 'dinero.js';
-import { toText } from './support/money';
-
 export type ResultLine = [string, string | null, string | null, string | null, string | null];
 
 export class Result {
@@ -20,10 +17,6 @@ export class Result {
       group,
       position
     ]);
-  }
-
-  addTitle(title: string) {
-    // Titles are no longer needed as they're handled by the UI
   }
 
   getLines(): ResultLine[] {
