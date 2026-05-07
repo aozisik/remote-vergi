@@ -30,7 +30,7 @@ npm run format   # format only
 
 ## Deployment
 
-Push to `master` triggers `.github/workflows/deploy.yml`, which builds with Astro, runs [lychee](https://lychee.cli.rs) to catch broken internal links, and publishes to GitHub Pages at the `remotevergi.com` custom domain.
+Push to `main` triggers `.github/workflows/deploy.yml`, which builds with Astro, runs [lychee](https://lychee.cli.rs) to catch broken internal links, and publishes to GitHub Pages at the `remotevergi.com` custom domain.
 
 ## License
 

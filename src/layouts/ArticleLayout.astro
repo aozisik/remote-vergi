@@ -55,7 +55,7 @@ const faqSchema = faq && faq.length > 0
  : null;
 
 const slug = Astro.url.pathname.replace(/^\/+|\/+$/g, '');
-const editUrl = `https://github.com/aozisik/remote-vergi/edit/master/src/pages/${slug}.mdx`;
+const editUrl = `https://github.com/aozisik/remote-vergi/edit/main/src/pages/${slug}.mdx`;
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 const shareTitle = encodeURIComponent(title);
 const shareLink = encodeURIComponent(pageUrl);
