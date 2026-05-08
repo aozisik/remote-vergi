@@ -1,13 +1,15 @@
 import type Dinero from 'dinero.js';
-import { TAX_BRACKETS } from '../constants';
 import { toTry } from './money';
 
-export const incomeTax = (income: Dinero.Dinero): Dinero.Dinero => {
+export const incomeTax = (
+  income: Dinero.Dinero,
+  brackets: [number, number][],
+): Dinero.Dinero => {
   let tax = toTry(0);
 
-  for (let i = 0; i < TAX_BRACKETS.length; i++) {
-    const [bracket, rate] = TAX_BRACKETS[i];
-    const previousBracket = i === 0 ? 0 : TAX_BRACKETS[i - 1][0];
+  for (let i = 0; i < brackets.length; i++) {
+    const [bracket, rate] = brackets[i];
+    const previousBracket = i === 0 ? 0 : brackets[i - 1][0];
 
     const bracketAmount = toTry(bracket);
     const previousBracketAmount = toTry(previousBracket);
@@ -15,8 +17,6 @@ export const incomeTax = (income: Dinero.Dinero): Dinero.Dinero => {
     const taxedAmount = bracketAmount.greaterThan(income)
       ? income.subtract(previousBracketAmount)
       : bracketAmount.subtract(previousBracketAmount);
-
-    // console.log(`Apply %${rate * 100} for ${toText(taxedAmount)}`);
 
     tax = tax.add(taxedAmount.multiply(rate));
 

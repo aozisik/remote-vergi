@@ -1,7 +1,7 @@
 ---
-// Unified calculator: handles both yurt dışı (with %100 hizmet ihracatı istisnası)
-// and optional yurt içi (taxed via 2026 brackets) incomes. Math lives in
-// src/scripts/calculator.ts and is exposed as window.calculate.
+// Unified calculator: handles yurt dışı (hizmet ihracatı istisnası) and optional
+// yurt içi incomes. Year-aware: 2025 (%80 istisna) or 2026 (%100 istisna).
+// Math lives in src/scripts/calculator.ts and is exposed as window.calculate.
 //
 // Pass `mixed={true}` to also show the yurt içi income input. Default false.
 
@@ -16,19 +16,55 @@ const { mixed = false } = Astro.props;
   x-data={`{
     mixed: ${mixed},
     currencies: {
-      EUR: { symbol: '€', label: 'EUR', defaultRate: '53' },
-      USD: { symbol: '$', label: 'USD', defaultRate: '35' },
-      GBP: { symbol: '£', label: 'GBP', defaultRate: '60' }
+      EUR: { symbol: '€', label: 'EUR' },
+      USD: { symbol: '$', label: 'USD' },
+      GBP: { symbol: '£', label: 'GBP' }
+    },
+    years: {
+      2025: {
+        currencyDefaults: { EUR: '45', USD: '40', GBP: '52' },
+        accountingCost: '3800',
+        ymmCost: '0',
+        showYmm: false,
+        accountingHelp: "TÜRMOB 2025 asgari tarifesi ₺3.775/ay'dan başlar.",
+        exemptionPct: 80
+      },
+      2026: {
+        currencyDefaults: { EUR: '53', USD: '35', GBP: '60' },
+        accountingCost: '4500',
+        ymmCost: '30000',
+        showYmm: true,
+        accountingHelp: "TÜRMOB 2026 asgari tarifesi ₺4.492/ay'dan başlar.",
+        exemptionPct: 100
+      }
+    },
+    yearOptions: [2025, 2026],
+    setYear(year) {
+      if (this.form.taxYear === year) return;
+      const y = this.years[year];
+      this.form.taxYear = year;
+      this.form.exchangeRate = y.currencyDefaults[this.form.currency];
+      this.form.accountingCosts = y.accountingCost;
+      this.form.ymmCost = y.ymmCost;
     },
     cycleCurrency() {
       const order = ['EUR', 'USD', 'GBP'];
       const idx = order.indexOf(this.form.currency);
       const next = order[(idx + 1) % order.length];
       this.form.currency = next;
-      this.form.exchangeRate = this.currencies[next].defaultRate;
+      this.form.exchangeRate = this.years[this.form.taxYear].currencyDefaults[next];
     },
     results: [],
     form: (() => {
+      const defaults2026 = {
+        taxYear: 2026,
+        yurtDisiIncome: '3000',
+        yurtIciIncome: '0',
+        currency: 'EUR',
+        exchangeRate: '53',
+        accountingCosts: '4500',
+        ymmCost: '30000'
+      };
       const params = new URLSearchParams(window.location.search);
       const encoded = params.get('data');
       if (encoded) {
@@ -41,19 +77,14 @@ const { mixed = false } = Astro.props;
           }
           if (parsed.yurtIciIncome === undefined) parsed.yurtIciIncome = '0';
           if (parsed.currency === undefined) parsed.currency = 'EUR';
+          if (parsed.taxYear === undefined) parsed.taxYear = 2026;
+          parsed.taxYear = Number(parsed.taxYear);
           return parsed;
         } catch (e) {
           console.error('Invalid share URL');
         }
       }
-      return {
-        yurtDisiIncome: '3000',
-        yurtIciIncome: '0',
-        currency: 'EUR',
-        exchangeRate: '53',
-        accountingCosts: '4500',
-        ymmCost: '30000'
-      };
+      return defaults2026;
     })(),
     copied: false,
     copyShare() {
@@ -67,7 +98,24 @@ const { mixed = false } = Astro.props;
 >
   <!-- Form -->
   <section class="card p-5 md:p-6 md:col-span-2 rise">
-    <h2 class="text-sm font-semibold text-slate-900 mb-5">Bilgiler</h2>
+    <div class="flex items-center justify-between mb-5">
+      <h2 class="text-sm font-semibold text-slate-900">Bilgiler</h2>
+      <div
+        class="inline-flex rounded-lg border border-slate-200 bg-slate-50 p-0.5 text-[12px] font-medium"
+        role="group"
+        aria-label="Vergi yılı"
+      >
+        <template x-for="y in yearOptions" :key="y">
+          <button
+            type="button"
+            @click="setYear(y)"
+            :class="form.taxYear === y ? 'bg-white text-indigo-700 shadow-sm border border-slate-200' : 'text-slate-500 hover:text-slate-700 border border-transparent'"
+            class="px-2.5 py-1 rounded-md transition"
+            x-text="y"
+          ></button>
+        </template>
+      </div>
+    </div>
     <div class="space-y-4">
       <label class="field">
         <span class="field-label">
@@ -148,12 +196,12 @@ const { mixed = false } = Astro.props;
             x-model="form.accountingCosts"
           />
         </span>
-        <span class="field-help"
-          >TÜRMOB 2026 asgari tarifesi ₺4.492/ay'dan başlar.</span
-        >
+        <span
+          class="field-help"
+          x-text="years[form.taxYear].accountingHelp"></span>
       </label>
 
-      <label class="field">
+      <label class="field" x-show="years[form.taxYear].showYmm">
         <span class="field-label">Yıllık YMM tasdik ücreti</span>
         <span class="field-input">
           <span class="prefix">₺</span>

@@ -1,9 +1,9 @@
 import type Dinero from 'dinero.js';
 import {
-  ANNUAL_STAMP_TAX,
-  BAGKUR_PREMIUM,
-  SOFTWARE_SERVICE_EXPORT_EXEMPTION,
-  YMM_TASDIK_THRESHOLD,
+  CONSTANTS_BY_YEAR,
+  DEFAULT_TAX_YEAR,
+  isTaxYear,
+  type TaxYear,
 } from './constants';
 import type { ResultLine } from './result';
 import { Result } from './result';
@@ -25,6 +25,7 @@ interface MixedForm {
   accountingCosts: string;
   ymmCost: string;
   currency?: string;
+  taxYear?: string | number;
 }
 
 const isForeignCurrency = (v: unknown): v is ForeignCurrency =>
@@ -34,6 +35,11 @@ const num = (v: string | undefined, fallback = 0): number => {
   if (!v) return fallback;
   const n = Number(String(v).replace(',', '.'));
   return Number.isFinite(n) ? n : fallback;
+};
+
+const resolveTaxYear = (v: unknown): TaxYear => {
+  const n = typeof v === 'string' ? Number(v) : v;
+  return isTaxYear(n) ? n : DEFAULT_TAX_YEAR;
 };
 
 export const calculate = async (form: MixedForm): Promise<ResultLine[]> => {
@@ -46,6 +52,8 @@ export const calculate = async (form: MixedForm): Promise<ResultLine[]> => {
     ? form.currency
     : 'EUR';
   const symbol = CURRENCY_SYMBOL[currency];
+  const taxYear = resolveTaxYear(form.taxYear);
+  const yc = CONSTANTS_BY_YEAR[taxYear];
 
   if (
     yurtDisiMonthly < 0 ||
@@ -96,8 +104,8 @@ export const calculate = async (form: MixedForm): Promise<ResultLine[]> => {
   };
 
   addMonthlyCost('Muhasebe Giderleri', toTry(accountingCostsMonthly));
-  addMonthlyCost('Damga Vergisi', toTry(ANNUAL_STAMP_TAX).divide(12));
-  addMonthlyCost('Bağkur Primi', toTry(BAGKUR_PREMIUM));
+  addMonthlyCost('Damga Vergisi', toTry(yc.annualStampTax).divide(12));
+  addMonthlyCost('Bağkur Primi', toTry(yc.bagkurPremium));
 
   // YMM zorunluluğu yalnızca yurt dışı (istisna) kazancı üzerinden tetiklenir.
   // Eşik kontrolü maliyetler eklenmeden önce, yurt dışı brüt kâr üzerinden yapılır.
@@ -109,11 +117,11 @@ export const calculate = async (form: MixedForm): Promise<ResultLine[]> => {
     costsTotal.multiply(yurtDisiCostShareRatio),
   );
   const provisionalIstisna = yurtDisiPreTaxNet.multiply(
-    SOFTWARE_SERVICE_EXPORT_EXEMPTION,
+    yc.serviceExportExemption,
   );
-  const ymmRequired = provisionalIstisna.greaterThan(
-    toTry(YMM_TASDIK_THRESHOLD),
-  );
+  const ymmRequired =
+    yc.ymmThreshold !== null &&
+    provisionalIstisna.greaterThan(toTry(yc.ymmThreshold));
   if (ymmRequired && ymmCost > 0) {
     addAnnualCost(
       'YMM Tasdik Raporu (yıllık)',
@@ -132,7 +140,7 @@ export const calculate = async (form: MixedForm): Promise<ResultLine[]> => {
   const yurtDisiCosts = costsTotal.multiply(ratio);
   const yurtIciCosts = costsTotal.subtract(yurtDisiCosts);
 
-  const yurtDisiKar = yurtDisiAnnualTry.subtract(yurtDisiCosts);
+  const yurtDisiKarBeforeExemption = yurtDisiAnnualTry.subtract(yurtDisiCosts);
   const yurtIciKar = yurtIciAnnualTry.subtract(yurtIciCosts);
 
   // Tax section
@@ -146,17 +154,23 @@ export const calculate = async (form: MixedForm): Promise<ResultLine[]> => {
   if (hasYurtIci) {
     result.addLine('Brüt Yurt İçi Kazanç', yurtIciAnnualTry, null, 'taxes');
   }
+  const istisnaTutari = yurtDisiKarBeforeExemption.isPositive()
+    ? yurtDisiKarBeforeExemption.multiply(yc.serviceExportExemption)
+    : toTry(0);
+  const yurtDisiVergiyeTabi = yurtDisiKarBeforeExemption.isPositive()
+    ? yurtDisiKarBeforeExemption.subtract(istisnaTutari)
+    : toTry(0);
   result.addLine(
-    `Hizmet İhracatı İstisnası (%${SOFTWARE_SERVICE_EXPORT_EXEMPTION * 100})`,
-    yurtDisiKar.isPositive() ? yurtDisiKar : toTry(0),
+    `Hizmet İhracatı İstisnası (%${yc.serviceExportExemption * 100})`,
+    istisnaTutari,
     'https://www.alomaliye.com/2026/01/27/yurtdisi-hizmet-ihraci-istisnasinda-yeni-donem/',
     'taxes',
   );
 
-  let taxableIncome = yurtIciKar;
+  let taxableIncome = yurtIciKar.add(yurtDisiVergiyeTabi);
   if (taxableIncome.isNegative()) taxableIncome = toTry(0);
 
-  const tax = incomeTax(taxableIncome);
+  const tax = incomeTax(taxableIncome, yc.taxBrackets);
   const taxRate =
     taxableIncome.getAmount() === 0
       ? 0
