@@ -56,21 +56,46 @@ const { mixed = false } = Astro.props;
     },
     results: [],
     form: (() => {
-      const defaults2026 = {
-        taxYear: 2026,
-        yurtDisiIncome: '3000',
-        yurtIciIncome: '0',
-        currency: 'EUR',
-        exchangeRate: '53',
-        accountingCosts: '4500',
-        ymmCost: '30000'
+      const YEAR_DEFAULTS = {
+        2025: { rates: { EUR: '45', USD: '40', GBP: '52' }, acc: '3800', ymm: '0' },
+        2026: { rates: { EUR: '53', USD: '35', GBP: '60' }, acc: '4500', ymm: '30000' }
       };
+      const buildDefaults = (taxYear, currency) => {
+        const y = YEAR_DEFAULTS[taxYear] || YEAR_DEFAULTS[2026];
+        return {
+          taxYear,
+          yurtDisiIncome: '3000',
+          yurtIciIncome: '0',
+          currency,
+          exchangeRate: y.rates[currency] || y.rates.EUR,
+          accountingCosts: y.acc,
+          ymmCost: y.ymm
+        };
+      };
+
       const params = new URLSearchParams(window.location.search);
+
+      // Short-params format: ?y=2025&yd=4000&c=USD ...
+      if (['y','yd','yi','c','r','a','m'].some(k => params.has(k))) {
+        const taxYear = Number(params.get('y')) || 2026;
+        const currency = params.get('c') || 'EUR';
+        const d = buildDefaults(taxYear, currency);
+        return {
+          taxYear,
+          yurtDisiIncome: params.get('yd') ?? d.yurtDisiIncome,
+          yurtIciIncome: params.get('yi') ?? d.yurtIciIncome,
+          currency,
+          exchangeRate: params.get('r') ?? d.exchangeRate,
+          accountingCosts: params.get('a') ?? d.accountingCosts,
+          ymmCost: params.get('m') ?? d.ymmCost
+        };
+      }
+
+      // Legacy base64 ?data= links (kept so old shares still work).
       const encoded = params.get('data');
       if (encoded) {
         try {
           const parsed = JSON.parse(atob(encoded));
-          // Migrate old share-URL format (income → yurtDisiIncome).
           if (parsed.income !== undefined && parsed.yurtDisiIncome === undefined) {
             parsed.yurtDisiIncome = parsed.income;
             delete parsed.income;
@@ -84,11 +109,23 @@ const { mixed = false } = Astro.props;
           console.error('Invalid share URL');
         }
       }
-      return defaults2026;
+
+      return buildDefaults(2026, 'EUR');
     })(),
     copied: false,
     copyShare() {
-      const url = window.location.origin + window.location.pathname + '?data=' + btoa(JSON.stringify(this.form));
+      const y = this.years[this.form.taxYear];
+      const expectedRate = y.currencyDefaults[this.form.currency];
+      const params = new URLSearchParams();
+      if (this.form.taxYear !== 2026) params.set('y', String(this.form.taxYear));
+      if (this.form.yurtDisiIncome !== '3000') params.set('yd', this.form.yurtDisiIncome);
+      if (this.form.yurtIciIncome !== '0') params.set('yi', this.form.yurtIciIncome);
+      if (this.form.currency !== 'EUR') params.set('c', this.form.currency);
+      if (this.form.exchangeRate !== expectedRate) params.set('r', this.form.exchangeRate);
+      if (this.form.accountingCosts !== y.accountingCost) params.set('a', this.form.accountingCosts);
+      if (this.form.ymmCost !== y.ymmCost) params.set('m', this.form.ymmCost);
+      const qs = params.toString();
+      const url = window.location.origin + window.location.pathname + (qs ? '?' + qs : '');
       navigator.clipboard.writeText(url);
       this.copied = true;
       setTimeout(() => this.copied = false, 1800);
