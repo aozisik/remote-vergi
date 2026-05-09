@@ -9,5 +9,6 @@ export default defineConfig({
   integrations: [tailwind(), mdx(), sitemap(), pagefind()],
   build: {
     format: 'directory',
+    inlineStylesheets: 'auto',
   },
 });

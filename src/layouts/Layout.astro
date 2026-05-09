@@ -22,7 +22,24 @@ const {
 const siteUrl = Astro.site?.toString() ?? 'https://remotevergi.com/';
 const canonicalUrl =
   canonical ?? new URL(Astro.url.pathname, siteUrl).toString();
-const ogImageUrl = new URL(ogImage, siteUrl).toString();
+const ogImageUrl = ogImage.startsWith('http')
+  ? ogImage
+  : new URL(ogImage, siteUrl).toString();
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': 'https://remotevergi.com/#organization',
+  name: 'Remote Vergi',
+  url: 'https://remotevergi.com/',
+  logo: 'https://remotevergi.com/icon-512.png',
+  sameAs: ['https://github.com/aozisik/remote-vergi'],
+  parentOrganization: {
+    '@type': 'Organization',
+    name: 'Swiftmade OÜ',
+    url: 'https://swiftmade.co',
+  },
+};
 ---
 
 <!doctype html>
@@ -70,6 +87,12 @@ const ogImageUrl = new URL(ogImage, siteUrl).toString();
     />
 
     <link rel="stylesheet" href="/pagefind/pagefind-ui.css" />
+
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(organizationSchema)}
+    />
 
     <!-- Privacy-friendly analytics by Plausible -->
     <script async src="https://plausible.io/js/pa-JKT1g0DuCXO4dXReQ0Sqn.js"></script>
@@ -462,6 +485,12 @@ const ogImageUrl = new URL(ogImage, siteUrl).toString();
               rel="noopener"
               class="font-medium text-slate-900 hover:text-indigo-600 transition"
               >Swiftmade OÜ</a
+            >
+            ·
+            <a
+              href="/hakkinda"
+              class="font-medium text-slate-900 hover:text-indigo-600 transition"
+              >Hakkında</a
             >
             ·
             <a

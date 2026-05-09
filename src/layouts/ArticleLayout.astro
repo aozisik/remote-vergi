@@ -7,39 +7,74 @@ interface FrontmatterShape {
   dateModified?: string;
   faq?: Array<{ question: string; answer: string }>;
   wide?: boolean;
+  ogImage?: string;
 }
 
 // Astro passes MD/MDX frontmatter as Astro.props.frontmatter; .astro pages pass
 // props directly. Support both so this layout works with either.
 const frontmatter =
   (Astro.props as any).frontmatter ?? (Astro.props as FrontmatterShape);
-const { title, description, dateModified, faq, wide } = frontmatter;
+const { title, description, dateModified, faq, wide, ogImage } = frontmatter;
 const containerWidth = wide ? 'max-w-5xl' : 'max-w-3xl';
 const fullTitle = title.includes('Remote Vergi')
   ? title
  : `${title} | Remote Vergi`;
+
+const slug = Astro.url.pathname.replace(/^\/+|\/+$/g, '');
+const resolvedOgImage = ogImage ?? `/og/${slug}.png`;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 
 const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: title,
   description,
+  image: new URL(resolvedOgImage, Astro.site).toString(),
   author: {
     '@type': 'Person',
     name: 'Ahmet Özışık',
     url: 'https://ahmet.ee',
+    sameAs: [
+      'https://x.com/ahmet_php',
+      'https://github.com/aozisik',
+      'https://ahmet.ee',
+    ],
   },
   publisher: {
     '@type': 'Organization',
+    '@id': 'https://remotevergi.com/#organization',
     name: 'Remote Vergi',
     url: 'https://remotevergi.com/',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://remotevergi.com/icon-512.png',
+    },
   },
   datePublished: dateModified ?? '2026-05-07',
   dateModified: dateModified ?? '2026-05-07',
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': new URL(Astro.url.pathname, Astro.site).toString(),
+    '@id': pageUrl,
   },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Anasayfa',
+      item: 'https://remotevergi.com/',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: title,
+      item: pageUrl,
+    },
+  ],
 };
 
 const faqSchema = faq && faq.length > 0
@@ -54,9 +89,7 @@ const faqSchema = faq && faq.length > 0
     }
  : null;
 
-const slug = Astro.url.pathname.replace(/^\/+|\/+$/g, '');
 const editUrl = `https://github.com/aozisik/remote-vergi/edit/main/src/pages/${slug}.mdx`;
-const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 const shareTitle = encodeURIComponent(title);
 const shareLink = encodeURIComponent(pageUrl);
 const twitterUrl = `https://x.com/intent/post?text=${shareTitle}&url=${shareLink}`;
@@ -68,12 +101,19 @@ const whatsappUrl = `https://wa.me/?text=${shareTitle}%20${shareLink}`;
   title={fullTitle}
   description={description}
   ogType="article"
+  ogImage={resolvedOgImage}
   dateModified={dateModified}
 >
   <script
     is:inline
     type="application/ld+json"
     set:html={JSON.stringify(articleSchema)}
+    slot="head"
+  />
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify(breadcrumbSchema)}
     slot="head"
   />
   {
