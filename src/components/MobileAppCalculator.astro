@@ -17,7 +17,9 @@
       keser; Bağ-Kur'u siz cebinizden ödersiniz. 2026 hadleri.
     </p>
   </header>
-  <div class="grid md:grid-cols-2 gap-5 md:gap-6 p-5 md:p-6">
+
+  <div class="grid md:grid-cols-2 gap-5 md:gap-8 p-5 md:p-6">
+    <!-- Form -->
     <div class="space-y-4">
       <label class="field">
         <span class="field-label">Aylık brüt gelir</span>
@@ -71,55 +73,148 @@
           />
         </span>
         <span class="field-help">
-          2026 asgari prim yaklaşık ₺12.000/ay. Geliriniz arttıkça matraha bağlı
-          olarak yükselir.
+          2026 asgari prim yaklaşık ₺12.000/ay. Prime esas kazancınızı asgari
+          ile tavan arasında siz beyan edersiniz; geliriniz otomatik
+          yükseltmez. Çoğu kişi asgari öder.
         </span>
       </label>
     </div>
 
-    <div class="space-y-3">
-      <div class="rounded-lg border border-slate-200 bg-slate-50 p-4">
-        <div class="text-[11px] uppercase tracking-wide text-slate-500 mb-1">
-          Yıllık brüt gelir
-        </div>
-        <div class="text-lg font-semibold text-slate-900 num" data-result-gross>
-          ₺0
-        </div>
-      </div>
-
-      <div class="rounded-lg border border-slate-200 p-4">
-        <div class="text-[11px] uppercase tracking-wide text-slate-500 mb-1">
-          %15 stopaj (banka keser)
-        </div>
-        <div class="text-lg font-semibold text-rose-600 num" data-result-tax>
-          ₺0
-        </div>
-      </div>
-
-      <div class="rounded-lg border border-slate-200 p-4">
-        <div class="text-[11px] uppercase tracking-wide text-slate-500 mb-1">
-          Bağ-Kur (yıllık)
-        </div>
-        <div class="text-lg font-semibold text-rose-600 num" data-result-bagkur>
-          ₺0
-        </div>
-      </div>
-
-      <div class="rounded-lg border border-indigo-200 bg-indigo-50/60 p-4">
-        <div class="text-[11px] uppercase tracking-wide text-indigo-700 mb-1">
+    <!-- Result -->
+    <div class="space-y-5">
+      <!-- Hero -->
+      <div
+        class="rounded-xl border border-indigo-100 bg-gradient-to-br from-indigo-50/40 via-white to-white p-5"
+      >
+        <p
+          class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-1.5"
+        >
           Yıllık net (elinize geçen)
-        </div>
-        <div
-          class="text-xl font-semibold text-indigo-900 num"
+        </p>
+        <p
+          class="num text-2xl md:text-3xl font-semibold text-slate-900 tracking-tight"
           data-result-net
         >
           ₺0
+        </p>
+        <div class="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-indigo-100">
+          <div>
+            <p
+              class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mb-0.5"
+            >
+              Aylık (₺)
+            </p>
+            <p
+              class="num text-base md:text-lg font-semibold text-slate-900"
+              data-result-net-monthly-tl
+            >
+              ₺0
+            </p>
+          </div>
+          <div>
+            <p
+              class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mb-0.5"
+              data-result-net-monthly-currency-label
+            >
+              Aylık ($)
+            </p>
+            <p
+              class="num text-base md:text-lg font-semibold text-slate-900"
+              data-result-net-monthly-currency
+            >
+              $0
+            </p>
+          </div>
         </div>
-        <div
-          class="text-[11px] text-indigo-700 mt-1 num"
-          data-result-net-monthly
-        >
-          aylık ortalama: ₺0
+      </div>
+
+      <!-- Pie + legend with amounts -->
+      <div class="rounded-xl border border-slate-200 p-5" data-pie-wrap>
+        <div class="flex items-baseline justify-between mb-4 gap-3">
+          <p
+            class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold"
+          >
+            Dağılım
+          </p>
+          <p class="text-[12px] text-slate-500">
+            Yıllık brüt
+            <span
+              class="num font-medium text-slate-900 ml-1"
+              data-result-gross
+              >₺0</span
+            >
+          </p>
+        </div>
+        <div class="flex items-center gap-5 flex-wrap">
+          <div
+            class="relative w-24 h-24 rounded-full shrink-0"
+            data-pie
+            style="background: conic-gradient(#4f46e5 0% 100%);"
+          >
+            <div class="absolute inset-[22%] rounded-full bg-white"></div>
+          </div>
+          <div class="flex-1 min-w-[180px] space-y-3">
+            <div class="flex items-center justify-between gap-3 text-[13px]">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span
+                  class="inline-block w-2.5 h-2.5 rounded-sm shrink-0"
+                  style="background: #4f46e5;"></span>
+                <span class="text-slate-700">Net</span>
+              </div>
+              <div class="text-right">
+                <div
+                  class="num font-medium text-slate-900"
+                  data-pie-net-amount
+                >
+                  ₺0
+                </div>
+                <div class="num text-[11px] text-slate-500" data-pie-net-pct>
+                  0%
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between gap-3 text-[13px]">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span
+                  class="inline-block w-2.5 h-2.5 rounded-sm shrink-0"
+                  style="background: #dc2626;"></span>
+                <span class="text-slate-700">%15 stopaj</span>
+              </div>
+              <div class="text-right">
+                <div
+                  class="num font-medium text-rose-600"
+                  data-pie-tax-amount
+                >
+                  ₺0
+                </div>
+                <div class="num text-[11px] text-slate-500" data-pie-tax-pct>
+                  0%
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between gap-3 text-[13px]">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span
+                  class="inline-block w-2.5 h-2.5 rounded-sm shrink-0"
+                  style="background: #d97706;"></span>
+                <span class="text-slate-700">Bağ-Kur</span>
+              </div>
+              <div class="text-right">
+                <div
+                  class="num font-medium text-amber-700"
+                  data-pie-bagkur-amount
+                >
+                  ₺0
+                </div>
+                <div
+                  class="num text-[11px] text-slate-500"
+                  data-pie-bagkur-pct
+                >
+                  0%
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -154,8 +249,10 @@
   const ORDER: Currency[] = ['USD', 'EUR', 'GBP', 'TRY'];
   const ANNUAL_LIMIT_2026 = 5_300_000;
 
-  const fmt = (n: number) =>
+  const fmtTL = (n: number) =>
     '₺' + new Intl.NumberFormat('tr-TR').format(Math.round(n));
+  const fmtCurrency = (n: number, c: Currency) =>
+    SYMBOLS[c] + new Intl.NumberFormat('tr-TR').format(Math.round(n));
 
   document
     .querySelectorAll<HTMLElement>('[data-mobile-app-calc]')
@@ -169,17 +266,36 @@
         '[data-currency-toggle]'
       )!;
       const incomeHelp = root.querySelector<HTMLElement>('[data-income-help]')!;
+
       const grossEl = root.querySelector<HTMLElement>('[data-result-gross]')!;
-      const taxEl = root.querySelector<HTMLElement>('[data-result-tax]')!;
-      const bagkurResultEl = root.querySelector<HTMLElement>(
-        '[data-result-bagkur]'
-      )!;
       const netEl = root.querySelector<HTMLElement>('[data-result-net]')!;
-      const netMonthlyEl = root.querySelector<HTMLElement>(
-        '[data-result-net-monthly]'
+      const netMonthlyTLEl = root.querySelector<HTMLElement>(
+        '[data-result-net-monthly-tl]'
+      )!;
+      const netMonthlyCurrencyEl = root.querySelector<HTMLElement>(
+        '[data-result-net-monthly-currency]'
+      )!;
+      const netMonthlyCurrencyLabel = root.querySelector<HTMLElement>(
+        '[data-result-net-monthly-currency-label]'
       )!;
       const limitWarn = root.querySelector<HTMLElement>(
         '[data-limit-warning]'
+      )!;
+
+      const pieEl = root.querySelector<HTMLElement>('[data-pie]')!;
+      const pieNetAmount = root.querySelector<HTMLElement>(
+        '[data-pie-net-amount]'
+      )!;
+      const pieNetPct = root.querySelector<HTMLElement>('[data-pie-net-pct]')!;
+      const pieTaxAmount = root.querySelector<HTMLElement>(
+        '[data-pie-tax-amount]'
+      )!;
+      const pieTaxPct = root.querySelector<HTMLElement>('[data-pie-tax-pct]')!;
+      const pieBagkurAmount = root.querySelector<HTMLElement>(
+        '[data-pie-bagkur-amount]'
+      )!;
+      const pieBagkurPct = root.querySelector<HTMLElement>(
+        '[data-pie-bagkur-pct]'
       )!;
 
       let currency: Currency = 'USD';
@@ -195,12 +311,37 @@
         const annualBagkur = bagkurMonthly * 12;
         const annualNet = annualGross - annualTax - annualBagkur;
 
-        grossEl.textContent = fmt(annualGross);
-        taxEl.textContent = '-' + fmt(annualTax);
-        bagkurResultEl.textContent = '-' + fmt(annualBagkur);
-        netEl.textContent = fmt(annualNet);
-        netMonthlyEl.textContent =
-          'aylık ortalama: ' + fmt(annualNet / 12);
+        grossEl.textContent = fmtTL(annualGross);
+        netEl.textContent = fmtTL(annualNet);
+
+        netMonthlyTLEl.textContent = fmtTL(annualNet / 12);
+        if (currency === 'TRY' || rate <= 0) {
+          netMonthlyCurrencyLabel.textContent = 'Aylık (₺)';
+          netMonthlyCurrencyEl.textContent = fmtTL(annualNet / 12);
+        } else {
+          netMonthlyCurrencyLabel.textContent = `Aylık (${SYMBOLS[currency]})`;
+          netMonthlyCurrencyEl.textContent = fmtCurrency(
+            annualNet / 12 / rate,
+            currency
+          );
+        }
+
+        // Pie chart segments — sum is annual gross
+        const total = annualGross > 0 ? annualGross : 1;
+        const netClamped = Math.max(0, annualNet);
+        const netPct = (netClamped / total) * 100;
+        const taxPct = (annualTax / total) * 100;
+        const bagkurPct = (annualBagkur / total) * 100;
+        const netEnd = netPct;
+        const taxEnd = netPct + taxPct;
+        pieEl.style.background = `conic-gradient(#4f46e5 0% ${netEnd}%, #dc2626 ${netEnd}% ${taxEnd}%, #d97706 ${taxEnd}% 100%)`;
+
+        pieNetAmount.textContent = fmtTL(netClamped);
+        pieNetPct.textContent = netPct.toFixed(1) + '%';
+        pieTaxAmount.textContent = '-' + fmtTL(annualTax);
+        pieTaxPct.textContent = taxPct.toFixed(1) + '%';
+        pieBagkurAmount.textContent = '-' + fmtTL(annualBagkur);
+        pieBagkurPct.textContent = bagkurPct.toFixed(1) + '%';
 
         limitWarn.classList.toggle('hidden', annualGross <= ANNUAL_LIMIT_2026);
       };
