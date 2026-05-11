@@ -14,7 +14,6 @@ export interface YearConstants {
     ymmCost: string;
     currencyRates: Record<ForeignCurrency, string>;
   };
-  accountingMinHelp: string;
 }
 
 export const TAX_YEARS: TaxYear[] = [2025, 2026];
@@ -47,7 +46,6 @@ export const CONSTANTS_BY_YEAR: Record<TaxYear, YearConstants> = {
         GBP: '52',
       },
     },
-    accountingMinHelp: "TÜRMOB 2025 asgari tarifesi ₺3.775/ay'dan başlar.",
   },
   2026: {
     // 2026 ücret dışı gelir vergisi tarifesi
@@ -73,15 +71,14 @@ export const CONSTANTS_BY_YEAR: Record<TaxYear, YearConstants> = {
     // 49 No'lu Tebliğ ile getirilen YMM tasdik raporu zorunluluk eşiği.
     ymmThreshold: 500_000,
     defaults: {
-      accountingCost: '4500',
-      ymmCost: '30000',
+      accountingCost: '5000',
+      ymmCost: '40000',
       currencyRates: {
         EUR: '53',
         USD: '35',
         GBP: '60',
       },
     },
-    accountingMinHelp: "TÜRMOB 2026 asgari tarifesi ₺4.492/ay'dan başlar.",
   },
 };
 

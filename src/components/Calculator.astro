@@ -24,17 +24,17 @@ const { mixed = false } = Astro.props;
       2025: {
         currencyDefaults: { EUR: '45', USD: '40', GBP: '52' },
         accountingCost: '3800',
+        bagkurPremium: '9037',
         ymmCost: '0',
         showYmm: false,
-        accountingHelp: "TÜRMOB 2025 asgari tarifesi ₺3.775/ay'dan başlar.",
         exemptionPct: 80
       },
       2026: {
         currencyDefaults: { EUR: '53', USD: '35', GBP: '60' },
-        accountingCost: '4500',
-        ymmCost: '30000',
+        accountingCost: '5000',
+        bagkurPremium: '11808',
+        ymmCost: '40000',
         showYmm: true,
-        accountingHelp: "TÜRMOB 2026 asgari tarifesi ₺4.492/ay'dan başlar.",
         exemptionPct: 100
       }
     },
@@ -45,6 +45,7 @@ const { mixed = false } = Astro.props;
       this.form.taxYear = year;
       this.form.exchangeRate = y.currencyDefaults[this.form.currency];
       this.form.accountingCosts = y.accountingCost;
+      this.form.bagkurPremium = y.bagkurPremium;
       this.form.ymmCost = y.ymmCost;
     },
     cycleCurrency() {
@@ -57,8 +58,8 @@ const { mixed = false } = Astro.props;
     results: [],
     form: (() => {
       const YEAR_DEFAULTS = {
-        2025: { rates: { EUR: '45', USD: '40', GBP: '52' }, acc: '3800', ymm: '0' },
-        2026: { rates: { EUR: '53', USD: '35', GBP: '60' }, acc: '4500', ymm: '30000' }
+        2025: { rates: { EUR: '45', USD: '40', GBP: '52' }, acc: '3800', bag: '9037', ymm: '0' },
+        2026: { rates: { EUR: '53', USD: '35', GBP: '60' }, acc: '5000', bag: '11808', ymm: '40000' }
       };
       const buildDefaults = (taxYear, currency) => {
         const y = YEAR_DEFAULTS[taxYear] || YEAR_DEFAULTS[2026];
@@ -69,6 +70,7 @@ const { mixed = false } = Astro.props;
           currency,
           exchangeRate: y.rates[currency] || y.rates.EUR,
           accountingCosts: y.acc,
+          bagkurPremium: y.bag,
           ymmCost: y.ymm
         };
       };
@@ -76,7 +78,7 @@ const { mixed = false } = Astro.props;
       const params = new URLSearchParams(window.location.search);
 
       // Short-params format: ?y=2025&yd=4000&c=USD ...
-      if (['y','yd','yi','c','r','a','m'].some(k => params.has(k))) {
+      if (['y','yd','yi','c','r','a','b','m'].some(k => params.has(k))) {
         const taxYear = Number(params.get('y')) || 2026;
         const currency = params.get('c') || 'EUR';
         const d = buildDefaults(taxYear, currency);
@@ -87,6 +89,7 @@ const { mixed = false } = Astro.props;
           currency,
           exchangeRate: params.get('r') ?? d.exchangeRate,
           accountingCosts: params.get('a') ?? d.accountingCosts,
+          bagkurPremium: params.get('b') ?? d.bagkurPremium,
           ymmCost: params.get('m') ?? d.ymmCost
         };
       }
@@ -104,6 +107,9 @@ const { mixed = false } = Astro.props;
           if (parsed.currency === undefined) parsed.currency = 'EUR';
           if (parsed.taxYear === undefined) parsed.taxYear = 2026;
           parsed.taxYear = Number(parsed.taxYear);
+          if (parsed.bagkurPremium === undefined) {
+            parsed.bagkurPremium = (YEAR_DEFAULTS[parsed.taxYear] || YEAR_DEFAULTS[2026]).bag;
+          }
           return parsed;
         } catch (e) {
           console.error('Invalid share URL');
@@ -123,6 +129,7 @@ const { mixed = false } = Astro.props;
       if (this.form.currency !== 'EUR') params.set('c', this.form.currency);
       if (this.form.exchangeRate !== expectedRate) params.set('r', this.form.exchangeRate);
       if (this.form.accountingCosts !== y.accountingCost) params.set('a', this.form.accountingCosts);
+      if (this.form.bagkurPremium !== y.bagkurPremium) params.set('b', this.form.bagkurPremium);
       if (this.form.ymmCost !== y.ymmCost) params.set('m', this.form.ymmCost);
       const qs = params.toString();
       const url = window.location.origin + window.location.pathname + (qs ? '?' + qs : '');
@@ -233,9 +240,38 @@ const { mixed = false } = Astro.props;
             x-model="form.accountingCosts"
           />
         </span>
-        <span
-          class="field-help"
-          x-text="years[form.taxYear].accountingHelp"></span>
+        <span class="field-help">
+          Detaylı kalemler:
+          <a
+            href="/sahis-sirketi-maliyet"
+            class="text-indigo-600 hover:text-indigo-800 hover:underline"
+            >şahıs şirketi maliyetleri</a
+          >.
+        </span>
+      </label>
+
+      <label class="field">
+        <span class="field-label">Aylık Bağ-Kur primi</span>
+        <span class="field-input">
+          <span class="prefix">₺</span>
+          <input
+            type="number"
+            inputmode="decimal"
+            min="0"
+            step="1"
+            x-model="form.bagkurPremium"
+          />
+        </span>
+        <span class="field-help">
+          Daha yüksek basamaktan ödüyorsanız güncelleyin.
+          <button
+            type="button"
+            x-show="form.bagkurPremium !== years[form.taxYear].bagkurPremium"
+            @click="form.bagkurPremium = years[form.taxYear].bagkurPremium"
+            class="text-indigo-600 hover:text-indigo-800 hover:underline"
+            >Asgariye dön</button
+          >
+        </span>
       </label>
 
       <label class="field" x-show="years[form.taxYear].showYmm">

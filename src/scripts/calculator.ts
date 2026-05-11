@@ -23,6 +23,7 @@ interface MixedForm {
   yurtIciIncome: string;
   exchangeRate: string;
   accountingCosts: string;
+  bagkurPremium: string;
   ymmCost: string;
   currency?: string;
   taxYear?: string | number;
@@ -54,12 +55,14 @@ export const calculate = async (form: MixedForm): Promise<ResultLine[]> => {
   const symbol = CURRENCY_SYMBOL[currency];
   const taxYear = resolveTaxYear(form.taxYear);
   const yc = CONSTANTS_BY_YEAR[taxYear];
+  const bagkurMonthly = num(form.bagkurPremium, yc.bagkurPremium);
 
   if (
     yurtDisiMonthly < 0 ||
     yurtIciMonthly < 0 ||
     exchangeRate < 1 ||
     accountingCostsMonthly < 0 ||
+    bagkurMonthly < 0 ||
     yurtDisiMonthly + yurtIciMonthly === 0
   ) {
     return [
@@ -105,7 +108,7 @@ export const calculate = async (form: MixedForm): Promise<ResultLine[]> => {
 
   addMonthlyCost('Muhasebe Giderleri', toTry(accountingCostsMonthly));
   addMonthlyCost('Damga Vergisi', toTry(yc.annualStampTax).divide(12));
-  addMonthlyCost('Bağkur Primi', toTry(yc.bagkurPremium));
+  addMonthlyCost('Bağkur Primi', toTry(bagkurMonthly));
 
   // YMM zorunluluğu yalnızca yurt dışı (istisna) kazancı üzerinden tetiklenir.
   // Eşik kontrolü maliyetler eklenmeden önce, yurt dışı brüt kâr üzerinden yapılır.
