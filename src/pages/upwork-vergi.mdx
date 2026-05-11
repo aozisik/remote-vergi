@@ -1,0 +1,221 @@
+---
+layout: ../layouts/ArticleLayout.astro
+title: "Upwork Vergisi 2026: Faturayı Kime Kesersin, Brüt mü Net mi?"
+description: "Upwork üzerinden gelen gelirleri Türkiye'de nasıl muhasebeleştireceğiniz: faturayı Upwork'e değil son müşteriye, net değil brüt tutar üzerinden kesmek; Upwork'ün size kestiği komisyon faturasını gider göstermek; %100 hizmet ihracatı kazanç indirimi için yıl bitmeden bakiyeyi Türkiye'ye çekmek."
+dateModified: "2026-05-11"
+faq:
+  - question: "Upwork ödemesi geldiğinde faturayı kime kesiyorum, Upwork'e mi son müşteriye mi?"
+    answer: "Son müşteriye. Upwork bir aracı ve escrow platformudur; son müşterinin parasını tutar ve size aktarır. Sizin hizmet sunduğunuz taraf Upwork değil, sözleşmenizdeki yurt dışı şirket veya kişidir. Upwork sizin adınıza her işleme ayrı bir 'Invoice' PDF üretir ve bu belgede son müşterinin adı, adresi ve ülkesi yazar. TR tarafında kesilecek e-Arşiv fatura bu son müşteriye, bu kimlik bilgileri ile düzenlenmelidir."
+  - question: "Bir banka transferi 5 farklı işin ödemesini içeriyor, tek bir lump-sum fatura kesemez miyim?"
+    answer: "Hayır. Upwork bakiyesi muhasebesel olarak cari hesap gibi çalışır: gelir tahakkuk ettiğinde (milestone onayı veya saatlik billing finalize olduğunda) fatura kesilir, ödeme bambaşka bir tarihte ve toplu olarak banka hesabınıza gelir. Tek payout için tek toplu fatura kesmek vergi mevzuatına aykırıdır çünkü tahakkuk tarihi ile fatura tarihi uyuşmaz, faturadaki müşteri yanlışlıkla Upwork olur ve denetimde hizmet ihracatı şartları doğrulanamaz."
+  - question: "Faturayı brüt tutar üzerinden mi yoksa Upwork'ün bana aktardığı net tutar üzerinden mi keseyim?"
+    answer: "Brüt tutar üzerinden, yani müşterinin Upwork'e ödediği tutarı. Upwork'ün komisyonu (%10 veya yeni yapıda %0-%15 değişken oranlı) sizin gelir kaleminizden değil, yurt dışından alınan bir hizmet gideri olarak ayrıca muhasebeleştirilir. Net üzerinden fatura kesmek vergi matrahını yanlış küçültür ve hizmet ihracatı kazanç indirimi tarafında belge tutarsızlığı yaratır."
+  - question: "Upwork'e ödediğim komisyon için Türkiye'de ek KDV ödemem gerekir mi?"
+    answer: "Hayır. Türkiye sadece 'yurt dışından alınmış ve Türkiye'de faydalanılan' hizmetler için sorumlu sıfatıyla KDV (2 No'lu KDV Beyannamesi) ister. Upwork'ten aldığınız aracılık hizmetinden yurt dışındaki müşteriniz faydalanıyor (hizmetiniz hizmet ihracatı kapsamında), Türkiye'de değil. Bu nedenle ek KDV yükümlülüğünüz doğmaz. İstisna: Upwork üzerinden Türkiye'de yerleşik bir müşteriye iş yaptıysanız, o işe ait Upwork komisyonu için sorumlu sıfatıyla KDV doğar."
+  - question: "Upwork bakiyesinde para tutarsam %100 kazanç indirimini kaybeder miyim?"
+    answer: "Eğer kazanç beyanname verme süresine kadar Türkiye'ye transfer edilmemişse evet. Özelge 03.02.2023 / 166967 ve KVK 10/ğ açıkça gösteriyor: hizmet ihracatından elde edilen kazancın tamamı, yıllık beyanname son tarihine kadar Türkiye'deki banka hesabınıza geçmek zorunda. Upwork bakiyesinde duran tutar, Wise veya Payoneer bakiyesinde duran tutar gibi Türkiye'ye getirilmiş sayılmaz. Kısmi transfer yeterli değildir: çok küçük bir bakiye dahi süresinde getirilmezse indirimin tamamı düşer."
+---
+
+import CalculatorCTA from '../components/CalculatorCTA.astro';
+
+# Upwork Vergisi 2026: Tam Rehber
+
+Upwork üzerinden iş alıyorsunuz. Birden çok müşteri, her biri farklı milestone'larda; hepsinin parası tek bir Upwork bakiyesinde toplanıyor, ay sonunda toplu olarak banka hesabınıza geliyor.
+
+Türkiye'de muhasebesini kurmanın püf noktası şu: **Upwork sizin müşteriniz değil**. Müşteriniz, sözleşmenizdeki yurt dışı şirket veya kişi. Upwork ortada duran ödeme aracısı, yani müşteri ile sizin aranızdaki kasa. Bu nedenle:
+
+- Her iş için, **gerçek müşteriye** (Upwork'e değil) ayrı bir fatura kesersiniz.
+- Faturayı, müşterinin Upwork'e ödediği **brüt tutar** üzerinden kesersiniz; Upwork'ün size aktardığı net üzerinden değil.
+- Ödemenin banka hesabınıza geldiği tarih ve tutar, kestiğiniz faturalarla **birebir eşleşmez**; bu normaldir.
+
+Bu üç kuralın ayrıntısı, sıkça yapılan hatalar ve Upwork'ün size kestiği komisyon faturalarını gider gösterme yolu aşağıda.
+
+<CalculatorCTA />
+
+## Upwork müşteriniz değil, ödeme aracısı
+
+Upwork üç işlevi aynı çatı altında toplar: marketplace (müşteri ile sizi eşleştirir), escrow (müşterinin parasını milestone onayına kadar tutar), payout aracısı (komisyonunu keser, kalanı size aktarır). Sözleşmesel olarak satıcı sizsiniz, alıcı müşteridir; Upwork ortada yer alır.
+
+Upwork bunu kendi belgelendirme yapısında da gösterir: dashboard üzerinden indirebileceğiniz **invoice/receipt PDF'leri her bir işlem için ayrı ayrı üretilir** ve her birinde müşterinin adı, ülkesi ve VAT numarası (varsa) yazar. Upwork'ün resmi yardım merkezinden alıntı: "PDFs… will generate separate PDFs for each transaction in one ZIP file." ([Upwork Help: Download invoices](https://support.upwork.com/hc/en-us/articles/17976724037267--Download-invoices-and-transaction-reports)) Bu belgeler, sizin Türkiye'de keseceğiniz e-Arşiv faturalarının **bire bir karşılığı**dır.
+
+Pratik anlamı: defterinizde Upwork'ün bakiyesi, içine para girip çıkan bir **ara hesap** olarak gözükür (muhasebe diliyle "cari hesap" veya "aracı kasa"). Müşteriden gelen para önce buraya düşer, sonra TR banka hesabınıza çekilir. Gelir kaleminiz Upwork değil, faturadaki gerçek müşteridir.
+
+## Her iş için ayrı fatura
+
+### Faturayı ne zaman keseceğim?
+
+Faturayı, **işin tamamlandığı** tarihte kesersiniz; paranın banka hesabınıza geldiği tarihte değil. Vergi mevzuatı buna "tahakkuk" der: hizmet sonuçlandığı an gelir doğmuş sayılır ve fatura o tarihte kesilir. ([Vergi Usul Kanunu m. 229 ve sonrası](https://www.mevzuat.gov.tr/mevzuatmetin/1.4.213.pdf))
+
+Upwork'te bu tarih:
+
+- **Saatlik (Hourly) sözleşmelerde:** haftalık billing cycle finalize olduğunda, yani Pazartesi sabahı haftanın saatleri kapanıp Upwork müşteriye fatura ettiğinde. ([Upwork: weekly billing cycle](https://support.upwork.com/hc/en-us/articles/211063698))
+- **Sabit ücretli (Fixed-Price) sözleşmelerde:** her milestone müşteri tarafından onaylandığında (veya 14 günlük review süresi otomatik olarak kapandığında). ([Upwork: Fixed-Price Payment Protection](https://support.upwork.com/hc/en-us/articles/211063748))
+
+Bu tarihler **Upwork'ün ürettiği invoice PDF'inin tarihi** ile birebir aynıdır. Türkiye e-Arşiv faturanızın da bu tarihi taşıması gerekir.
+
+### Faturadaki müşteri Upwork değildir
+
+Faturada müşteri olarak **son müşteriyi** yazarsınız: Upwork invoice PDF'inde yazan isim, adres, ülke. Örneğin "Acme Corp, 123 Market St, San Francisco, CA, USA". Müşterinin VAT numarası varsa onu da yazın; yoksa yurt dışı müşteriler için standart yer tutucu olan **VKN 2222222222** kullanılır.
+
+Bu kritiktir: faturayı yanlışlıkla "Upwork Inc." adına kesmek, denetimde "hizmetten kim faydalandı, faydalanma nerede" sorusuna cevap veremez hale getirir. Upwork sadece tahsilat aracısıdır, hizmetten faydalanan değildir.
+
+[302 (KDV 11/1-a) Fatura Örneği](/302-11-1-a-fatura-ornegi) sayfasındaki şablon Upwork üzerinden gelen iş için aynen kullanılır; tek fark, faturadaki müşteri Upwork değil, sözleşmedeki gerçek müşteridir.
+
+### Bir banka transferi N adet fatura içerir
+
+Pratikte şöyle bir tablo olur: ayın 1'i ile 30'u arasında 5 farklı milestone tahakkuk eder, 5 ayrı e-Arşiv fatura kesilir. Ay sonunda Upwork bakiyenizden $4,750 net çekersiniz; bu tutar 5 faturanın brüt toplamından farklıdır (komisyon düşülmüştür). Banka hesabınızda görünen bu tek transfer, 5 ayrı faturayı temsil eder.
+
+Bu **doğru** yapıdır. Mali müşavirinize Upwork bakiyenizin aylık özet raporunu ve invoice/receipt zip dosyasını her ay teslim ederseniz, eşleştirme onun tarafında temizdir.
+
+## Faturayı net değil, brüt tutar üzerinden kesin
+
+Upwork bir müşteriden $100 tahsil eder, $10 komisyonunu keser, size $90 aktarır. Sorunun cevabı: faturayı **$100 brüt tutar** üzerinden kesersiniz.
+
+| Pozisyon | Doğru mu? | Sonucu |
+| --- | --- | --- |
+| Fatura $100 (brüt), komisyon $10 ayrıca gider | **Evet** | Doğru. Hizmet ihracatı %100 indirimi $100 üzerinde uygulanır, $10 gider olarak düşülür |
+| Fatura $90 (net) | Hayır | Vergi matrahı düşük gösterilir, hizmet ihracatı şartları belgelenemez |
+| Fatura $100 ama komisyonu gider göstermemek | Hayır | $10 komisyon haksız yere matrahda kalır |
+
+Komisyonu nasıl gider göstereceğiniz aşağıda; Upwork bu iş için size resmi bir fatura keser.
+
+## Upwork de size komisyon faturası kesiyor, gider olarak gösterin
+
+Upwork her aldığı komisyon için **size resmi bir fatura/makbuz düzenler**. Bu belgeyi indirip Türkiye'deki defterinize yurt dışından alınan hizmet gideri olarak kaydedersiniz; matrahınızdan düşer.
+
+İndirme yolu: Upwork üzerinde **Reports → Transactions → işlem satırının yanındaki indirme ikonu**. Her bir Service Fee için ayrı PDF, ya da toplu olarak ZIP. Upwork'ün kendi ifadesi: "All billings on your Transaction Report have official invoices that can be downloaded or printed, and the invoices include the Upwork service fee." ([Upwork Help: How to get invoices and receipts](https://support.upwork.com/hc/en-us/articles/211068188-How-to-get-invoices-and-receipts-on-Upwork))
+
+Pratik:
+
+- Aylık (veya milestone başına) inen Service Fee PDF'lerini bir klasörde biriktirin.
+- Mali müşavirinize aylık olarak teslim edin; defterinize "yurt dışından alınan aracılık hizmeti gideri" hesabına işlenir.
+- Bu giderler matrahınızı düşürür: brüt gelir üzerinden hesaplanan kazanç indirimi, sonunda **net kazanç** (brüt eksi komisyon eksi diğer giderler) üzerinde etkili olur.
+- Belgeleri 5 yıl saklayın; Upwork'ün retention süresi de 5 yıldır.
+
+Aynı yerden Membership, Connects ve diğer ücretler için de fatura indirebilirsiniz; hepsi aynı şekilde gider yazılır.
+
+## Upwork komisyonu sizden ek bir vergi ister mi?
+
+Kısa cevap: **hayır**.
+
+Türk vergi sistemi, yurt dışından alınan bazı hizmetler için iki ek yükümlülük çıkarabilir. Upwork komisyonu için **her ikisi de geçerli değildir**:
+
+**1. Sorumlu sıfatıyla KDV (2 No'lu KDV Beyannamesi)**
+
+Klasik kural: yurt dışından bir hizmet aldıysanız ve **Türkiye'de faydalanıyorsanız**, ödediğiniz tutarın KDV'sini siz hesaplayıp devlete yatırırsınız. Upwork'te ise hizmetinizden yurt dışındaki müşteriniz faydalanıyor; Upwork sadece o işin tahsilatına aracılık ediyor. Faydalanma yurt dışında olduğu için bu yükümlülük doğmaz. Vergi Merkezi'nin yorumu net: "Yurt dışındaki müşterinin yurt dışında yararlanacağı bir hizmet için Türkiye'deki firmanın yurt dışındaki bir firmaya ödediği komisyon gideri için KDV 2 sorumluluğu doğmaz." ([Vergi Merkezi yorumu](https://vergimerkezi.com.tr/yurt-disindaki-musterinin-yurt-disinda-yararlandigi-hizmet-icin-odenen-komisyon-giderinde-kdv2-sorumlulugu-var-mi/))
+
+**2. Stopaj (kaynakta vergi kesintisi)**
+
+Yurt dışındaki bir şirkete ödeme yaparken Türkiye bazen kaynakta vergi kesintisi (stopaj) ister. Bu kural ağırlıkla telif, lisans veya Türkiye'de faaliyet yürüten yabancı şirketler için geçerlidir. Upwork (ABD merkezli, Türkiye'de iş yeri yok) sadece aracılık hizmeti veren bir şirket olarak vergilendirilir; ABD ile yaptığımız vergi anlaşması bu tip ödemelerden stopaj kesilmesini gerektirmiyor. ([Çember YMM yorumu](https://cemberymm.com.tr/YURT-DISINDAN-ALINAN-HIZMET-FATURALARININ-VERGISEL-DURUMU-147u.html))
+
+**İstisna durumu:** Upwork üzerinden **Türkiye'de yerleşik bir müşteriye** iş yapıyorsanız (nadir ama mümkün), o işe ait Upwork komisyonu için sorumlu sıfatıyla KDV doğar (çünkü artık faydalanma TR'de). Müşterinin ülkesini her zaman teyit edin.
+
+## Saatlik (Hourly) vs Sabit Ücretli (Fixed-Price)
+
+Vergi açısından ikisi arasında **hiçbir fark yoktur**; sadece tahakkuk ritmi farklıdır.
+
+| Sözleşme tipi | Upwork invoice ritmi | Sizin TR fatura ritminiz |
+| --- | --- | --- |
+| Hourly | Haftalık (Pazartesi, geçen hafta için) | Haftalık, müşteri başına |
+| Fixed-Price | Milestone başına | Milestone başına, müşteri başına |
+
+Hourly çalışan ve 4 müşterisi olan bir geliştirici ayda yaklaşık **16 ayrı e-Arşiv fatura** keser (4 müşteri × 4 hafta). Bu sayı normaldir ve doğru olan da budur. e-Arşiv entegratörünüzde toplu fatura kesme özelliği varsa süreci kolaylaştırabilirsiniz.
+
+## Para çekme ve döviz transferi
+
+Upwork'ten Türkiye'ye 3 yaygın çekiş yolu:
+
+| Yöntem | Komisyon | Süre | Para birimi |
+| --- | --- | --- | --- |
+| Direct to Local Bank | $0.99 | 3-5 gün | USD veya yerel para |
+| Wire Transfer (SWIFT) | $30 | 1-3 gün | USD |
+| Payoneer | $3 | 2 saat | USD |
+
+Kazanç indirimi tarafında kritik nokta: **Türkiye'deki bir banka hesabınıza döviz olarak girmesi**. ACH yalnızca ABD banka hesapları için çalışır; TR için "Direct to Local Bank" Upwork tarafından SWIFT benzeri bir akışla işlenir veya Payoneer ara aracı olarak kullanılır.
+
+Şahıs şirketi adına açılmış TR USD hesabına çekiş yapın; bireysel hesabınıza gelen ödeme işletme geliri sayılmaz. Detay: [Yurtdışından Ödeme Alma](/yurtdisindan-odeme-alma).
+
+**Payoneer kartı ile harcama**: Upwork'ten Payoneer'a, Payoneer'dan kartla doğrudan harcama akışı kazanç indirimini bozar; bedel önce TR'deki şahıs şirketi hesabına gelmelidir. Bu Upwork'e özgü değildir, Payoneer kullanan herkes için geçerli bir tuzaktır.
+
+## Yıl bitmeden Upwork bakiyenizi sıfırlayın
+
+%100 kazanç indiriminin tek katı şartı buradadır. **Yıllık kazancın tamamı**, gelir vergisi beyannamesi son tarihine kadar (gerçek kişiler için 31 Mart, kurumlar için 30 Nisan) Türkiye'deki banka hesabınıza geçmiş olmalı. Bu, GVK 89/13 ve KVK 10/ğ'nin yasal şartıdır; GİB'in 03.02.2023 tarih ve 62030549-120[89-2022/8]-166967 sayılı özelgesi konuyu netleştirmiştir. ([Alomaliye: Yurt Dışı Hizmet İhracı İstisnasında Yeni Dönem](https://www.alomaliye.com/2026/01/27/yurtdisi-hizmet-ihraci-istisnasinda-yeni-donem/))
+
+Bu özelgeden çıkan kurallar:
+
+- TL veya döviz fark etmez; her ikisi de gelir/kurumlar vergisi indirimi için kabul edilir.
+- Üzerinde Wise, Payoneer ya da Upwork bakiyesinde duran tutar **Türkiye'ye getirilmiş sayılmaz**.
+- **Kısmi transfer için tolerans yok**: $50.000 yıllık kazancınızın $49.950'sini getirip $50'sini Upwork bakiyesinde bıraktıysanız, indirim hakkının tamamı düşer.
+
+Pratik kural: yıl sonunda (Aralık'ın son haftaları) Upwork bakiyenizi tamamen TR banka hesabınıza çekin. Mart/Nisan'da gelecek beyanname için garanti yoldur. Yeni biten milestone'lar yeni yıla devrolur ve sıradaki beyanname dönemine yetişir.
+
+## Vergi avantajından yararlanmak için 4 şart
+
+Upwork üzerinden gelen işin %100 hizmet ihracatı kazanç indiriminden yararlanması için dört şart [Hizmet İhracatı](/hizmet-ihracati) sayfasındaki ile birebir aynıdır:
+
+1. **Müşteri yurt dışında yerleşik olmalı**: faturadaki son müşteri (Acme Corp, US/UK/DE vb.), yani Upwork'ten indirdiğiniz invoice PDF'indeki kayıt.
+2. **Hizmetten münhasıran yurt dışında faydalanılmalı**: Upwork üzerinden satın aldığı yazılım/tasarım/danışmanlık hizmetinden yurt dışında faydalanması.
+3. **Fatura yurt dışı müşteri adına 302 ile kesilmiş olmalı**: Upwork değil, gerçek son müşteri.
+4. **Bedelin tamamı süresinde TR'ye transfer edilmiş olmalı**: yukarıda anlatıldı.
+
+TR mukim bir müşteri Upwork üzerinden iş veriyorsa (örnek: bir TR şirketi yurt dışı yazılımcı bulmak için Upwork kullanırken yanlışlıkla sizi tutmuş), o işe hizmet ihracatı uygulanamaz. Faturayı %20 KDV ile kesip Upwork'ün TR mukim olduğu için doğan KDV 2 sorumluluğunu da yerine getirirsiniz. Bu nadir ama denetimde ortaya çıkabilen bir senaryodur, müşteri ülke teyidi yapmaya alışın.
+
+## Yapılmaması gereken 5 hata
+
+1. **Banka transferi için tek lump-sum fatura kesmek.** Müşteri Upwork olur, tahakkuk tarihi yanlış olur, denetimde hizmet ihracatı şartları doğrulanamaz.
+2. **Faturayı Upwork Inc.'e kesmek.** Upwork hizmetten faydalanan taraf değildir; faydalanan, sözleşmedeki son müşteridir.
+3. **Net tutar üzerinden fatura kesmek.** Brüt tutar üzerinde kalmak zorunludur; komisyon ayrı bir gider satırıdır.
+4. **Fatura tarihini banka transferi tarihine almak.** Tahakkuk tarihi: hourly için haftalık billing finalize tarihi, fixed-price için milestone onay tarihi.
+5. **Yıl sonunda Upwork bakiyesini boşaltmamak.** Beyanname son tarihine kadar transfer edilmemiş tek dolar bile indirim hakkının tamamını düşürür.
+
+## Sıkça sorulan sorular
+
+### Upwork'ün size kestiği Service Fee invoice'ı defterime nasıl gider yazarım?
+
+Upwork komisyonu sizin defterinizde **yurt dışından alınan aracılık hizmeti gideri** olarak kaydedilir. Belge: Upwork dashboard'undan **Reports → Transactions** üzerinden indirilen Service Fee invoice PDF'i ([Upwork resmi yönergesi](https://support.upwork.com/hc/en-us/articles/211068188-How-to-get-invoices-and-receipts-on-Upwork)). Bu gider üzerinden ek bir KDV veya stopaj ödenmez; nedeni yukarıdaki "Upwork komisyonu sizden ek bir vergi ister mi?" bölümünde.
+
+### Aylık 30 fatura kesmek pratik mi?
+
+Çoğu e-Arşiv entegratöründe (Paraşüt, Logo İşbaşı, Bizmu, vb.) toplu fatura yükleme veya API ile programatik fatura kesme imkanı vardır. Upwork'ün invoice PDF'lerinden CSV ihraç edip entegratöre yükleme akışı çoğu mali müşavir tarafından çözülmüş bir süreçtir.
+
+### Aynı müşteri için bir ay içinde birden çok milestone varsa hepsini birleştirebilir miyim?
+
+Aynı sözleşme/aynı müşteri için, aynı raporlama döneminde tahakkuk eden milestone'ları tek bir faturada toplamak teorik olarak mümkündür. Pratikte ise Upwork'ün her milestone için ayrı invoice PDF üretmesi, tek-fatura-tek-Upwork-belgesi eşlemesini kıracağı için **müşteri başına bir fatura yerine her Upwork invoice'ı için bir fatura** akışı denetimde daha temizdir.
+
+### Upwork hesabımdaki bakiye için "Wise üzerinden tut" yapsam vergi etkisi?
+
+Aynı kategorideki tüm aracı bakiyeler (Wise, Payoneer, Upwork, Stripe, vb.) Türkiye'ye getirilmiş sayılmaz. Beyanname son tarihine kadar bedelin tamamı TR'deki şahıs şirketi banka hesabına geçmiş olmalı. Detay: [Yurtdışından Ödeme Alma](/yurtdisindan-odeme-alma).
+
+### Upwork'ün yeni değişken (%0-%15) komisyon yapısı vergi tarafını değiştirir mi?
+
+Hayır. Komisyon ister %20, ister %10, isterse %0-15 değişken olsun, vergi tarafındaki kurallar değişmez: faturayı brüt tutar üzerinden son müşteriye kesin, komisyonu yurt dışından alınan hizmet gideri olarak ayrıca işleyin.
+
+### Saatlik sözleşmede haftalık billing dönemi pazardan başlıyor, faturayı Pazartesi mi keseyim?
+
+Tahakkuk tarihi, Upwork'ün haftalık raporu finalize ettiği Pazartesi sabahıdır. Sizin TR e-Arşiv faturanız da bu tarih veya bir sonraki iş günü tarihli olmalıdır. Upwork'ün ürettiği invoice PDF tarihi ile aynı tutmak, denetimde belge eşleştirmesini kolaylaştırır.
+
+## Sonraki adımlar
+
+- [Hizmet İhracatı Genel Rehberi](/hizmet-ihracati): %100 istisnanın temel şartları
+- [Hizmet İhracatı İstisnası ve YMM Tasdiki](/hizmet-ihracati-istisnasi): eşikler, 49 No'lu Tebliğ
+- [302 (KDV 11/1-a) Fatura Örneği](/302-11-1-a-fatura-ornegi): e-Arşiv'de adım adım
+- [Yurtdışından Ödeme Alma](/yurtdisindan-odeme-alma): DAB, Payoneer, Wise ve transfer disiplini
+- [Yurtdışına Remote Çalışmak](/yurtdisina-remote-calismak): contractor yapısı ve Bağ-Kur
+
+## Kaynaklar
+
+- [Upwork: How to get invoices and receipts](https://support.upwork.com/hc/en-us/articles/211068188-How-to-get-invoices-and-receipts-on-Upwork)
+- [Upwork: Download invoices and transaction reports](https://support.upwork.com/hc/en-us/articles/17976724037267--Download-invoices-and-transaction-reports)
+- [Upwork: How payments for hourly contracts work](https://support.upwork.com/hc/en-us/articles/211063668-How-payments-for-hourly-contracts-work)
+- [Upwork: How Fixed-Price Payment Protection works](https://support.upwork.com/hc/en-us/articles/211063748-How-Fixed-Price-Payment-Protection-works-for-freelancers-on-Upwork)
+- [Vergi Merkezi: Upwork için şirket kurmak gerekir mi? (2025)](https://vergimerkezi.com.tr/upwork-icin-sirket-kurmak-gerekir-mi-uzmanindan-vergi-rehberi-2025-guncel/)
+- [Vergi Merkezi: Yurt dışı komisyon giderinde KDV 2 sorumluluğu var mı?](https://vergimerkezi.com.tr/yurt-disindaki-musterinin-yurt-disinda-yararlandigi-hizmet-icin-odenen-komisyon-giderinde-kdv2-sorumlulugu-var-mi/)
+- [Vergi Merkezi: Yazılım hizmet ihracı istisnası 2026 şartları](https://vergimerkezi.com.tr/yazilim-hizmet-ihraci-istisnasi-2026-yuzde-80-kazanc-indirimi-sartlari/)
+- [Evren Özmen SMMM: Upwork üzerinden çalışmanın vergilendirilmesi](https://evrenozmen.com.tr/upwork-uzerinden-calismanin-vergilendirilmesi)
+- [İstanbul Mali Müşavirlik: Yurt dışına remote çalışan yazılımcı](https://www.istanbulmalimusavirlik.net/yurtdisina-remote-calisan-yazilimci-freelancer-vergi/)
+- [Alomaliye: Yurtdışı Hizmet İhracı İstisnasında Yeni Dönem (Ocak 2026)](https://www.alomaliye.com/2026/01/27/yurtdisi-hizmet-ihraci-istisnasinda-yeni-donem/)
+- Özelge 03.02.2023 / 166967: gelirin döviz veya TL olması indirim uygulamasını engellemez; kazancın tamamı süresinde transfer edilmek zorunda
+
+---
+
+*Bu içerik bilgilendirme amaçlıdır ve mali danışmanlık hizmeti yerine geçmez. Vergi planlamanız için bir mali müşavire başvurunuz.*

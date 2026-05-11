@@ -120,17 +120,11 @@ const organizationSchema = {
             class="hidden md:flex items-center gap-1 text-[13px] font-medium text-slate-600"
             data-primary-nav
           >
-            <a
-              href="/"
-              class="px-2.5 py-1.5 rounded-md hover:text-slate-900 hover:bg-slate-50 transition"
-              >Hesaplayıcı</a
-            >
-
             <details name="primary-nav" class="relative">
               <summary
                 class="px-2.5 py-1.5 rounded-md cursor-pointer hover:text-slate-900 hover:bg-slate-50 inline-flex items-center gap-1 select-none transition list-none [&::-webkit-details-marker]:hidden"
               >
-                Remote Çalışma
+                Şahıs Şirketi
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -148,25 +142,47 @@ const organizationSchema = {
                 class="absolute top-full left-0 mt-1.5 min-w-[260px] bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden z-50"
               >
                 <a
-                  href="/remote-is-bulma"
+                  href="/sahis-sirketi"
                   class="block px-4 py-2.5 hover:bg-slate-50 transition"
                 >
                   <div class="text-[13px] font-medium text-slate-900">
-                    Remote İş Bulma
+                    Genel Rehber
                   </div>
                   <div class="text-[11px] text-slate-500 mt-0.5">
-                    Yurtdışı iş ilanları, başvuru stratejisi
+                    Yaşam döngüsü, hızlı bakış
                   </div>
                 </a>
                 <a
-                  href="/yurtdisina-remote-calismak"
+                  href="/sahis-sirketi-nasil-kurulur"
                   class="block px-4 py-2.5 hover:bg-slate-50 transition border-t border-slate-100"
                 >
                   <div class="text-[13px] font-medium text-slate-900">
-                    Yurtdışına Remote Çalışmak
+                    Nasıl Kurulur
                   </div>
                   <div class="text-[11px] text-slate-500 mt-0.5">
-                    Sözleşme, mükellefiyet, vergi, SGK
+                    Mali müşavir, MERSİS, vergi dairesi
+                  </div>
+                </a>
+                <a
+                  href="/sahis-sirketi-maliyet"
+                  class="block px-4 py-2.5 hover:bg-slate-50 transition border-t border-slate-100"
+                >
+                  <div class="text-[13px] font-medium text-slate-900">
+                    Maliyet
+                  </div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">
+                    Bağ-Kur, mali müşavir, damga vergisi
+                  </div>
+                </a>
+                <a
+                  href="/sahis-sirketi-vergi-hesaplama"
+                  class="block px-4 py-2.5 hover:bg-slate-50 transition border-t border-slate-100"
+                >
+                  <div class="text-[13px] font-medium text-slate-900">
+                    Vergi Hesaplama
+                  </div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">
+                    Net kazanç hesaplayıcı, dilim aralığı
                   </div>
                 </a>
               </div>
@@ -244,7 +260,7 @@ const organizationSchema = {
               <summary
                 class="px-2.5 py-1.5 rounded-md cursor-pointer hover:text-slate-900 hover:bg-slate-50 inline-flex items-center gap-1 select-none transition list-none [&::-webkit-details-marker]:hidden"
               >
-                Şahıs Şirketi
+                Remote Çalışma
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -262,47 +278,82 @@ const organizationSchema = {
                 class="absolute top-full left-0 mt-1.5 min-w-[260px] bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden z-50"
               >
                 <a
-                  href="/sahis-sirketi"
+                  href="/remote-is-bulma"
                   class="block px-4 py-2.5 hover:bg-slate-50 transition"
                 >
                   <div class="text-[13px] font-medium text-slate-900">
-                    Genel Rehber
+                    Remote İş Bulma
                   </div>
                   <div class="text-[11px] text-slate-500 mt-0.5">
-                    Yaşam döngüsü, hızlı bakış
+                    Yurtdışı iş ilanları, başvuru stratejisi
                   </div>
                 </a>
                 <a
-                  href="/sahis-sirketi-nasil-kurulur"
+                  href="/yurtdisina-remote-calismak"
                   class="block px-4 py-2.5 hover:bg-slate-50 transition border-t border-slate-100"
                 >
                   <div class="text-[13px] font-medium text-slate-900">
-                    Nasıl Kurulur
+                    Yurtdışına Remote Çalışmak
                   </div>
                   <div class="text-[11px] text-slate-500 mt-0.5">
-                    Mali müşavir, MERSİS, vergi dairesi
+                    Sözleşme, mükellefiyet, vergi, SGK
+                  </div>
+                </a>
+              </div>
+            </details>
+
+            <details name="primary-nav" class="relative">
+              <summary
+                class="px-2.5 py-1.5 rounded-md cursor-pointer hover:text-slate-900 hover:bg-slate-50 inline-flex items-center gap-1 select-none transition list-none [&::-webkit-details-marker]:hidden"
+              >
+                Platformlar
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  class="nav-chev w-3 h-3 text-slate-400 transition-transform"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 9l6 6 6-6"></path>
+                </svg>
+              </summary>
+              <div
+                class="absolute top-full left-0 mt-1.5 min-w-[260px] bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden z-50"
+              >
+                <a
+                  href="/upwork-vergi"
+                  class="block px-4 py-2.5 hover:bg-slate-50 transition"
+                >
+                  <div class="text-[13px] font-medium text-slate-900">
+                    Upwork
+                  </div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">
+                    Cari hesap mantığı, her işleme ayrı fatura
                   </div>
                 </a>
                 <a
-                  href="/sahis-sirketi-maliyet"
+                  href="/app-store-play-store-vergi"
                   class="block px-4 py-2.5 hover:bg-slate-50 transition border-t border-slate-100"
                 >
                   <div class="text-[13px] font-medium text-slate-900">
-                    Maliyet
+                    App Store ve Google Play
                   </div>
                   <div class="text-[11px] text-slate-500 mt-0.5">
-                    Bağ-Kur, mali müşavir, damga vergisi
+                    Apple Ireland, Google Ireland, münhasır yurt dışı
                   </div>
                 </a>
                 <a
-                  href="/sahis-sirketi-vergi-hesaplama"
+                  href="/merchant-of-record-vergi"
                   class="block px-4 py-2.5 hover:bg-slate-50 transition border-t border-slate-100"
                 >
                   <div class="text-[13px] font-medium text-slate-900">
-                    Vergi Hesaplama
+                    Merchant of Record
                   </div>
                   <div class="text-[11px] text-slate-500 mt-0.5">
-                    Net kazanç hesaplayıcı, dilim aralığı
+                    Polar, Paddle, LemonSqueezy: kime fatura kesilir
                   </div>
                 </a>
               </div>

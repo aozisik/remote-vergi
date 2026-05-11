@@ -1,0 +1,219 @@
+---
+layout: ../layouts/ArticleLayout.astro
+title: "App Store ve Google Play Geliri: Türkiye'de Vergi Rehberi (2026)"
+description: "Apple App Store ve Google Play'den gelir alan geliştiriciler için 2026 vergi rehberi: özel banka hesabı ile %15 stopaj yolu, şahıs şirketi ile %0 gelir vergisi yolu, GİB'in son özelgesi ile Danıştay kararı arasındaki çelişki ve hangi yolun kime uygun olduğu."
+dateModified: "2026-05-11"
+faq:
+  - question: "Apple ve Google'dan gelen para için hangi vergi rejimini seçmeliyim?"
+    answer: "İki ana yol var. Birincisi: bankada özel hesap açıp banka aracılığıyla %15 stopaj ödemek (Sosyal İçerik Üreticiliği ve Mobil Uygulama Geliştiriciliği İstisnası). 2026 limiti yıllık 5.300.000 TL hasılat; bu sınırın altında şirket kurma, fatura kesme, defter tutma, KDV beyannamesi yükümlülüğü yok. İkincisi: şahıs şirketi kurup hizmet ihracatı kazanç indirimi ile gelir vergisini %0'a indirmek. Bu yol daha güçlü vergi avantajı verir ama GİB'in 'münhasıran yurt dışında faydalanma' yorumu nedeniyle vergi denetimi riski taşır."
+  - question: "Yazılım satışı neden 'mal' değil 'hizmet' olarak vergilendiriliyor?"
+    answer: "Kurumlar Vergisi Kanunu'nun 10/1-ğ ve Gelir Vergisi Kanunu'nun 89/13 maddeleri, hizmet ihracatı indirimi kapsamına giren meslekleri sayarken 'mimarlık, mühendislik, yazılım, tasarım' diyerek yazılımı doğrudan hizmet kategorisine yazmıştır. Mantık şu: Apple'a fiziksel bir şey teslim etmiyorsunuz, kullanım hakkı sağlıyorsunuz. Apple da bunu son kullanıcıya kendi adına satıyor. Hukuken karşı tarafınız son kullanıcı değil, Apple Ireland'dır; verdiğiniz şey de yazılım hizmetidir."
+  - question: "Uygulamam Türkiye'de de yayında, %100 hizmet ihracatı indirimi alabilir miyim?"
+    answer: "GİB'in 30 Ocak 2026 tarihli özelgesi (E-62030549-125-143061), uygulama Türkiye'den de indirilebiliyorsa indirim hakkının tamamen düştüğünü söyler: sadece Türkiye'den gelen kısım değil, kazancın tümü kapsam dışına çıkar. Danıştay 3. Dairesi'nin Ekim 2025 tarihli kararı tam tersini söylüyor ve müşterinin Apple/Google Ireland olduğu için indirimin geçerli olduğunu kabul ediyor. Pratikte: vergi denetimi GİB özelgesini uygular, dava açarsanız büyük ihtimalle kazanırsınız. Risk almak istemiyorsanız App Store Connect veya Google Play Console'dan Türkiye'yi ülke listesinden çıkarın."
+  - question: "Özel banka hesabı (Mobil Uygulama Geliştiriciliği İstisnası) yıllık limiti aşılırsa ne olur?"
+    answer: "2026 limiti 5.300.000 TL'dir ve gelir vergisi tarifesinin 4. dilimine endekslidir. Limit aşılırsa o yıl için istisna tamamen düşer: bankanın yıl içinde kestiği %15 stopaj bir avans gibi mahsup edilir, ancak kazancın tamamı yıllık beyannameye konularak %15 ile %40 arasında değişen gelir vergisi tarifesi uygulanır. Defter tutma, fatura kesme, KDV mükellefiyeti yükümlülükleri de aşılan yıl için reaktif olarak doğar."
+  - question: "AdMob, Unity Ads gibi reklam ağlarından gelen gelirler aynı kurallara mı tabi?"
+    answer: "Evet. AdMob ödemelerini Google Ireland Ltd., Unity Ads ödemelerini Unity Technologies SF, AppLovin ödemelerini AppLovin Corporation yapar. Hepsi yurt dışı tüzel kişi, hepsi aynı yapıda işler: özel hesap yolunu kullanıyorsanız banka %15'i otomatik keser; şahıs şirketi yolunu kullanıyorsanız aylık e-Arşiv hizmet ihracatı faturası 302 kodu ile bu tüzel kişilere kesilir. Reklamların Türkiye'deki kullanıcılara da gösterilmesi, hizmet ihracatı yolunda 'münhasıran yurt dışı' tartışmasını aynen tetikler."
+---
+
+import CalculatorCTA from '../components/CalculatorCTA.astro';
+import MobileAppCalculator from '../components/MobileAppCalculator.astro';
+
+# App Store ve Google Play Geliri: Türkiye'de Vergi
+
+Apple ve Google ay sonunda İrlanda'daki tüzel kişilerinden Türkiye'deki banka hesabınıza ödeme yapar. Bu geliri Türkiye'de vergilendirmenin iki yolu vardır:
+
+1. **Özel banka hesabı**: bankada açtığınız hesaba gelen ödemenin %15'ini banka kaynakta keser ve devlete yatırır. Şirket kurma, fatura kesme, defter tutma yok. 2026 yılı için yıllık 5.300.000 TL hasılat sınırı vardır.
+2. **Şahıs şirketi + hizmet ihracatı**: şirketinizi kurup Apple ve Google'a aylık fatura keser, kazancınızın tamamını gelir vergisinden indirirsiniz. Vergi avantajı çok daha güçlüdür ama Gelir İdaresi'nin son özelgesi nedeniyle inceleme riski vardır.
+
+Bu sayfa önce iki yolu sırayla açıklar, sonra Gelir İdaresi'nin tartışmalı pozisyonunu, ardından fatura kesme detaylarını ve karar tablosunu sunar.
+
+<CalculatorCTA />
+
+## Önce şu soru: yazılım neden 'hizmet' sayılıyor?
+
+Müşteriye fiziksel bir şey teslim etmiyorsunuz: kullanım hakkı sağlıyorsunuz. Türkiye vergi mevzuatı bunu açıkça hizmet olarak tanımlar. [Kurumlar Vergisi Kanunu'nun 10/1-ğ maddesi](https://www.mevzuat.gov.tr/MevzuatMetin/1.5.5520.pdf) ve [Gelir Vergisi Kanunu'nun 89. maddesinin 13. bendi](https://www.mevzuat.gov.tr/MevzuatMetin/1.4.193.pdf), hizmet ihracatı indirimi kapsamındaki meslekleri sayarken "mimarlık, mühendislik, **yazılım**, tasarım, eğitim, sağlık" diye geçer. Yani kanun koyucu yazılımı doğrudan hizmet listesine yazmıştır; tartışmaya açık bir nokta değildir.
+
+İkinci nokta: App Store'da bir uygulama satıldığında, satışı Apple kendi adına yapar (komisyoncu modeli). Sözleşmedeki karşı tarafınız son kullanıcı değil, ödemeyi gönderen yurt dışı tüzel kişidir. Apple için bu **Apple Distribution International Ltd.** (Cork, İrlanda); Google Play için **Google Ireland Ltd.** (Dublin, İrlanda). Faturayı bu tüzel kişilere kesersiniz.
+
+Bu yapı [2014 tarihli bir Kocaeli Vergi Dairesi özelgesi](https://nelsus.com.tr/mobil-cihazlar-icin-turkiye-de-uretilen-ve-gelistirilen-yazilimin-yurt-disi-merkezli-uygulama-marketlerine-satisinda-kdv-ve-kvk-uygulamasi-hk/) (sayı 93767041-130[11-2013/99]-40) ile zaten kabul edilmiştir.
+
+## Yol 1: Özel banka hesabı, %15 stopaj
+
+Resmî adı **Sosyal İçerik Üreticiliği ve Mobil Uygulama Geliştiriciliği İstisnası**; düzenlemesi [Gelir Vergisi Kanunu Mükerrer Madde 20/B](https://www.mevzuat.gov.tr/MevzuatMetin/1.4.193.pdf) ve [318 Seri No'lu Gelir Vergisi Genel Tebliği](https://www.resmigazete.gov.tr/eskiler/2022/01/20220112-2.htm)'dir. İndie geliştiricilerin büyük çoğunluğu için en pratik yoldur.
+
+### Nasıl işler
+
+1. Vergi dairesinden bir defaya mahsus **Sosyal İçerik Üreticiliği ve Mobil Uygulama Geliştiriciliği İstisnası Belgesi** alırsınız (e-Devlet üzerinden interaktif vergi dairesinden dilekçe ya da bağlı vergi dairesine şahsen başvuru).
+2. Belgeyi aldıktan sonra Türkiye'de kurulu bir bankada **özel hesap** açtırırsınız (büyük bankaların hepsinde "Sosyal İçerik ve Mobil Uygulama Üretim Hesabı" adıyla bulunur).
+3. Hesabın IBAN'ını **1 ay içinde** vergi dairesine bildirirsiniz.
+4. Apple ve Google ödemeyi bu hesaba gönderir. Para hesaba düştüğü anda banka **%15 stopajı** kaynakta keser, Gelir İdaresi'ne yatırır. Sizin için bu son vergi; ek bir beyanname verme yükümlülüğünüz yoktur.
+
+### Kapsama giren gelirler
+
+- Ücretli uygulama satışları
+- Uygulama içi satın almalar (IAP)
+- Abonelik gelirleri
+- Reklam gelirleri (AdMob, AppLovin, Unity Ads vb.)
+
+İlgili tebliğin lafzı bu dört kalemi tek tek sayar. Masaüstü yazılımlar, kurumsal SaaS sözleşmeleri, freelance ısmarlama yazılım geliştirme bu rejim kapsamı dışındadır; sadece **mobil cihazlar için** geliştirilen yazılımlar girer.
+
+### Şartlar ve sınırlar
+
+- **Yıllık hasılat sınırı: 5.300.000 TL (2026).** Sınır gelir vergisi tarifesinin 4. dilimine endekslidir, her yıl güncellenir. Bu sınır aşılırsa istisna o yıl için tamamen düşer; aşılan yılın gelirinin tümü %15 ile %40 arasında değişen normal gelir vergisi tarifesi ile beyan edilir. Yıl içinde fark edilirse sıradan şahıs şirketi rejimine geri dönülür.
+- **Bağ-Kur (4/b) primi kendinizden.** İstisna belgesi aldığınız an vergi mükellefiyeti tesis ettiğiniz için otomatik olarak 4/b sigortalısı olursunuz. Asgari aylık prim 2026 itibarıyla yaklaşık 12.000 TL'dir. 1 Ocak 2026'dan sonra işe başlayanlar için eski Bağ-Kur prim desteği [kaldırılmıştır](https://vergimerkezi.com.tr/genc-girisimci-bagkur-destegi-kaldirildi-2026/).
+- **Tam veya dar mükellef ayrımı yoktur**; yurt dışında ikamet eden Türk geliştiriciler de bağlı bir vergi dairesi belirleyerek bu rejimden yararlanabilir.
+
+### Avantajlar
+
+- Şirket kuruluş ve kapatma maliyeti yok.
+- Defter, fatura, KDV beyannamesi, mali müşavir gideri yok.
+- Banka stopajı tek hareketle nihai vergiyi tahsil eder; tahsilat sonrası planlama derdi yok.
+
+### Dezavantajlar
+
+- Net %15 sabit; gider/indirim yok. Yüksek harcamalı bir yapıyla matrahı düşüremezsiniz.
+- 5,3 milyon TL üstünde patlar.
+- Yurt içi müşterileriniz (örneğin Türkiye'de bir şirkete doğrudan yazılım satıyorsanız) için bu hesap kullanılamaz; yurt içi geliri ayrı şahıs şirketi olarak yönetmeniz gerekir.
+
+<MobileAppCalculator />
+
+## Yol 2: Şahıs şirketi ile sıfır gelir vergisi
+
+Resmî adı **Hizmet İhracatı Kazanç İndirimi**; düzenlemesi yukarıda atıf yapılan [KVK 10/1-ğ ve GVK 89/13](https://www.mevzuat.gov.tr/MevzuatMetin/1.5.5520.pdf). 30 Nisan 2026 tarihli Resmî Gazete'de yayımlanan [11257 sayılı Cumhurbaşkanı Kararı](https://www.alomaliye.com/2026/01/27/yurtdisi-hizmet-ihraci-istisnasinda-yeni-donem/) ile indirim oranı %80'den **%100**'e çıkarıldı; yani şartlar sağlandığında kazancın tamamı gelir veya kurumlar vergisinden indirilebilir.
+
+### Nasıl işler
+
+1. Şahıs şirketi kurarsınız ([Şahıs Şirketi Nasıl Kurulur](/sahis-sirketi-nasil-kurulur)).
+2. Her ay (Apple/Google'ın payout raporunu yayımladığı tarihte) **Apple Distribution International Ltd.** veya **Google Ireland Ltd.** adına bir e-Arşiv faturası kesersiniz. KDV oranı %0, istisna kodu 302; detay: [302 (KDV 11/1-a) Fatura Örneği](/302-11-1-a-fatura-ornegi).
+3. Yıllık gelir vergisi beyannamesinde, hizmet ihracatı kazancını %100 indirim olarak gösterirsiniz. Matrah sıfıra iner.
+4. Yıllık beyanname son tarihine kadar (gerçek kişide 31 Mart, kurumlarda 30 Nisan) kazancın **tamamı** Türkiye'deki banka hesabınıza geçmiş olmalıdır. Kısmi transfer = indirim hakkının tamamen kaybı.
+
+### Avantajları
+
+- Gelir vergisi efektif olarak %0.
+- Hasılat sınırı yok; 50 milyon da kazansanız aynı oran.
+- Yurt içi müşterilere de fatura kesebilirsiniz (onlara klasik KDV'li fatura ile).
+- Giderlerinizi (mali müşavir ücreti, ofis, donanım, lisans) düşebilirsiniz.
+
+### Yükleri
+
+- Defter, e-Fatura/e-Arşiv, aylık KDV beyannamesi, yıllık gelir vergisi beyannamesi.
+- Mali müşavir zorunlu (~3.000-6.000 TL/ay).
+- Bağ-Kur primi (yine kendinizden).
+- Belli eşikler aşılırsa Yeminli Mali Müşavir tasdik raporu zorunluluğu ([detay](/hizmet-ihracati-istisnasi)).
+
+## Gelir İdaresi'nin pozisyonu ve Danıştay kararı
+
+Bu yolu seçen geliştiricinin bilmesi gereken kritik tartışma burada.
+
+### GİB'in pozisyonu: indirim yok
+
+Gelir İdaresi Başkanlığı'nın İstanbul Defterdarlığı tarafından yayımlanan [30 Ocak 2026 tarihli E-62030549-125-143061 sayılı özelgesi](https://www.alomaliye.com/2026/02/18/app-store-ve-google-playden-elde-edilen-gelirler-nasil-vergilendirilir/), mobil uygulama gelirlerine indirim uygulanmayacağını söyler. Gerekçe: KVK 10/1-ğ "hizmetten münhasıran yurt dışında faydalanılması" şartını arar. Uygulamanız global mağazalarda yayında ise Türkiye'den de erişilebilir, dolayısıyla bu şart sağlanmaz. Üstelik özelge, sadece Türk kullanıcılara denk gelen payın değil, kazancın **tamamının** indirim kapsamı dışında olduğunu söyler.
+
+Pratik anlamı: uygulamanız App Store Türkiye veya Google Play Türkiye'de indirilebiliyorsa, bir vergi incelemesinde indirim talebiniz tamamen reddedilir, geçmiş yıllar için tarh edilen vergi + ceza + faiz gelir.
+
+### Danıştay'ın pozisyonu: indirim geçerli
+
+[Danıştay 3. Dairesi'nin 21 Ekim 2025 tarihli kararı](https://www.fatiharas.com/hizmet-ihraci-kdv-danistay-karari/) (E.2025/4071), Gelir İdaresi'nin bu sıkı yorumunu reddeder. Karara göre Google Play üzerinden gelir elde eden geliştirici, hizmeti yurt dışındaki platform işletmecisine (Google Ireland) sunmaktadır; son kullanıcının coğrafyası ilgisizdir. Faydalanma yeri = hizmeti satın alan tarafın yeri = İrlanda. Hizmet ihracatı geçerlidir.
+
+### Gerçekte ne oluyor
+
+Vergi incelemesinde memur GİB özelgesini uygular. Dava açarsanız Danıştay içtihadına dayanır, davayı muhtemelen kazanırsınız ancak süreç 2-3 yıl sürer ve avukat masrafı çıkar.
+
+İki defansif strateji vardır:
+
+1. **Türkiye'yi storefront'tan çıkarmak.** App Store Connect (My Apps → Pricing and Availability) ve Google Play Console (Production → Countries/Regions) üzerinden Türkiye'yi ülke listesinden çıkarırsanız, uygulamanız Türk kullanıcıya indirilemez ve "münhasıran yurt dışı" şartı tartışmasız sağlanır. Türk pazarının ne kadar değerli olduğuna bağlı bir karardır.
+2. **Tedbirli olmak istemiyorsanız** vergi incelemesi sırasında Danıştay kararına dayanarak savunma yaparsınız.
+
+## Apple ve Google'a fatura nasıl kesilir
+
+Yol 2'yi seçtiyseniz aşağıdaki yapı uygulanır.
+
+### Faturanın muhatabı
+
+| Platform | Tüzel kişi | Adres |
+| --- | --- | --- |
+| App Store | Apple Distribution International Ltd. | Hollyhill Industrial Estate, Hollyhill, Cork, İrlanda |
+| Google Play | Google Ireland Ltd. | Gordon House, Barrow Street, Dublin 4, İrlanda |
+| AdMob | Google Ireland Ltd. | Aynı |
+
+Tam adı App Store Connect ve Google Play Console payout raporlarında teyit edebilirsiniz. Yurt dışı müşteri için VKN alanına standart yer tutucu olan **2222222222** girilir.
+
+### Fatura biçimi
+
+- **Belge tipi:** e-Arşiv (yurt dışı müşteri TR e-Fatura sistemine kayıtlı değildir)
+- **KDV oranı:** %0
+- **İstisna kodu:** 302 (KDV Kanunu 11/1-a kapsamında hizmet ihracatı)
+- **Para birimi:** USD veya EUR (payout hangi para biriminde geldiyse)
+- **Tarih:** Apple/Google'ın o ayın payout raporunu yayımladığı tarih, paranın banka hesabınıza geçtiği gün değil
+
+Şablon ve adım adım ekran görüntüleri: [302 Fatura Örneği](/302-11-1-a-fatura-ornegi).
+
+### Brüt mü, net mi?
+
+Net üzerinden, yani Apple/Google'ın komisyonu (%15 veya %30) kesildikten sonra size aktarılan tutar üzerinden. Apple ve Google kendi adlarına satış yaptıkları için komisyon size hiç ulaşmaz; tahakkuk eden hasılatınız zaten net tutardır.
+
+### Apple'ın Türk kullanıcıdan tahsil ettiği KDV sizi ilgilendirmez
+
+Apple ve Google, 1 Ocak 2018'den beri Türkiye'deki son kullanıcıdan %20 KDV'yi kendileri tahsil edip Gelir İdaresi'ne ayrı bir beyanname (3 No'lu KDV Beyannamesi) ile yatırır. Bu sürecin tarafı değilsiniz; ne tahsil edersiniz ne beyan edersiniz.
+
+### Kazancı Türkiye'ye getirme şartı
+
+Yıllık beyanname son tarihine kadar kazancın **tamamı** Türkiye'deki banka hesabınıza geçmiş olmalı (bkz. [özelge 03.02.2023 / 166967](https://www.alomaliye.com/2026/01/27/yurtdisi-hizmet-ihraci-istisnasinda-yeni-donem/)). Apple/Google zaten aylık payout yaptığı için bu çoğu zaman sorun olmaz; ancak banka hesabınızın eşik tutarın altında kalması nedeniyle Apple ödemeyi tutarsa bakiyenin yıl sonunda aktığından emin olun.
+
+## AdMob ve diğer reklam gelirleri
+
+Aynı yapı geçerlidir. AdMob için fatura **Google Ireland Ltd.**'e kesilir. AppLovin, Unity Ads, IronSource gibi ağlarda ödemeyi yapan yurt dışı tüzel kişi farklılaşır; her birinin payout raporundaki "remittance entity" alanı doğru muhatabı verir.
+
+Hizmet ihracatı yolundaki "münhasıran yurt dışı" tartışması burada da aynen geçerlidir: reklamlarınız Türkiye'deki kullanıcılara da gösteriliyorsa Gelir İdaresi indirimi reddeder. Hangi yolu seçtiğinize göre vergiyi planlayın.
+
+## Hangi yol sana uygun
+
+| Durumun | Doğru yol |
+| --- | --- |
+| Yıllık hasılatın 5,3M TL altında, sade bir yapı istiyorsun | Yol 1 (özel hesap) |
+| Yıllık hasılatın 5,3M TL üstünde | Yol 2 (şahıs şirketi mecburi) |
+| Sıfır vergiyi istiyorsun ve Türk kullanıcı pazarı senin için önemsiz | Yol 2 + storefront'tan Türkiye'yi çıkar |
+| Sıfır vergiyi istiyorsun ama Türk kullanıcıları kaybetmek istemiyorsun | Yol 2 + denetim riskini kabul, Danıştay'a dayanma |
+| Türk pazarına da satıyorsun (yurt içi ve yurt dışı karışık) | Yol 1 (Yol 2 yurt içi için zaten geçerli değil) |
+
+11257 sayılı Karar'la indirim %100'e çıktıktan sonra Yol 2'nin Yol 1'e göre vergi avantajı önemli ölçüde arttı: 3.000.000 TL kazançta Yol 1'in 450.000 TL vergi yükü Yol 2'de sıfıra iner. Yine de operasyonel sadelik ve denetim riskinden kaçınma motivasyonu Yol 1'i indie geliştiriciler için cazip kılmaya devam eder.
+
+## Sıkça sorulan sorular
+
+### Tek kişilik bir uygulamam var, hangi yoldan başlamalıyım?
+
+Hâlâ küçük bir gelir akışıysa Yol 1 (özel hesap) en hızlı başlangıçtır. e-Devlet'ten dilekçeyi ver, bankadan hesabı aç, IBAN'ı bildir. Geliriniz büyürse ve 5,3 milyon TL eşiğine yaklaşırsanız Yol 2'ye geçişi planlarsınız.
+
+### Hem yurt dışı App Store hem Türk müşterilere yazılım satıyorum, ne yapayım?
+
+Yol 1 yurt içi müşteri için geçerli değildir; Yol 2 her ikisini de kapsar. Şahıs şirketi açın; yurt dışı gelirleri için 302 hizmet ihracatı faturası, yurt içi müşterileri için klasik %20 KDV'li fatura keserseniz. Yurt içi geliriniz dominantsa Yol 2 zorunlu yol haline gelir.
+
+### Uygulamamı Türk pazardan çıkarırsam SEO ve indirme sayım düşer mi?
+
+Düşer ama büyük olasılıkla az. App Store Connect ve Google Play Console ülke kısıtlama mekanizmaları yalnızca "indirme" davranışını engeller; uygulama dünyada yayında kalır. Türk kullanıcı indirme sayısı genelde toplam indirmelerin küçük bir yüzdesidir; sayısal etkiyi App Store Connect Analytics ile teyit edebilirsiniz.
+
+### Yol 1 ile Yol 2'yi aynı yıl içinde birlikte kullanabilir miyim?
+
+Hayır. Mükerrer 20/B istisnasından yararlanan kişi, aynı faaliyet (mobil uygulama geliştiriciliği) için diğer rejim kalemlerinden yararlanamaz. Geçiş yapacaksanız yıl başlangıcı temiz bir geçiş tarihidir.
+
+### Şirketi LTD/A.Ş. olarak kursam aynı kurallar mı?
+
+Hizmet ihracatı indirimi kurumlar vergisinde [KVK 10/1-ğ](https://www.mevzuat.gov.tr/MevzuatMetin/1.5.5520.pdf) ile aynı %100 indirimi sağlar. Yatırım, ortaklık veya gelecekte exit hedefliyorsanız kurumlar mükellefiyeti daha esnektir. Mükerrer 20/B özel hesap rejimi yalnızca gerçek kişiler içindir; LTD/A.Ş. bu rejimi kullanamaz.
+
+### Apple Türkiye'de mağazayı kapattığında geçmiş gelire indirim uygulanabilir mi?
+
+Storefront'tan çıkarma ileriye etkili bir karardır; geçmiş dönemler için "münhasıran yurt dışı" şartının sağlandığı argümanı kabul görmez. Geçmiş yıllar açısından yine GİB özelgesi-Danıştay kararı çelişkisinin içindesiniz.
+
+## Sonraki adımlar
+
+- [Hizmet İhracatı Genel Rehberi](/hizmet-ihracati): %100 indirimin temel şartları, KDV 11/1-a kapsamı
+- [Hizmet İhracatı İstisnası ve YMM Tasdiki](/hizmet-ihracati-istisnasi): 11257 sayılı Karar, eşikler, cezalar
+- [302 (KDV 11/1-a) Fatura Örneği](/302-11-1-a-fatura-ornegi): e-Arşiv'de hizmet ihracatı faturası
+- [Şahıs Şirketi Nasıl Kurulur](/sahis-sirketi-nasil-kurulur): mükellefiyet açma adımları
+- [Yurtdışından Ödeme Alma](/yurtdisindan-odeme-alma): Apple/Google payout için banka tarafı
+
+---
+
+*Bu içerik bilgilendirme amaçlıdır ve mali danışmanlık hizmeti yerine geçmez. Vergi planlamanız için bir mali müşavire başvurunuz. Özellikle hizmet ihracatı indirimi tarafında GİB pozisyonu ile Danıştay kararı arasındaki çelişki, mevzuatın açık tutulan bir alanıdır; karar mali müşavirinizle birlikte verilmelidir.*

@@ -1,0 +1,232 @@
+---
+// Sosyal İçerik / Mobil Uygulama Geliştiriciliği İstisnası (GVK Mük. 20/B)
+// için basit hesaplayıcı. Aylık brüt gelir + Bağ-Kur → yıllık brüt, %15 stopaj,
+// Bağ-Kur ve net. 5.300.000 TL (2026) limit aşılırsa uyarı verir.
+---
+
+<section
+  class="not-prose my-8 rounded-2xl border border-slate-200 bg-white overflow-hidden"
+  data-mobile-app-calc
+>
+  <header class="px-5 md:px-6 py-4 border-b border-slate-100 bg-slate-50">
+    <h3 class="text-sm font-semibold text-slate-900">
+      Özel hesap rejiminde elime ne geçer?
+    </h3>
+    <p class="text-[12px] text-slate-500 mt-1 leading-relaxed">
+      Apple/Google'dan aldığınız aylık ödemeyi girin. Banka %15 stopajı kaynakta
+      keser; Bağ-Kur'u siz cebinizden ödersiniz. 2026 hadleri.
+    </p>
+  </header>
+  <div class="grid md:grid-cols-2 gap-5 md:gap-6 p-5 md:p-6">
+    <div class="space-y-4">
+      <label class="field">
+        <span class="field-label">Aylık brüt gelir</span>
+        <span class="field-input">
+          <button
+            type="button"
+            class="prefix"
+            data-currency-toggle
+            style="cursor: pointer; user-select: none;"
+            aria-label="Para birimini değiştir">$</button>
+          <input
+            type="number"
+            inputmode="decimal"
+            min="0"
+            step="100"
+            value="3000"
+            data-income
+          />
+        </span>
+        <span class="field-help" data-income-help>
+          Apple/Google'ın size aylık aktardığı net royalty tutarı.
+        </span>
+      </label>
+
+      <label class="field" data-rate-field>
+        <span class="field-label" data-rate-label>USD / TRY kuru</span>
+        <span class="field-input">
+          <span class="prefix">₺</span>
+          <input
+            type="number"
+            inputmode="decimal"
+            min="1"
+            step="0.01"
+            value="35"
+            data-rate
+          />
+        </span>
+      </label>
+
+      <label class="field">
+        <span class="field-label">Aylık Bağ-Kur primi</span>
+        <span class="field-input">
+          <span class="prefix">₺</span>
+          <input
+            type="number"
+            inputmode="decimal"
+            min="0"
+            step="100"
+            value="12000"
+            data-bagkur
+          />
+        </span>
+        <span class="field-help">
+          2026 asgari prim yaklaşık ₺12.000/ay. Geliriniz arttıkça matraha bağlı
+          olarak yükselir.
+        </span>
+      </label>
+    </div>
+
+    <div class="space-y-3">
+      <div class="rounded-lg border border-slate-200 bg-slate-50 p-4">
+        <div class="text-[11px] uppercase tracking-wide text-slate-500 mb-1">
+          Yıllık brüt gelir
+        </div>
+        <div class="text-lg font-semibold text-slate-900 num" data-result-gross>
+          ₺0
+        </div>
+      </div>
+
+      <div class="rounded-lg border border-slate-200 p-4">
+        <div class="text-[11px] uppercase tracking-wide text-slate-500 mb-1">
+          %15 stopaj (banka keser)
+        </div>
+        <div class="text-lg font-semibold text-rose-600 num" data-result-tax>
+          ₺0
+        </div>
+      </div>
+
+      <div class="rounded-lg border border-slate-200 p-4">
+        <div class="text-[11px] uppercase tracking-wide text-slate-500 mb-1">
+          Bağ-Kur (yıllık)
+        </div>
+        <div class="text-lg font-semibold text-rose-600 num" data-result-bagkur>
+          ₺0
+        </div>
+      </div>
+
+      <div class="rounded-lg border border-indigo-200 bg-indigo-50/60 p-4">
+        <div class="text-[11px] uppercase tracking-wide text-indigo-700 mb-1">
+          Yıllık net (elinize geçen)
+        </div>
+        <div
+          class="text-xl font-semibold text-indigo-900 num"
+          data-result-net
+        >
+          ₺0
+        </div>
+        <div
+          class="text-[11px] text-indigo-700 mt-1 num"
+          data-result-net-monthly
+        >
+          aylık ortalama: ₺0
+        </div>
+      </div>
+
+      <div
+        class="hidden rounded-lg border border-amber-300 bg-amber-50 p-3 text-[12px] text-amber-900 leading-relaxed"
+        data-limit-warning
+      >
+        <strong>Uyarı:</strong> Yıllık brüt ₺5.300.000 (2026) limitini aşıyor.
+        Bu rejim aşıldığı yıl için tamamen düşer; kazancın tamamı normal şahıs
+        şirketi gelir vergisi tarifesi (%15 ile %40) ile beyan edilir. Bu durumda
+        şahıs şirketi + hizmet ihracatı yolunu değerlendirin.
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  type Currency = 'USD' | 'EUR' | 'GBP' | 'TRY';
+
+  const SYMBOLS: Record<Currency, string> = {
+    USD: '$',
+    EUR: '€',
+    GBP: '£',
+    TRY: '₺',
+  };
+  const DEFAULT_RATES: Record<Currency, string> = {
+    USD: '35',
+    EUR: '40',
+    GBP: '45',
+    TRY: '1',
+  };
+  const ORDER: Currency[] = ['USD', 'EUR', 'GBP', 'TRY'];
+  const ANNUAL_LIMIT_2026 = 5_300_000;
+
+  const fmt = (n: number) =>
+    '₺' + new Intl.NumberFormat('tr-TR').format(Math.round(n));
+
+  document
+    .querySelectorAll<HTMLElement>('[data-mobile-app-calc]')
+    .forEach((root) => {
+      const incomeEl = root.querySelector<HTMLInputElement>('[data-income]')!;
+      const rateEl = root.querySelector<HTMLInputElement>('[data-rate]')!;
+      const rateField = root.querySelector<HTMLElement>('[data-rate-field]')!;
+      const rateLabel = root.querySelector<HTMLElement>('[data-rate-label]')!;
+      const bagkurEl = root.querySelector<HTMLInputElement>('[data-bagkur]')!;
+      const currencyBtn = root.querySelector<HTMLButtonElement>(
+        '[data-currency-toggle]'
+      )!;
+      const incomeHelp = root.querySelector<HTMLElement>('[data-income-help]')!;
+      const grossEl = root.querySelector<HTMLElement>('[data-result-gross]')!;
+      const taxEl = root.querySelector<HTMLElement>('[data-result-tax]')!;
+      const bagkurResultEl = root.querySelector<HTMLElement>(
+        '[data-result-bagkur]'
+      )!;
+      const netEl = root.querySelector<HTMLElement>('[data-result-net]')!;
+      const netMonthlyEl = root.querySelector<HTMLElement>(
+        '[data-result-net-monthly]'
+      )!;
+      const limitWarn = root.querySelector<HTMLElement>(
+        '[data-limit-warning]'
+      )!;
+
+      let currency: Currency = 'USD';
+
+      const calc = () => {
+        const income = Number(incomeEl.value) || 0;
+        const rate = currency === 'TRY' ? 1 : Number(rateEl.value) || 0;
+        const bagkurMonthly = Number(bagkurEl.value) || 0;
+
+        const monthlyTL = income * rate;
+        const annualGross = monthlyTL * 12;
+        const annualTax = annualGross * 0.15;
+        const annualBagkur = bagkurMonthly * 12;
+        const annualNet = annualGross - annualTax - annualBagkur;
+
+        grossEl.textContent = fmt(annualGross);
+        taxEl.textContent = '-' + fmt(annualTax);
+        bagkurResultEl.textContent = '-' + fmt(annualBagkur);
+        netEl.textContent = fmt(annualNet);
+        netMonthlyEl.textContent =
+          'aylık ortalama: ' + fmt(annualNet / 12);
+
+        limitWarn.classList.toggle('hidden', annualGross <= ANNUAL_LIMIT_2026);
+      };
+
+      currencyBtn.addEventListener('click', () => {
+        const idx = ORDER.indexOf(currency);
+        currency = ORDER[(idx + 1) % ORDER.length];
+        currencyBtn.textContent = SYMBOLS[currency];
+        if (currency === 'TRY') {
+          rateField.style.display = 'none';
+          incomeHelp.textContent =
+            'Apple/Google ödemesinin TL karşılığı (banka dekontundan).';
+        } else {
+          rateField.style.display = '';
+          rateLabel.textContent = `${currency} / TRY kuru`;
+          rateEl.value = DEFAULT_RATES[currency];
+          incomeHelp.textContent =
+            "Apple/Google'ın size aylık aktardığı net royalty tutarı.";
+        }
+        calc();
+      });
+
+      [incomeEl, rateEl, bagkurEl].forEach((el) => {
+        el.addEventListener('input', calc);
+      });
+
+      calc();
+    });
+</script>

@@ -1,0 +1,165 @@
+---
+layout: ../layouts/ArticleLayout.astro
+title: "Merchant of Record Platformları (Polar, Paddle, LemonSqueezy): Türkiye'de Vergi (2026)"
+description: "Polar.sh, Paddle ve LemonSqueezy gibi Merchant of Record (MoR) platformları üzerinden gelir alan TR mukim geliştiriciler için 2026 vergi rehberi: faturayı kime kesersin (son müşteriye değil, MoR'a), brüt-net hesabı, MoR'un topladığı son kullanıcı KDV'sinin durumu, Stripe'ın neden MoR olmadığı."
+dateModified: "2026-05-11"
+faq:
+  - question: "Merchant of Record (MoR) ne demek, normal ödeme aracısından farkı ne?"
+    answer: "Merchant of Record, son kullanıcıya yapılan satışın yasal satıcısı olan platformdur. Yani Polar, Paddle veya LemonSqueezy ödemeyi sadece taşımıyor: ürünü kendi adına satıyor, faturayı son kullanıcıya kendisi kesiyor, son kullanıcıdan toplanan satış vergisi/KDV'yi 60+ ülkede kendi adına beyan edip yatırıyor, küresel uyum yükünü (PSD2, GDPR, vergi tescili) yönetiyor. Sizin bu modeldeki rolünüz: ürünü/yazılımı MoR'a tedarik eden taraf. Sözleşmedeki müşteriniz son kullanıcı değil, MoR'dur. Stripe gibi klasik ödeme işlemcileri ise sadece kart işlemini yürütür; satıcı sizsiniz, son kullanıcıya fatura siz kesersiniz."
+  - question: "Faturayı son müşteriye mi MoR'a mı kesmeliyim?"
+    answer: "MoR'a. Polar üzerinden Almanya'da bir müşteri ürününüzü €99'a satın aldığında: o satışı Polar yapmıştır (Delaware'deki Polar Software, Inc.), son kullanıcının faturası Polar tarafından kesilmiştir, AB KDV'sini Polar tahsil etmiştir. Siz aydan aya Polar Software, Inc.'a, net royalty tutarı üzerinden, %0 KDV'li 302 kodu ile hizmet ihracatı faturası kesersiniz. Almanya'daki son müşteriye sizin tarafınızdan ayrıca fatura kesmek hem yanlış hem gereksizdir; aynı satışa iki ayrı satıcı tarafından iki ayrı fatura çıkar."
+  - question: "MoR'un son kullanıcıdan tahsil ettiği KDV'yi de göstermem gerekir mi?"
+    answer: "Hayır. Polar, Paddle veya LemonSqueezy son kullanıcının ülkesindeki KDV'yi (AB'de OSS sistemi üzerinden, ABD'de eyalet sales tax'ı, vb.) kendi adına toplayıp ilgili idarelere yatırır. Bu süreç tamamen MoR'un kendi vergi yükümlülüğüdür; sizin defterinize girmez. Siz sadece MoR'a kestiğiniz hizmet ihracatı faturasını 1 No'lu KDV Beyannamesi'nde 302 istisna satırında gösterirsiniz."
+  - question: "Stripe da bir Merchant of Record mi?"
+    answer: "Hayır. Stripe klasik kullanımda ödeme işlemcisidir (payment processor): sadece kart işlemlerini yürütür, satıcı sizsiniz, faturayı son müşteriye siz kesersiniz, son müşterinin ülkesindeki KDV'den siz sorumlu olursunuz. Stripe 2025'te 'Stripe Managed Payments' adıyla bir MoR ürünü duyurdu ve LemonSqueezy'yi de 2024'te bu yönde satın aldı, ancak klasik Stripe entegrasyonu hâlâ MoR değildir. Stripe kullanıyorsanız her son müşteriye ayrı fatura kesme, KDV mevzuatına uyum sağlama yükü tamamen sizdedir."
+  - question: "Türk kullanıcılar MoR üzerinden ürünümü satın alırsa hizmet ihracatı %100 indirimi etkilenir mi?"
+    answer: "GİB'in 30 Ocak 2026 tarihli özelgesi 'münhasıran yurt dışında faydalanma' şartını sıkı yorumlar; uygulamanız/ürününüz Türkiye'deki son kullanıcılara da satılıyorsa kazancın tamamı indirim kapsamı dışına çıkabilir. App Store/Play Store ile farkı şudur: kendi web sitenizin satış sayfasını siz kontrol edersiniz, MoR checkout'undan Türkiye'yi 'available countries' listesinden çıkararak veya kendi pricing sayfanızda TR ziyaretçileri yönlendirerek bu sorunu temizleyebilirsiniz. Detay App Store sayfasındaki tartışmanın aynısı geçerlidir."
+---
+
+import CalculatorCTA from '../components/CalculatorCTA.astro';
+
+# Merchant of Record: Polar, Paddle, LemonSqueezy
+
+[Polar.sh](https://polar.sh), [Paddle](https://www.paddle.com), [LemonSqueezy](https://www.lemonsqueezy.com) ve benzeri **Merchant of Record (MoR)** platformlarını yazılım/SaaS/dijital ürün satarken kullanan geliştiriciler için, bu sayfa Türkiye tarafındaki vergi sürecini netleştirir.
+
+Sıkça yapılan hata: MoR üzerinden satış olduğunda **son kullanıcıya** ayrı bir fatura kesmeye çalışmak. Bu yanlış: aynı satışa iki ayrı satıcı, iki ayrı fatura çıkmış olur. MoR modeli, son kullanıcının yasal satıcısının MoR olduğu, sizin müşterinizin ise MoR olduğu bir yapıdır. Faturayı tek bir kez, **MoR'un yurt dışı tüzel kişisine** kesersiniz.
+
+Aşağıda önce MoR'un ne yaptığını netleştirip her platformun yasal kimliğini, sonra fatura mekaniğini, sonra hizmet ihracatı tarafını anlatıyorum.
+
+<CalculatorCTA />
+
+## MoR ne yapar, ne yapmaz
+
+MoR platformu (Polar, Paddle, LemonSqueezy):
+
+- Son kullanıcıya yapılan satışın **yasal satıcısıdır**. Sözleşme son kullanıcı ile MoR arasındadır; siz tarafsınızdaki sözleşmede yoksunuzdur.
+- Son kullanıcıdan **satış vergisi/KDV'yi kendi adına tahsil eder ve ilgili idarelere yatırır.** AB'de OSS (One Stop Shop) sistemi üzerinden tek tek üye ülkelere, ABD'de eyalet bazında nexus testlerine göre, Birleşik Krallık'ta HMRC'ye, vs.
+- **Chargeback ve iade sürecini yürütür** (banka ile yazışma, dispute dosyası, fraud taraması), ancak finansal kaybı **size yansıtır**: chargeback olan satışın tutarı bir sonraki payout'unuzdan düşülür, çoğu zaman üzerine MoR'un dispute ücreti de eklenir. Operasyonel yükten kurtulursunuz; bedel kaybı yine sizindir.
+- Son kullanıcıya faturayı kendi adına keser.
+- Aydan aya (veya iki haftada bir, vb.) sizden aldığı ürün/lisans karşılığı, komisyonunu kestikten sonra **net royalty** olarak size aktarır.
+
+Klasik ödeme işlemcisi (Stripe, PayPal Checkout, banka POS) bunların hiçbirini yapmaz: sadece kart hareketini yürütür. O modelde satıcı sizsiniz, KDV/sales tax sorumlusu sizsiniz, fatura kesen sizsiniz.
+
+Bu ayrımı doğru anlamak Türkiye tarafındaki faturalama sürecini belirler.
+
+## Platformların yasal kimlikleri
+
+Faturayı keseceğiniz tüzel kişiler:
+
+| Platform | Yasal tüzel kişi | Adres |
+| --- | --- | --- |
+| Polar.sh | [Polar Software, Inc.](https://polar.sh/legal/checkout-buyer-terms) | 3500 South DuPont Highway, Dover, DE 19901, ABD |
+| Paddle (AB dahil dünya geneli satışlar için) | [Paddle.com Market Limited](https://www.paddle.com/about) | Judd House, 18-29 Mora Street, London EC1V 8BT, İngiltere (Company No: 8172165) |
+| Paddle (ABD satışları için) | Paddle.com, Inc. | ABD iştiraki |
+| LemonSqueezy | Lemon Squeezy LLC | Salt Lake City, Utah, ABD (Temmuz 2024'ten beri Stripe'a bağlı, [duyuru](https://www.lemonsqueezy.com/blog/stripe-acquires-lemon-squeezy)) |
+
+Aylık payout raporlarında muhatap tüzel kişi açıkça belirtilir; teyit oradan yapılır. Paddle özelinde, bir satış AB veya Asya'da yapılmışsa muhatap Paddle.com Market Limited (UK), ABD'de yapılmışsa Paddle.com Inc. olabilir; çoğu TR geliştiricinin payout'u Limited üzerinden gelir.
+
+## Fatura nasıl kesilir
+
+### Müşteri MoR, son kullanıcı değil
+
+e-Arşiv fatura, KDV oranı **%0**, istisna kodu **302** (3065 sayılı KDV Kanunu 11/1-a kapsamında hizmet ihracatı). Faturadaki "müşteri" alanına yukarıdaki tüzel kişi adı, adres ve ülke girilir. Yurt dışı müşteri için VKN alanına standart yer tutucu **2222222222** kullanılır. Polar'ın AB OSS sistemindeki VAT numarası (örn. EU372061545) müşterinin VAT alanı için kullanılabilir, zorunlu değildir.
+
+Detaylı şablon: [302 Fatura Örneği](/302-11-1-a-fatura-ornegi).
+
+### Faturalama dönemi: tahakkuk anına göre
+
+MoR'un payout raporunun yayımlandığı tarih, sizin tahakkukunuzun gerçekleştiği tarihtir. Faturayı bu tarihe kesin; paranın banka hesabınıza geçtiği tarihte değil. Polar günlük/haftalık/aylık (siz seçiyorsunuz), Paddle aylık, LemonSqueezy aylık raporlar.
+
+### Brüt değil, net
+
+MoR'un komisyonu (genelde %5-%10 işlem ücreti + sabit kuruşlar) tahsilatın içinde zaten kesilmiştir; size aktarılan net royalty üzerinden faturayı kesersiniz. App Store/Play Store mantığıyla aynı: commissionaire/reseller modelinde tahakkuk eden hasılatınız ödediğiniz net tutardır, komisyon ayrı bir gider satırı değildir.
+
+İstisna: Polar, raporunda "gross sales" ve "platform fee" diye iki satır gösterir. Defterinizde brüt/komisyon ayrımını kayda almak istiyorsanız mali müşaviriniz iki satırlı kayıt yapabilir; vergi matrahı yine net üzerindedir.
+
+## MoR'un son kullanıcıdan tahsil ettiği vergi sizi ilgilendirmez
+
+Polar AB'de satış yaptığında Alman müşteriden %19 KDV (DE), İrlanda müşterisinden %23 KDV (IE) tahsil eder ve [AB One Stop Shop](https://taxation-customs.ec.europa.eu/oss_en) sistemi üzerinden İrlanda Vergi İdaresi'ne (Revenue Commissioners) tek toplu olarak yatırır. Paddle aynı şeyi UK HMRC + OSS aracılığıyla yapar. LemonSqueezy benzer yapıdadır.
+
+Bu KDV sürecinin tamamen dışındasınız. Tahsilat, beyan, ödeme: hepsi MoR'un yükümlülüğüdür. Sizin Türkiye'de yapacağınız tek şey, MoR'a kestiğiniz aylık hizmet ihracatı faturasını 1 No'lu KDV Beyannamesi'nde 302 istisna satırına yazmaktır.
+
+## Hizmet ihracatı %100 kazanç indirimi
+
+Şahıs şirketi veya kurumlar mükellefi olarak [Kurumlar Vergisi Kanunu 10/1-ğ ve Gelir Vergisi Kanunu 89/13](https://www.mevzuat.gov.tr/MevzuatMetin/1.5.5520.pdf) kapsamında, hizmet ihracatı kazancının tamamı (30 Nisan 2026 tarihli 11257 sayılı Karar ile %80'den %100'e çıkarıldı) gelir veya kurumlar vergisinden indirilebilir.
+
+Aranan dört şart MoR yapısı için şöyle çalışır:
+
+1. **Müşteri yurt dışında yerleşik:** ✓ Faturadaki müşteri yurt dışı tüzel kişidir (Polar Software Inc., Paddle.com Market Ltd., Lemon Squeezy LLC).
+2. **Fatura yurt dışı müşteri adına 302 kodu ile:** ✓ Yukarıdaki yapı.
+3. **Hizmetten yurt dışında faydalanılması:** Burada GİB özelgesi tarafından açılan tartışma var (aşağıda).
+4. **Kazancın tamamı beyanname son tarihine kadar Türkiye'ye transfer edilmiş olmalı:** ✓ Olağan şart; MoR bakiyesinde duran tutar Türkiye'ye getirilmiş sayılmaz.
+
+### Münhasıran yurt dışı şartı: aynı tartışma burada da var ama çözümü kolay
+
+GİB'in [30 Ocak 2026 tarihli E-62030549-125-143061 sayılı özelgesi](https://www.alomaliye.com/2026/02/18/app-store-ve-google-playden-elde-edilen-gelirler-nasil-vergilendirilir/), "hizmetten münhasıran yurt dışında faydalanılması" şartını son kullanıcı bazında yorumlar: ürününüz Türkiye'deki son kullanıcıya da satılıyorsa kazancın tamamı indirim kapsamı dışına çıkabilir. [Danıştay 3. Dairesi'nin Ekim 2025 tarihli kararı](https://www.fatiharas.com/hizmet-ihraci-kdv-danistay-karari/) bu yorumu reddeder ve müşterinin yurt dışı platform işletmecisi olduğu için indirimin geçerli olduğunu söyler. Tartışmanın tam hâli [App Store ve Google Play sayfasında](/app-store-play-store-vergi).
+
+MoR yapısında bu tartışmanın çözümü, App Store'a göre çok daha kolay: **kendi web sitenizin satış sayfasını siz kontrol ediyorsunuz**. Polar, Paddle ve LemonSqueezy checkout'unda "geo-blocking" (ülke bazlı erişim engeli) ayarı bulunur ya da pricing sayfanızda IP bazlı yönlendirme yapabilirsiniz. Türkiye'yi listeden çıkarırsanız son kullanıcı tarafında hiçbir Türk müşteri kalmaz; "münhasıran yurt dışı" şartı tartışmasız sağlanır.
+
+App Store'da uygulamanın TR storefront'tan çıkarılması bir maliyet düşürücü karardı; MoR'da pratikte bedavadır.
+
+## Bedelin Türkiye'ye getirilmesi şartı
+
+Yıllık beyanname son tarihine kadar (gerçek kişi 31 Mart, kurumlar 30 Nisan) kazancın **tamamı** Türkiye'deki banka hesabınıza geçmiş olmalı. MoR bakiyesinde tutulan tutar (Polar payment threshold'unun altında kaldığı için aktarılmayan tutar dahil) Türkiye'ye getirilmiş sayılmaz.
+
+Pratik kural: yılın son aylarında MoR payout threshold'unu (örneğin Polar'da $20'a kadar düşebilir) düşürün ve yıl sonu bakiyenizin tamamen aktığından emin olun. Kısmi transfer = indirim hakkının tamamen kaybı, [özelge 03.02.2023 / 166967](https://www.alomaliye.com/2026/01/27/yurtdisi-hizmet-ihraci-istisnasinda-yeni-donem/) ile yerleşik kuraldır.
+
+## Sıkça yapılan hatalar
+
+1. **Son kullanıcıya ayrı fatura kesmek.** En sık hata. Almanya'daki müşteri Polar üzerinden satın aldığında, sizin tarafınızdan Almanya'daki o müşteriye ek bir TR e-Arşiv faturası kesmek gereksiz ve yanlıştır. Aynı satışa iki ayrı satıcı tarafından iki ayrı fatura çıkar, müşteri hangisini kullanacağını bilemez ve sizin satışınız aslında MoR'a (yurt dışı tüzel kişi) olduğu için bu fatura yanlış müşteriye kesilmiş olur.
+2. **Net üzerinden değil brüt üzerinden fatura kesmek.** MoR komisyonu zaten size hiç aktarılmaz; brüt üzerinden fatura kesmek sahte hasılat yazmak anlamına gelir.
+3. **MoR'un son kullanıcıdan tahsil ettiği KDV'yi 1 No'lu KDV Beyannamesi'nde göstermek.** O KDV sizinki değil, MoR'unki. Beyannamenize sokmazsınız.
+4. **MoR'u Stripe gibi düşünmek (veya tersi).** Stripe kullanıyorsanız satıcı sizsiniz, müşteri son kullanıcıdır, KDV sorumluluğu sizdedir. MoR kullanıyorsanız satıcı MoR'dur, müşteriniz MoR'dur. İki model birbirine karıştırılmamalıdır.
+5. **Payout banka hesabınıza geçtikten sonra fatura kesmek.** Tahakkuk tarihi MoR'un rapor yayımladığı tarihtir, banka transferinin tarihi değil.
+
+## Stripe MoR mi?
+
+Hayır, klasik kullanımda değil.
+
+[Stripe](https://stripe.com) bir **payment processor**: kart işlemini yürütür ama satıcı sizsiniz. Son müşteriye faturayı siz kesersiniz, KDV/sales tax yükümlülüğü sizdedir (AB'de OSS kaydı, UK'da HMRC, ABD'de eyalet bazlı), chargeback'i siz karşılarsınız. Stripe Türkiye mukimleri için resmi olarak desteklenmediği için TR mukim şahıs şirketi adına Stripe hesabı açmak zaten pratikte mümkün değildir; çoğu kullanıcı yurt dışında bir LLC veya OÜ kurarak Stripe entegre eder. Bu yapı KKEK ve mukimlik açısından ek değerlendirme gerektirir.
+
+Stripe 2024'te [LemonSqueezy'yi satın aldı](https://www.lemonsqueezy.com/blog/stripe-acquires-lemon-squeezy) ve 2025'te ["Stripe Managed Payments"](https://www.lemonsqueezy.com/blog/2026-update) adıyla bir MoR ürününü tanıttı. Bu ürün hâlâ kademeli erişimde; yaygın kullanıma açıldığında Polar, Paddle ve LemonSqueezy ile aynı çerçevede çalışacaktır.
+
+Özetle: bir TR mukim için Stripe = sen satıcısın, MoR (Polar/Paddle/LemonSqueezy/Stripe Managed Payments) = onlar satıcı.
+
+## Hangi MoR'u seçmeli?
+
+Vergi açısından üçü arasında pratik bir fark yoktur: hepsine aynı 302 kodlu hizmet ihracatı faturası kesilir, hepsi son kullanıcı KDV'sini kendisi yönetir, hepsinden gelen ödeme net royalty'dir. Seçim ürün/komisyon/UX kriterlerine kalır:
+
+- **Polar.sh:** Açık kaynak temelli, geliştirici dostu API, GitHub Sponsors entegrasyonu, düşük platform fee (%4 + sabit). Yeni nesil bir oyuncu, hızla büyüyor.
+- **Paddle:** SaaS odaklı, agresif vergi/uyum yönetimi, AB OSS deneyimi olgun. Komisyon yüksek (%5 + sabit veya custom). Enterprise için tercih edilir.
+- **LemonSqueezy:** Sade arayüz, indie/solopreneur odaklı. Stripe altında geleceği belirsiz değil ama Stripe Managed Payments ile birleşme planlanıyor.
+
+## Sıkça sorulan sorular
+
+### Polar fatura kesme mekanizması bana otomatik gider faturası gönderiyor mu?
+
+Hayır. Polar size MoR komisyon faturası kesmez; payout raporunda komisyon kalemi otomatik düşülür. Kendi tarafınızdaki muhasebede komisyon ayrı bir gider olarak gösterilecekse, Polar dashboard'undaki "Transactions" veya "Payouts" raporunu CSV olarak indirip mali müşavirinize verebilirsiniz. Bu, vergi matrahını etkilemez ama operasyonel kayıt için netlik sağlar.
+
+### Aynı anda hem MoR hem Stripe kullanıyorum, vergisi nasıl?
+
+İki ayrı kanal, iki ayrı muhasebe akışı. MoR üzerinden gelen satışlarda MoR'a hizmet ihracatı faturası kesersiniz. Stripe üzerinden gelen satışlarda son müşterinin yerleşik olduğu ülkeye göre fatura kesersiniz; AB'deki son müşteri için ya OSS'a kayıt olup yerel KDV alırsınız ya da B2B ise (KDV numarası varsa) reverse charge uygulanır. Stripe yolu çok daha yüklü; çoğu indie geliştirici Stripe'ı tamamen bırakıp MoR'a geçer.
+
+### Polar üzerinden açıkladığım fiyat €99'du ama hesabıma €88 geçti, fatura tutarı hangisi?
+
+€88. Polar son kullanıcıdan €99 tahsil etti, içinden KDV'sini (örn. Alman müşteri için %19 = €15,79) Almanya'ya yatırdı, kendi komisyonunu (örn. %4 = €3,33) kesti, kalan €79,88'i size aktardı (örnek tutarlar). Sizin faturanız net üzerinden, yani size aktarılan tutar üzerinden olur.
+
+### MoR'a faturayı her ay mı kesmem gerek?
+
+MoR'un raporlama dönemi neyse o. Polar'da varsayılan aylık; siz değiştirirseniz haftalık veya günlük olabilir. Paddle aylık, LemonSqueezy aylık. Her rapor döneminde, raporun yayımlandığı tarihe denk gelen bir e-Arşiv fatura keser, payout tutarınız üzerinden 302 kodu kullanırsınız.
+
+### LemonSqueezy Stripe altına geçince benim vergi tarafım değişti mi?
+
+Hayır. Lemon Squeezy LLC tüzel kişiliği hâlâ MoR olarak duruyor; payout raporunda muhatap aynı. Sizin tarafınızdaki süreç değişmez. Stripe Managed Payments mainstream'e gelince LemonSqueezy bu ürünle birleşebilir; o zaman muhatap tüzel kişi güncellenebilir, ancak şu an için Lemon Squeezy LLC bağımsız çalışıyor.
+
+## Sonraki adımlar
+
+- [App Store ve Google Play Vergisi](/app-store-play-store-vergi): aynı commissionaire/reseller mantığı, sadece daha sıkı geo-block kısıtı
+- [Upwork Vergisi](/upwork-vergi): farklı bir model (Upwork müşteri değil, son müşteriler müşteri)
+- [Hizmet İhracatı Genel Rehberi](/hizmet-ihracati): %100 indirimin tüm şartları
+- [302 (KDV 11/1-a) Fatura Örneği](/302-11-1-a-fatura-ornegi): e-Arşiv'de adım adım
+- [Yurtdışından Ödeme Alma](/yurtdisindan-odeme-alma): MoR payout banka tarafı
+
+---
+
+*Bu içerik bilgilendirme amaçlıdır ve mali danışmanlık hizmeti yerine geçmez. Vergi planlamanız için bir mali müşavire başvurunuz.*
