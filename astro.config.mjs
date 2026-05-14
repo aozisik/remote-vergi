@@ -6,6 +6,7 @@ import pagefind from 'astro-pagefind';
 
 export default defineConfig({
   site: 'https://remotevergi.com',
+  trailingSlash: 'always',
   integrations: [tailwind(), mdx(), sitemap(), pagefind()],
   build: {
     format: 'directory',
