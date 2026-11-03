@@ -1,8 +1,17 @@
 ---
-layout: ../layouts/ArticleLayout.astro
 title: "App Store ve Google Play Geliri: Türkiye'de Vergi Rehberi (2026)"
 description: "Apple App Store ve Google Play'den gelir alan geliştiriciler için 2026 vergi rehberi: özel banka hesabı ile %15 stopaj yolu, şahıs şirketi ile %0 gelir vergisi yolu, GİB'in son özelgesi ile Danıştay kararı arasındaki çelişki ve hangi yolun kime uygun olduğu."
 dateModified: "2026-05-11"
+topic: platform
+navTitle: "App Store ve Google Play vergisi"
+blurb: "%15 stopaj yolu mu, şahıs şirketi mi"
+order: 2
+personas: [mobil, oyun]
+summary:
+  - "Yol 1: bankada özel hesap, Apple ve Google ödemesi gelirken %15 stopaj kesilir; şirket, fatura, defter yok."
+  - "Yol 2: şahıs şirketi ile Apple Distribution International ve Google Ireland'a fatura kesip gelir vergisini %0'a indirmek."
+  - "GİB'in 30 Ocak 2026 özelgesi, uygulama Türkiye'den indirilebiliyorsa Yol 2'deki indirimi reddediyor; Danıştay Ekim 2025'te aksi yönde karar verdi."
+  - "Yıllık hasılat 5.300.000 TL'yi aşarsa Yol 1 o yıl için geçersiz olur."
 faq:
   - question: "Apple ve Google'dan gelen para için hangi vergi rejimini seçmeliyim?"
     answer: "İki ana yol var. Birincisi: bankada özel hesap açıp banka aracılığıyla %15 stopaj ödemek (Sosyal İçerik Üreticiliği ve Mobil Uygulama Geliştiriciliği İstisnası). 2026 limiti yıllık 5.300.000 TL hasılat; bu sınırın altında şirket kurma, fatura kesme, defter tutma, KDV beyannamesi yükümlülüğü yok. İkincisi: şahıs şirketi kurup hizmet ihracatı kazanç indirimi ile gelir vergisini %0'a indirmek. Bu yol daha güçlü vergi avantajı verir ama GİB'in 'münhasıran yurt dışında faydalanma' yorumu nedeniyle vergi denetimi riski taşır."
@@ -16,8 +25,8 @@ faq:
     answer: "Evet. AdMob ödemelerini Google Ireland Ltd., Unity Ads ödemelerini Unity Technologies SF, AppLovin ödemelerini AppLovin Corporation yapar. Hepsi yurt dışı tüzel kişi, hepsi aynı yapıda işler: özel hesap yolunu kullanıyorsanız banka %15'i otomatik keser; şahıs şirketi yolunu kullanıyorsanız aylık e-Arşiv hizmet ihracatı faturası 302 kodu ile bu tüzel kişilere kesilir. Reklamların Türkiye'deki kullanıcılara da gösterilmesi, hizmet ihracatı yolunda 'münhasıran yurt dışı' tartışmasını aynen tetikler."
 ---
 
-import CalculatorCTA from '../components/CalculatorCTA.astro';
-import MobileAppCalculator from '../components/MobileAppCalculator.astro';
+import CalculatorCTA from '../../components/CalculatorCTA.astro';
+import MobileAppCalculator from '../../components/MobileAppCalculator.astro';
 
 # App Store ve Google Play Geliri: Türkiye'de Vergi
 
@@ -61,7 +70,7 @@ Resmî adı **Sosyal İçerik Üreticiliği ve Mobil Uygulama Geliştiriciliği 
 ### Şartlar ve sınırlar
 
 - **Yıllık hasılat sınırı: 5.300.000 TL (2026).** Sınır gelir vergisi tarifesinin 4. dilimine endekslidir, her yıl güncellenir. Bu sınır aşılırsa istisna o yıl için tamamen düşer; aşılan yılın gelirinin tümü %15 ile %40 arasında değişen normal gelir vergisi tarifesi ile beyan edilir. Yıl içinde fark edilirse sıradan şahıs şirketi rejimine geri dönülür.
-- **Bağ-Kur (4/b) primi kendinizden.** İstisna belgesi aldığınız an vergi mükellefiyeti tesis ettiğiniz için otomatik olarak 4/b sigortalısı olursunuz. Asgari aylık prim 2026 itibarıyla yaklaşık 12.000 TL'dir. 1 Ocak 2026'dan sonra işe başlayanlar için eski Bağ-Kur prim desteği [kaldırılmıştır](https://vergimerkezi.com.tr/genc-girisimci-bagkur-destegi-kaldirildi-2026/).
+- **Bağ-Kur (4/b) primi kendinizden.** İstisna belgesi aldığınız an vergi mükellefiyeti tesis ettiğiniz için otomatik olarak 4/b sigortalısı olursunuz. Asgari aylık prim 2026 itibarıyla <Fact name="bagkurAsgariAylik" />'dir. 1 Ocak 2026'dan sonra işe başlayanlar için eski Bağ-Kur prim desteği [kaldırılmıştır](https://vergimerkezi.com.tr/genc-girisimci-bagkur-destegi-kaldirildi-2026/).
 - **Tam veya dar mükellef ayrımı yoktur**; yurt dışında ikamet eden Türk geliştiriciler de bağlı bir vergi dairesi belirleyerek bu rejimden yararlanabilir.
 
 ### Avantajlar

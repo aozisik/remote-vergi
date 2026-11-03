@@ -1,0 +1,84 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { glossary } from '../data/glossary';
+
+const terms = [...glossary].sort((a, b) => a.term.localeCompare(b.term, 'tr'));
+const letters = [...new Set(terms.map((t) => t.term[0].toLocaleUpperCase('tr')))];
+
+const definedTermSet = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  name: 'Remote Vergi Sözlüğü',
+  url: 'https://remotevergi.com/sozluk/',
+  hasDefinedTerm: terms.map((t) => ({
+    '@type': 'DefinedTerm',
+    name: t.term,
+    description: t.long ?? t.short,
+    url: `https://remotevergi.com/sozluk/#${t.id}`,
+  })),
+};
+---
+
+<Layout
+  title="Vergi Sözlüğü: Jargonsuz Açıklamalar | Remote Vergi"
+  description="Hizmet ihracatı, kazanç indirimi, matrah, Bağ-Kur, YMM, DAB, 302 kodu, stopaj, EOR: yurt dışına çalışanların karşılaştığı vergi terimlerinin sade Türkçe açıklamaları."
+>
+  <script is:inline type="application/ld+json" slot="head" set:html={JSON.stringify(definedTermSet)} />
+
+  <div class="max-w-6xl mx-auto px-5 md:px-8 pt-10 md:pt-16" data-pagefind-body>
+    <h1 class="text-[clamp(2rem,1.3rem+2.8vw,3.25rem)] font-bold leading-[1.05] tracking-[-0.03em] text-slate-900">
+      Sözlük
+    </h1>
+    <p class="mt-4 max-w-2xl text-[17px] leading-relaxed text-slate-700">
+      Mali müşavirinin söylediği ama kimsenin açıklamadığı terimler. Her biri
+      bir iki cümle, sade Türkçe.
+    </p>
+
+    <nav class="mt-8 flex flex-wrap gap-1" aria-label="Harfler">
+      {
+        letters.map((l) => (
+          <a
+            href={`#harf-${l}`}
+            class="inline-flex items-center justify-center w-10 h-10 rounded-lg text-[15px] font-semibold text-slate-700 hover:bg-slate-100 hover:text-brand-700 transition"
+          >
+            {l}
+          </a>
+        ))
+      }
+    </nav>
+
+    <dl class="mt-10 max-w-3xl border-t border-slate-200">
+      {
+        terms.map((t, i) => {
+          const letter = t.term[0].toLocaleUpperCase('tr');
+          const first = i === 0 || terms[i - 1].term[0].toLocaleUpperCase('tr') !== letter;
+          return (
+            <div id={t.id} class="term-row border-b border-slate-200 py-6 scroll-mt-24">
+              {first && <span id={`harf-${letter}`} class="block scroll-mt-24" />}
+              <dt class="text-[19px] font-semibold tracking-[-0.01em] text-slate-900">{t.term}</dt>
+              <dd class="mt-2 font-serif text-[16.5px] leading-[1.75] text-slate-700">
+                <p>{t.short}</p>
+                {t.long && <p class="mt-2">{t.long}</p>}
+                {t.guide && (
+                  <a
+                    href={t.guide}
+                    class="inline-block mt-3 font-sans text-[14px] font-semibold text-brand-700 underline decoration-brand-200 underline-offset-4 hover:decoration-brand-600"
+                  >
+                    İlgili rehber →
+                  </a>
+                )}
+              </dd>
+            </div>
+          );
+        })
+      }
+    </dl>
+  </div>
+
+  <style>
+    .term-row:target {
+      background: oklch(0.97 0.014 26);
+      box-shadow: -1.25rem 0 0 oklch(0.97 0.014 26), 1.25rem 0 0 oklch(0.97 0.014 26);
+    }
+  </style>
+</Layout>

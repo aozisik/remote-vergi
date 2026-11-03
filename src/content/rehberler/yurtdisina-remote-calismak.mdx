@@ -1,8 +1,12 @@
 ---
-layout: ../layouts/ArticleLayout.astro
 title: "Yurtdışına Remote Çalışmak 2026: Sözleşme, Mükellefiyet, Vergi ve SGK Tam Rehberi"
 description: "Türkiye'den yurtdışı şirkete remote çalışmak isteyen yazılımcı, tasarımcı ve mühendis için 2026 rehberi. Contractor mı EOR mi, şahıs şirketi mi serbest meslek mi, hizmet ihracatı %100 kazanç istisnası, Bağ-Kur ve döviz akışı. Deel ve Remote.com tipi platformların TR mukim için gerçek vergi etkisi."
 dateModified: "2026-05-07"
+topic: kariyer
+navTitle: "Yurt dışına remote çalışmak"
+blurb: "Sözleşme, mükellefiyet, vergi ve SGK"
+order: 1
+personas: [yazilimci, hizmet]
 faq:
   - question: "Yurtdışına remote çalışırken contractor mı yoksa EOR (bordrolu) yapı mı daha avantajlı?"
     answer: "TR mukimleri için neredeyse her zaman contractor yapı vergi olarak çok daha avantajlıdır. Contractor olarak şahıs şirketi veya serbest meslek erbabı sıfatıyla yurtdışı şirkete fatura keserseniz, hizmet ihracatı %100 kazanç istisnasından (GVK 89/13, KVK 10/ğ) yararlanırsınız: efektif gelir vergisi neredeyse sıfıra iner. EOR (Employer of Record) yapısında ise Deel/Remote.com gibi bir aracı şirket sizi TR'de yerel çalışan olarak istihdam eder; gelir ücret olur, hizmet ihracatı istisnası uygulanmaz, gelir vergisi dilimleri (%15 – %40) ve SGK işveren payı tam uygulanır. Net farkı görmek için ana sayfadaki hesaplayıcıyı kullanabilirsiniz."
@@ -18,7 +22,7 @@ faq:
     answer: "Hayır, gelir/kurumlar vergisi tarafındaki %100 kazanç indirimi 03.02.2023 tarih ve 166967 sayılı özelge ile netleştirildi: gelirin döviz veya TL olması fark etmez. Tek kritik şart, kazancın tamamının yıllık beyanname verme süresine kadar Türkiye'ye transfer edilmiş olmasıdır. KDV %0 fatura uygulaması ise farklı; TL girişi durumunda klasik yorum tartışmalıdır ve denetimde sorgulanabilir. Pratikte yazılımcı/tasarımcı için KDV iadesi söz konusu olmadığından gelir vergisi tarafı önemli olur. Detaylı karşılaştırma: Yurtdışından Ödeme Alma rehberi."
 ---
 
-import CalculatorCTA from '../components/CalculatorCTA.astro';
+import CalculatorCTA from '../../components/CalculatorCTA.astro';
 
 # Yurtdışına Remote Çalışmak 2026: Tam Kurulum Rehberi
 
@@ -171,7 +175,7 @@ TR mukim olarak şahıs şirketi veya serbest meslek erbabı çalışırsanız *
 
 ### 2026 baz primi
 
-- Aylık asgari Bağ-Kur primi: yaklaşık **11.808 TL** (asgari ücret bazında, %32 oranında).
+- Aylık asgari Bağ-Kur primi: yaklaşık **<Fact name="bagkurAsgariAylik" />** (asgari ücret bazında, %32 oranında).
 - Geliriniz arttıkça matrah üst sınırına kadar (asgari ücretin 7,5 katı) prim de artar; çoğu freelancer asgari kademede ödemeyi tercih eder.
 - 2026'dan itibaren genç girişimci Bağ-Kur prim desteği **kaldırılmıştır**: 1 Ocak 2026 sonrası işe başlayanlar için ilk yıl prim muafiyeti yoktur.
 

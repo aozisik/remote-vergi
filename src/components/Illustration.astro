@@ -1,0 +1,132 @@
+---
+// Small duotone spot illustrations for task tiles. Each sits on a soft tinted
+// disc; the tint is the tile's "color" so the grid reads friendly, not uniform.
+interface Props {
+  name: IllustrationName;
+  tone?: IllustrationTone;
+  class?: string;
+}
+
+const { name, tone = 'rose', class: className = '' } = Astro.props;
+
+const tones = {
+  rose: { bg: 'oklch(0.94 0.035 20)', fill: 'oklch(0.86 0.07 22)', ink: 'oklch(0.48 0.18 26)' },
+  mint: { bg: 'oklch(0.94 0.04 165)', fill: 'oklch(0.86 0.08 165)', ink: 'oklch(0.45 0.1 165)' },
+  amber: { bg: 'oklch(0.95 0.05 85)', fill: 'oklch(0.88 0.11 80)', ink: 'oklch(0.52 0.12 60)' },
+  sky: { bg: 'oklch(0.94 0.035 235)', fill: 'oklch(0.85 0.07 235)', ink: 'oklch(0.47 0.12 250)' },
+  lilac: { bg: 'oklch(0.94 0.035 300)', fill: 'oklch(0.86 0.07 300)', ink: 'oklch(0.48 0.13 300)' },
+} as const;
+const t = tones[tone];
+---
+
+<svg
+  viewBox="0 0 64 64"
+  class={className}
+  aria-hidden="true"
+  fill="none"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+>
+  <circle cx="32" cy="32" r="32" fill={t.bg}></circle>
+  {
+    name === 'company' && (
+      <g stroke={t.ink} stroke-width="2.2">
+        <path d="M18 46V24l14-7 14 7v22" fill={t.fill} />
+        <path d="M14 46h36" />
+        <path d="M28 46v-9h8v9" fill="white" />
+        <path d="M24 29h2M38 29h2M24 34h2M38 34h2" />
+      </g>
+    )
+  }
+  {
+    name === 'invoice' && (
+      <g stroke={t.ink} stroke-width="2.2">
+        <path d="M20 14h18l7 7v29H20z" fill="white" />
+        <path d="M38 14v7h7" fill={t.fill} />
+        <path d="M25 27h12M25 32h15M25 37h9" />
+        <circle cx="42" cy="44" r="7" fill={t.fill} />
+        <path d="M39 44.2l2 2 4-4.2" />
+      </g>
+    )
+  }
+  {
+    name === 'transfer' && (
+      <g stroke={t.ink} stroke-width="2.2">
+        <rect x="14" y="20" width="22" height="15" rx="3" fill={t.fill} />
+        <circle cx="25" cy="27.5" r="3.5" fill="white" />
+        <rect x="28" y="31" width="22" height="15" rx="3" fill="white" />
+        <path d="M35 38.5h8M46 16l4 4-4 4M40 20h10" />
+      </g>
+    )
+  }
+  {
+    name === 'calculator' && (
+      <g stroke={t.ink} stroke-width="2.2">
+        <rect x="20" y="13" width="24" height="38" rx="4" fill="white" />
+        <rect x="24" y="18" width="16" height="8" rx="1.5" fill={t.fill} />
+        <path d="M26 32h.01M32 32h.01M38 32h.01M26 38h.01M32 38h.01M38 38h.01M26 44h.01M32 44h.01" stroke-width="3.2" />
+        <path d="M38 38v6" stroke-width="3.2" />
+      </g>
+    )
+  }
+  {
+    name === 'laptop' && (
+      <g stroke={t.ink} stroke-width="2.2">
+        <rect x="17" y="19" width="30" height="20" rx="2.5" fill="white" />
+        <path d="M12 45h40l-3-6H15z" fill={t.fill} />
+        <path d="M27 26l-3 3 3 3M37 26l3 3-3 3M33 25l-2 8" />
+      </g>
+    )
+  }
+  {
+    name === 'phone' && (
+      <g stroke={t.ink} stroke-width="2.2">
+        <rect x="22" y="12" width="20" height="40" rx="4" fill="white" />
+        <rect x="26" y="19" width="5" height="5" rx="1.2" fill={t.fill} />
+        <rect x="33" y="19" width="5" height="5" rx="1.2" fill={t.fill} />
+        <rect x="26" y="27" width="5" height="5" rx="1.2" fill={t.fill} />
+        <rect x="33" y="27" width="5" height="5" rx="1.2" />
+        <path d="M30 46h4" />
+      </g>
+    )
+  }
+  {
+    name === 'calendar' && (
+      <g stroke={t.ink} stroke-width="2.2">
+        <rect x="15" y="18" width="34" height="30" rx="4" fill="white" />
+        <path d="M15 26h34" />
+        <path d="M15 22a4 4 0 0 1 4-4h26a4 4 0 0 1 4 4v4H15z" fill={t.fill} />
+        <path d="M23 14v7M41 14v7" />
+        <path d="M27 37l3.5 3.5L38 33" />
+      </g>
+    )
+  }
+  {
+    name === 'search' && (
+      <g stroke={t.ink} stroke-width="2.2">
+        <circle cx="29" cy="29" r="11" fill="white" />
+        <circle cx="29" cy="29" r="6" fill={t.fill} />
+        <path d="M37.5 37.5L47 47" stroke-width="3.4" />
+      </g>
+    )
+  }
+  {
+    name === 'controller' && (
+      <g stroke={t.ink} stroke-width="2.2">
+        <path d="M20 24h24a7 7 0 0 1 7 8l-1.5 9a4 4 0 0 1-7 1.8L39 39H25l-3.5 3.8a4 4 0 0 1-7-1.8L13 32a7 7 0 0 1 7-8z" fill="white" />
+        <path d="M22 29v6M19 32h6" />
+        <circle cx="40" cy="30" r="1.8" fill={t.fill} />
+        <circle cx="44" cy="34" r="1.8" fill={t.fill} />
+      </g>
+    )
+  }
+  {
+    name === 'pen' && (
+      <g stroke={t.ink} stroke-width="2.2">
+        <path d="M17 47l3-10 20-20 7 7-20 20z" fill="white" />
+        <path d="M36 21l7 7" />
+        <path d="M17 47l3-10 7 7z" fill={t.fill} />
+      </g>
+    )
+  }
+</svg>

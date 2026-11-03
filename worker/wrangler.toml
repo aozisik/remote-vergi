@@ -1,0 +1,19 @@
+name = "remote-vergi-api"
+main = "src/index.js"
+compatibility_date = "2026-01-01"
+
+# Serve from api.remotevergi.com (zone already on Cloudflare).
+# Comment this block out to test on the free *.workers.dev URL first.
+routes = [
+  { pattern = "api.remotevergi.com", custom_domain = true }
+]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "remote-vergi"
+database_id = "2e6f55e8-0e75-4bf1-99a4-544d22b14fe3"
+
+[vars]
+ALLOWED_ORIGIN = "https://remotevergi.com"
+
+#   npx wrangler secret put ADMIN_TOKEN

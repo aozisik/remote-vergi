@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getGuides } from '../data/guides';
+import { tools, topics } from '../data/site';
+
+const guides = await getGuides();
+const latest = [...guides]
+  .sort((a, b) => b.dateModified.localeCompare(a.dateModified))
+  .slice(0, 1)[0];
+const fmt = (d: string) =>
+  new Date(d).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<Layout
+  title="Tüm Rehberler: Remote Çalışanlar İçin Vergi, Şirket ve Fatura | Remote Vergi"
+  description="Türkiye'den yurt dışına çalışanlar için tüm rehberler konu konu: hizmet ihracatı ve %100 kazanç indirimi, şahıs şirketi, e-Arşiv fatura, ödeme alma, Upwork, App Store ve remote iş bulma."
+>
+  <div class="max-w-6xl mx-auto px-5 md:px-8 pt-10 md:pt-16" data-pagefind-body>
+    <h1 class="text-[clamp(2rem,1.3rem+2.8vw,3.25rem)] font-bold leading-[1.05] tracking-[-0.03em] text-slate-900">
+      Tüm rehberler
+    </h1>
+    <p class="mt-4 max-w-2xl text-[17px] leading-relaxed text-slate-700">
+      {guides.length} rehber, {topics.length} konu. Hepsi 2026 mevzuatına göre
+      yazıldı ve her birinde son kontrol tarihi var. En son {fmt(latest.dateModified)}
+      tarihinde güncellendi.
+    </p>
+
+    <nav class="mt-8 flex flex-wrap gap-2" aria-label="Konular">
+      {
+        topics.map((t) => (
+          <a
+            href={`#${t.id}`}
+            class="inline-flex items-center h-10 px-4 rounded-full border border-slate-200 bg-white text-[14px] font-medium text-slate-800 hover:border-brand-300 hover:text-brand-700 transition"
+          >
+            {t.title}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="mt-14 space-y-16">
+      {
+        topics.map((t) => {
+          const list = guides.filter((g) => g.topic === t.id);
+          return (
+            <section id={t.id} class="grid gap-6 md:grid-cols-[260px_minmax(0,1fr)] md:gap-12">
+              <div>
+                <h2 class="text-[22px] font-bold tracking-[-0.015em] text-slate-900">{t.title}</h2>
+                <p class="mt-1.5 text-[15px] text-slate-600">{t.blurb}</p>
+              </div>
+              <ul class="border-t border-slate-200">
+                {list.map((g) => (
+                  <li class="border-b border-slate-200">
+                    <a href={g.href} class="group flex items-baseline justify-between gap-6 py-4">
+                      <span>
+                        <span class="block text-[17px] font-semibold text-slate-900 group-hover:text-brand-700 transition">
+                          {g.title}
+                        </span>
+                        <span class="block mt-0.5 text-[15px] text-slate-600">{g.blurb}</span>
+                      </span>
+                      <span class="shrink-0 text-[13px] text-slate-500 tabular-nums">
+                        {fmt(g.dateModified)}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          );
+        })
+      }
+
+      <section id="araclar" class="grid gap-6 md:grid-cols-[260px_minmax(0,1fr)] md:gap-12">
+        <div>
+          <h2 class="text-[22px] font-bold tracking-[-0.015em] text-slate-900">Araçlar</h2>
+          <p class="mt-1.5 text-[15px] text-slate-600">Rakamı kendin gör</p>
+        </div>
+        <ul class="border-t border-slate-200">
+          {
+            tools.map((t) => (
+              <li class="border-b border-slate-200">
+                <a href={t.href} class="group block py-4">
+                  <span class="block text-[17px] font-semibold text-slate-900 group-hover:text-brand-700 transition">
+                    {t.title}
+                  </span>
+                  <span class="block mt-0.5 text-[15px] text-slate-600">{t.blurb}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </div>
+  </div>
+</Layout>

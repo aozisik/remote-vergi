@@ -1,0 +1,64 @@
+---
+// One step of a persona roadmap. Renders inside PersonaLayout's <ol>; the
+// number comes from the list itself so steps can be reordered freely.
+interface Props {
+  title: string;
+  links?: Array<{ href: string; label: string }>;
+}
+
+const { title, links = [] } = Astro.props;
+---
+
+<li class="step relative grid grid-cols-[2.75rem_minmax(0,1fr)] gap-x-5 pb-12 last:pb-0">
+  <span
+    class="step-num relative z-[1] flex items-center justify-center w-11 h-11 rounded-full bg-white border-2 border-brand-600 text-[16px] font-bold text-brand-700 num"
+    aria-hidden="true"></span>
+  <div class="pt-1.5 max-w-[44rem]">
+    <h3 class="text-[20px] font-semibold tracking-[-0.01em] text-slate-900">{title}</h3>
+    <div class="step-body mt-3 font-serif text-[16.5px] leading-[1.75] text-slate-700 space-y-3">
+      <slot />
+    </div>
+    {
+      links.length > 0 && (
+        <div class="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+          {links.map((l) => (
+            <a
+              href={l.href}
+              class="text-[14px] font-semibold text-brand-700 hover:text-brand-800 underline decoration-brand-200 underline-offset-4 hover:decoration-brand-600"
+            >
+              {l.label} →
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</li>
+
+<style is:global>
+  ol > .step {
+    counter-increment: step;
+  }
+  .step .step-num::before {
+    content: counter(step);
+  }
+  .step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: calc(1.375rem - 1px);
+    top: 2.75rem;
+    bottom: 0;
+    width: 2px;
+    background: oklch(0.91 0.007 25);
+  }
+  .step-body strong {
+    color: oklch(0.21 0.016 25);
+    font-weight: 600;
+  }
+  .step-body a:not(.terim-more) {
+    color: oklch(0.45 0.17 26);
+    text-decoration: underline;
+    text-decoration-color: oklch(0.88 0.06 26);
+    text-underline-offset: 3px;
+  }
+</style>

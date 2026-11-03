@@ -1,0 +1,162 @@
+---
+// Roadmap page for one reader persona: a short answer, an ordered path of
+// steps (passed in the default slot as <Step> components), then every guide
+// tagged for this persona in its frontmatter.
+import Layout from './Layout.astro';
+import { getGuidesForPersona } from '../data/guides';
+import { type PersonaId, personaById, personas, topicById } from '../data/site';
+
+interface Props {
+  persona: PersonaId;
+  title: string;
+  metaTitle: string;
+  description: string;
+  summary: string[];
+  dateModified: string;
+}
+
+const { persona, title, metaTitle, description, summary, dateModified } =
+  Astro.props;
+const me = personaById(persona);
+const guides = await getGuidesForPersona(persona);
+const others = personas.filter((p) => p.id !== persona);
+const verifiedOn = new Date(dateModified).toLocaleDateString('tr-TR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
+---
+
+<Layout
+  title={`${metaTitle} | Remote Vergi`}
+  description={description}
+  dateModified={dateModified}
+>
+  <script
+    is:inline
+    type="application/ld+json"
+    slot="head"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Anasayfa', item: 'https://remotevergi.com/' },
+        { '@type': 'ListItem', position: 2, name: me.name, item: pageUrl },
+      ],
+    })}
+  />
+
+  <div data-pagefind-body>
+    <section class="border-b border-slate-200 bg-white">
+      <div class="max-w-6xl mx-auto px-5 md:px-8 pt-10 md:pt-16 pb-12 md:pb-16">
+        <nav class="text-[14px] text-slate-600 mb-6" aria-label="Breadcrumbs">
+          <a href="/" class="hover:text-brand-700 transition">Anasayfa</a>
+          <span class="mx-2 text-slate-300" aria-hidden="true">/</span>
+          <span>Kimler için</span>
+        </nav>
+        <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_380px] lg:items-end">
+          <div>
+            <p class="text-[15px] font-semibold text-brand-700">{me.name}</p>
+            <h1
+              class="mt-2 text-[clamp(2rem,1.3rem+2.8vw,3.25rem)] font-bold leading-[1.05] tracking-[-0.03em] text-slate-900"
+            >
+              {title}
+            </h1>
+            <p class="mt-5 max-w-2xl text-[17px] leading-relaxed text-slate-700">
+              {description}
+            </p>
+            <p class="mt-5 inline-flex items-center gap-1.5 text-[14px] text-slate-600">
+              <svg viewBox="0 0 24 24" class="w-4 h-4 text-gain-600" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.2 4.2L19 7"></path>
+              </svg>
+              Son kontrol: {verifiedOn}
+            </p>
+          </div>
+          <div class="rounded-2xl bg-slate-900 text-white p-6">
+            <p class="text-[15px] font-semibold">Kısaca</p>
+            <ul class="mt-3 space-y-3">
+              {
+                summary.map((line) => (
+                  <li class="flex gap-3 text-[15px] leading-relaxed text-slate-200">
+                    <span class="mt-[0.6em] w-1.5 h-1.5 rounded-full bg-brand-400 shrink-0" aria-hidden="true" />
+                    <span>{line}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="max-w-6xl mx-auto px-5 md:px-8">
+      <slot name="before" />
+
+      <section class="pt-14 md:pt-20" aria-labelledby="yol">
+        <h2 id="yol" class="text-[28px] md:text-[32px] font-bold tracking-[-0.02em] text-slate-900">
+          Adım adım yol haritan
+        </h2>
+        <ol class="mt-8 relative [counter-reset:step]">
+          <slot />
+        </ol>
+      </section>
+
+      <slot name="after" />
+
+      <section class="pt-16 md:pt-20" aria-labelledby="okuma">
+        <h2 id="okuma" class="text-[24px] font-bold tracking-[-0.02em] text-slate-900">
+          Senin için rehberler
+        </h2>
+        <ul class="mt-6 grid gap-x-10 md:grid-cols-2 border-t border-slate-200">
+          {
+            guides.map((g) => (
+              <li class="border-b border-slate-200">
+                <a href={g.href} class="group flex items-baseline justify-between gap-4 py-4">
+                  <span>
+                    <span class="block text-[13px] text-slate-500">{topicById(g.topic).title}</span>
+                    <span class="block mt-0.5 text-[16px] font-semibold text-slate-900 group-hover:text-brand-700 transition">
+                      {g.title}
+                    </span>
+                    <span class="block mt-0.5 text-[14px] text-slate-600">{g.blurb}</span>
+                  </span>
+                  <span class="text-slate-400 group-hover:text-brand-600 transition" aria-hidden="true">→</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="pt-16 md:pt-20" aria-labelledby="diger">
+        <h2 id="diger" class="text-[17px] font-semibold text-slate-900">
+          Durumun farklı mı?
+        </h2>
+        <div class="mt-4 flex flex-wrap gap-2">
+          {
+            others.map((p) => (
+              <a
+                href={p.href}
+                class="inline-flex items-center h-11 px-4 rounded-full border border-slate-200 bg-white text-[14px] font-medium text-slate-800 hover:border-brand-300 hover:text-brand-700 transition"
+              >
+                {p.name}
+              </a>
+            ))
+          }
+        </div>
+        <p class="mt-10 max-w-2xl text-[14px] leading-relaxed text-slate-600">
+          Bu sayfa bilgilendirme amaçlıdır. Rakamlar 2026 mevzuatına göredir ve
+          yaklaşıktır; kendi durumun için mali müşavirine danış. Yanlış bir şey
+          görürsen
+          <a
+            href="https://github.com/aozisik/remote-vergi"
+            target="_blank"
+            rel="noopener"
+            class="font-medium text-brand-700 underline decoration-brand-200 underline-offset-4"
+            >GitHub'da düzeltme öner</a
+          >.
+        </p>
+      </section>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,100 @@
+---
+import PersonaLayout from '../layouts/PersonaLayout.astro';
+import Step from '../components/Step.astro';
+import Fact from '../components/Fact.astro';
+import Terim from '../components/Terim.astro';
+---
+
+<PersonaLayout
+  persona="hizmet"
+  title="Tasarımcı, mühendis ve diğer hizmet ihracatçıları için yol haritası"
+  metaTitle="Hizmet İhracatçısı İçin Vergi Yol Haritası 2026: Tasarım, Mühendislik, Eğitim"
+  description="Yurt dışına tasarım, mühendislik, mimarlık, eğitim ya da sağlık hizmeti veriyorsan %100 kazanç indirimi senin için de geçerli olabilir. Önce kapsamda olup olmadığını, sonra izleyeceğin yolu anlatıyoruz."
+  dateModified="2026-11-03"
+  summary={[
+    '2026\'da yazılım, mühendislik, mimarlık, tasarım, eğitim ve sağlık hizmetlerinde kazanç indirimi %100.',
+    'Kapsam dışı kalan hizmetlerde (genel danışmanlık gibi) oran farklı olabilir; mesleğini mali müşavirinle netleştir.',
+    'Şahıs şirketi ya da serbest meslek: indirim iki yapıda da uygulanabilir.',
+    'Şartlar herkes için aynı: müşteri yurt dışında, faydalanma yurt dışında, para Türkiye\'de.',
+  ]}
+>
+  <section slot="before" class="pt-14 md:pt-20" aria-labelledby="kapsam">
+    <h2 id="kapsam" class="text-[24px] font-bold tracking-[-0.02em] text-slate-900">
+      Hizmetin kapsamda mı?
+    </h2>
+    <p class="mt-3 max-w-2xl text-[16px] leading-relaxed text-slate-700">
+      11257 sayılı Cumhurbaşkanı Kararı ile %100 indirim aşağıdaki hizmetlerde
+      uygulanıyor:
+    </p>
+    <ul class="mt-6 flex flex-wrap gap-2">
+      {
+        ['Yazılım', 'Mühendislik', 'Mimarlık', 'Tasarım', 'Eğitim', 'Sağlık'].map((s) => (
+          <li class="inline-flex items-center gap-2 h-11 px-4 rounded-full bg-gain-50 border border-gain-100 text-[15px] font-medium text-gain-800">
+            <svg viewBox="0 0 24 24" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.2 4.2L19 7"></path>
+            </svg>
+            {s}
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-5 max-w-2xl text-[15px] leading-relaxed text-slate-700">
+      Örnekler: UI/UX ve grafik tasarım, teknik çizim, mimari proje, online
+      ders ve kurumsal eğitim, tıbbi raporlama. Ayrıntılı liste ve kapsam dışı
+      kalanlar:
+      <a href="/hizmet-ihracati-istisnasi/" class="font-semibold text-brand-700 underline decoration-brand-200 underline-offset-4">istisna rehberi →</a>
+    </p>
+  </section>
+
+  <Step
+    title="Yapını seç: şahıs şirketi mi, serbest meslek mi?"
+    links={[{ href: '/sahis-sirketi/', label: 'Şahıs şirketi rehberi' }]}
+  >
+    <p>
+      Bazı meslekler <Terim id="serbest-meslek">serbest meslek</Terim>
+      olarak kayıt yaptırıp makbuz keser, bazıları
+      <Terim id="sahis-sirketi">şahıs şirketi</Terim> açıp fatura keser.
+      Hizmet ihracatı indirimi iki yapıda da uygulanabilir; gider ve
+      belge düzeni farklıdır. Bu kararı mali müşavirinle ver.
+    </p>
+  </Step>
+
+  <Step
+    title="Yurt dışındaki müşterine döviz cinsinden belge düzenle"
+    links={[{ href: '/302-11-1-a-fatura-ornegi/', label: '302 faturası' }]}
+  >
+    <p>
+      Belge yurt dışındaki müşterinin adına kesilir,
+      <Terim id="302">302 istisna kodu</Terim> ile KDV eklenmez. Hizmetin
+      sonucundan yurt dışında faydalanılmalı: Türkiye'deki bir şirket için
+      yapılan iş kapsam dışıdır.
+    </p>
+  </Step>
+
+  <Step
+    title="Kazancın tamamını Türkiye'ye getir"
+    links={[{ href: '/yurtdisindan-odeme-alma/', label: 'Ödeme alma yolları' }]}
+  >
+    <p>
+      Yıllık beyanname son tarihine kadar kazancın tamamı Türkiye'deki banka
+      hesabına gelmiş olmalı. <Terim id="dab">DAB</Terim> veya banka
+      dekontunu sakla.
+    </p>
+  </Step>
+
+  <Step
+    title="Beyan et, eşiği takip et"
+    links={[
+      { href: '/hizmet-ihracati-istisnasi/', label: 'YMM tasdiki' },
+      { href: '/vergi-takvimi/', label: 'Vergi takvimi' },
+      { href: '/#hesapla', label: 'Net kazancını hesapla' },
+    ]}
+  >
+    <p>
+      Yıllık beyannamede kazancın <Fact name="hizmetIhracatiIndirimi" />
+      oranında indirilir. Yıllık indirim tutarın
+      <Fact name="ymmIndirimEsigi" />'yi geçerse
+      <Terim id="ymm">YMM tasdik raporu</Terim> zorunlu olur.
+    </p>
+  </Step>
+</PersonaLayout>

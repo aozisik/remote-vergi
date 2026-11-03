@@ -143,7 +143,7 @@ const { mixed = false } = Astro.props;
   <!-- Form -->
   <section class="card p-5 md:p-6 md:col-span-2 rise">
     <div class="flex items-center justify-between mb-5">
-      <h2 class="text-sm font-semibold text-slate-900">Bilgiler</h2>
+      <h2 class="text-[15px] font-semibold text-slate-900">Senin rakamların</h2>
       <div
         class="inline-flex rounded-lg border border-slate-200 bg-slate-50 p-0.5 text-[12px] font-medium"
         role="group"
@@ -153,7 +153,7 @@ const { mixed = false } = Astro.props;
           <button
             type="button"
             @click="setYear(y)"
-            :class="form.taxYear === y ? 'bg-white text-indigo-700 shadow-sm border border-slate-200' : 'text-slate-500 hover:text-slate-700 border border-transparent'"
+            :class="form.taxYear === y ? 'bg-white text-brand-700 shadow-sm border border-slate-200' : 'text-slate-500 hover:text-slate-700 border border-transparent'"
             class="px-2.5 py-1 rounded-md transition"
             x-text="y"
           ></button>
@@ -244,7 +244,7 @@ const { mixed = false } = Astro.props;
           Detaylı kalemler:
           <a
             href="/sahis-sirketi-maliyet/"
-            class="text-indigo-600 hover:text-indigo-800 hover:underline"
+            class="text-brand-600 hover:text-brand-800 hover:underline"
             >şahıs şirketi maliyetleri</a
           >.
         </span>
@@ -268,7 +268,7 @@ const { mixed = false } = Astro.props;
             type="button"
             x-show="form.bagkurPremium !== years[form.taxYear].bagkurPremium"
             @click="form.bagkurPremium = years[form.taxYear].bagkurPremium"
-            class="text-indigo-600 hover:text-indigo-800 hover:underline"
+            class="text-brand-600 hover:text-brand-800 hover:underline"
             >Asgariye dön</button
           >
         </span>
@@ -342,10 +342,10 @@ const { mixed = false } = Astro.props;
       get pieSegments() {
         const total = this.pieTotal || 1;
         return [
-          { label: 'Net Gelir', value: this.pieNet, color: '#4f46e5' },
-          { label: 'Vergi', value: this.pieVergi, color: '#dc2626' },
-          { label: 'Sigorta', value: this.pieSigorta, color: '#d97706' },
-          { label: 'Muhasebe', value: this.pieMuhasebe, color: '#475569' }
+          { label: 'Net gelir', value: this.pieNet, color: 'oklch(0.5 0.11 160)' },
+          { label: 'Vergi', value: this.pieVergi, color: 'oklch(0.52 0.19 26)' },
+          { label: 'Bağ-Kur', value: this.pieSigorta, color: 'oklch(0.72 0.14 70)' },
+          { label: 'Muhasebe', value: this.pieMuhasebe, color: 'oklch(0.52 0.014 25)' }
         ].map(s => ({
           ...s,
           amount: this.formatTL(s.value),
@@ -368,23 +368,21 @@ const { mixed = false } = Astro.props;
   >
     <!-- Hero number card -->
     <div
-      class="card p-5 md:p-6 mb-5 bg-gradient-to-br from-indigo-50/40 via-white to-white border-indigo-100"
+      class="card p-5 md:p-6 mb-5 !bg-gain-50 !border-gain-100"
     >
-      <p
-        class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-1.5"
-      >
-        Net Yıllık Kazanç
+      <p class="text-[13px] text-gain-800 font-medium mb-1">
+        Yıllık net kazancın
       </p>
       <p
-        class="num font-semibold text-slate-900 tracking-tight leading-tight break-words text-2xl md:text-3xl"
+        class="num font-semibold text-gain-800 tracking-tight leading-tight break-words text-3xl md:text-4xl"
         x-text="netAnnual() ? netAnnual()[1] : '–'"
       >
       </p>
 
-      <div class="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-slate-100">
+      <div class="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-gain-100">
         <div>
           <p
-            class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mb-0.5"
+            class="text-[12px] text-gain-800/80 font-medium mb-0.5"
           >
             Aylık (₺)
           </p>
@@ -396,7 +394,7 @@ const { mixed = false } = Astro.props;
         </div>
         <div>
           <p
-            class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mb-0.5"
+            class="text-[12px] text-gain-800/80 font-medium mb-0.5"
             x-text="`Aylık (${currencies[form.currency].symbol})`"
           >
           </p>
@@ -422,10 +420,8 @@ const { mixed = false } = Astro.props;
     <!-- Distribution chart -->
     <template x-if="pieTotal > 0">
       <div class="card p-5 md:p-6 mb-5">
-        <p
-          class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-4"
-        >
-          Dağılım
+        <p class="text-[14px] font-semibold text-slate-900 mb-4">
+          Kazancın nereye gidiyor
         </p>
         <div class="flex items-center gap-5 md:gap-7 flex-wrap">
           <div
@@ -519,7 +515,7 @@ const { mixed = false } = Astro.props;
                       <a
                         x-bind:href="item[2]"
                         target="_blank"
-                        class="text-indigo-600 hover:text-indigo-800 hover:underline"
+                        class="text-brand-600 hover:text-brand-800 hover:underline"
                         x-text="item[0]"></a>
                     </template>
                   </span>
@@ -539,7 +535,7 @@ const { mixed = false } = Astro.props;
       <span class="text-slate-500">Bu hesabı paylaş</span>
       <button
         @click="copyShare()"
-        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-indigo-300 hover:text-indigo-700 hover:bg-indigo-50 font-medium transition"
+        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-slate-700 hover:border-brand-300 hover:text-brand-700 hover:bg-brand-50 font-medium transition"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -556,7 +552,7 @@ const { mixed = false } = Astro.props;
           ></path>
         </svg>
         <span x-show="!copied">Linki kopyala</span>
-        <span x-show="copied" style="color: #4f46e5;">Kopyalandı</span>
+        <span x-show="copied" class="text-gain-700">Kopyalandı</span>
       </button>
     </div>
   </section>
@@ -566,15 +562,15 @@ const { mixed = false } = Astro.props;
   .field-input .prefix-button {
     cursor: pointer;
     border: 0;
-    border-right: 1px solid #e2e8f0;
+    border-right: 1px solid var(--line);
     transition: background-color 150ms ease, color 150ms ease;
   }
   .field-input .prefix-button:hover {
-    background: #eef2ff;
-    color: #4f46e5;
+    background: var(--brand-wash);
+    color: var(--brand);
   }
   .field-input .prefix-button:focus-visible {
-    outline: 2px solid #6366f1;
+    outline: 2px solid var(--brand);
     outline-offset: -2px;
   }
 </style>

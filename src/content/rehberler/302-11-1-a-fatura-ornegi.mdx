@@ -1,8 +1,17 @@
 ---
-layout: ../layouts/ArticleLayout.astro
 title: "302 (KDV 11/1-a) Hizmet İhracatı Faturası: e-Arşiv'de Nasıl Kesilir? (2026)"
 description: "Yurt dışı müşteriye e-Arşiv fatura nasıl kesilir? Senaryo (EARSIVFATURA), Fatura Tipi (ISTISNA), 302 muafiyet kodu, foreign customer VKN 2222222222, döviz kuru. Gerçek alan adları ile adım adım rehber."
 dateModified: "2026-05-07"
+topic: fatura
+navTitle: "302 hizmet ihracatı faturası"
+blurb: "e-Arşiv'de hangi alana ne yazılır, örnekli"
+order: 1
+personas: [yazilimci, mobil, oyun, hizmet]
+summary:
+  - "Yurt dışı müşteriye e-Fatura değil e-Arşiv fatura kesilir: Senaryo EARSIVFATURA, Fatura Tipi ISTISNA."
+  - "Muafiyet sebebi 302 (KDV 11/1-a) seçilir, KDV oranı %0 olur."
+  - "Yurt dışı müşterinin VKN alanına 2222222222 yazılır."
+  - "Fatura döviz cinsinden kesilir; hizmet açıklaması İngilizce ve spesifik olmalı."
 faq:
   - question: "302 istisna kodu nedir?"
     answer: "302, 3065 sayılı KDV Kanunu'nun 11/1-a maddesi kapsamındaki hizmet ihracatı işlemlerinde kullanılan KDV istisna kodudur. Faturada 'Vergi İstisna Muafiyet Sebebi' alanına '302 - 11/1-a – Hizmet ihracatı (yurtdışındaki müşterilere hizmet)' olarak yazılır ve KDV oranı %0 uygulanır."
@@ -16,11 +25,14 @@ faq:
     answer: "İngilizce yazmak standart uygulamadır çünkü müşteri Türkçe okumayacaktır. Hizmetin teknik niteliğini açıkça belirten ifadeler kullanılmalıdır: 'Software Development Service', 'UI/UX Design Service', 'Engineering Consulting' gibi. Genel 'consulting services' ifadesi vergi denetiminde sorgulanabilir; spesifik teknik tanım her zaman daha güvenlidir."
 ---
 
-import CalculatorCTA from '../components/CalculatorCTA.astro';
+import CalculatorCTA from '../../components/CalculatorCTA.astro';
+import NextSteps from '../../components/NextSteps.astro';
 
 # 302 Hizmet İhracatı Faturası: e-Arşiv'de Nasıl Kesilir?
 
 Yurt dışı müşterilere hizmet ihracatı faturası **manuel olarak yazılmaz**. Mükellef Logo, Mikro, Paraşüt, Mükellef, Bizmu gibi entegratörler veya **GİB Portal** üzerinden e-Arşiv fatura olarak düzenlenir. Bu sayfa, ekrandaki alanlardan hangisinin ne olduğunu, hangi değerleri seçmeniz gerektiğini ve yapılan en sık hataları açıklar.
+
+> Henüz fatura kesebileceğin bir şirketin yok mu? Önce [şahıs şirketi nasıl kurulur](/sahis-sirketi-nasil-kurulur/) rehberine bak. Fatura kestikten sonra ne olacağını [sayfanın sonunda](#sirada-ne-var) adım adım anlatıyoruz.
 
 <figure class="not-prose my-8 rounded-2xl border border-slate-200 overflow-hidden bg-white">
   <img
@@ -159,7 +171,35 @@ Aylık KDV beyannamesinde:
 
 KDV iade talebinde bulunulacaksa faturalara karşılık gelen DAB ve banka dekontları, sözleşmeler ve döviz çıkış belgeleri YMM tarafından kontrol edilir.
 
-<CalculatorCTA />
+<div id="sirada-ne-var" class="scroll-mt-24" />
+
+<NextSteps
+  title="Faturayı kestin. Sırada ne var?"
+  intro="Fatura işin ilk yarısı. %100 indirimi korumak için şu üç adımı da tamamla."
+  steps={[
+    {
+      href: '/yurtdisindan-odeme-alma/',
+      title: 'Parayı Türkiye\'ye getir',
+      blurb: 'Wise, Payoneer veya SWIFT ile gelen ödemeyi bankana aktar, DAB veya dekontu sakla.',
+      icon: 'transfer',
+      tone: 'sky',
+    },
+    {
+      href: '/#hesapla',
+      title: 'Elinde ne kaldığını gör',
+      blurb: 'Bağ-Kur, mali müşavir ve damga vergisi sonrası yıllık net kazancını hesapla.',
+      icon: 'calculator',
+      tone: 'amber',
+    },
+    {
+      href: '/hizmet-ihracati-istisnasi/',
+      title: 'Yıl sonunda indirimi kullan',
+      blurb: 'Mart\'taki beyannamede %100 indirimin şartları ve YMM tasdik eşiği.',
+      icon: 'calendar',
+      tone: 'rose',
+    },
+  ]}
+/>
 
 ## Kaynaklar
 
