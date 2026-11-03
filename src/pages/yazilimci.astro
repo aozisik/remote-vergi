@@ -1,0 +1,159 @@
+---
+import PersonaLayout from '../layouts/PersonaLayout.astro';
+import Step from '../components/Step.astro';
+import Fact from '../components/Fact.astro';
+import Terim from '../components/Terim.astro';
+---
+
+<PersonaLayout
+  persona="yazilimci"
+  title="Yurt dışına çalışan yazılımcının vergi yol haritası"
+  metaTitle="Yurt Dışına Çalışan Yazılımcı İçin Vergi Yol Haritası 2026"
+  description="Avrupa veya ABD'deki bir şirkete Türkiye'den contractor olarak çalışıyorsan: hangi şirketi açarsın, faturayı nasıl kesersin, parayı nasıl getirirsin ve yılda ne kadar vergi ödersin."
+  dateModified="2026-11-03"
+  summary={[
+    'Contractor isen şahıs şirketi açar, her ay yurt dışındaki şirkete döviz fatura kesersin.',
+    'Şartları sağlarsan 2026\'da bu kazancın %100\'ü gelir vergisinden indirilir.',
+    'Asıl maliyetin vergi değil, sabit giderler: Bağ-Kur, mali müşavir ve damga vergisi.',
+    'Deel veya Remote seni bordroya alıyorsa (EOR) bu yol geçerli değil.',
+  ]}
+>
+  <section slot="before" class="pt-14 md:pt-20" aria-labelledby="once">
+    <h2 id="once" class="text-[24px] font-bold tracking-[-0.02em] text-slate-900">
+      Önce tek bir soru: bordrolu musun, contractor mı?
+    </h2>
+    <div class="mt-6 grid gap-4 md:grid-cols-2">
+      <div class="rounded-2xl border-2 border-gain-600/40 bg-gain-50 p-6">
+        <p class="text-[17px] font-semibold text-gain-800">Contractor</p>
+        <p class="mt-2 text-[15px] leading-relaxed text-slate-700">
+          Sözleşmende "independent contractor" yazıyor, ya da doğrudan fatura
+          kesiyorsun, ya da Upwork veya Deel contractor üzerinden ödeme
+          alıyorsun. <strong class="text-slate-900">Bu sayfa senin için.</strong>
+        </p>
+      </div>
+      <div class="rounded-2xl border border-slate-200 bg-white p-6">
+        <p class="text-[17px] font-semibold text-slate-900">Bordrolu (EOR)</p>
+        <p class="mt-2 text-[15px] leading-relaxed text-slate-700">
+          Deel EOR veya Remote EOR seni Türkiye'de çalışan olarak işe almış,
+          maaş bordron var. Gelirin ücret sayılır, vergini ve SGK'nı işveren
+          keser. Şirket açman gerekmez ama
+          <Terim id="kazanc-indirimi">hizmet ihracatı indirimi</Terim> de
+          uygulanmaz.
+          <a href="/yurtdisina-remote-calismak/" class="font-semibold text-brand-700 underline decoration-brand-200 underline-offset-4">Farkı gör →</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Step
+    title="Şahıs şirketini aç"
+    links={[
+      { href: '/sahis-sirketi-nasil-kurulur/', label: 'Nasıl kurulur' },
+      { href: '/sahis-sirketi-maliyet/', label: 'Ne kadar tutar' },
+    ]}
+  >
+    <p>
+      Yazılımcıların büyük çoğunluğu <Terim id="sahis-sirketi">şahıs şirketi</Terim>
+      üzerinden çalışır. Kuruluşu bir <Terim id="smmm">mali müşavir</Terim> bir
+      iki gün içinde halleder. Şirketi açtığın gün
+      <Terim id="bagkur">Bağ-Kur</Terim> tescilin başlar.
+    </p>
+    <p>
+      Aylık sabit giderini önceden bil: Bağ-Kur asgari <Fact name="bagkurAsgariAylik" />,
+      mali müşavir TÜRMOB asgari <Fact name="smmmAsgariAylik" /> ve beyannamelerin
+      damga vergisi. Toplam yaklaşık 17.500 ile 19.500 ₺ arası.
+    </p>
+  </Step>
+
+  <Step
+    title="Her ay döviz fatura kes"
+    links={[{ href: '/302-11-1-a-fatura-ornegi/', label: 'Fatura örneği' }]}
+  >
+    <p>
+      Faturayı yurt dışındaki müşterinin adına, euro veya dolar cinsinden,
+      <Terim id="e-arsiv">e-Arşiv</Terim> olarak kesersin. Faturada
+      <Terim id="302">302 istisna kodu</Terim> seçilir, KDV eklenmez.
+    </p>
+    <p>
+      Upwork kullanıyorsan faturanın muhatabı Upwork değil, son müşteridir.
+      <a href="/upwork-vergi/">Upwork rehberi</a> bunu adım adım anlatır.
+    </p>
+  </Step>
+
+  <Step
+    title="Parayı Türkiye'ye getir"
+    links={[{ href: '/yurtdisindan-odeme-alma/', label: 'Ödeme alma yolları' }]}
+  >
+    <p>
+      Wise, Payoneer veya doğrudan SWIFT ile gelen dövizi Türkiye'deki
+      banka hesabına aktar. Bankanın verdiği <Terim id="dab">DAB</Terim>
+      ya da dekont, paranın geldiğinin kanıtıdır.
+    </p>
+    <p>
+      <strong>Kritik kural:</strong> kazancın tamamı yıllık beyanname son
+      tarihine kadar Türkiye'ye gelmiş olmalı. Bir kısmını yurt dışında
+      bırakırsan indirimi kaybedebilirsin.
+    </p>
+  </Step>
+
+  <Step
+    title="Mart'ta yıllık beyannameni ver"
+    links={[
+      { href: '/hizmet-ihracati-istisnasi/', label: 'İndirimin şartları' },
+      { href: '/vergi-takvimi/', label: 'Vergi takvimi' },
+      { href: '/ymm-tasdik-ucreti/', label: 'YMM ücretleri' },
+    ]}
+  >
+    <p>
+      Mali müşavirin <Terim id="beyanname">yıllık beyannamende</Terim>
+      hizmet ihracatı kazancını <Fact name="hizmetIhracatiIndirimi" /> oranında indirir.
+      Yıllık indirim tutarın <Fact name="ymmIndirimEsigi" />'yi aşarsa bir
+      <Terim id="ymm">YMM tasdik raporu</Terim> da gerekir. Bu rapor
+      beyanname süresinden itibaren 2 ay içinde verilmezse indirim düşer.
+    </p>
+  </Step>
+
+  <section slot="after" class="pt-16 md:pt-20" aria-labelledby="hesap">
+    <div class="rounded-3xl bg-slate-900 text-white p-7 md:p-10 grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+      <div>
+        <h2 id="hesap" class="text-[24px] md:text-[28px] font-bold tracking-[-0.02em]">
+          Elinde ne kalacağını gör
+        </h2>
+        <p class="mt-2 text-[16px] text-slate-300 max-w-xl">
+          Aylık döviz gelirini ve kuru gir; Bağ-Kur, mali müşavir, damga vergisi
+          ve gerekiyorsa YMM dahil yıllık net kazancını hesapla.
+        </p>
+      </div>
+      <a href="/#hesapla" class="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-brand-500 hover:bg-brand-400 text-[15px] font-semibold transition">
+        Hesaplayıcıyı aç →
+      </a>
+    </div>
+
+    <h2 class="mt-16 text-[24px] font-bold tracking-[-0.02em] text-slate-900">
+      En sık yapılan hatalar
+    </h2>
+    <ul class="mt-6 grid gap-x-10 gap-y-6 md:grid-cols-3">
+      <li>
+        <p class="text-[16px] font-semibold text-slate-900">Parayı yurt dışında bekletmek</p>
+        <p class="mt-1.5 text-[15px] leading-relaxed text-slate-700">
+          Wise bakiyesinde duran kazanç Türkiye'ye getirilmiş sayılmaz. Beyanname
+          tarihinden önce aktar.
+        </p>
+      </li>
+      <li>
+        <p class="text-[16px] font-semibold text-slate-900">Faturayı aracıya kesmek</p>
+        <p class="mt-1.5 text-[15px] leading-relaxed text-slate-700">
+          Upwork gibi platformlarda fatura platforma değil, hizmeti aldığın
+          müşteriye kesilir.
+        </p>
+      </li>
+      <li>
+        <p class="text-[16px] font-semibold text-slate-900">YMM eşiğini atlamak</p>
+        <p class="mt-1.5 text-[15px] leading-relaxed text-slate-700">
+          Yıllık indirim <Fact name="ymmIndirimEsigi" />'yi geçerse rapor zorunlu.
+          Kaçırmanın asgari cezası <Fact name="ymmCezaAsgari" />.
+        </p>
+      </li>
+    </ul>
+  </section>
+</PersonaLayout>

@@ -1,15 +1,5 @@
+import { getCollection } from 'astro:content';
 import { OGImageRoute } from 'astro-og-canvas';
-
-interface PageFrontmatter {
-  title?: string;
-  description?: string;
-}
-
-interface MdxModule {
-  frontmatter?: PageFrontmatter;
-}
-
-const mdxModules = import.meta.glob<MdxModule>('../*.mdx', { eager: true });
 
 const pages: Record<string, { title: string; description: string }> = {
   index: {
@@ -19,15 +9,21 @@ const pages: Record<string, { title: string; description: string }> = {
   },
 };
 
-for (const [path, mod] of Object.entries(mdxModules)) {
-  const slug = path.replace(/^\.\.\//, '').replace(/\.mdx$/, '');
-  if (slug.startsWith('_')) continue;
-  const fm = mod.frontmatter;
-  if (!fm?.title || !fm?.description) continue;
-  pages[slug] = {
-    title: fm.title.replace(/\s*\|\s*Remote Vergi\s*$/i, '').trim(),
-    description: fm.description,
+for (const entry of await getCollection('rehberler')) {
+  pages[entry.id] = {
+    title: entry.data.title.replace(/\s*\|\s*Remote Vergi\s*$/i, '').trim(),
+    description: entry.data.description,
   };
+}
+
+const extraPages = import.meta.glob<{
+  frontmatter?: { title?: string; description?: string };
+}>('../*.mdx', { eager: true });
+for (const [path, mod] of Object.entries(extraPages)) {
+  const slug = path.replace(/^\.\.\//, '').replace(/\.mdx$/, '');
+  const fm = mod.frontmatter;
+  if (slug.startsWith('_') || !fm?.title || !fm?.description) continue;
+  pages[slug] = { title: fm.title, description: fm.description };
 }
 
 export const { getStaticPaths, GET } = await OGImageRoute({
@@ -41,7 +37,7 @@ export const { getStaticPaths, GET } = await OGImageRoute({
       [250, 250, 250],
       [243, 244, 246],
     ],
-    border: { color: [227, 10, 23], width: 12, side: 'inline-start' },
+    border: { color: [179, 38, 43], width: 12, side: 'inline-start' },
     padding: 60,
     font: {
       title: {

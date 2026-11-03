@@ -1,0 +1,140 @@
+---
+import PersonaLayout from '../layouts/PersonaLayout.astro';
+import Step from '../components/Step.astro';
+import Fact from '../components/Fact.astro';
+import Terim from '../components/Terim.astro';
+---
+
+<PersonaLayout
+  persona="mobil"
+  title="App Store ve Google Play geliri olan geliştiricinin yol haritası"
+  metaTitle="Mobil Uygulama Geliştiricisi İçin Vergi Yol Haritası 2026"
+  description="iOS veya Android uygulamandan Apple ve Google üzerinden gelir alıyorsan iki yolun var. Hangisinin sana uygun olduğunu, nasıl kurulacağını ve hangi riski taşıdığını sade dille anlatıyoruz."
+  dateModified="2026-11-03"
+  summary={[
+    'Yol 1: bankada özel hesap aç, Apple ve Google ödemeleri gelirken banka %15 stopajı keser. Şirket, fatura, defter yok.',
+    'Yol 2: şahıs şirketi aç, Apple ve Google\'a fatura kes, hizmet ihracatı indirimiyle gelir vergisini sıfırla.',
+    'Yol 2 daha avantajlı ama GİB, uygulama Türkiye\'den de indirilebiliyorsa indirimi kabul etmiyor.',
+    'Yıllık hasılatın 5,3 milyon ₺\'yi geçerse Yol 1 o yıl için geçersiz olur.',
+  ]}
+>
+  <section slot="before" class="pt-14 md:pt-20" aria-labelledby="iki-yol">
+    <h2 id="iki-yol" class="text-[24px] font-bold tracking-[-0.02em] text-slate-900">
+      İki yol, yan yana
+    </h2>
+    <div class="mt-6 overflow-x-auto">
+      <table class="w-full min-w-[560px] text-left text-[15px]">
+        <thead>
+          <tr class="border-b-2 border-slate-900">
+            <th class="py-3 pr-4 font-semibold text-slate-600 w-[34%]"></th>
+            <th class="py-3 pr-4 font-semibold text-slate-900">Özel hesap (%15)</th>
+            <th class="py-3 font-semibold text-slate-900">Şahıs şirketi</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200 text-slate-700">
+          <tr>
+            <td class="py-3 pr-4 text-slate-600">Gelir vergisi</td>
+            <td class="py-3 pr-4">Sabit <Fact name="uygulamaOzelHesapStopaji" />, banka keser</td>
+            <td class="py-3"><span class="font-semibold text-gain-700">%0</span>, şartlar sağlanırsa</td>
+          </tr>
+          <tr>
+            <td class="py-3 pr-4 text-slate-600">Şirket ve fatura</td>
+            <td class="py-3 pr-4">Yok</td>
+            <td class="py-3">Var, her ay Apple ve Google'a</td>
+          </tr>
+          <tr>
+            <td class="py-3 pr-4 text-slate-600">Mali müşavir</td>
+            <td class="py-3 pr-4">Gerekmez</td>
+            <td class="py-3">Gerekir</td>
+          </tr>
+          <tr>
+            <td class="py-3 pr-4 text-slate-600">Bağ-Kur</td>
+            <td class="py-3 pr-4">Öder, asgari <Fact name="bagkurAsgariAylik" />/ay</td>
+            <td class="py-3">Öder, asgari <Fact name="bagkurAsgariAylik" />/ay</td>
+          </tr>
+          <tr>
+            <td class="py-3 pr-4 text-slate-600">Üst sınır</td>
+            <td class="py-3 pr-4">Yıllık <Fact name="uygulamaOzelHesapLimiti" /> hasılat</td>
+            <td class="py-3">Yok</td>
+          </tr>
+          <tr>
+            <td class="py-3 pr-4 text-slate-600">Denetim riski</td>
+            <td class="py-3 pr-4">Düşük</td>
+            <td class="py-3">Var: <Terim id="munhasiran">münhasıran yurt dışı</Terim> tartışması</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-4 text-[15px] text-slate-700">
+      Kendi rakamlarınla karşılaştırmak için:
+      <a href="/app-store-play-store-vergi/#hesaplayici" class="font-semibold text-brand-700 underline decoration-brand-200 underline-offset-4">uygulama geliri hesaplayıcısı →</a>
+    </p>
+  </section>
+
+  <Step
+    title="Yolunu seç"
+    links={[{ href: '/app-store-play-store-vergi/', label: 'İki yolun tam karşılaştırması' }]}
+  >
+    <p>
+      Gelirin düşük ya da düzensizse, şirket ve muhasebe yükü istemiyorsan özel
+      hesap yolu en sade seçenek. Gelirin yüksek ve istikrarlıysa şahıs
+      şirketi yolunun vergi avantajı belirgin şekilde büyür, ama denetim
+      riskini de üstlenirsin.
+    </p>
+  </Step>
+
+  <Step title="Özel hesap yolunu seçtiysen: belgeni ve hesabını al">
+    <p>
+      Vergi dairesinden bir defaya mahsus istisna belgesini alırsın, bankada
+      özel hesap açarsın ve IBAN'ı 1 ay içinde vergi dairesine bildirirsin.
+      Apple ve Google ödemeyi bu hesaba gönderir, banka
+      <Terim id="stopaj">stopajı</Terim> keser. Bu senin için son vergidir.
+    </p>
+  </Step>
+
+  <Step
+    title="Şirket yolunu seçtiysen: her ay Apple ve Google'a fatura kes"
+    links={[
+      { href: '/sahis-sirketi-nasil-kurulur/', label: 'Şahıs şirketi kurulumu' },
+      { href: '/302-11-1-a-fatura-ornegi/', label: '302 faturası' },
+    ]}
+  >
+    <p>
+      Faturanın muhatabı son kullanıcı değil, ödemeyi yapan şirkettir: App
+      Store için Apple Distribution International Ltd., Google Play ve AdMob
+      için Google Ireland Ltd. Faturayı <Terim id="302">302 koduyla</Terim>
+      kesersin ve kazancın tamamını beyanname tarihine kadar Türkiye'ye
+      getirirsin.
+    </p>
+  </Step>
+
+  <Step
+    title="Riski bilerek yönet"
+    links={[{ href: '/app-store-play-store-vergi/', label: 'GİB özelgesi ve Danıştay kararı' }]}
+  >
+    <p>
+      GİB'in 30 Ocak 2026 tarihli özelgesi, uygulama Türkiye'den de
+      indirilebiliyorsa indirimin tamamen düştüğünü söylüyor. Danıştay'ın Ekim
+      2025 kararı ise tersini kabul ediyor. Riski sıfırlamak istersen
+      Türkiye'yi App Store Connect ve Google Play Console'da ülke listesinden
+      çıkarabilirsin; bu ileriye dönük etkili bir karardır.
+    </p>
+  </Step>
+
+  <section slot="after" class="pt-16 md:pt-20">
+    <div class="rounded-3xl bg-slate-900 text-white p-7 md:p-10 grid gap-6 md:grid-cols-[minmax(0,1fr)_auto] md:items-center">
+      <div>
+        <h2 class="text-[24px] md:text-[28px] font-bold tracking-[-0.02em]">
+          Hangi yolda daha çok kalıyor?
+        </h2>
+        <p class="mt-2 text-[16px] text-slate-300 max-w-xl">
+          Aylık mağaza gelirini gir, %15 stopaj yolu ile şahıs şirketi yolunu
+          aynı ekranda karşılaştır.
+        </p>
+      </div>
+      <a href="/app-store-play-store-vergi/#hesaplayici" class="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-brand-500 hover:bg-brand-400 text-[15px] font-semibold transition">
+        Karşılaştır →
+      </a>
+    </div>
+  </section>
+</PersonaLayout>

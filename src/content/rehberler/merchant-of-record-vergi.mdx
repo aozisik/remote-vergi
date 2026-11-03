@@ -1,8 +1,12 @@
 ---
-layout: ../layouts/ArticleLayout.astro
 title: "Merchant of Record Platformları (Polar, Paddle, LemonSqueezy): Türkiye'de Vergi (2026)"
 description: "Polar.sh, Paddle ve LemonSqueezy gibi Merchant of Record (MoR) platformları üzerinden gelir alan TR mukim geliştiriciler için 2026 vergi rehberi: faturayı kime kesersin (son müşteriye değil, MoR'a), brüt-net hesabı, MoR'un topladığı son kullanıcı KDV'sinin durumu, Stripe'ın neden MoR olmadığı."
 dateModified: "2026-05-11"
+topic: platform
+navTitle: "Merchant of Record vergisi"
+blurb: "Polar, Paddle, LemonSqueezy: kime fatura kesilir"
+order: 3
+personas: [yazilimci, mobil, oyun]
 faq:
   - question: "Merchant of Record (MoR) ne demek, normal ödeme aracısından farkı ne?"
     answer: "Merchant of Record, son kullanıcıya yapılan satışın yasal satıcısı olan platformdur. Yani Polar, Paddle veya LemonSqueezy ödemeyi sadece taşımıyor: ürünü kendi adına satıyor, faturayı son kullanıcıya kendisi kesiyor, son kullanıcıdan toplanan satış vergisi/KDV'yi 60+ ülkede kendi adına beyan edip yatırıyor, küresel uyum yükünü (PSD2, GDPR, vergi tescili) yönetiyor. Sizin bu modeldeki rolünüz: ürünü/yazılımı MoR'a tedarik eden taraf. Sözleşmedeki müşteriniz son kullanıcı değil, MoR'dur. Stripe gibi klasik ödeme işlemcileri ise sadece kart işlemini yürütür; satıcı sizsiniz, son kullanıcıya fatura siz kesersiniz."
@@ -16,7 +20,7 @@ faq:
     answer: "GİB'in 30 Ocak 2026 tarihli özelgesi 'münhasıran yurt dışında faydalanma' şartını sıkı yorumlar; uygulamanız/ürününüz Türkiye'deki son kullanıcılara da satılıyorsa kazancın tamamı indirim kapsamı dışına çıkabilir. App Store/Play Store ile farkı şudur: kendi web sitenizin satış sayfasını siz kontrol edersiniz, MoR checkout'undan Türkiye'yi 'available countries' listesinden çıkararak veya kendi pricing sayfanızda TR ziyaretçileri yönlendirerek bu sorunu temizleyebilirsiniz. Detay App Store sayfasındaki tartışmanın aynısı geçerlidir."
 ---
 
-import CalculatorCTA from '../components/CalculatorCTA.astro';
+import CalculatorCTA from '../../components/CalculatorCTA.astro';
 
 # Merchant of Record: Polar, Paddle, LemonSqueezy
 

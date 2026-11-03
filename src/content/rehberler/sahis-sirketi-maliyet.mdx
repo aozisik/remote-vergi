@@ -1,8 +1,12 @@
 ---
-layout: ../layouts/ArticleLayout.astro
 title: "Şahıs Şirketi Açma ve Aylık Giderleri 2026: Gerçek Maliyet"
 description: "Şahıs şirketi açma maliyeti, kurma maliyeti ve şahıs şirketi giderleri 2026: noter, oda, mali müşavir, Bağ-Kur, damga vergisi, YMM tasdik. Yurtdışına remote çalışan yazılımcılar için kalem kalem hesap."
 dateModified: "2026-05-07"
+topic: sirket
+navTitle: "Şahıs şirketi maliyeti"
+blurb: "Bağ-Kur, mali müşavir, damga vergisi: kalem kalem"
+order: 3
+personas: [yazilimci, mobil, oyun, hizmet]
 faq:
   - question: "Şahıs şirketi açma maliyeti 2026'da ne kadar?"
     answer: "2026 yılı itibarıyla şahıs şirketi tek seferlik açma maliyeti yaklaşık 5.500–10.000 ₺ aralığındadır. Bu tutara noter (imza beyannamesi ve defter onayı, ~1.000–2.000 ₺), Esnaf veya Ticaret Odası kayıt ücreti (~1.500–3.000 ₺) ve mali müşavirin kuruluş ücreti (~3.000–5.000 ₺) dahildir. MERSİS başvurusu ve vergi dairesi işe başlama bildirimi ücretsizdir."
@@ -16,7 +20,7 @@ faq:
     answer: "YMM tasdiki hariç, 2026 baz yıllık yük yaklaşık 200.000–250.000 ₺'dir: Bağ-Kur (~141.700 ₺) + mali müşavir (~54.000 ₺) + damga vergisi (~13.836 ₺) + oda aidatı (~1.500 ₺) + yıllık beyanname tahakkuku (~5.000–10.000 ₺). YMM tasdik eşiği aşılırsa toplam 230.000–310.000 ₺'ye çıkabilir."
 ---
 
-import CalculatorCTA from '../components/CalculatorCTA.astro';
+import CalculatorCTA from '../../components/CalculatorCTA.astro';
 
 # Şahıs Şirketi Açma ve Aylık Giderleri 2026
 
@@ -52,7 +56,7 @@ Mali müşavirinizin paketine göre noter ve oda işlemlerinin bir kısmı kurul
 
 ### Bağ-Kur (4-B SGK) primi
 
-- 2026 asgari aylık prim: **~11.808 ₺**
+- 2026 asgari aylık prim: **~<Fact name="bagkurAsgariAylik" />**
 - Vergi dairesi işe başlama bildirimi sonrası SGK tarafından otomatik açılır
 - Daha yüksek matrah üzerinden ödeyerek emeklilik basamağınızı yukarı çekebilirsiniz
 - 1 Ocak 2026 sonrasında işe başlayanlar için genç girişimci prim desteği **kaldırılmıştır**

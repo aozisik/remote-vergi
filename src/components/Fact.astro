@@ -1,0 +1,15 @@
+---
+// Renders a figure from src/data/facts.ts. Use in MDX as <Fact name="bagkurAsgariAylik" />
+// so the number updates everywhere when the source of truth changes.
+import { type FactName, facts, formatFact } from '../data/facts';
+
+interface Props {
+  name: FactName;
+}
+
+const { name } = Astro.props;
+const fact = facts[name];
+if (!fact) throw new Error(`Unknown fact: ${name}`);
+---
+
+<span class="tabular-nums whitespace-nowrap font-medium" title={fact.label}>{formatFact(name)}</span>

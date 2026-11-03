@@ -1,0 +1,388 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Illustration from '../components/Illustration.astro';
+import Terim from '../components/Terim.astro';
+import { OFFICIAL_THROUGH, deadlines, formatDate } from '../data/takvim';
+
+const title = 'Vergi Takvimi 2026–2027: Şahıs Şirketi ve Remote Çalışanlar İçin Son Tarihler';
+const description =
+  'Yurt dışına çalışan şahıs şirketi sahipleri için vergi takvimi: KDV beyannamesi, geçici vergi (4. dönem dahil), yıllık gelir vergisi, Bağ-Kur ve YMM son tarihleri. Google veya Apple takvimine abone ol.';
+const dateModified = '2026-11-03';
+
+const today = new Date().toISOString().slice(0, 10);
+const upcoming = deadlines.filter((d) => d.date >= today && d.audience === 'herkes');
+const next = upcoming[0];
+
+// Group by calendar month of the deadline.
+const byMonth = new Map<string, typeof deadlines>();
+for (const d of deadlines) {
+  const key = d.date.slice(0, 7);
+  if (!byMonth.has(key)) byMonth.set(key, []);
+  byMonth.get(key)?.push(d);
+}
+const monthLabel = (key: string) =>
+  new Date(`${key}-15T12:00:00Z`).toLocaleDateString('tr-TR', {
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+
+const site = 'remotevergi.com';
+const feed = (variant: string) => `${site}/takvim/${variant}.ics`;
+
+const officialYear = OFFICIAL_THROUGH.slice(0, 4);
+
+const kindTone: Record<string, string> = {
+  kdv: 'bg-sky-50 text-sky-800 border-sky-100',
+  gecici: 'bg-amber-50 text-amber-800 border-amber-100',
+  yillik: 'bg-brand-50 text-brand-800 border-brand-100',
+  taksit: 'bg-brand-50 text-brand-800 border-brand-100',
+  bagkur: 'bg-gain-50 text-gain-800 border-gain-100',
+  muhtasar: 'bg-slate-100 text-slate-700 border-slate-200',
+  ymm: 'bg-violet-50 text-violet-800 border-violet-100',
+};
+const kindLabel: Record<string, string> = {
+  kdv: 'KDV',
+  gecici: 'Geçici vergi',
+  yillik: 'Gelir vergisi',
+  taksit: 'Gelir vergisi',
+  bagkur: 'Bağ-Kur',
+  muhtasar: 'Muhtasar',
+  ymm: 'YMM',
+};
+
+const faq = [
+  {
+    question: '4. dönem geçici vergi beyannamesi verilecek mi?',
+    answer:
+      'Evet. 19 Aralık 2025 tarihli Resmî Gazete\'de yayımlanan 7566 sayılı Kanun ile 4. dönem (Ekim, Kasım, Aralık) geçici vergi 2025 takvim yılından itibaren geri geldi. Beyan ve ödeme izleyen yılın 17 Şubat\'ına kadar yapılır; 2026 için son gün 17 Şubat 2027.',
+  },
+  {
+    question: 'Hizmet ihracatı yapıyorum, yine de KDV beyannamesi vermem gerekiyor mu?',
+    answer:
+      'Evet. KDV mükellefiysen her ay, izleyen ayın 28\'ine kadar KDV beyannamesi verirsin. Yurt dışına kestiğin faturalar 302 koduyla istisna olarak gösterilir; ödenecek KDV çıkmasa da beyanname verilir.',
+  },
+  {
+    question: 'Son gün hafta sonuna ya da bayrama denk gelirse ne olur?',
+    answer:
+      'Süre, tatili izleyen ilk iş gününün sonunda biter (VUK md. 18). Bu takvimdeki tarihler bu kayma uygulanmış hâlidir; kayan tarihlerde asıl günü de gösteriyoruz.',
+  },
+  {
+    question: 'Yıllık gelir vergisi beyannamesi ne zaman verilir?',
+    answer:
+      'İzleyen yılın 1 Mart\'ından 31 Mart\'ına kadar. Vergi iki taksitte ödenir: birincisi Mart sonunda, ikincisi Temmuz sonunda.',
+  },
+];
+---
+
+<Layout title={`${title} | Remote Vergi`} description={description} dateModified={dateModified}>
+  <script
+    is:inline
+    type="application/ld+json"
+    slot="head"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map((q) => ({
+        '@type': 'Question',
+        name: q.question,
+        acceptedAnswer: { '@type': 'Answer', text: q.answer },
+      })),
+    })}
+  />
+
+  <div data-pagefind-body>
+    <section class="border-b border-slate-200 bg-white">
+      <div class="max-w-6xl mx-auto px-5 md:px-8 pt-10 md:pt-16 pb-12 md:pb-14 grid gap-10 lg:grid-cols-[minmax(0,1fr)_400px] lg:items-center">
+        <div>
+          <nav class="text-[14px] text-slate-600 mb-6" aria-label="Breadcrumbs">
+            <a href="/" class="hover:text-brand-700 transition">Anasayfa</a>
+            <span class="mx-2 text-slate-300" aria-hidden="true">/</span>
+            <span>Araçlar</span>
+          </nav>
+          <h1 class="text-[clamp(2rem,1.3rem+2.8vw,3.25rem)] font-bold leading-[1.05] tracking-[-0.03em] text-slate-900">
+            Vergi takvimin, sadece senin tarihlerinle
+          </h1>
+          <p class="mt-5 max-w-2xl text-[17px] leading-relaxed text-slate-700">
+            Yurt dışına çalışan bir şahıs şirketi sahibinin karşılaşacağı son
+            tarihler: KDV, <Terim id="gecici-vergi">geçici vergi</Terim>, yıllık
+            beyanname, Bağ-Kur ve YMM. ÖTV, emlak ya da MTV gibi seni
+            ilgilendirmeyenler yok. Takvimine ekle, her son tarihten 3 gün önce
+            hatırlatsın.
+          </p>
+          <p class="mt-5 inline-flex items-center gap-1.5 text-[14px] text-slate-600">
+            <svg viewBox="0 0 24 24" class="w-4 h-4 text-gain-600" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.2 4.2L19 7"></path>
+            </svg>
+            {officialYear} tarihleri GİB kurallarına göre kontrol edildi. Sonrası tahmini.
+          </p>
+        </div>
+
+        {
+          next && (
+            <div class="rounded-3xl bg-slate-900 text-white p-6 md:p-7" data-next-card>
+              <p class="text-[14px] font-semibold text-slate-300">Sıradaki son tarih</p>
+              <p class="mt-2 text-[34px] font-bold leading-none tracking-[-0.02em]" data-next-date>
+                {formatDate(next.date, { weekday: 'long' })}
+              </p>
+              <p class="mt-3 text-[18px] font-semibold" data-next-title>{next.title}</p>
+              <p class="mt-1 text-[14px] text-slate-300" data-next-period>{next.period} dönemi</p>
+              <p class="mt-5 inline-flex items-center h-9 px-3.5 rounded-full bg-white/10 text-[14px] font-semibold text-brand-200" data-next-left>
+                &nbsp;
+              </p>
+            </div>
+          )
+        }
+      </div>
+    </section>
+
+    <div class="max-w-6xl mx-auto px-5 md:px-8 pt-12 md:pt-16 grid gap-12 lg:grid-cols-[300px_minmax(0,1fr)] lg:items-start">
+      <aside class="lg:sticky lg:top-24 space-y-6">
+        <section class="rounded-3xl border border-slate-200 bg-white p-6" aria-labelledby="durum">
+          <h2 id="durum" class="text-[17px] font-semibold text-slate-900">Durumuna göre süz</h2>
+          <p class="mt-1 text-[14px] text-slate-600">Herkes için olanlar her zaman görünür.</p>
+          <div class="mt-4 space-y-3">
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" data-toggle="stopaj" class="mt-1 w-5 h-5 rounded border-slate-300 text-brand-600 focus:ring-brand-500" />
+              <span>
+                <span class="block text-[15px] font-medium text-slate-900">Stopaj kesiyorum</span>
+                <span class="block text-[13px] text-slate-600">Çalışanım var ya da kira ödüyorum</span>
+              </span>
+            </label>
+            <label class="flex items-start gap-3 cursor-pointer">
+              <input type="checkbox" data-toggle="ymm" class="mt-1 w-5 h-5 rounded border-slate-300 text-brand-600 focus:ring-brand-500" />
+              <span>
+                <span class="block text-[15px] font-medium text-slate-900">YMM eşiğini geçiyorum</span>
+                <span class="block text-[13px] text-slate-600">Yıllık indirim 500.000 ₺'nin üstünde</span>
+              </span>
+            </label>
+          </div>
+        </section>
+
+        <section class="rounded-3xl border border-slate-200 bg-white p-6" aria-labelledby="abone">
+          <div class="flex items-center gap-3">
+            <Illustration name="calendar" tone="rose" class="w-11 h-11 shrink-0" />
+            <h2 id="abone" class="text-[17px] font-semibold text-slate-900">Takvimine ekle</h2>
+          </div>
+          <p class="mt-3 text-[14px] leading-relaxed text-slate-600">
+            Abone olursan tarihler kendiliğinden güncellenir ve her son tarihten
+            3 gün önce saat 09:00'da hatırlatma gelir.
+          </p>
+          <div class="mt-4 grid gap-2">
+            <a data-sub="google" href={`https://calendar.google.com/calendar/r?cid=${encodeURIComponent(`webcal://${feed('temel')}`)}`} target="_blank" rel="noopener" class="sub-btn">Google Takvim</a>
+            <a data-sub="webcal" href={`webcal://${feed('temel')}`} class="sub-btn">Apple / iPhone</a>
+            <a data-sub="outlook" href={`https://outlook.live.com/calendar/0/addfromweb?url=${encodeURIComponent(`https://${feed('temel')}`)}&name=${encodeURIComponent('Vergi takvimi')}`} target="_blank" rel="noopener" class="sub-btn">Outlook</a>
+            <a data-sub="file" href="/takvim/temel.ics" download class="text-center text-[14px] font-medium text-slate-600 underline decoration-slate-300 underline-offset-4 hover:text-brand-700 py-1.5">.ics dosyasını indir</a>
+          </div>
+        </section>
+      </aside>
+
+      <section aria-labelledby="tarihler">
+        <h2 id="tarihler" class="sr-only">Son tarihler</h2>
+        <div class="space-y-12">
+          {
+            [...byMonth.entries()].map(([key, items]) => (
+              <section data-month>
+                <h3 class="text-[22px] font-bold tracking-[-0.015em] text-slate-900 capitalize">
+                  {monthLabel(key)}
+                </h3>
+                <ol class="mt-4 space-y-3">
+                  {items.map((d) => (
+                    <li
+                      data-deadline
+                      data-date={d.date}
+                      data-audience={d.audience}
+                      data-title={d.title}
+                      data-period={d.period}
+                      class:list={[
+                        'deadline rounded-2xl border border-slate-200 bg-white p-5 grid grid-cols-[3.5rem_minmax(0,1fr)] gap-4',
+                        d.audience !== 'herkes' && 'hidden',
+                      ]}
+                    >
+                      <div class="text-center">
+                        <div class="num text-[26px] font-semibold leading-none text-slate-900">
+                          {Number(d.date.slice(8, 10))}
+                        </div>
+                        <div class="mt-1 text-[12px] font-medium text-slate-500">
+                          {new Date(`${d.date}T12:00:00Z`).toLocaleDateString('tr-TR', { weekday: 'short', timeZone: 'UTC' })}
+                        </div>
+                      </div>
+                      <div class="min-w-0">
+                        <div class="flex flex-wrap items-center gap-2">
+                          <span class={`inline-flex items-center h-6 px-2 rounded-md border text-[12px] font-semibold ${kindTone[d.kind]}`}>
+                            {kindLabel[d.kind]}
+                          </span>
+                          {d.estimated && (
+                            <span class="inline-flex items-center h-6 px-2 rounded-md border border-dashed border-slate-300 text-[12px] font-medium text-slate-600" title="GİB yılın resmi takvimini yayımlayınca doğrulanacak">
+                              tahmini
+                            </span>
+                          )}
+                          <span class="past-tag hidden text-[12px] font-medium text-slate-500">geçti</span>
+                        </div>
+                        <p class="mt-2 text-[16px] font-semibold text-slate-900">
+                          {d.title}
+                          <span class="font-normal text-slate-600"> · {d.period}</span>
+                        </p>
+                        <p class="mt-1 text-[15px] leading-relaxed text-slate-700">{d.body}</p>
+                        {d.originalDate && (
+                          <p class="mt-1.5 text-[13px] text-slate-500">
+                            Asıl tarih {formatDate(d.originalDate, { weekday: 'long' })}; tatile denk geldiği için kaydı.
+                          </p>
+                        )}
+                        {d.guide && (
+                          <a href={d.guide.href} class="inline-block mt-2 text-[14px] font-semibold text-brand-700 hover:text-brand-800">
+                            {d.guide.label} →
+                          </a>
+                        )}
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            ))
+          }
+        </div>
+
+        <section class="mt-16 rounded-3xl border border-slate-200 bg-white p-6 md:p-8" aria-labelledby="nasil">
+          <h2 id="nasil" class="text-[22px] font-bold tracking-[-0.015em] text-slate-900">Bu tarihleri nasıl belirledik</h2>
+          <ul class="mt-4 space-y-2.5 font-serif text-[16px] leading-relaxed text-slate-700 list-disc pl-5">
+            <li>Kurallar GİB'in <a class="text-brand-700 underline decoration-brand-200 underline-offset-4" href="https://cdn.gib.gov.tr/api/gibportal-file/file/getFileResources?objectKey=arsiv%2Fyardim-kaynaklar%2Fyararli-bilgiler%2FBeyannameVermeveOdemeSureleri.pdf" target="_blank" rel="noopener">Beyanname Verme ve Ödeme Süreleri</a> tablosundan alındı (15 Ocak 2026).</li>
+            <li>4. dönem geçici vergi, 7566 sayılı Kanun ile 2025'ten itibaren geri geldi.</li>
+            <li>Hafta sonuna ya da resmî tatile denk gelen son günler ilk iş gününe kaydırıldı (VUK md. 18).</li>
+            <li>{officialYear} sonrası tarihler tahminidir; GİB yeni yılın takvimini yayımlayınca doğrulayıp güncelliyoruz. Abone olduysan güncelleme takvimine kendiliğinden gelir.</li>
+            <li>Bağ-Kur için kanun, ödeme gününü SGK'nın belirlemesine bırakır; uygulamada izleyen ayın son günüdür. e-Devlet'ten kontrol et.</li>
+            <li>GİB zaman zaman süreleri uzatır. Son günü kaçırmamak için mali müşavirinin duyurularını da takip et.</li>
+          </ul>
+        </section>
+
+        <section class="mt-12" aria-labelledby="sss">
+          <h2 id="sss" class="text-[22px] font-bold tracking-[-0.015em] text-slate-900">Sık sorulanlar</h2>
+          <div class="mt-4 divide-y divide-slate-200 border-y border-slate-200">
+            {
+              faq.map((q) => (
+                <details class="group py-4">
+                  <summary class="flex items-center justify-between gap-4 cursor-pointer list-none text-[16px] font-semibold text-slate-900 [&::-webkit-details-marker]:hidden">
+                    {q.question}
+                    <span class="text-slate-400 group-open:rotate-45 transition text-[22px] leading-none" aria-hidden="true">+</span>
+                  </summary>
+                  <p class="mt-3 font-serif text-[16px] leading-relaxed text-slate-700">{q.answer}</p>
+                </details>
+              ))
+            }
+          </div>
+        </section>
+      </section>
+    </div>
+  </div>
+
+  <style>
+    .sub-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 2.75rem;
+      border-radius: 0.75rem;
+      border: 1px solid oklch(0.91 0.007 25);
+      font-size: 15px;
+      font-weight: 600;
+      color: oklch(0.21 0.016 25);
+      transition: border-color 150ms ease, color 150ms ease;
+    }
+    .sub-btn:hover {
+      border-color: oklch(0.79 0.1 26);
+      color: oklch(0.45 0.17 26);
+    }
+    .deadline.is-past {
+      opacity: 0.55;
+    }
+    .deadline.is-past .past-tag {
+      display: inline;
+    }
+    .deadline.is-next {
+      border-color: oklch(0.52 0.19 26);
+      box-shadow: 0 0 0 3px oklch(0.94 0.03 26);
+    }
+  </style>
+
+  <script>
+    const KEY = 'rv-takvim-toggles';
+    const toggles = document.querySelectorAll<HTMLInputElement>('[data-toggle]');
+    const items = document.querySelectorAll<HTMLElement>('[data-deadline]');
+    const today = new Date().toISOString().slice(0, 10);
+
+    const fmt = (date: string, opts: Intl.DateTimeFormatOptions) =>
+      new Date(`${date}T12:00:00Z`).toLocaleDateString('tr-TR', { timeZone: 'UTC', ...opts });
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(KEY) ?? '{}');
+      toggles.forEach((t) => (t.checked = Boolean(saved[t.dataset.toggle ?? ''])));
+    } catch {
+      // Storage unavailable: start with only the common deadlines.
+    }
+
+    const variant = (on: Set<string>) =>
+      on.has('stopaj') && on.has('ymm') ? 'tam' : on.has('stopaj') ? 'stopaj' : on.has('ymm') ? 'ymm' : 'temel';
+
+    const render = () => {
+      const on = new Set(
+        Array.from(toggles).filter((t) => t.checked).map((t) => t.dataset.toggle as string)
+      );
+      try {
+        localStorage.setItem(KEY, JSON.stringify(Object.fromEntries([...on].map((k) => [k, true]))));
+      } catch {
+        // Ignore: the toggles still work for this visit.
+      }
+
+      let next: HTMLElement | null = null;
+      items.forEach((el) => {
+        const aud = el.dataset.audience ?? 'herkes';
+        const visible = aud === 'herkes' || on.has(aud);
+        el.classList.toggle('hidden', !visible);
+        const past = (el.dataset.date ?? '') < today;
+        el.classList.toggle('is-past', past);
+        el.classList.remove('is-next');
+        if (visible && !past && !next) next = el;
+      });
+      document.querySelectorAll<HTMLElement>('[data-month]').forEach((m) => {
+        m.classList.toggle('hidden', !m.querySelector('[data-deadline]:not(.hidden)'));
+      });
+
+      const card = document.querySelector<HTMLElement>('[data-next-card]');
+      if (next && card) {
+        const el = next as HTMLElement;
+        el.classList.add('is-next');
+        const date = el.dataset.date as string;
+        const days = Math.round((Date.parse(date) - Date.parse(today)) / 86_400_000);
+        const title = el.dataset.title ?? '';
+        const period = el.dataset.period ?? '';
+        card.querySelector('[data-next-date]')!.textContent = fmt(date, { day: 'numeric', month: 'long', weekday: 'long' });
+        card.querySelector('[data-next-title]')!.textContent = title;
+        card.querySelector('[data-next-period]')!.textContent = `${period} dönemi`;
+        card.querySelector('[data-next-left]')!.textContent =
+          days === 0 ? 'Bugün son gün' : days === 1 ? 'Yarın son gün' : `${days} gün kaldı`;
+      }
+
+      const v = variant(on);
+      const host = 'remotevergi.com';
+      const feed = `${host}/takvim/${v}.ics`;
+      const set = (name: string, href: string) => {
+        const a = document.querySelector<HTMLAnchorElement>(`[data-sub="${name}"]`);
+        if (a) a.href = href;
+      };
+      set('google', `https://calendar.google.com/calendar/r?cid=${encodeURIComponent(`webcal://${feed}`)}`);
+      set('webcal', `webcal://${feed}`);
+      set('outlook', `https://outlook.live.com/calendar/0/addfromweb?url=${encodeURIComponent(`https://${feed}`)}&name=${encodeURIComponent('Vergi takvimi')}`);
+      set('file', `/takvim/${v}.ics`);
+    };
+
+    toggles.forEach((t) => t.addEventListener('change', render));
+    render();
+
+    // Measure which calendar apps people subscribe with.
+    document.querySelectorAll<HTMLAnchorElement>('[data-sub]').forEach((a) => {
+      a.addEventListener('click', () => {
+        (window as any).plausible?.('Calendar Subscribe', { props: { app: a.dataset.sub ?? '' } });
+      });
+    });
+  </script>
+</Layout>

@@ -1,0 +1,129 @@
+---
+import PersonaLayout from '../layouts/PersonaLayout.astro';
+import Step from '../components/Step.astro';
+import Fact from '../components/Fact.astro';
+import Terim from '../components/Terim.astro';
+---
+
+<PersonaLayout
+  persona="oyun"
+  title="Oyun geliştiricinin vergi yol haritası"
+  metaTitle="Oyun Geliştiricisi İçin Vergi Yol Haritası 2026: Steam, Mağazalar, Yayıncı"
+  description="Oyununu Steam'de, konsol mağazalarında veya mobilde satıyorsan ya da bir yayıncıyla çalışıyorsan: gelirin nasıl sınıflanır, faturayı kime kesersin, nerede netlik var, nerede yok."
+  dateModified="2026-11-03"
+  summary={[
+    'Önce gelirini kaynağına göre ayır: mobil mağaza, PC ve konsol mağazası, yayıncı, reklam.',
+    'Mobil oyun geliri App Store ve Google Play kurallarına tabidir; mobil rehberi aynen geçerli.',
+    'Steam gelirine özel, kamuya açık bir GİB özelgesi bulamadık. Uygulama mağazalarındaki mantık benzer ama kesin değil.',
+    'Belirsiz durumda GİB\'den kendi durumun için özelge isteyebilirsin.',
+  ]}
+>
+  <section slot="before" class="pt-14 md:pt-20" aria-labelledby="kaynak">
+    <h2 id="kaynak" class="text-[24px] font-bold tracking-[-0.02em] text-slate-900">
+      Gelirin nereden geliyor?
+    </h2>
+    <div class="mt-6 grid gap-px overflow-hidden rounded-2xl border border-slate-200 bg-slate-200 md:grid-cols-2">
+      <div class="bg-white p-6">
+        <p class="text-[16px] font-semibold text-slate-900">Mobil mağaza</p>
+        <p class="mt-1.5 text-[15px] leading-relaxed text-slate-700">
+          App Store, Google Play, uygulama içi satın alma, AdMob. Netlik en
+          fazla burada: <a href="/mobil-uygulama-gelistirici/" class="font-semibold text-brand-700 underline decoration-brand-200 underline-offset-4">mobil yol haritası</a>.
+        </p>
+      </div>
+      <div class="bg-white p-6">
+        <p class="text-[16px] font-semibold text-slate-900">PC ve konsol mağazası</p>
+        <p class="mt-1.5 text-[15px] leading-relaxed text-slate-700">
+          Steam, Epic, konsol mağazaları. Ödemeyi yurt dışı şirket yapar; ama
+          oyun Türkiye'de de satılıyorsa uygulama mağazalarındaki tartışma
+          burada da gündeme gelebilir.
+        </p>
+      </div>
+      <div class="bg-white p-6">
+        <p class="text-[16px] font-semibold text-slate-900">Yayıncı anlaşması</p>
+        <p class="mt-1.5 text-[15px] leading-relaxed text-slate-700">
+          Yurt dışındaki yayıncı sana geliştirme bedeli ödüyorsa bu, klasik bir
+          <Terim id="hizmet-ihracati">hizmet ihracatı</Terim> faturasıdır.
+          Gelir payı ve telif ödemelerinin niteliği sözleşmeye göre değişir.
+        </p>
+      </div>
+      <div class="bg-white p-6">
+        <p class="text-[16px] font-semibold text-slate-900">Merchant of Record</p>
+        <p class="mt-1.5 text-[15px] leading-relaxed text-slate-700">
+          Kendi sitende Paddle veya benzeri bir aracıyla satıyorsan faturanın
+          muhatabı aracıdır: <a href="/merchant-of-record-vergi/" class="font-semibold text-brand-700 underline decoration-brand-200 underline-offset-4">MoR rehberi</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <Step
+    title="Mükellefiyetini aç"
+    links={[
+      { href: '/sahis-sirketi-nasil-kurulur/', label: 'Şahıs şirketi kurulumu' },
+      { href: '/app-store-play-store-vergi/', label: 'Mobil için %15 özel hesap' },
+    ]}
+  >
+    <p>
+      Yalnızca mobil mağaza gelirin varsa banka özel hesabı yolu
+      (<Fact name="uygulamaOzelHesapStopaji" /> stopaj) bir seçenek. Steam,
+      konsol veya yayıncı geliri de varsa bu rejim onları kapsamaz; o zaman
+      <Terim id="sahis-sirketi">şahıs şirketi</Terim> açman gerekir.
+    </p>
+  </Step>
+
+  <Step title="Mağazanın vergi formunu doldur">
+    <p>
+      Steamworks gibi ABD merkezli platformlar ödeme öncesi vergi bilgisi
+      ister. Türkiye ile ABD arasında çifte vergilendirmeyi önleme anlaşması
+      olduğu için formu doğru doldurursan ABD'de kesilen
+      <Terim id="stopaj">stopaj</Terim> azalabilir. Formda şirket bilgilerini
+      Türkiye'deki mükellefiyetinle tutarlı gir.
+    </p>
+  </Step>
+
+  <Step
+    title="Ödemeyi yapan şirkete fatura kes"
+    links={[
+      { href: '/302-11-1-a-fatura-ornegi/', label: '302 faturası' },
+      { href: '/yurtdisindan-odeme-alma/', label: 'Parayı getirmek' },
+    ]}
+  >
+    <p>
+      Her ödeme için, ödemeyi yapan yurt dışı şirkete döviz cinsinden
+      <Terim id="e-arsiv">e-Arşiv</Terim> fatura kesersin. Kazancın tamamını
+      beyanname tarihine kadar Türkiye'deki hesabına getir.
+    </p>
+  </Step>
+
+  <Step
+    title="Belirsizliği yazılı hale getir"
+    links={[{ href: '/app-store-play-store-vergi/', label: 'Mağaza gelirlerinde GİB ve Danıştay' }]}
+  >
+    <p>
+      PC ve konsol mağaza gelirine hizmet ihracatı indirimi uygulanıp
+      uygulanamayacağı tartışmalı. Gelirin büyükse, mali müşavirinle birlikte
+      vergi dairesinden kendi durumun için
+      <strong>özelge</strong> istemeyi düşün. Özelge, idarenin senin somut
+      durumuna dair yazılı görüşüdür ve sana dayanak sağlar.
+    </p>
+  </Step>
+
+  <section slot="after" class="pt-16 md:pt-20">
+    <div class="rounded-2xl border border-slate-200 bg-white p-6 md:p-7 max-w-3xl">
+      <h2 class="text-[17px] font-semibold text-slate-900">Bu sayfa neden temkinli?</h2>
+      <p class="mt-2 text-[15px] leading-relaxed text-slate-700">
+        Mobil uygulama gelirleri için yayımlanmış özelge ve Danıştay kararı
+        var; Steam ve konsol gelirleri için kamuya açık, bağlayıcı bir
+        değerlendirme bulamadık. Kesin görünen bir cevap uydurmak yerine
+        bilineni ve bilinmeyeni ayırıyoruz. Elinde bir özelge varsa
+        <a
+          href="https://github.com/aozisik/remote-vergi"
+          target="_blank"
+          rel="noopener"
+          class="font-semibold text-brand-700 underline decoration-brand-200 underline-offset-4"
+          >GitHub'da paylaş</a
+        >, sayfayı güncelleyelim.
+      </p>
+    </div>
+  </section>
+</PersonaLayout>

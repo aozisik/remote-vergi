@@ -1,0 +1,70 @@
+---
+// Inline jargon explainer: <Terim id="dab">DAB</Terim>. Hover or tap shows the
+// one-line definition; the link goes to the full /sozluk/ entry.
+import { termById } from '../data/glossary';
+
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+const term = termById(id);
+if (!term) throw new Error(`Unknown glossary term: ${id}`);
+---
+
+<style is:global>
+  .terim {
+    position: relative;
+    display: inline;
+    cursor: help;
+    outline: none;
+  }
+  .terim-word {
+    text-decoration: underline dotted oklch(0.67 0.16 26);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 4px;
+  }
+  .terim-tip {
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 8px);
+    z-index: 30;
+    width: min(18rem, 80vw);
+    transform: translate(-50%, 4px);
+    padding: 0.75rem 0.875rem;
+    border-radius: 0.75rem;
+    background: oklch(0.21 0.016 25);
+    color: oklch(0.85 0.009 25);
+    font-family: 'Bricolage Grotesque', system-ui, sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    box-shadow: 0 12px 32px -8px oklch(0.21 0.016 25 / 0.35);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity 160ms cubic-bezier(0.25, 1, 0.5, 1),
+      transform 160ms cubic-bezier(0.25, 1, 0.5, 1),
+      visibility 0s linear 160ms;
+  }
+  .terim:hover .terim-tip,
+  .terim:focus-within .terim-tip {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+    transition-delay: 0s;
+  }
+  .terim-more {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: oklch(0.79 0.1 26) !important;
+    font-weight: 600;
+    text-decoration: none !important;
+  }
+</style>
+
+{/* Kept on one line: whitespace between these spans would render as a gap before trailing punctuation. */}
+<span class="terim" tabindex="0"><span class="terim-word"><slot /></span><span class="terim-tip" role="tooltip" data-pagefind-ignore><span class="block font-semibold text-white">{term.term}</span><span class="block mt-1">{term.short}</span><a href={`/sozluk/#${term.id}`} class="terim-more">Sözlükte aç →</a></span></span>

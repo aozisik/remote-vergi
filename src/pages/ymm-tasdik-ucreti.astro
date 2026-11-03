@@ -1,0 +1,376 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { BRACKETS, CURRENCIES } from '../scripts/ymm';
+
+const title = 'YMM Tasdik Ücreti Ne Kadar? (2026 Gerçek Teklifler) | Remote Vergi';
+const description =
+  'Hizmet ihracatı kazanç indirimi için YMM tasdik raporu ücretleri ne kadar? Aylık gelirinizi girin, benzer cirodaki kişilerin aldığı gerçek YMM tekliflerini görün ve kendi teklifinizi karşılaştırın.';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'YMM tasdik raporu ne zaman zorunlu?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "49 No'lu Tebliğ (30.12.2025) ile, hizmet ihracatı kazanç indirimi tutarı 500.000 TL'yi (diğer istisnalarla birlikte 1.000.000 TL'yi) aştığında indirimin YMM tasdik raporu ile belgelenmesi zorunlu hale geldi.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'YMM tasdik ücreti ne kadar?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Ücret büyük ölçüde yıllık ciroya göre değişiyor. Bu sayfadaki veriler, kullanıcıların paylaştığı gerçek tekliflerin anonim ortalamalarını ciro aralıklarına göre gösterir.',
+      },
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description}>
+  <script
+    is:inline
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(faqSchema)}
+  />
+
+  <main class="max-w-3xl mx-auto px-5 md:px-8 py-10 md:py-14" x-data="ymmTool()">
+    <!-- Hero -->
+    <div class="rise">
+      <p class="text-[13px] font-medium text-brand-600 mb-2">
+        Topluluk verisi · Anonim
+      </p>
+      <h1 class="text-2xl md:text-3xl font-semibold tracking-tight text-slate-900">
+        YMM tasdik ücreti ne kadar?
+      </h1>
+      <p class="mt-3 text-[15px] leading-relaxed text-slate-600">
+        49 No'lu Tebliğ ile, hizmet ihracatı kazanç indiriminiz
+        <strong class="text-slate-900">500.000 TL</strong>'yi aştığında YMM tasdik
+        raporu zorunlu. Fiyatlar her yerde çok farklı çıkıyor. Aylık gelirinizi
+        girin, benzer cirodaki kişilerin aldığı gerçek teklifleri görün.
+      </p>
+    </div>
+
+    <!-- Your situation -->
+    <section class="mt-8 rounded-2xl border border-brand-100 bg-gradient-to-br from-brand-50/60 via-white to-white p-5 md:p-6">
+      <h2 class="text-[15px] font-semibold text-slate-900">Senin durumun</h2>
+      <p class="text-[13px] text-slate-600 mt-1">
+        Aylık ortalama gelirini gir, yıllık cironu ve o aralıktaki YMM ücretini
+        gösterelim.
+      </p>
+
+      <div class="mt-4 flex gap-2">
+        <input
+          type="number"
+          inputmode="numeric"
+          x-model="monthly"
+          placeholder="Aylık gelir"
+          class="flex-1 min-w-0 rounded-lg border border-slate-200 bg-white px-3 py-2 text-[14px] font-mono focus:border-brand-400 focus:outline-none"
+        />
+        <select
+          x-model="currency"
+          class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-[14px] focus:border-brand-400 focus:outline-none"
+        >
+          {CURRENCIES.map((c) => <option value={c.code}>{c.label}</option>)}
+        </select>
+      </div>
+
+      <!-- Derived ciro -->
+      <template x-if="annual() > 0">
+        <div class="mt-4 rounded-xl bg-white border border-slate-200 p-4">
+          <p class="text-[13px] text-slate-500">
+            Yıllık ciron yaklaşık
+            <strong class="text-slate-900 font-mono" x-text="fmt(annual())"></strong>
+            <span x-show="bracket()">· <span x-text="bracket() ? bracket().label : ''"></span> aralığı</span>
+          </p>
+
+          <template x-if="!needsYmm()">
+            <p class="mt-2 text-[13px] text-slate-600">
+              Bu ciroda kazanç indirimin muhtemelen 500.000 TL'nin altında kalır,
+              yani YMM tasdiki zorunlu olmayabilir. Yine de teklif aldıysan
+              aşağıdan paylaşabilirsin.
+            </p>
+          </template>
+
+          <template x-if="needsYmm() && bracketStat().n > 0">
+            <p class="mt-2 text-[14px] text-slate-900">
+              Bu aralıkta ortanca YMM ücreti
+              <strong class="font-mono" x-text="fmt(bracketStat().median)"></strong>
+              <span class="text-slate-500 text-[13px]">
+                (<span x-text="fmt(bracketStat().p25)"></span> –
+                <span x-text="fmt(bracketStat().p75)"></span>,
+                <span x-text="bracketStat().n"></span> teklif)
+              </span>
+            </p>
+          </template>
+
+          <template x-if="needsYmm() && bracketStat().n === 0">
+            <p class="mt-2 text-[13px] text-slate-600">
+              Bu aralık için henüz veri yok. Teklifini paylaşırsan ilk veriyi sen
+              eklemiş olursun.
+            </p>
+          </template>
+        </div>
+      </template>
+
+      <!-- Compare your quote -->
+      <template x-if="annual() > 0">
+        <div class="mt-4">
+          <label class="block">
+            <span class="text-[13px] font-medium text-slate-700">
+              Sana verilen YMM teklifi (TL)
+            </span>
+            <input
+              type="number"
+              inputmode="numeric"
+              x-model="fee"
+              placeholder="örn. 45000"
+              class="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-[14px] font-mono focus:border-brand-400 focus:outline-none"
+            />
+          </label>
+
+          <template x-if="myPercentile() !== null">
+            <p class="mt-2 text-[13px] text-slate-600">
+              <span class="text-slate-900" x-text="verdict()"></span>
+              Senin teklifin bu aralıktaki tekliflerin alt
+              <strong class="text-slate-700" x-text="myPercentile() + '%'"></strong>
+              kısmında.
+            </p>
+          </template>
+
+          <div class="mt-3 flex items-center gap-3">
+            <select
+              x-model.number="year"
+              class="rounded-lg border border-slate-200 bg-white px-3 py-2 text-[13px] focus:border-brand-400 focus:outline-none"
+            >
+              <option value="2026">2026 vergi yılı</option>
+              <option value="2025">2025 vergi yılı</option>
+            </select>
+            <button
+              type="button"
+              x-on:click="submit()"
+              x-bind:disabled="submitting || submitted"
+              class="inline-flex items-center px-4 py-2 rounded-lg bg-brand-600 text-white text-[13px] font-medium hover:bg-brand-700 transition disabled:opacity-60"
+            >
+              <span
+                x-text="submitted ? 'Teşekkürler!' : (submitting ? 'Gönderiliyor...' : 'Teklifimi paylaş')"
+              ></span>
+            </button>
+          </div>
+
+          <!-- honeypot -->
+          <input
+            type="text"
+            x-model="website"
+            tabindex="-1"
+            autocomplete="off"
+            class="hidden"
+            aria-hidden="true"
+          />
+          <p x-show="formError" x-cloak class="mt-2 text-[13px] text-red-600" x-text="formError"></p>
+          <p x-show="submitted" x-cloak class="mt-2 text-[13px] text-slate-500">
+            Teklifin eklendi, veriler güncellendi.
+          </p>
+        </div>
+      </template>
+    </section>
+
+    <!-- Loading / error -->
+    <div x-show="loading" class="mt-10 text-center text-[14px] text-slate-400">
+      Veriler yükleniyor...
+    </div>
+    <div x-show="error" x-cloak class="mt-10 card p-5 text-[14px] text-slate-600">
+      Veriler şu an yüklenemedi. Lütfen birazdan tekrar deneyin.
+    </div>
+
+    <!-- All brackets -->
+    <section x-show="!loading && !error" x-cloak class="mt-10">
+      <div class="flex items-baseline justify-between gap-3 mb-4">
+        <h2 class="text-[15px] font-semibold text-slate-900">
+          Yıllık ciroya göre YMM ücretleri
+        </h2>
+        <span class="text-[12px] text-slate-400">
+          <span x-text="data ? data.total : 0"></span> teklif
+        </span>
+      </div>
+
+      <div class="space-y-3">
+        {
+          BRACKETS.map((b) => (
+            <div class="card p-4" x-data={`{ s: () => stat('${b.key}') }`}>
+              <div class="flex items-center justify-between gap-4">
+                <div class="min-w-0">
+                  <div class="text-[14px] font-medium text-slate-900">{b.label}</div>
+                  <div class="text-[12px] text-slate-400 mt-0.5">yıllık ciro</div>
+                </div>
+                <div class="text-right shrink-0">
+                  <template x-if="s().n > 0">
+                    <div>
+                      <div class="text-[18px] font-semibold text-slate-900 font-mono">
+                        <span x-text="fmt(s().median)" />
+                      </div>
+                      <div class="text-[12px] text-slate-500 mt-0.5">
+                        <span x-text="fmt(s().p25)" /> –
+                        <span x-text="fmt(s().p75)" /> ·
+                        <span x-text="s().n" /> teklif
+                      </div>
+                    </div>
+                  </template>
+                  <template x-if="s().n === 0">
+                    <div class="text-[13px] text-slate-400">Henüz veri yok</div>
+                  </template>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-3 text-[12px] text-slate-400">
+        Ortanca (medyan) ücret gösterilir. Aralık 25-75. yüzdelik dilimdir. Aşırı
+        uç teklifler hesaba katılmaz.
+      </p>
+    </section>
+
+    <!-- Disclaimer + links -->
+    <p class="mt-10 text-[12px] leading-relaxed text-slate-400">
+      Bu sayfa bilgilendirme amaçlıdır, vergi danışmanlığı değildir. Veriler
+      kullanıcı beyanına dayanır ve yalnızca anonim toplamlar olarak gösterilir.
+      Kesin bilgi için bir mali müşavir veya YMM ile görüşün.
+    </p>
+
+    <div class="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[13px] text-brand-600">
+      <a href="/hizmet-ihracati-istisnasi/" class="hover:underline">İstisna ve YMM tasdiki rehberi</a>
+      <a href="/" class="hover:underline">Vergi hesaplayıcı</a>
+      <a href="/sahis-sirketi-maliyet/" class="hover:underline">Şahıs şirketi maliyetleri</a>
+    </div>
+  </main>
+
+  <style is:global>
+    [x-cloak] {
+      display: none !important;
+    }
+  </style>
+
+  <script>
+    import Alpine from 'alpinejs';
+    import {
+      API_BASE,
+      annualTRY,
+      bracketForAnnual,
+      formatTL,
+      percentileOf,
+      YMM_LIKELY_THRESHOLD_TRY,
+    } from '../scripts/ymm';
+
+    (window as any).ymmTool = () => ({
+      loading: true,
+      error: false,
+      data: null as any,
+      monthly: '',
+      currency: 'USD',
+      year: 2026,
+      fee: '',
+      website: '',
+      submitting: false,
+      submitted: false,
+      formError: '',
+
+      fmt: formatTL,
+
+      async init() {
+        await this.load();
+      },
+
+      async load() {
+        try {
+          const res = await fetch(`${API_BASE}/aggregates`);
+          if (!res.ok) throw new Error('bad status');
+          this.data = await res.json();
+          this.error = false;
+        } catch (e) {
+          this.error = true;
+        } finally {
+          this.loading = false;
+        }
+      },
+
+      stat(key: string) {
+        return (this.data && this.data.brackets[key]) || { n: 0 };
+      },
+
+      annual(): number {
+        return annualTRY(Number(this.monthly), this.currency as any);
+      },
+
+      bracket() {
+        return bracketForAnnual(this.annual());
+      },
+
+      bracketStat() {
+        const b = this.bracket();
+        return b ? this.stat(b.key) : { n: 0 };
+      },
+
+      needsYmm(): boolean {
+        return this.annual() >= YMM_LIKELY_THRESHOLD_TRY;
+      },
+
+      myPercentile(): number | null {
+        const s = this.bracketStat();
+        const fee = Math.round(Number(this.fee));
+        if (!fee || !s.fees || s.n === 0) return null;
+        return percentileOf(s.fees, fee);
+      },
+
+      verdict(): string {
+        const p = this.myPercentile();
+        if (p === null) return '';
+        if (p <= 33) return 'Teklifin piyasaya göre uygun tarafta.';
+        if (p >= 67) return 'Teklifin piyasaya göre yüksek tarafta.';
+        return 'Teklifin piyasa ortalaması civarında.';
+      },
+
+      async submit() {
+        this.formError = '';
+        const fee = Math.round(Number(this.fee));
+        const b = this.bracket();
+        if (!b) {
+          this.formError = 'Önce aylık gelirini gir.';
+          return;
+        }
+        if (!fee || fee < 1000) {
+          this.formError = 'Lütfen geçerli bir YMM teklifi gir.';
+          return;
+        }
+        this.submitting = true;
+        try {
+          const res = await fetch(`${API_BASE}/quote`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              bracket: b.key,
+              fee,
+              annual_revenue: this.annual(),
+              year: this.year,
+              website: this.website,
+            }),
+          });
+          if (!res.ok) throw new Error('bad status');
+          this.submitted = true;
+          (window as any).plausible?.('YMM Quote Submitted');
+          await this.load();
+        } catch (e) {
+          this.formError = 'Gönderilemedi, lütfen tekrar deneyin.';
+        } finally {
+          this.submitting = false;
+        }
+      },
+    });
+
+    Alpine.start();
+  </script>
+</Layout>

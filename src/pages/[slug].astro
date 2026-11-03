@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from 'astro:content';
+import ArticleLayout from '../layouts/ArticleLayout.astro';
+import Fact from '../components/Fact.astro';
+import Terim from '../components/Terim.astro';
+
+// Guides live in src/content/rehberler/ and keep their original flat URLs
+// (/upwork-vergi/, /302-11-1-a-fatura-ornegi/, ...).
+export async function getStaticPaths() {
+  const guides = await getCollection('rehberler');
+  return guides.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+---
+
+<ArticleLayout
+  frontmatter={entry.data}
+  headings={headings}
+  editPath={`src/content/rehberler/${entry.id}.mdx`}
+>
+  <Content components={{ Fact, Terim }} />
+</ArticleLayout>

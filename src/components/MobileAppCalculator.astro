@@ -7,6 +7,7 @@
 <section
   class="not-prose my-8 rounded-2xl border border-slate-200 bg-white overflow-hidden"
   data-mobile-app-calc
+  id="hesaplayici"
 >
   <header class="px-5 md:px-6 py-4 border-b border-slate-100 bg-slate-50">
     <h3 class="text-sm font-semibold text-slate-900">
@@ -84,7 +85,7 @@
     <div class="space-y-5">
       <!-- Hero -->
       <div
-        class="rounded-xl border border-indigo-100 bg-gradient-to-br from-indigo-50/40 via-white to-white p-5"
+        class="rounded-xl border border-brand-100 bg-gradient-to-br from-brand-50/40 via-white to-white p-5"
       >
         <p
           class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold mb-1.5"
@@ -97,7 +98,7 @@
         >
           ₺0
         </p>
-        <div class="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-indigo-100">
+        <div class="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-brand-100">
           <div>
             <p
               class="text-[10px] uppercase tracking-wider text-slate-500 font-semibold mb-0.5"
@@ -149,7 +150,7 @@
           <div
             class="relative w-24 h-24 rounded-full shrink-0"
             data-pie
-            style="background: conic-gradient(#4f46e5 0% 100%);"
+            style="background: conic-gradient(oklch(0.5 0.11 160) 0% 100%);"
           >
             <div class="absolute inset-[22%] rounded-full bg-white"></div>
           </div>
@@ -158,7 +159,7 @@
               <div class="flex items-center gap-2.5 min-w-0">
                 <span
                   class="inline-block w-2.5 h-2.5 rounded-sm shrink-0"
-                  style="background: #4f46e5;"></span>
+                  style="background: oklch(0.5 0.11 160);"></span>
                 <span class="text-slate-700">Net</span>
               </div>
               <div class="text-right">
@@ -177,7 +178,7 @@
               <div class="flex items-center gap-2.5 min-w-0">
                 <span
                   class="inline-block w-2.5 h-2.5 rounded-sm shrink-0"
-                  style="background: #dc2626;"></span>
+                  style="background: oklch(0.52 0.19 26);"></span>
                 <span class="text-slate-700">%15 stopaj</span>
               </div>
               <div class="text-right">
@@ -196,7 +197,7 @@
               <div class="flex items-center gap-2.5 min-w-0">
                 <span
                   class="inline-block w-2.5 h-2.5 rounded-sm shrink-0"
-                  style="background: #d97706;"></span>
+                  style="background: oklch(0.72 0.14 70);"></span>
                 <span class="text-slate-700">Bağ-Kur</span>
               </div>
               <div class="text-right">
@@ -334,7 +335,7 @@
         const bagkurPct = (annualBagkur / total) * 100;
         const netEnd = netPct;
         const taxEnd = netPct + taxPct;
-        pieEl.style.background = `conic-gradient(#4f46e5 0% ${netEnd}%, #dc2626 ${netEnd}% ${taxEnd}%, #d97706 ${taxEnd}% 100%)`;
+        pieEl.style.background = `conic-gradient(oklch(0.5 0.11 160) 0% ${netEnd}%, oklch(0.52 0.19 26) ${netEnd}% ${taxEnd}%, oklch(0.72 0.14 70) ${taxEnd}% 100%)`;
 
         pieNetAmount.textContent = fmtTL(netClamped);
         pieNetPct.textContent = netPct.toFixed(1) + '%';

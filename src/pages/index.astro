@@ -1,6 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Calculator from '../components/Calculator.astro';
+import Fact from '../components/Fact.astro';
+import { getGuides } from '../data/guides';
+import { deadlines, formatDate } from '../data/takvim';
+import Illustration from '../components/Illustration.astro';
+import {
+  type IllustrationName,
+  type IllustrationTone,
+  personas,
+} from '../data/site';
+
+const guideCount = (await getGuides()).length;
+const today = new Date().toISOString().slice(0, 10);
+const commonDeadlines = deadlines
+  .filter((d) => d.audience === 'herkes')
+  .map(({ date, title, period }) => ({ date, title, period }));
+const nextDeadline = commonDeadlines.find((d) => d.date >= today);
+
 
 const title = 'Remote Vergi 2026: Yurtdışı Çalışanlar Vergi Hesaplayıcı';
 const description =
@@ -127,34 +144,275 @@ const dateModified = '2026-05-07';
     slot="head"
   />
 
-  <div class="max-w-5xl mx-auto px-5 md:px-8 pt-12 md:pt-16 pb-16">
-    <!-- Hero -->
-    <div class="max-w-2xl mb-10 md:mb-12">
-      <h1
-        class="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 mb-3"
-      >
-        Yurt dışına çalışanlar için vergi hesaplayıcı
-      </h1>
-      <p class="text-[15px] md:text-base text-slate-600 leading-relaxed">
-        Türkiye'den yurt dışı firmalara döviz kazanan yazılımcılar, mühendisler
-        ve tasarımcılar için. 2026 mevzuatına göre %100 hizmet ihracatı
-        istisnası ve YMM tasdiki dahil.
+  <!-- Hero: ask what they need, the NerdWallet way -->
+  <section class="hero relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 pt-12 md:pt-20 pb-16 md:pb-24 grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
+      <div>
+        <p class="inline-flex items-center gap-2 h-8 px-3 rounded-full bg-white/80 border border-brand-100 text-[13px] font-semibold text-brand-700">
+          <span class="w-1.5 h-1.5 rounded-full bg-gain-600" aria-hidden="true"></span>
+          2026 mevzuatına göre güncel
+        </p>
+        <h1 class="mt-5 text-[clamp(2.4rem,1.5rem+3.6vw,4.1rem)] font-bold leading-[1.02] tracking-[-0.035em] text-slate-900">
+          Yurt dışına çalışıyorsun.
+          <span class="relative inline-block">
+            Vergisi
+            <svg class="pen-underline absolute left-0 -bottom-2 w-full h-4 text-brand-500" viewBox="0 0 200 16" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M3 11c38-6 92-9 194-5" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"></path>
+            </svg>
+          </span>
+          karışık olmak zorunda değil.
+        </h1>
+        <p class="mt-6 max-w-xl text-[18px] leading-relaxed text-slate-700">
+          Türkiye'den yabancı şirketlere çalışan yazılımcı, uygulama ve oyun
+          geliştiricileri için vergi, şirket ve fatura rehberi. Sade dille,
+          kaynağıyla, ücretsiz.
+        </p>
+
+        <form class="mt-8 max-w-xl" data-hero-search role="search">
+          <label for="hero-q" class="block text-[15px] font-semibold text-slate-900 mb-2">
+            Aklındaki soruyu yaz
+          </label>
+          <div class="flex items-center gap-2 p-1.5 rounded-2xl bg-white border border-slate-200 shadow-[0_8px_30px_-12px_oklch(0.21_0.016_25/0.25)] focus-within:border-brand-400 focus-within:ring-4 focus-within:ring-brand-100 transition">
+            <svg viewBox="0 0 24 24" class="w-5 h-5 ml-3 text-slate-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle><path stroke-linecap="round" d="m21 21-4.3-4.3"></path>
+            </svg>
+            <input
+              id="hero-q"
+              name="q"
+              type="search"
+              autocomplete="off"
+              placeholder="Örn. Upwork geliri nasıl faturalanır?"
+              class="flex-1 min-w-0 h-12 bg-transparent text-[16px] text-slate-900 placeholder:text-slate-500 outline-none"
+            />
+            <button type="submit" class="h-12 px-5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-[15px] font-semibold transition">
+              Sor
+            </button>
+          </div>
+        </form>
+        <div class="mt-4 flex flex-wrap gap-2 max-w-xl">
+          <span class="text-[14px] text-slate-600 mr-1 self-center">Sık sorulanlar:</span>
+          <a href="/sahis-sirketi-maliyet/" class="chip">Bağ-Kur ne kadar?</a>
+          <a href="/302-11-1-a-fatura-ornegi/" class="chip">Faturayı nasıl keserim?</a>
+          <a href="/sahis-sirketi/" class="chip">Şirket açmalı mıyım?</a>
+          <a href="/hizmet-ihracati-istisnasi/" class="chip">%100 istisna kimlere?</a>
+        </div>
+      </div>
+
+      <!-- Illustrated invoice: what the whole site helps you do -->
+      <div class="relative mx-auto w-full max-w-[420px] lg:max-w-none mb-10" aria-hidden="true">
+        <div class="invoice relative rounded-3xl bg-white border border-slate-200 p-6 md:p-7 shadow-[0_30px_60px_-30px_oklch(0.21_0.016_25/0.35)] rotate-[-2deg]">
+          <div class="flex items-start justify-between">
+            <div>
+              <p class="text-[12px] font-semibold text-slate-500">e-Arşiv Fatura</p>
+              <p class="mt-0.5 text-[17px] font-bold text-slate-900">Acme GmbH, Berlin</p>
+            </div>
+            <span class="num text-[12px] text-slate-500">#2026-014</span>
+          </div>
+          <div class="mt-6 space-y-3 text-[14px]">
+            <div class="flex justify-between"><span class="text-slate-600">Software Development Service</span><span class="num font-medium text-slate-900">€4.000</span></div>
+            <div class="flex justify-between"><span class="text-slate-600">KDV (302 istisna)</span><span class="num font-medium text-slate-900">%0</span></div>
+            <div class="h-px bg-slate-200"></div>
+            <div class="flex justify-between text-[16px]"><span class="font-semibold text-slate-900">Toplam</span><span class="num font-semibold text-slate-900">€4.000</span></div>
+          </div>
+          <div class="mt-6 flex items-center gap-2 text-[13px] text-slate-600">
+            <span class="inline-flex w-5 h-5 rounded-full bg-gain-100 items-center justify-center">
+              <svg viewBox="0 0 24 24" class="w-3.5 h-3.5 text-gain-700" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.2 4.2L19 7"></path></svg>
+            </span>
+            Ödeme Türkiye'deki hesaba geldi
+          </div>
+        </div>
+        <div class="sticker absolute -bottom-16 right-0 md:-right-4 rotate-[4deg] rounded-2xl bg-slate-900 text-white px-5 py-4 shadow-xl">
+          <p class="text-[12px] text-slate-300">Bu kazanca gelir vergisi</p>
+          <p class="num text-[28px] font-semibold leading-none mt-1 text-gain-100">%0</p>
+          <p class="text-[11px] text-slate-400 mt-1">şartlar sağlanırsa</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next tax deadline, recomputed in the browser so it never goes stale -->
+  {
+    nextDeadline && (
+      <section class="max-w-6xl mx-auto px-5 md:px-8 pt-10">
+        <a
+          href="/vergi-takvimi/"
+          data-deadline-strip={JSON.stringify(commonDeadlines)}
+          class="group flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 hover:border-slate-300 transition"
+        >
+          <Illustration name="calendar" tone="rose" class="w-10 h-10 shrink-0" />
+          <span class="text-[15px] text-slate-700">
+            <span class="font-semibold text-slate-900">Sıradaki son tarih:</span>{' '}
+            <span data-strip-date>{formatDate(nextDeadline.date)}</span>,{' '}
+            <span data-strip-title>{nextDeadline.title}</span>
+          </span>
+          <span class="inline-flex items-center h-7 px-2.5 rounded-full bg-brand-50 text-[13px] font-semibold text-brand-700" data-strip-left></span>
+          <span class="ml-auto text-[14px] font-semibold text-brand-700 group-hover:text-brand-800">
+            Vergi takvimini aç →
+          </span>
+        </a>
+      </section>
+    )
+  }
+
+  <!-- Need-based tiles -->
+  <section class="max-w-6xl mx-auto px-5 md:px-8 pt-16 md:pt-24">
+    <h2 class="text-[28px] md:text-[36px] font-bold tracking-[-0.025em] text-slate-900">
+      Bugün ne yapmak istiyorsun?
+    </h2>
+    <p class="mt-2 text-[17px] text-slate-600">Bir iş seç, seni doğru rehbere götürelim.</p>
+    <ul class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        [
+          { href: '/sahis-sirketi-nasil-kurulur/', icon: 'company', tone: 'rose', title: 'Şirketimi açacağım', blurb: 'Adım adım şahıs şirketi kurulumu' },
+          { href: '/302-11-1-a-fatura-ornegi/', icon: 'invoice', tone: 'mint', title: 'İlk faturamı keseceğim', blurb: 'e-Arşiv\'de hangi alana ne yazılır' },
+          { href: '/yurtdisindan-odeme-alma/', icon: 'transfer', tone: 'sky', title: 'Parayı Türkiye\'ye getireceğim', blurb: 'Wise, Payoneer ve banka süreci' },
+          { href: '#hesapla', icon: 'calculator', tone: 'amber', title: 'Ne kadar vergi öderim?', blurb: '30 saniyede net kazancını gör' },
+          { href: '/sahis-sirketi-maliyet/', icon: 'pen', tone: 'lilac', title: 'Aylık giderimi bilmek istiyorum', blurb: 'Bağ-Kur, mali müşavir, damga vergisi' },
+          { href: '/hizmet-ihracati-istisnasi/', icon: 'calendar', tone: 'rose', title: 'Beyanname zamanı geldi', blurb: '%100 indirim ve YMM tasdiki' },
+          { href: '/upwork-vergi/', icon: 'laptop', tone: 'mint', title: 'Upwork\'ten gelirim var', blurb: 'Faturayı kime, ne tutarla kesersin' },
+          { href: '/remote-is-bulma/', icon: 'search', tone: 'sky', title: 'Remote iş arıyorum', blurb: 'İlan siteleri ve başvuru taktikleri' },
+        ].map((t) => (
+          <li>
+            <a href={t.href} class="tile group flex h-full items-start gap-4 rounded-3xl bg-white border border-slate-200 p-5 hover:border-slate-300 hover:-translate-y-0.5 hover:shadow-[0_16px_32px_-20px_oklch(0.21_0.016_25/0.3)] transition duration-300 ease-out-quart">
+              <Illustration name={t.icon as IllustrationName} tone={t.tone as IllustrationTone} class="w-14 h-14 shrink-0 transition duration-300 ease-out-quart group-hover:scale-105" />
+              <span class="pt-1">
+                <span class="block text-[16px] font-semibold leading-snug text-slate-900">{t.title}</span>
+                <span class="block mt-1 text-[14px] leading-snug text-slate-600">{t.blurb}</span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- Personas -->
+  <section class="max-w-6xl mx-auto px-5 md:px-8 pt-16 md:pt-24">
+    <div class="rounded-[2rem] bg-slate-900 text-white p-7 md:p-12">
+      <div class="max-w-2xl">
+        <h2 class="text-[28px] md:text-[36px] font-bold tracking-[-0.025em]">Sana özel yol haritası</h2>
+        <p class="mt-2 text-[17px] text-slate-300">
+          Ne iş yaptığını seç, baştan sona hangi adımları atacağını sırayla
+          gösterelim.
+        </p>
+      </div>
+      <ul class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          personas.map((p) => (
+            <li>
+              <a href={p.href} class="group flex h-full flex-col rounded-3xl bg-white/[0.06] border border-white/10 p-5 hover:bg-white/[0.1] hover:border-white/20 transition">
+                <Illustration name={p.icon} tone={p.tone} class="w-14 h-14" />
+                <span class="mt-4 text-[18px] font-semibold">{p.name}</span>
+                <span class="mt-1 text-[14px] leading-snug text-slate-300">{p.short}</span>
+                <span class="mt-auto pt-5 text-[14px] font-semibold text-brand-300 group-hover:text-brand-200 transition">
+                  Yol haritamı göster →
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section id="hesapla" class="max-w-6xl mx-auto px-5 md:px-8 pt-16 md:pt-24 scroll-mt-20">
+    <div class="max-w-2xl">
+      <h2 class="text-[28px] md:text-[36px] font-bold tracking-[-0.025em] text-slate-900">
+        Elinde ne kalıyor? Hemen hesapla.
+      </h2>
+      <p class="mt-2 text-[17px] text-slate-600">
+        Aylık döviz gelirini gir. Bağ-Kur, mali müşavir, damga vergisi ve
+        gerekiyorsa YMM dahil yıllık net kazancını gösterelim.
       </p>
     </div>
-
     <Calculator />
+  </section>
 
-    <!-- Article -->
-    <article
-      class="prose prose-slate max-w-2xl mx-auto mt-24 md:mt-32
-        prose-headings:tracking-tight prose-headings:font-semibold
-        prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
-        prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
-        prose-p:text-slate-600 prose-p:leading-relaxed prose-p:text-[15px]
-        prose-li:text-slate-600 prose-li:text-[15px]
-        prose-a:text-indigo-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium
-        prose-strong:text-slate-900"
-    >
+  <!-- This year's numbers: our "rates" board -->
+  <section class="max-w-6xl mx-auto px-5 md:px-8 pt-16 md:pt-24">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h2 class="text-[28px] md:text-[36px] font-bold tracking-[-0.025em] text-slate-900">
+          Bu yıl bilmen gereken rakamlar
+        </h2>
+        <p class="mt-2 text-[17px] text-slate-600">2026 için, tek bakışta.</p>
+      </div>
+      <a href="/sozluk/" class="text-[15px] font-semibold text-brand-700 hover:text-brand-800">Terimler ne demek? Sözlük →</a>
+    </div>
+    <ul class="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <li class="rate">
+        <p class="rate-label">Hizmet ihracatı kazanç indirimi</p>
+        <p class="rate-value !text-gain-700"><Fact name="hizmetIhracatiIndirimi" /></p>
+        <p class="rate-note">2025'te %80'di. Şartları sağlarsan kazancına gelir vergisi çıkmaz.</p>
+      </li>
+      <li class="rate">
+        <p class="rate-label">Bağ-Kur asgari prim</p>
+        <p class="rate-value"><Fact name="bagkurAsgariAylik" /><span class="rate-unit">/ay</span></p>
+        <p class="rate-note">Şirketi açtığın gün başlar. Asıl sabit giderin bu.</p>
+      </li>
+      <li class="rate">
+        <p class="rate-label">YMM tasdik eşiği</p>
+        <p class="rate-value"><Fact name="ymmIndirimEsigi" /></p>
+        <p class="rate-note">Yıllık indirimin bunu geçerse yeminli mali müşavir raporu şart.</p>
+      </li>
+      <li class="rate">
+        <p class="rate-label">Gelir vergisi dilimleri</p>
+        <p class="rate-value"><Fact name="gelirVergisiEnDusukDilim" /><span class="rate-unit">ile</span><Fact name="gelirVergisiEnYuksekDilim" /></p>
+        <p class="rate-note">İndirim dışında kalan kazanç, örneğin yurt içi gelir, bu tarifeyle vergilenir.</p>
+      </li>
+      <li class="rate">
+        <p class="rate-label">Mali müşavir, TÜRMOB asgari</p>
+        <p class="rate-value"><Fact name="smmmAsgariAylik" /><span class="rate-unit">/ay</span></p>
+        <p class="rate-note">Piyasada yurt dışına çalışanlar için genelde biraz üstü.</p>
+      </li>
+      <li class="rate">
+        <p class="rate-label">Uygulama geliri özel hesap sınırı</p>
+        <p class="rate-value"><Fact name="uygulamaOzelHesapLimiti" /></p>
+        <p class="rate-note">App Store ve Google Play için %15 stopaj yolunun yıllık üst sınırı.</p>
+      </li>
+    </ul>
+    <p class="mt-4 text-[13px] text-slate-500">
+      Rakamlar yaklaşıktır ve tek bir kaynaktan beslenir; hesaplayıcı da aynı rakamları kullanır.
+    </p>
+  </section>
+
+  <!-- Trust -->
+  <section class="max-w-6xl mx-auto px-5 md:px-8 pt-16 md:pt-24">
+    <h2 class="text-[28px] md:text-[36px] font-bold tracking-[-0.025em] text-slate-900">
+      Neden bize güvenebilirsin?
+    </h2>
+    <div class="mt-8 grid gap-10 md:grid-cols-3">
+      <div>
+        <p class="num text-[40px] font-semibold tracking-tight text-slate-900">{guideCount}</p>
+        <p class="mt-1 text-[17px] font-semibold text-slate-900">rehber, her birinde tarih</p>
+        <p class="mt-2 text-[15px] leading-relaxed text-slate-600">
+          Her rehberin başında en son ne zaman kontrol edildiği ve dayandığı
+          mevzuat yazar. Eskiyen bilgi gizlenmez.
+        </p>
+      </div>
+      <div>
+        <p class="num text-[40px] font-semibold tracking-tight text-slate-900">%100</p>
+        <p class="mt-1 text-[17px] font-semibold text-slate-900">açık kaynak</p>
+        <p class="mt-2 text-[15px] leading-relaxed text-slate-600">
+          Sitenin tamamı GitHub'da. Yanlış bir şey görürsen herkes gibi sen de
+          düzeltme önerebilirsin.
+        </p>
+      </div>
+      <div>
+        <p class="num text-[40px] font-semibold tracking-tight text-slate-900">0 ₺</p>
+        <p class="mt-1 text-[17px] font-semibold text-slate-900">satış, reklam, danışmanlık</p>
+        <p class="mt-2 text-[15px] leading-relaxed text-slate-600">
+          Sana bir şey satmıyoruz. Amaç, mali müşavirinle konuşurken neyin ne
+          olduğunu bilmen.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Long-form guide: kept for readers and search -->
+  <section class="max-w-6xl mx-auto px-5 md:px-8 pt-16 md:pt-24">
+    <article class="rv-prose prose prose-slate max-w-[44rem]">
       <h2>2026 vergi rehberi</h2>
       <p>
         30 Nisan 2026 tarihli Resmî Gazete'de yayımlanan <strong
@@ -240,12 +498,12 @@ const dateModified = '2026-05-07';
 
       <h3>2026 oran ve limitleri</h3>
       <ul>
-        <li>Hizmet ihracatı kazanç istisnası: <strong>%100</strong></li>
-        <li>YMM tasdik raporu zorunluluk eşiği: 500.000 ₺</li>
-        <li>Genç girişimci kazanç istisnası: 400.000 ₺</li>
-        <li>Bağ-Kur primi (asgari, aylık): ~11.808 ₺</li>
-        <li>SMMM aylık asgari (TÜRMOB): 4.492 ₺</li>
-        <li>Gelir vergisi dilim aralığı: %15 ile %40</li>
+        <li>Hizmet ihracatı kazanç istisnası: <strong><Fact name="hizmetIhracatiIndirimi" /></strong></li>
+        <li>YMM tasdik raporu zorunluluk eşiği: <Fact name="ymmIndirimEsigi" /></li>
+        <li>Genç girişimci kazanç istisnası: <Fact name="gencGirisimciIstisnasi" /></li>
+        <li>Bağ-Kur primi (asgari, aylık): ~<Fact name="bagkurAsgariAylik" /></li>
+        <li>SMMM aylık asgari (TÜRMOB): <Fact name="smmmAsgariAylik" /></li>
+        <li>Gelir vergisi dilim aralığı: <Fact name="gelirVergisiEnDusukDilim" /> ile <Fact name="gelirVergisiEnYuksekDilim" /></li>
       </ul>
 
       <h3>Kaynaklar</h3>
@@ -267,230 +525,129 @@ const dateModified = '2026-05-07';
         </li>
       </ul>
     </article>
+  </section>
 
-    <section class="mt-20 md:mt-28">
-      <div class="max-w-2xl mb-8 md:mb-10">
-        <h2
-          class="text-2xl font-semibold tracking-tight text-slate-900 mb-3"
-        >
-          Detaylı rehberler
-        </h2>
-        <p class="text-[15px] text-slate-600 leading-relaxed">
-          Konu başlıklarına göre derinlemesine içerikler ve uygulama
-          örnekleri.
-        </p>
+  <!-- Sign-off -->
+  <section class="max-w-6xl mx-auto px-5 md:px-8 pt-16 md:pt-24">
+    <div class="hero rounded-[2rem] px-7 py-12 md:px-12 md:py-16 text-center">
+      <p class="text-[clamp(1.75rem,1.2rem+2vw,2.75rem)] font-bold tracking-[-0.03em] text-slate-900 leading-tight">
+        Sen işine bak, vergiyi biz sadeleştirdik.
+      </p>
+      <div class="mt-7 flex flex-wrap justify-center gap-3">
+        <a href="#hesapla" class="inline-flex items-center h-12 px-6 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-[15px] font-semibold transition">Net kazancımı hesapla</a>
+        <a href="/rehberler/" class="inline-flex items-center h-12 px-6 rounded-xl bg-white border border-slate-200 hover:border-slate-300 text-slate-900 text-[15px] font-semibold transition">Tüm rehberler</a>
       </div>
+    </div>
+  </section>
 
-      <div class="space-y-10 md:space-y-12">
-        <div>
-          <h3
-            class="text-[12px] font-semibold uppercase tracking-[0.08em] text-slate-500 mb-4"
-          >
-            Remote Çalışma
-          </h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <a
-              href="/remote-is-bulma/"
-              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
-            >
-              <div
-                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
-              >
-                Remote İş Bulma
-              </div>
-              <div class="text-[13px] text-slate-500 leading-relaxed">
-                Yurtdışı iş ilanları, başvuru stratejisi, en iyi siteler
-              </div>
-            </a>
-            <a
-              href="/yurtdisina-remote-calismak/"
-              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
-            >
-              <div
-                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
-              >
-                Yurtdışına Remote Çalışmak
-              </div>
-              <div class="text-[13px] text-slate-500 leading-relaxed">
-                Sözleşme, mükellefiyet, vergi, SGK ve döviz akışı
-              </div>
-            </a>
-          </div>
-        </div>
+  <script>
+    // Next-deadline strip: pick the first upcoming date at view time.
+    const strip = document.querySelector<HTMLElement>('[data-deadline-strip]');
+    if (strip) {
+      const list: Array<{ date: string; title: string }> = JSON.parse(strip.dataset.deadlineStrip ?? '[]');
+      const today = new Date().toISOString().slice(0, 10);
+      const next = list.find((d) => d.date >= today);
+      if (next) {
+        const days = Math.round((Date.parse(next.date) - Date.parse(today)) / 86_400_000);
+        strip.querySelector('[data-strip-date]')!.textContent = new Date(`${next.date}T12:00:00Z`).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', timeZone: 'UTC' });
+        strip.querySelector('[data-strip-title]')!.textContent = next.title;
+        strip.querySelector('[data-strip-left]')!.textContent = days === 0 ? 'bugün' : days === 1 ? 'yarın' : `${days} gün kaldı`;
+      }
+    }
 
-        <div>
-          <h3
-            class="text-[12px] font-semibold uppercase tracking-[0.08em] text-slate-500 mb-4"
-          >
-            Hizmet İhracatı
-          </h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <a
-              href="/hizmet-ihracati/"
-              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
-            >
-              <div
-                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
-              >
-                Genel Rehber
-              </div>
-              <div class="text-[13px] text-slate-500 leading-relaxed">
-                2026 mevzuatı ve %100 istisnanın temelleri
-              </div>
-            </a>
-            <a
-              href="/hizmet-ihracati-istisnasi/"
-              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
-            >
-              <div
-                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
-              >
-                İstisna ve YMM Tasdiki
-              </div>
-              <div class="text-[13px] text-slate-500 leading-relaxed">
-                11257 sayılı Karar, 49 No'lu Tebliğ ve eşikler
-              </div>
-            </a>
-            <a
-              href="/302-11-1-a-fatura-ornegi/"
-              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
-            >
-              <div
-                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
-              >
-                e-Arşiv 302 Faturası
-              </div>
-              <div class="text-[13px] text-slate-500 leading-relaxed">
-                Alan adları, muafiyet kodu ve döviz beyanı
-              </div>
-            </a>
-            <a
-              href="/yurtdisindan-odeme-alma/"
-              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
-            >
-              <div
-                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
-              >
-                Yurtdışından Ödeme Alma
-              </div>
-              <div class="text-[13px] text-slate-500 leading-relaxed">
-                Wise, Payoneer, Revolut, Deel ve DAB süreci
-              </div>
-            </a>
-          </div>
-        </div>
+    // Hero question box: hands the query to the site search dialog.
+    document.querySelector<HTMLFormElement>('[data-hero-search]')?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const q = new FormData(event.currentTarget as HTMLFormElement).get('q');
+      (window as any).rvOpenSearch?.(String(q ?? ''));
+    });
+  </script>
 
-        <div>
-          <h3
-            class="text-[12px] font-semibold uppercase tracking-[0.08em] text-slate-500 mb-4"
-          >
-            Platformlar
-          </h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <a
-              href="/upwork-vergi/"
-              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
-            >
-              <div
-                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
-              >
-                Upwork
-              </div>
-              <div class="text-[13px] text-slate-500 leading-relaxed">
-                Cari hesap mantığı, brüt fatura ve KDV 2 sorumluluğu
-              </div>
-            </a>
-            <a
-              href="/app-store-play-store-vergi/"
-              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
-            >
-              <div
-                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
-              >
-                App Store ve Google Play
-              </div>
-              <div class="text-[13px] text-slate-500 leading-relaxed">
-                Apple Ireland, Google Ireland, münhasır yurt dışı şartı
-              </div>
-            </a>
-            <a
-              href="/merchant-of-record-vergi/"
-              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
-            >
-              <div
-                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
-              >
-                Merchant of Record
-              </div>
-              <div class="text-[13px] text-slate-500 leading-relaxed">
-                Polar, Paddle, LemonSqueezy: kime fatura kesilir
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <div>
-          <h3
-            class="text-[12px] font-semibold uppercase tracking-[0.08em] text-slate-500 mb-4"
-          >
-            Şahıs Şirketi
-          </h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <a
-              href="/sahis-sirketi/"
-              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
-            >
-              <div
-                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
-              >
-                Genel Rehber
-              </div>
-              <div class="text-[13px] text-slate-500 leading-relaxed">
-                Yaşam döngüsü, mükellefiyet ve hızlı bakış
-              </div>
-            </a>
-            <a
-              href="/sahis-sirketi-nasil-kurulur/"
-              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
-            >
-              <div
-                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
-              >
-                Nasıl Kurulur
-              </div>
-              <div class="text-[13px] text-slate-500 leading-relaxed">
-                Mali müşavir, MERSİS ve vergi dairesi adımları
-              </div>
-            </a>
-            <a
-              href="/sahis-sirketi-maliyet/"
-              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
-            >
-              <div
-                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
-              >
-                Maliyet
-              </div>
-              <div class="text-[13px] text-slate-500 leading-relaxed">
-                Bağ-Kur, mali müşavir ücreti, damga vergisi
-              </div>
-            </a>
-            <a
-              href="/sahis-sirketi-vergi-hesaplama/"
-              class="group block p-5 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-sm transition"
-            >
-              <div
-                class="text-[15px] font-medium text-slate-900 group-hover:text-indigo-600 transition mb-1.5"
-              >
-                Vergi Hesaplama
-              </div>
-              <div class="text-[13px] text-slate-500 leading-relaxed">
-                Net kazanç hesaplayıcı ve gelir vergisi dilim aralığı
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
+  <style>
+    .hero {
+      background:
+        radial-gradient(60rem 30rem at 85% -10%, oklch(0.93 0.045 20 / 0.9), transparent 60%),
+        radial-gradient(40rem 26rem at -10% 110%, oklch(0.94 0.04 165 / 0.7), transparent 60%),
+        oklch(0.975 0.012 30);
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      height: 2.5rem;
+      padding: 0 0.9rem;
+      border-radius: 999px;
+      background: white;
+      border: 1px solid oklch(0.91 0.007 25);
+      font-size: 14px;
+      font-weight: 500;
+      color: oklch(0.27 0.016 25);
+      transition: border-color 150ms ease, color 150ms ease;
+    }
+    .chip:hover {
+      border-color: oklch(0.79 0.1 26);
+      color: oklch(0.45 0.17 26);
+    }
+    .rate {
+      border-radius: 1.5rem;
+      background: white;
+      border: 1px solid oklch(0.91 0.007 25);
+      padding: 1.5rem;
+    }
+    .rate-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: oklch(0.42 0.016 25);
+    }
+    .rate-value {
+      margin-top: 0.5rem;
+      font-size: 2rem;
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: oklch(0.21 0.016 25);
+    }
+    .rate-unit {
+      margin: 0 0.35rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: oklch(0.52 0.014 25);
+    }
+    .rate-note {
+      margin-top: 0.75rem;
+      font-size: 14px;
+      line-height: 1.55;
+      color: oklch(0.42 0.016 25);
+    }
+    .pen-underline path {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 400;
+      animation: draw 900ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    .pen-underline path {
+      animation-delay: 350ms;
+    }
+    @keyframes draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+    .invoice {
+      animation: float-in 700ms cubic-bezier(0.25, 1, 0.5, 1) both;
+    }
+    .sticker {
+      animation: float-in 700ms 250ms cubic-bezier(0.25, 1, 0.5, 1) both;
+    }
+    @keyframes float-in {
+      from {
+        opacity: 0;
+        translate: 0 16px;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pen-underline path {
+        stroke-dashoffset: 0;
+        animation: none;
+      }
+    }
+  </style>
 </Layout>
