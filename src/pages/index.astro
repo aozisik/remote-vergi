@@ -146,14 +146,14 @@ const dateModified = '2026-05-07';
 
   <!-- Hero: ask what they need, the NerdWallet way -->
   <section class="hero relative overflow-hidden">
-    <div class="max-w-6xl mx-auto px-5 md:px-8 pt-12 md:pt-20 pb-16 md:pb-24 grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center">
+    <div class="max-w-6xl mx-auto px-5 md:px-8 pt-10 md:pt-16 pb-14 md:pb-20 grid gap-12 lg:gap-10 xl:gap-16 lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,1fr)_380px] lg:items-center">
       <div>
         <p class="inline-flex items-center gap-2 h-8 px-3 rounded-full bg-white/80 border border-brand-100 text-[13px] font-semibold text-brand-700">
           <span class="w-1.5 h-1.5 rounded-full bg-gain-600" aria-hidden="true"></span>
           2026 mevzuatına göre güncel
         </p>
-        <h1 class="mt-5 text-[clamp(2.4rem,1.5rem+3.6vw,4.1rem)] font-bold leading-[1.02] tracking-[-0.035em] text-slate-900">
-          Yurt dışına çalışıyorsun.
+        <h1 class="mt-5 text-[clamp(2.25rem,1.2rem+2.6vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-slate-900">
+          <span class="md:block">Yurt dışına çalışıyorsun.</span>
           <span class="relative inline-block">
             Vergisi
             <svg class="pen-underline absolute left-0 -bottom-2 w-full h-4 text-brand-500" viewBox="0 0 200 16" preserveAspectRatio="none" aria-hidden="true">
@@ -162,7 +162,7 @@ const dateModified = '2026-05-07';
           </span>
           karışık olmak zorunda değil.
         </h1>
-        <p class="mt-6 max-w-xl text-[18px] leading-relaxed text-slate-700">
+        <p class="mt-5 max-w-2xl text-[17px] md:text-[18px] leading-relaxed text-slate-700">
           Türkiye'den yabancı şirketlere çalışan yazılımcı, uygulama ve oyun
           geliştiricileri için vergi, şirket ve fatura rehberi. Sade dille,
           kaynağıyla, ücretsiz.
@@ -199,17 +199,18 @@ const dateModified = '2026-05-07';
       </div>
 
       <!-- Illustrated invoice: what the whole site helps you do -->
-      <div class="relative mx-auto w-full max-w-[420px] lg:max-w-none mb-10" aria-hidden="true">
+      <div class="relative mx-auto w-full max-w-[400px] lg:max-w-none mb-20" aria-hidden="true">
         <div class="invoice relative rounded-3xl bg-white border border-slate-200 p-6 md:p-7 shadow-[0_30px_60px_-30px_oklch(0.21_0.016_25/0.35)] rotate-[-2deg]">
           <div class="flex items-start justify-between">
             <div>
               <p class="text-[12px] font-semibold text-slate-500">e-Arşiv Fatura</p>
-              <p class="mt-0.5 text-[17px] font-bold text-slate-900">Acme GmbH, Berlin</p>
+              <p class="mt-0.5 text-[17px] font-bold text-slate-900">Acme GmbH</p>
+              <p class="text-[13px] text-slate-500">Berlin, Almanya</p>
             </div>
-            <span class="num text-[12px] text-slate-500">#2026-014</span>
+            <span class="num text-[12px] text-slate-500 whitespace-nowrap">#2026-014</span>
           </div>
           <div class="mt-6 space-y-3 text-[14px]">
-            <div class="flex justify-between"><span class="text-slate-600">Software Development Service</span><span class="num font-medium text-slate-900">€4.000</span></div>
+            <div class="flex justify-between gap-3"><span class="text-slate-600">Software Development</span><span class="num font-medium text-slate-900">€4.000</span></div>
             <div class="flex justify-between"><span class="text-slate-600">KDV (302 istisna)</span><span class="num font-medium text-slate-900">%0</span></div>
             <div class="h-px bg-slate-200"></div>
             <div class="flex justify-between text-[16px]"><span class="font-semibold text-slate-900">Toplam</span><span class="num font-semibold text-slate-900">€4.000</span></div>
@@ -221,7 +222,7 @@ const dateModified = '2026-05-07';
             Ödeme Türkiye'deki hesaba geldi
           </div>
         </div>
-        <div class="sticker absolute -bottom-16 right-0 md:-right-4 rotate-[4deg] rounded-2xl bg-slate-900 text-white px-5 py-4 shadow-xl">
+        <div class="sticker absolute -bottom-24 right-0 md:-right-4 rotate-[4deg] rounded-2xl bg-slate-900 text-white px-5 py-4 shadow-xl">
           <p class="text-[12px] text-slate-300">Bu kazanca gelir vergisi</p>
           <p class="num text-[28px] font-semibold leading-none mt-1 text-gain-100">%0</p>
           <p class="text-[11px] text-slate-400 mt-1">şartlar sağlanırsa</p>
